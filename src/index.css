@@ -1,68 +1,103 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+ background-color: #EBF3FC;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background-color: #EBF3FC;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.navbar {
+  background-color: #6148FF;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.navbar-brand {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.form-search {
+  margin-left: 30px;
+}
+
+.form-search .form-control {
+  width: 300px;
+}
+
+.form-search .btn {
+  background-color: #489CFF;
+}
+
+.menu-nav .btn {
+  background-color: #489CFF;
+}
+
+.menu-nav .icon {
+  color: white;
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-nav {
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .menu-nav {
+    display: none;
   }
-  a:hover {
-    color: #747bff;
+
+  .mobile-nav {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    color: #8A8A8A;
+    background-color: #FFFFFF;
   }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+.filter .card {
+  width: 250px;
+  height: 500;
+}
+
+.card .p {
+  color: red;
+  font-size: 14px;
+}
+
+.card .label-filter {
+  font-size: 14px;
+}
+
+.list-course {
+  margin-left: 30px;
+}
+
+.title h6 {
+  margin-left: 100px;
+  font-size: 20px;
+}
+
+.title input {
+  margin-right: 100px;
+}
+
+.title .form-control {
+  width: 200px;
+}
+
+.btn-menu {
+  max-width: fit-content;
+  margin: 0 auto;
+}
+
+.btn-menu .btn {
+  width: 200px;
 }
