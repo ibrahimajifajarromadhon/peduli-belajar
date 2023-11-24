@@ -1,13 +1,40 @@
-import React from 'react'
+import React from 'react';
 
-function UsersActivity() {
+const UsersActivity = () => {
   return (
-    <div>
-      <p>active user = banyak user yang daftar di course</p>
-      <p>active class = banyak user yang belajar</p>
-      <p>premium class = banyak user yang berbayar</p>
-    </div>
-  )
-}
+    <div className="activity-container">
+      <div className="card">
+        {/* Isi Card 1 */}
+      </div>
+      <div className="card">
+        {/* Isi Card 2 */}
+      </div>
+      <div className="card">
+        {/* Isi Card 3 */}
+      </div>
 
-export default UsersActivity
+      <style jsx>{`
+        .activity-container {
+          display: flex;
+          justify-content: space-around;
+          padding: 24px;
+        }
+
+        .card {
+          width: 312px;
+          height: 108px;
+          border-radius: 15px;
+          padding: 24px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          background-color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 24px;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default UsersActivity;
