@@ -33,6 +33,7 @@ const UsersActivity = () => {
           gap: 24px;
         }
       `}</style>
+      <p>halo</p>
     </div>
   );
 };
