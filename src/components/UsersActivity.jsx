@@ -12,7 +12,7 @@ const UsersActivity = () => {
       <div className="card">
         {/* Isi Card 3 */}
       </div>
-
+  
       <style jsx>{`
         .activity-container {
           display: flex;
@@ -33,7 +33,9 @@ const UsersActivity = () => {
           gap: 24px;
         }
       `}</style>
+      <p>testtststs</p>
     </div>
+    
   );
 };
 
