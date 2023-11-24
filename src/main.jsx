@@ -5,6 +5,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import {
+  Navigate,
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -13,8 +14,6 @@ import {
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import Admin from "./layout/Admin.jsx";
 import ManageClassAdmin from "./pages/ManageClassAdmin.jsx";
-
-
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +28,7 @@ const router = createBrowserRouter(
       </Route> */}
 
       <Route element={<Admin />} path="/admin">
+        <Route index element={<Navigate to="dashboard" replace />} />
         <Route element={<AdminDashboard />} path="dashboard"></Route>
         <Route element={<ManageClassAdmin />} path="class"></Route>
       </Route>

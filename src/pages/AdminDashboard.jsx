@@ -57,7 +57,6 @@ function AdminDashboard() {
 
   return (
     <>
-      
       <TableAdmin data={data} />
     </>
   );

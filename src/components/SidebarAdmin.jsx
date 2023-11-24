@@ -1,16 +1,33 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { NavLink } from "react-router-dom";
+
 
 function SidebarAdmin() {
-  
-
   return (
-    <div className='fixed-left d-flex flex-column bg-primary  vh-100'>
-      <Link to={"dashboard"}   className='btn btn-warning mx-3 my-5'>dashboard</Link>
-      <Link to={"class"} className='btn btn-success mx-3 my-5'>kelola kelas</Link>
-      <button className='btn btn-danger mx-3 my-5'>log Out</button>
+    <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark p-4 h-100 position-absolute">
+      <NavLink to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <span className="fs-4">PeduliBelajar</span>
+      </NavLink>
+      <hr />
+      <ul className="nav nav-pills flex-column mb-auto">
+        <li className="nav-item">
+          <NavLink to="dashboard" className="nav-link" activeClassName="active">
+            Dashboard
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="class" className="nav-link" activeClassName="active">
+            Kelola Kelas
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <a href="#" className="nav-link text-white">
+            Log Out
+          </a>
+        </li>
+      </ul>
     </div>
-  )
+  );
 }
 
-export default SidebarAdmin
+export default SidebarAdmin;

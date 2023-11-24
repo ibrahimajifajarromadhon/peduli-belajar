@@ -5,17 +5,43 @@ function TableAdmin({ data }) {
   const columns = Object.keys(data[0]);
 
   return (
-    <div className="d-flex justify-content-center align-items-center vw-100 vh-100">
-      <div>
-        <div className="d-flex flex-row gap-4">
-          <button className="btn btn-warning">filter</button>
-          <ModalAddClass  />
+    // <div className="d-flex justify-content-center align-items-center vw-100 vh-100">
+    //   <div>
+    //     <div className="d-flex flex-row gap-4">
+    //       <button className="btn btn-warning">filter</button>
+    //       <ModalAddClass  />
+    //     </div>
+    //     <table>
+    //       <thead>
+    //         <tr>
+    //           {columns.map((column) => (
+    //             <th key={column}>{column}</th>
+    //           ))}
+    //         </tr>
+    //       </thead>
+    //       <tbody>
+    //         {data.map((aData) => (
+    //           <tr>
+    //             {Object.values(aData).map((value) => (
+    //               <td>{value}</td>
+    //             ))}
+    //           </tr>
+    //         ))}
+    //       </tbody>
+    //     </table>
+    //   </div>
+    // </div>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="ms-5 me-5">
+      <div className="d-flex flex-row gap-4">
+           <button className="btn btn-warning">filter</button>
+           <ModalAddClass  />
         </div>
         <table>
           <thead>
             <tr>
               {columns.map((column) => (
-                <th key={column}>{column}</th>
+               <th key={column}>{column}</th>
               ))}
             </tr>
           </thead>
@@ -25,7 +51,7 @@ function TableAdmin({ data }) {
                 {Object.values(aData).map((value) => (
                   <td>{value}</td>
                 ))}
-              </tr>
+            </tr>
             ))}
           </tbody>
         </table>
