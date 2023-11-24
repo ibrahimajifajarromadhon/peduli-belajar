@@ -5,10 +5,12 @@ import NavbarAdmin from "../components/NavbarAdmin";
 
 function Admin() {
   return (
-    <div className="d-flex flex-column ">
-      <NavbarAdmin />
-        <SidebarAdmin />
+    <div className="d-flex flex-row vw-100 vh-100">
+      <SidebarAdmin />
+      <div className="d-flex flex-column w-100 h-100">
+        <NavbarAdmin />
         <Outlet />
+      </div>
     </div>
   );
 }

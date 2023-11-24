@@ -97,12 +97,12 @@ function ModalAddClass() {
               <div className="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-danger"
+                  className="btn btn-danger rounded-pill"
                   data-bs-dismiss="modal"
                 >
                   Upload Video
                 </button>
-                <button type="button" className="btn btn-primary">
+                <button type="button" className="btn btn-primary rounded-pill">
                   Simpan
                 </button>
               </div>

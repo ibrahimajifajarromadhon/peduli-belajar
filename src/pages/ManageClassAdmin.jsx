@@ -65,13 +65,11 @@ function ManageClassAdmin() {
       make: "BMW",
     },
   ];
-  
+
   return (
-    <div>
-      <div>
-        <TableAdmin data={data} />
-      </div>
-    </div>
+    <>
+      <TableAdmin data={data} />
+    </>
   );
 }
 
