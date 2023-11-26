@@ -1,5 +1,8 @@
 import React from "react";
-import SearchIcon from "../assets/bx_search-alt.svg"; // Ganti dengan path yang sesuai
+import SearchIcon from "../assets/bx_search-alt.svg"; 
+import { NavLink } from "react-bootstrap";
+import { SiStudyverse } from "react-icons/si";
+
 
 function NavbarWithSvgSearch() {
   

@@ -14,18 +14,23 @@ import {
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import Admin from "./layout/Admin.jsx";
 import ManageClassAdmin from "./pages/ManageClassAdmin.jsx";
+// import WebHomepage from "./pages/user/WebHomepage.jsx";
+import Authenticaton from "./layout/Authenticaton.jsx";
+import Login from "./pages/auth/Login.jsx";
+import Register from "./pages/auth/Register.jsx";
+import User from "./layout/User.jsx";
+import MyClassHomepage from "./pages/user/MyClassHomepage.jsx";
+import PremiumClassHomepage from "./pages/user/PremiumClassHomepage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      {/* <Route element={<DashboarWeb />}></Route> */}
+      <Route element={<App />} path="/wellcome"></Route>
 
-      {/* <Route element={<Authentication />}>
-        <Route element={<Login />}></Route>
-        userlogin/user
-        adminlogin/admin
-        <Route element={<Register />}></Route>
-      </Route> */}
+      <Route element={<Authenticaton />}>
+        <Route element={<Login />} path="/login"></Route>
+        <Route element={<Register />} path="/register"></Route>
+      </Route>
 
       <Route element={<Admin />} path="/admin">
         <Route index element={<Navigate to="dashboard" replace />} />
@@ -33,9 +38,12 @@ const router = createBrowserRouter(
         <Route element={<ManageClassAdmin />} path="class"></Route>
       </Route>
 
-      {/* <Route element={<User />} >
+      <Route element={<User />} path="/">
+        <Route index element={<Navigate to="myclass" replace />}/>
+        <Route element={<MyClassHomepage />} path="myclass"></Route>
+        <Route element={<PremiumClassHomepage />} path="premiumClass"></Route>
 
-      </Route> */}
+      </Route>
     </>
   )
 );

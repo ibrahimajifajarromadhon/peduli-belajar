@@ -21,7 +21,7 @@ const UsersActivity = () => {
         }
 
         .card {
-          width: 312px;
+          width: 3em;
           height: 108px;
           border-radius: 15px;
           padding: 24px;
