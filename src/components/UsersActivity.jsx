@@ -21,10 +21,9 @@ const UsersActivity = () => {
         }
 
         .card {
-          width: 3em;
+          width: 15em;
           height: 108px;
           border-radius: 15px;
-          padding: 24px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           background-color: #fff;
           display: flex;
@@ -33,7 +32,6 @@ const UsersActivity = () => {
           gap: 24px;
         }
       `}</style>
-      <p>halo</p>
     </div>
   );
 };
