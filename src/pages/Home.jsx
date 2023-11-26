@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import { IoDiamond } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
@@ -27,15 +28,17 @@ function Home() {
         {Array.from({ length: 3 }).map((_, idx) => (
             <Col key={idx}>
             <Card style={{borderRadius:"25px", marginTop:"20px"}}>
+                <Link to={`/login`} >                         
                 <Card.Img variant="top" src={Img} style={{margin:"0px", padding:"0px"}}/>
+                </Link>
                 <Card.Body>
-                <p><a href='#' style={{margin:"0px", padding:"0px", textDecoration:"none", color: "#6148FF", fontSize:"15px", fontWeight:"800"}}>UI/UX Design</a></p>
+                <p style={{margin:"0px"}}><a href='#' style={{margin:"0px", padding:"0px", textDecoration:"none", color: "#6148FF", fontSize:"15px", fontWeight:"800"}}>UI/UX Design</a></p>
                 <Card.Title style={{fontWeight:"700"}}>Belajar Web Designer dengan Figma</Card.Title>
-                <Card.Text style={{fontWeight:"600"}}>by John Doe</Card.Text>
+                <Card.Text style={{fontWeight:"600", margin:"0px"}}>by John Doe</Card.Text>
                 <div style={{display:"flex", justifyContent:"flex-start", gap:"5px"}}>
                 <RiShieldStarLine style={{color:"#73CA5C", marginTop:"5px"}}/><p><a href='#' style={{textDecoration:"none", color: "#6148FF", fontSize:"12px", fontWeight:"600"}}>Intermediate Level</a></p>
                 </div>
-                <button className='btn' style={{width:"200px",borderRadius:"30px", backgroundColor:"#489CFF", fontSize:"15px", fontWeight:"700", marginRight:"10px", color:"#EBF3FC", padding:"5px"}}><IoDiamond style={{marginRight:"50px"}} /> Rp 249.000</button>
+                <button className='btn' style={{width:"180px", borderRadius:"30px", backgroundColor:"#489CFF", fontSize:"15px", fontWeight:"700", color:"#EBF3FC"}}><IoDiamond style={{marginRight:"15px", marginBottom:"3px"}}/> Rp 249.000</button>
                 </Card.Body>
                 
             </Card>

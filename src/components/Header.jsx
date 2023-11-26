@@ -10,7 +10,9 @@ const Header = () => {
     <nav className="navbar navbar-expand-lg" style={{backgroundColor:"#6148FF", color:"white", padding:"10px"}}>
       <div className="container">
         <b className="navbar-brand" href="#"   style={{color:"white"}}>
+          <Link to={`/`} style={{textDecoration:"none", color:"white"}}>                         
           Peduli Belajar
+          </Link>
         </b>
         <button
           className="navbar-toggler"

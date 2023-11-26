@@ -1,0 +1,7 @@
+.player {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 85%;
+    border: 1px solid white;
+    margin-top: 40px;
+}

@@ -16,7 +16,7 @@ function Kategori() {
                 {Array.from({ length: 6 }).map((_, idx) => (
                     <Col key={idx}>
                         <a href="#" style={{textDecoration:"none", color:"black"}}>
-                        <Card.Img variant="top" src={background} />
+                        <Card.Img variant="top" src={background}/>
                         <Card.Title style={{textAlign:"center", fontSize:"15px", fontWeight:"700", paddingTop:"5px"}}>UI/UX Design</Card.Title>
                         </a>
                     </Col>
