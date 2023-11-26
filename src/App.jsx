@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import DetailKelas from "./components/DetailKelas";
 import './index.css'
+import './App.css'
 import BerandaKelas from './pages/BerandaKelas'
 import BerandaKelasKu from './pages/BerandaKelasKu'
 import Kelas from './layouts/Kelas'
