@@ -29,8 +29,9 @@ function SidebarAdmin() {
         </li>
         <li className="nav-item rounded" >
           <a href="#" className="nav-link text-white fs-5">
-            Log Out
-            <span className="mx-5"><FiLogOut /></span>
+          <FiLogOut />
+            <span className="mx-3">Log Out</span>
+            
           </a>
         </li>
       </ul>
