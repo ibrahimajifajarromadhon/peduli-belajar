@@ -3,7 +3,7 @@ import React from "react";
 const FilterKelas = () => {
   return (
     <div className="filter">
-    <div className="card">
+    <div className="card" style={{width:'250px'}}>
       <div className="card-body">
         <h6 className="card-title">Filter</h6>
         <div className="form-check">

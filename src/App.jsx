@@ -3,8 +3,7 @@ import Home from "./pages/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import DetailKelas from "./components/DetailKelas";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
+import './index.css'
 import BerandaKelas from './pages/BerandaKelas'
 import BerandaKelasKu from './pages/BerandaKelasKu'
 import Kelas from './layouts/Kelas'

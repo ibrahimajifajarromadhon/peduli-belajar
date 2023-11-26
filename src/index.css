@@ -10,8 +10,8 @@ body {
   background-color: #6148FF;
 }
 
-.navbar-brand {
-  color: white;
+.navbar .navbar-brand {
+  color:white;
   font-size: 20px;
   font-weight: 600;
 }
@@ -94,10 +94,14 @@ body {
 }
 
 .btn-menu {
-  max-width: fit-content;
-  margin: 0 auto;
+  margin-left: 50px;
 }
 
 .btn-menu .btn {
   width: 200px;
+} 
+
+.btn-kelas .btn {
+  background-color: #6148FF;
+  border-radius: 20px;
 }
