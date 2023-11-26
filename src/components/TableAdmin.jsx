@@ -1,5 +1,6 @@
 import React from "react";
 import ModalAddClass from "./ModalAddClass";
+import { CiFilter } from "react-icons/ci";
 
 function TableAdmin({ data }) {
   const columns = Object.keys(data[0]);
@@ -9,7 +10,9 @@ function TableAdmin({ data }) {
       <div>
         <div className="d-flex flex-row gap-4 w-100 my-4" style={{justifyContent:"flex-end"}}>
           <ModalAddClass />
-          <button className="btn btn-warning">filter</button>
+          <button className="btn rounded-pill" style={{borderColor:`var(--primary-purple)`, color:`var(--primary-purple)`}}>
+            <span><CiFilter style={{marginRight:"0.5em", color:`var(--primary-purple)`}}/></span>
+            filter</button>
         </div>
         <table className="table">
           <thead>
@@ -25,7 +28,7 @@ function TableAdmin({ data }) {
               ))}
             </tr>
           </thead>
-          <tbody className="table-group-divider">
+          <tbody className="">
             {data.map((aData) => (
               <tr>
                 {Object.values(aData).map((value) => (

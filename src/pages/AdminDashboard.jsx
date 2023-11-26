@@ -6,53 +6,43 @@ function AdminDashboard() {
     {
       "first_name": "John",
       "last_name": "Nelson",
-      "email": "john_nelson@live.com"
+      "email": "john_nelson@live.com",
+      "status": "belum bayar",
+      "metode_pembayaran" : "Credit Card",
+      "tanggal_bayar" : "11, agustus 2023"
     },
     {
       "first_name": "Rebecca",
       "last_name": "Johnson",
-      "email": "rebecca_johnson@aol.com"
+      "email": "rebecca_johnson@aol.com",
+      "status": "belum bayar",
+      "metode_pembayaran" : "Credit Card",
+      "tanggal_bayar" : "11, agustus 2023"
     },
     {
       "first_name": "Benjamin",
       "last_name": "Lewis",
-      "email": "benjamin@hotmail.com"
+      "email": "benjamin@hotmail.com",
+      "status": "belum bayar",
+      "metode_pembayaran" : "Credit Card",
+      "tanggal_bayar" : "11, agustus 2023"
     },
     {
       "first_name": "Jason",
       "last_name": "King",
-      "email": "j_king@live.com"
+      "email": "j_king@live.com",
+      "status": "belum bayar",
+      "metode_pembayaran" : "Credit Card",
+      "tanggal_bayar" : "11, agustus 2023"
     },
     {
       "first_name": "Owen",
       "last_name": "Davis",
-      "email": "owenjdavis@live.com"
+      "email": "owenjdavis@live.com",
+      "status": "belum bayar",
+      "metode_pembayaran" : "Credit Card",
+      "tanggal_bayar" : "11, agustus 2023"
     },
-    {
-      "first_name": "Thomas",
-      "last_name": "Evans",
-      "email": "thomas.evans34@hotmail.com"
-    },
-    {
-      "first_name": "Melissa",
-      "last_name": "Wilson",
-      "email": "melissa@hotmail.com"
-    },
-    {
-      "first_name": "Tiffany",
-      "last_name": "Taylor",
-      "email": "t_taylor@live.com"
-    },
-    {
-      "first_name": "Michelle",
-      "last_name": "Bennett",
-      "email": "m.m.bennett@gmail.com"
-    },
-    {
-      "first_name": "Heather",
-      "last_name": "Peterson",
-      "email": "hpeterson@yahoo.com"
-    }
   ];
 
   return (
