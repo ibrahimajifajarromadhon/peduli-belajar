@@ -1,20 +1,21 @@
 import React from "react";
 import { CiCirclePlus } from "react-icons/ci";
-import { CiFilter } from "react-icons/ci";
 
 function ModalAddClass() {
   return (
-    <div className="">
+    <div className="class">
       <div className="d-flex justify-content-center align-items-center">
         <button
           type="button"
-          className="btn rounded-pill d-flex flex-row justify-content-between align-items-center text-light"
-          style={{backgroundColor:`var(--primary-purple)`}}
+          className="btn rounded-pill d-flex flex-row justify-content-between align-items-center text-light "
+          style={{ backgroundColor: `var(--primary-purple)` }}
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
           data-bs-whatever="@mdo"
         >
-          <span><CiCirclePlus className="fs-4" style={{marginRight:"0.5em"}} /></span>
+          <span>
+            <CiCirclePlus className="fs-4" style={{ marginRight: "0.5em" }} />
+          </span>
           Tambah
         </button>
 
@@ -113,6 +114,16 @@ function ModalAddClass() {
           </div>
         </div>
       </div>
+      <style jsx>
+        {`
+          @media (max-width: 628px) {
+            .class .btn {
+              width: 100% !important;
+              height: 100% !important;
+            }
+          }
+        `}
+      </style>
     </div>
   );
 }
