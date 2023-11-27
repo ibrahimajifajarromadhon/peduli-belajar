@@ -4,11 +4,11 @@ import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
-import '../../style/ListCourse.css'
+// import '../../style/ListCourse.css'
 
 function ListCourse() {
   return (
-    <div className="row row-cols-1 row-cols-md-2 g-4 scrollable-content overflow-auto" style={{height:"500px"}}>
+    <div className="row row-cols-1 row-cols-md-2 g-4 ">
       <div className="col">
         <div className="card">
           <img src={ImgCourse} className="card-img-top" alt="..." />

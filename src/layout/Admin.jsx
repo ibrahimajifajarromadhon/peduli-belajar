@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import SidebarAdmin from "../components/SidebarAdmin";
 import NavbarAdmin from "../components/NavbarAdmin";
 import UsersActivity from "../components/UsersActivity";
+import ButtonAddFilter from "../components/ButtonAddFilter";
 
 function Admin() {
   return (
@@ -10,7 +11,8 @@ function Admin() {
       <SidebarAdmin />
       <div className="d-flex flex-column w-100 h-100">
         <NavbarAdmin />
-        { <UsersActivity /> }
+        <UsersActivity />
+        <ButtonAddFilter />
         <Outlet />
       </div>
     </div>

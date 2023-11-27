@@ -21,13 +21,16 @@ import Register from "./pages/auth/Register.jsx";
 import User from "./layout/User.jsx";
 import MyClassHomepage from "./pages/user/MyClassHomepage.jsx";
 import PremiumClassHomepage from "./pages/user/PremiumClassHomepage.jsx";
+import LoginAdmin from "./pages/auth/LoginAdmin.jsx";
+import DetailCourse from "./pages/user/DetailCourse.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route element={<App />} path="/wellcome"></Route>
+      <Route element={<App />} path="/welcome"></Route>
 
       <Route element={<Authenticaton />}>
+        <Route element={<LoginAdmin />} path="/loginAdmin"></Route>
         <Route element={<Login />} path="/login"></Route>
         <Route element={<Register />} path="/register"></Route>
       </Route>
@@ -39,10 +42,10 @@ const router = createBrowserRouter(
       </Route>
 
       <Route element={<User />} path="/">
-        <Route index element={<Navigate to="myclass" replace />}/>
+        <Route index element={<Navigate to="myclass" replace />} />
         <Route element={<MyClassHomepage />} path="myclass"></Route>
         <Route element={<PremiumClassHomepage />} path="premiumClass"></Route>
-
+        <Route element={<DetailCourse />} path="detailClass"></Route>
       </Route>
     </>
   )

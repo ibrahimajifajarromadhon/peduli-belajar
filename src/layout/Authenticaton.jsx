@@ -11,6 +11,8 @@ function Authenticaton() {
       >
         <Outlet />
       </div>
+
+      {/* buat pengkondisian */}
       <div
         className="image d-lg-flex d-none justify-content-center align-items-center"
         style={{ width: "50%", backgroundColor: `var(--primary-purple)` }}
