@@ -23,6 +23,8 @@ import MyClassHomepage from "./pages/user/MyClassHomepage.jsx";
 import PremiumClassHomepage from "./pages/user/PremiumClassHomepage.jsx";
 import LoginAdmin from "./pages/auth/LoginAdmin.jsx";
 import DetailCourse from "./pages/user/DetailCourse.jsx";
+import FreeClassHomepage from "./pages/user/FreeClassHomepage.jsx";
+import AllCourseHomepage from "./pages/user/AllCourseHomepage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,7 +46,9 @@ const router = createBrowserRouter(
       <Route element={<User />} path="/">
         <Route index element={<Navigate to="myclass" replace />} />
         <Route element={<MyClassHomepage />} path="myclass"></Route>
+        <Route element={<AllCourseHomepage />} path="allCourseClass"></Route>
         <Route element={<PremiumClassHomepage />} path="premiumClass"></Route>
+        <Route element={<FreeClassHomepage />} path="freeClass"></Route>
         <Route element={<DetailCourse />} path="detailClass"></Route>
       </Route>
     </>
