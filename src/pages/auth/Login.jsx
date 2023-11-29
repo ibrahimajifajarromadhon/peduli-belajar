@@ -41,7 +41,7 @@ function Login() {
         <p>
           Belum punya akun?{" "}
           <span>
-            <Link to={"/Register"} style={{ textDecoration: "none", color: `var(--primary-purple)`, fontWeight: "bold" }}>
+            <Link to={"/register"} style={{ textDecoration: "none", color: `var(--primary-purple)`, fontWeight: "bold" }}>
               Daftar di sini
             </Link>
           </span>
@@ -49,7 +49,7 @@ function Login() {
       </div>
 
       {/* Media Query for Large Screens */}
-      <style jsx>
+      <style>
         {`
           @media (max-width: 628px) {
             .register {

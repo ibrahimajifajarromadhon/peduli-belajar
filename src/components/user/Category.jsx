@@ -10,7 +10,7 @@ function Category() {
             <h1 style={{fontSize:"25px", fontWeight:"700"}}>Kategori Belajar</h1>
             <p><a href='#' style={{textDecoration:"none", color: `var(--primary-purple)`, fontSize:"15px", fontWeight:"800"}}>Lihat Semua </a></p>
         </div>
-                <Row xs={1} md={6} className="g-4">
+                <Row xs={2} md={6} className="g-4">
                 {Array.from({ length: 6 }).map((_, idx) => (
                     <Col key={idx}>
                         <a href="#" style={{textDecoration:"none", color:"black"}}>

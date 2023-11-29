@@ -2,6 +2,7 @@ import React from "react";
 
 function FilterClass() {
   return (
+    <>
     <div className="filter">
     <div className="card rounded-4 p-3" style={{width:'250px'}}>
       <div className="card-body">
@@ -125,7 +126,17 @@ function FilterClass() {
       </div>
       <p className="p text-center text-danger">Hapus Filter</p>
     </div>
+
+    <style>
+      {`
+      @media (max-width: 525px) {
+        .filter {
+          display: none
+        }
+      }`}
+    </style>
     </div>
+</>
   );
 }
 

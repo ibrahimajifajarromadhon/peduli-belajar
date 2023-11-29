@@ -42,7 +42,7 @@ function LoginAdmin() {
       </div>
 
       {/* Media Query for Large Screens */}
-      <style jsx>
+      <style >
         {`
           @media (max-width: 628px) {
             .register {
