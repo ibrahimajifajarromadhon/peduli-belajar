@@ -25,6 +25,11 @@ import LoginAdmin from "./pages/auth/LoginAdmin.jsx";
 import DetailCourse from "./pages/user/DetailCourse.jsx";
 import FreeClassHomepage from "./pages/user/FreeClassHomepage.jsx";
 import AllCourseHomepage from "./pages/user/AllCourseHomepage.jsx";
+import UserProfile from "./pages/user/UserProfile.jsx";
+import ChangePassword from "./components/user/ChangePassword.jsx";
+import PaymentHistory from "./components/user/PaymentHistory.jsx";
+import MyProfile from "./components/user/MyProfile.jsx";
+import Notification from "./pages/user/Notification.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,10 +51,21 @@ const router = createBrowserRouter(
       <Route element={<User />} path="/">
         <Route index element={<Navigate to="myClass" replace />} />
         <Route element={<MyClassHomepage />} path="myClass"></Route>
-        <Route element={<AllCourseHomepage />} path="allCourseClass"></Route>
+        <Route
+          element={<AllCourseHomepage />}
+          path="allCourseClass"
+        ></Route>{" "}
+        {/*ubah ke filter*/}
         <Route element={<PremiumClassHomepage />} path="premiumClass"></Route>
-        <Route element={<FreeClassHomepage />} path="freeClass"></Route>
+        <Route element={<FreeClassHomepage />} path="freeClass"></Route>{" "}
+        {/*ubah ke filter*/}
         <Route element={<DetailCourse />} path="detailClass/:id"></Route>
+        <Route element={<UserProfile />} path="/userProfile">
+          <Route element={<MyProfile />} path="myProfile"></Route>
+          <Route element={<ChangePassword />} path="changePassword"></Route>
+          <Route element={<PaymentHistory />} path="paymentHistory"></Route>
+        </Route>
+        <Route element={<Notification />} path="notification"></Route>
       </Route>
     </>
   )
