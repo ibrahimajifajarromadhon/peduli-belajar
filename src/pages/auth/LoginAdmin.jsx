@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 function LoginAdmin() {
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
-      <h4 style={{ color: `var(--primary-purple)`, textAlign: "center" }}>Masuk</h4>
+      <h4 style={{ color: `var(--primary-purple)`, textAlign: "center" }}>
+        Masuk Sebagai Admin
+      </h4>
       <div className="mb-3">
         <label htmlFor="formGroupExampleInput2" className="form-label">
           ID Admin
@@ -27,15 +30,16 @@ function LoginAdmin() {
         />
       </div>
       <div className="mb-3">
+        <hr />
+        <br />
         <Link
-          to={"/loginAdmin"}
+          to={"/admin/dashboard"}
           className="btn rounded-4 text-light"
           style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
         >
           Masuk
         </Link>
       </div>
-      <hr />
 
       {/* Media Query for Large Screens */}
       <style jsx>
@@ -53,4 +57,4 @@ function LoginAdmin() {
   );
 }
 
-export default LoginAdmin
+export default LoginAdmin;

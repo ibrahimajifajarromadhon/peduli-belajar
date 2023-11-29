@@ -20,22 +20,23 @@ function NavbarAdmin() {
           Hey,Admin
         </a>
         <form
-          className={`d-flex ${isSearchVisible ? "active" : ""}`}
+          className={`d-flex ${isSearchVisible ? "" : "active" }`}
           role="search"
           style={{ position: "relative" }}
         >
-          <input
-            className="form-control me-2 d-lg-flex d-none"
-            type="search"
-            placeholder="Cari"
-            aria-label="Search"
-            style={{
-              paddingRight: "40px",
-              height: "3em",
-              width: "350%",
-              display: isSearchVisible ? "visible" : "hidden"
-            }}
-          />
+          {window.innerWidth <= 992 && isSearchVisible && (
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Cari"
+              aria-label="Search"
+              style={{
+                paddingRight: "40px",
+                height: "3em",
+                width: "350%",
+              }}
+            />
+          )}
           <img
             src={SearchIcon}
             alt="Search Icon"
@@ -50,7 +51,7 @@ function NavbarAdmin() {
               backgroundColor: `var(--primary-purple)`,
               borderRadius: "20%",
               padding: "5px",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
           />
         </form>
