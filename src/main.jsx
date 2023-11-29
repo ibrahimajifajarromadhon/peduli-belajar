@@ -42,10 +42,10 @@ const router = createBrowserRouter(
       </Route>
 
       <Route element={<User />} path="/">
-        <Route index element={<Navigate to="myclass" replace />} />
-        <Route element={<MyClassHomepage />} path="myclass"></Route>
+        <Route index element={<Navigate to="myClass" replace />} />
+        <Route element={<MyClassHomepage />} path="myClass"></Route>
         <Route element={<PremiumClassHomepage />} path="premiumClass"></Route>
-        <Route element={<DetailCourse />} path="detailClass"></Route>
+        <Route element={<DetailCourse />} path="detailClass/:id"></Route>
       </Route>
     </>
   )
