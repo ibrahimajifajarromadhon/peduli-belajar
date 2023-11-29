@@ -23,7 +23,7 @@ function Header() {
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
-        </button>
+        </button> 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <form className="d-flex" role="search">
             <div className="input-group" style={{width:"480px"}}>
@@ -53,6 +53,7 @@ function Header() {
               </button>
             </Link>
           </div>
+
         </div>
         {/* <div className="d-flex flex-row gap-3">
         <Link to={"/"} className="btn btn-success">
