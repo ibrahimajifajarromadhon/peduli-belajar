@@ -9,7 +9,7 @@ function ManageClassAdmin() {
       vin: "3TBME4DC724E74501",
       make: "Chevrolet",
       tipe_kelas : "premium",
-      level : "midlle",
+      level : "middle",
     },
     {
       model: "Avenger",
@@ -17,7 +17,7 @@ function ManageClassAdmin() {
       vin: "006A99YA94R344136",
       make: "Dodge",
       tipe_kelas : "premium",
-      level : "midlle",
+      level : "middle",
     },
     {
       model: "V70",
@@ -25,7 +25,7 @@ function ManageClassAdmin() {
       vin: "8JBBDF446MLK89951",
       make: "Volvo",
       tipe_kelas : "premium",
-      level : "midlle",
+      level : "middle",
     },
     {
       model: "Insight",
@@ -33,7 +33,7 @@ function ManageClassAdmin() {
       vin: "P0BRAC73CDUD65425",
       make: "Honda",
       tipe_kelas : "premium",
-      level : "midlle",
+      level : "middle",
     },
     {
       model: "Civic",
@@ -41,7 +41,7 @@ function ManageClassAdmin() {
       vin: "6GWT0FH8T2SN72929",
       make: "Honda",
       tipe_kelas : "premium",
-      level : "midlle",
+      level : "middle",
     },
   ];
 

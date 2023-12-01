@@ -66,6 +66,7 @@ const router = createBrowserRouter(
         {/*ubah ke filter*/}
         <Route element={<DetailCourse />} path="detailClass/:id"></Route>
         <Route element={<UserProfile />} path="/userProfile">
+        <Route index element={<Navigate to="myProfile" replace />} />
           <Route element={<MyProfile />} path="myProfile"></Route>
           <Route element={<ChangePassword />} path="changePassword"></Route>
           <Route element={<PaymentHistory />} path="paymentHistory"></Route>

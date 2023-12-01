@@ -11,7 +11,7 @@ function UserProfile() {
           className="card d-flex flex-column  align-items-center"
         >
           <div style={{backgroundColor:`var(--primary-purple)`}} className="w-100 rounded-top-2 d-flex justify-content-center h-100 align-items-center m-0">
-            <p className="m-2 text-light">AKUN</p>
+            <p className="m-2 text-light" style={{fontWeight:"bold"}}>AKUN</p>
           </div>
           <div className="d-flex flex-lg-row flex-column align-items-center w-100">
             <SidebarProfile />
