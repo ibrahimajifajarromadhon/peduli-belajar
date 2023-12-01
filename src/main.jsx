@@ -36,7 +36,6 @@ import Notification from "./pages/user/Notification.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route element={<App />} path="/welcome"></Route>
 
       <Route element={<Authenticaton />}>
         <Route element={<LoginAdmin />} path="/loginAdmin"></Route>
@@ -51,7 +50,8 @@ const router = createBrowserRouter(
       </Route>
 
       <Route element={<User />} path="/">
-        <Route index element={<Navigate to="myClass" replace />} />
+        <Route index element={<Navigate to="welcome" replace />} />
+        <Route element={<App />} path="welcome"></Route>
         <Route element={<MyClassHomepage />} path="myClass"></Route>
         <Route
           element={<AllCourseHomepage />}

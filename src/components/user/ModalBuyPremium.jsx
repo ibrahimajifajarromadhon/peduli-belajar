@@ -5,6 +5,7 @@ import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const ModalBuyPremium = () => {
   return (
@@ -89,11 +90,13 @@ const ModalBuyPremium = () => {
         </div>
       </div>
           </div>
+          <Link to={`/bayarCourse`}  style={{textDecoration:"none", color:"#fff"}}>
           <div className="text-center">
-            <button type="button" className="btn btn-primary text-center" style={{width:'50%', marginBottom:'20px', borderRadius:'20px', backgroundColor: "#6148FF"}}>
+            <button type="button" className="btn btn-primary text-center" style={{width:'50%', marginBottom:'20px', borderRadius:'20px', backgroundColor: "#6148FF"}}               data-bs-dismiss="modal">
               Beli Sekarang <FaArrowRightLong />
             </button>
             </div>
+            </Link>
         </div>
       </div>
     </div>

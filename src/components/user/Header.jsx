@@ -10,9 +10,11 @@ function Header() {
       style={{ backgroundColor: "#6148FF", color: "white", padding: "10px" }}
     >
       <div className="container">
+      <Link to={`/welcome`}  style={{textDecoration:"none", color:"#fff"}}>
         <b className="navbar-brand" href="#" style={{ color: "white", marginRight:"50px" }}>
           Peduli Belajar
         </b>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"

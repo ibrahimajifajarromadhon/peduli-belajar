@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Success from "../../assets/success-img.png";
+import ModalStartClass from '../../components/user/ModalStartClass';
 
 function BayarCourse() {
   return (
@@ -24,10 +25,9 @@ function BayarCourse() {
             <p className="d-flex justify-content-center align-items-center mb-1" style={{fontWeight:"700"}}>Transaksi pembayaran kelas premium berhasil!</p>
             <p className="d-flex justify-content-center align-items-center"  style={{fontWeight:"600"}}>E-receipt telah dikirimkan ke email.</p>
             <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"50px"}}>
-            <Link to={`/detailClass/:id`} style={{textDecoration:"none", color:"#fff"}}>
-            <button className="btn button-mulai">Mulai Belajar</button>
-            </Link>
-            </div>
+            <button className="btn button-mulai"data-bs-toggle="modal" data-bs-target="#exampleModal">Mulai Belajar</button>
+          <ModalStartClass />
+          </div>
             <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginBottom:"50px", marginTop:"5px"}}>
             <Link to={`/premiumClass`} style={{textDecoration:"none", color:"#fff"}}>
             <button className="btn" style={{color:"#489CFF", fontWeight:"600"}}>Kembali ke Beranda</button>

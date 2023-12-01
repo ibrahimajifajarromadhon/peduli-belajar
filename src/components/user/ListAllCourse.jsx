@@ -7,7 +7,6 @@ import { RiTimeFill } from "react-icons/ri";
 import { IoDiamond } from "react-icons/io5";
 import ModalBuyPremium from './ModalBuyPremium';
 import { Link } from 'react-router-dom';
-import ModalStartClass from './ModalStartClass';
 
 const ListAllCourse = () => {
   return (
@@ -62,8 +61,7 @@ const ListAllCourse = () => {
             <div className="btn-kelas">
                 <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
           </div>
-          {/* <ModalBuyPremium /> */}
-          <ModalStartClass />
+          <ModalBuyPremium />
           </div>
         </div>
       </div>
