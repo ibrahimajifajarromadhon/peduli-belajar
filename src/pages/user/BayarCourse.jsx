@@ -36,252 +36,269 @@ function BayarCourse() {
             </p>
           </a>
         </Link>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center batas">
           <button className="button">
             Selesaikan Pembayaran sampai 10 Maret 2023 12:00
           </button>
         </div>
       </div>
       <hr />
-      <div className="container d-flex mb-5">
-        <div className="col-7 p-5">
-          <div className="accordion accordion-flush" id="accordionFlushExample">
-            <div className="accordion-item">
-              <h2 className="accordion-header" id="flush-headingOne">
-                <button
-                  className="accordion-button button1 collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseOne"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseOne"
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6 order-md-1">
+            <div
+              className="accordion accordion-flush"
+              id="accordionFlushExample"
+            >
+              <div className="accordion-item">
+                <h2 className="accordion-header" id="flush-headingOne">
+                  <button
+                    className="accordion-button button1 collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne"
+                    aria-expanded="false"
+                    aria-controls="flush-collapseOne"
+                  >
+                    Bank Transfer
+                  </button>
+                </h2>
+                <div
+                  id="flush-collapseOne"
+                  className="accordion-collapse collapse"
+                  aria-labelledby="flush-headingOne"
+                  data-bs-parent="#accordionFlushExample"
                 >
-                  Bank Transfer
-                </button>
-              </h2>
-              <div
-                id="flush-collapseOne"
-                className="accordion-collapse collapse"
-                aria-labelledby="flush-headingOne"
-                data-bs-parent="#accordionFlushExample"
-              >
-                <div className="accordion-body">
-                  <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
-                    <a href="#">
-                      <img src={MasterCard} alt="" />
-                    </a>
-                    <a href="#">
-                      <img src={Visa} alt="" />
-                    </a>
-                    <a href="#">
-                      <img src={Amex} alt="" />
-                    </a>
-                    <a href="#">
-                      <img src={Paypal} alt="" />
-                    </a>
-                  </div>
-                  <form>
-                    <div className="form-group1">
-                      <label htmlFor="cardNumber">Card number</label>
-                      <input
-                        type="text"
-                        id="cardNumber"
-                        className="form-control"
-                        placeholder="4480 0000 0000 0000"
-                      />
-                    </div>
-                    <div className="form-group1">
-                      <label htmlFor="cardHolderName">Card holder name</label>
-                      <input
-                        type="text"
-                        id="cardHolderName"
-                        className="form-control"
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div className="d-flex justify-content-between">
-                      <div className="form-group">
-                        <label htmlFor="cvv">CVV</label>
-                        <input
-                          type="text"
-                          id="cvv"
-                          className="form-control"
-                          placeholder="000"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="expireDate">Expiry date</label>
-                        <input
-                          type="text"
-                          id="expireDate"
-                          className="form-control"
-                          placeholder="07/24"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <h2 className="accordion-header" id="flush-headingTwo">
-                <button
-                  className="accordion-button button2 collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseTwo"
-                >
-                  Credit Card
-                </button>
-              </h2>
-              <div
-                id="flush-collapseTwo"
-                className="accordion-collapse collapse"
-                aria-labelledby="flush-headingTwo"
-                data-bs-parent="#accordionFlushExample"
-              >
-                <div className="accordion-body">
-                  <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
-                    <a href="#">
-                      <img src={MasterCard} alt="" />
-                    </a>
-                    <a href="#">
-                      <img src={Visa} alt="" />
-                    </a>
-                    <a href="#">
-                      <img src={Amex} alt="" />
-                    </a>
-                    <a href="#">
-                      <img src={Paypal} alt="" />
-                    </a>
-                  </div>
-                  <form>
-                    <div className="form-group1">
-                      <label htmlFor="cardNumber">Card number</label>
-                      <input
-                        type="text"
-                        id="cardNumber"
-                        className="form-control"
-                        placeholder="4480 0000 0000 0000"
-                      />
-                    </div>
-                    <div className="form-group1">
-                      <label htmlFor="cardHolderName">Card holder name</label>
-                      <input
-                        type="text"
-                        id="cardHolderName"
-                        className="form-control"
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div className="d-flex justify-content-between">
-                      <div className="form-group">
-                        <label htmlFor="cvv">CVV</label>
-                        <input
-                          type="text"
-                          id="cvv"
-                          className="form-control"
-                          placeholder="000"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="expireDate">Expiry date</label>
-                        <input
-                          type="text"
-                          id="expireDate"
-                          className="form-control"
-                          placeholder="07/24"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-5 wrapper p-4" style={{ marginTop: "55px" }}>
-          <p
-            style={{ fontWeight: "700", fontSize: "25px", marginBottom: "0px" }}
-          >
-            Pembayaran Kelas
-          </p>
-          <Row xs={1} md={1} className="g-4">
-            {Array.from({ length: 1 }).map((_, idx) => (
-              <Col key={idx}>
-                <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
-                  <Card.Img
-                    variant="top"
-                    src={Img}
-                    style={{ margin: "0px", padding: "0px" }}
-                  />
-                  <Card.Body>
-                    <div className="d-flex">
-                      <a
-                        href="#"
-                        style={{
-                          margin: "0px",
-                          padding: "0px",
-                          textDecoration: "none",
-                          color: "#6148FF",
-                          fontSize: "15px",
-                          fontWeight: "800",
-                        }}
-                      >
-                        UI/UX Design
+                  <div className="accordion-body">
+                    <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
+                      <a href="#">
+                        <img src={MasterCard} alt="" />
+                      </a>
+                      <a href="#">
+                        <img src={Visa} alt="" />
+                      </a>
+                      <a href="#">
+                        <img src={Amex} alt="" />
+                      </a>
+                      <a href="#">
+                        <img src={Paypal} alt="" />
                       </a>
                     </div>
-                    <Card.Title style={{ fontWeight: "700" }}>
-                      Belajar Web Designer dengan Figma
-                    </Card.Title>
-                    <Card.Text style={{ fontWeight: "600" }}>
-                      by John Doe
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-          <div className="d-flex justify-content-between payment mt-3">
-            <p>Harga</p>
-            <p>PPN 11%</p>
-            <p>Total Bayar</p>
+                    <form>
+                      <div className="form-group1">
+                        <label htmlFor="cardNumber">Card number</label>
+                        <input
+                          type="text"
+                          id="cardNumber"
+                          className="form-control"
+                          placeholder="4480 0000 0000 0000"
+                        />
+                      </div>
+                      <div className="form-group1">
+                        <label htmlFor="cardHolderName">Card holder name</label>
+                        <input
+                          type="text"
+                          id="cardHolderName"
+                          className="form-control"
+                          placeholder="John Doe"
+                        />
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="form-group">
+                          <label htmlFor="cvv">CVV</label>
+                          <input
+                            type="text"
+                            id="cvv"
+                            className="form-control"
+                            placeholder="000"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="expireDate">Expiry date</label>
+                          <input
+                            type="text"
+                            id="expireDate"
+                            className="form-control"
+                            placeholder="07/24"
+                          />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div className="accordion-item">
+                <h2 className="accordion-header" id="flush-headingTwo">
+                  <button
+                    className="accordion-button button2 collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="flush-collapseTwo"
+                  >
+                    Credit Card
+                  </button>
+                </h2>
+                <div
+                  id="flush-collapseTwo"
+                  className="accordion-collapse collapse"
+                  aria-labelledby="flush-headingTwo"
+                  data-bs-parent="#accordionFlushExample"
+                >
+                  <div className="accordion-body">
+                    <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
+                      <a href="#">
+                        <img src={MasterCard} alt="" />
+                      </a>
+                      <a href="#">
+                        <img src={Visa} alt="" />
+                      </a>
+                      <a href="#">
+                        <img src={Amex} alt="" />
+                      </a>
+                      <a href="#">
+                        <img src={Paypal} alt="" />
+                      </a>
+                    </div>
+                    <form>
+                      <div className="form-group1">
+                        <label htmlFor="cardNumber">Card number</label>
+                        <input
+                          type="text"
+                          id="cardNumber"
+                          className="form-control"
+                          placeholder="4480 0000 0000 0000"
+                        />
+                      </div>
+                      <div className="form-group1">
+                        <label htmlFor="cardHolderName">Card holder name</label>
+                        <input
+                          type="text"
+                          id="cardHolderName"
+                          className="form-control"
+                          placeholder="John Doe"
+                        />
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="form-group">
+                          <label htmlFor="cvv">CVV</label>
+                          <input
+                            type="text"
+                            id="cvv"
+                            className="form-control"
+                            placeholder="000"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="expireDate">Expiry date</label>
+                          <input
+                            type="text"
+                            id="expireDate"
+                            className="form-control"
+                            placeholder="07/24"
+                          />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="d-flex justify-content-between">
-            <p className="payment1">Rp 349,000</p>
-            <p className="payment1">Rp 38,390</p>
-            <p className="total">Rp 387,390</p>
-          </div>
-          <div className="d-flex justify-content-center">
-            <button className="button-kirim">
-              <Link
-                to={`/successBayarCourse`}
-                style={{ textDecoration: "none", color: "#fff" }}
-              >
-                Bayar dan Ikuti Kelas Selamanya
-                <FaArrowCircleRight
-                  style={{ marginLeft: "10px", width: "28px", height: "27px" }}
-                />
-              </Link>
-            </button>
+          <div className="col-md-6 order-md-2 wrapper p-4">
+            <p
+              style={{
+                fontWeight: "700",
+                fontSize: "25px",
+                marginBottom: "0px",
+              }}
+            >
+              Pembayaran Kelas
+            </p>
+            <Row xs={1} md={1} className="g-4">
+              {Array.from({ length: 1 }).map((_, idx) => (
+                <Col key={idx}>
+                  <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
+                    <Card.Img
+                      variant="top"
+                      src={Img}
+                      style={{ margin: "0px", padding: "0px" }}
+                    />
+                    <Card.Body>
+                      <div className="d-flex">
+                        <a
+                          href="#"
+                          style={{
+                            margin: "0px",
+                            padding: "0px",
+                            textDecoration: "none",
+                            color: "#6148FF",
+                            fontSize: "15px",
+                            fontWeight: "800",
+                          }}
+                        >
+                          UI/UX Design
+                        </a>
+                      </div>
+                      <Card.Title style={{ fontWeight: "700" }}>
+                        Belajar Web Designer dengan Figma
+                      </Card.Title>
+                      <Card.Text style={{ fontWeight: "600" }}>
+                        by John Doe
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+            <div className="d-flex justify-content-between payment mt-3">
+              <p>Harga</p>
+              <p>PPN 11%</p>
+              <p>Total Bayar</p>
+            </div>
+            <div className="d-flex justify-content-between">
+              <p className="payment1">Rp 349,000</p>
+              <p className="payment1">Rp 38,390</p>
+              <p className="total">Rp 387,390</p>
+            </div>
+            <div className="d-flex justify-content-center">
+              <button className="button-kirim">
+                <Link
+                  to={`/successBayarCourse`}
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  Bayar dan Ikuti Kelas Selamanya
+                  <FaArrowCircleRight
+                    style={{
+                      marginLeft: "10px",
+                      width: "28px",
+                      height: "27px",
+                    }}
+                  />
+                </Link>
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       <style>{`
+            @media (max-width: 768px) {
+              .wrapper {
+                margin-top: 20px;
+              }
+
+              .batas button {
+                display: none;
+              }
+            }
+            
             .wrapper {
                 border:1px solid #6148FF;
                 border-radius: 25px;
                 margin-left: 20px;
-                width: 40%;
-                height: 100%;
-            }
-            
-            .wrapper h3 {
-                font-weight: 700;
-                font-size: 25px;
+                width: 400px;
             }
 
             .payment {
@@ -310,7 +327,8 @@ function BayarCourse() {
                 padding: 10px;
                 border-radius: 25px;
                 font-weight: 600;
-                margin-top: 50px;
+                margin-top: 20px;
+                margin-bottom: 20px;
                 width: 85%;
             }
 
