@@ -36,7 +36,7 @@ function Hero() {
               fontWeight: "700",
               borderRadius: "15px",
             }}
-            className="btn btn-primary"
+            className="btn button"
           >
             IKUTI KELAS
           </button>
@@ -49,6 +49,13 @@ function Hero() {
         .hero {
           display: none;
         }
+      }
+      .button {
+        transition: transform .5s; 
+      }
+      
+      .button:hover {
+        transform: scale(1.1);
       }
     `}
   </style>

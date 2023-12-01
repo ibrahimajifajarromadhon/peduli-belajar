@@ -25,6 +25,8 @@ import LoginAdmin from "./pages/auth/LoginAdmin.jsx";
 import DetailCourse from "./pages/user/DetailCourse.jsx";
 import FreeClassHomepage from "./pages/user/FreeClassHomepage.jsx";
 import AllCourseHomepage from "./pages/user/AllCourseHomepage.jsx";
+import BayarCourse from "./pages/user/BayarCourse.jsx";
+import SuccessBayarCourse from "./pages/user/SuccessBayarCourse.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -49,6 +51,8 @@ const router = createBrowserRouter(
         <Route element={<AllCourseHomepage />} path="allCourseClass"></Route>
         <Route element={<PremiumClassHomepage />} path="premiumClass"></Route>
         <Route element={<FreeClassHomepage />} path="freeClass"></Route>
+        <Route element={<BayarCourse />} path="bayarCourse"></Route>
+        <Route element={<SuccessBayarCourse />} path="successBayarCourse"></Route>
         <Route element={<DetailCourse />} path="detailClass/:id"></Route>
       </Route>
     </>
