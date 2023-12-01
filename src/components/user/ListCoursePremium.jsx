@@ -5,6 +5,8 @@ import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
+import ModalBuyPremium from './ModalBuyPremium';
+// import ModalStartClass from './ModalStartClass';
 // import '../../style/ListCourse.css'
 
 const ListCoursePremium = () => {
@@ -64,6 +66,47 @@ const ListCoursePremium = () => {
               </button>
             </div>
           </div>
+          <h6 className="card-title">Membuat Grid System dengan Figma</h6>
+          <p className="card-text">by Simon Doe</p>
+          <div className="d-flex">
+            <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                color: "#6148FF",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              Advanced Level
+            </p>
+            <RiBook3Line style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              10 Modul
+            </p>
+            <RiTimeFill style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              100 menit
+            </p>
+          </div>
+          <div className="btn-kelas">
+          <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
+          {/* <button className="btn1 btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><IoDiamond />Premium</button> */}
+          </div>
+          <ModalBuyPremium />
+          {/* <ModalStartClass /> */}
         </div>
       </div>
       <div className="col">
@@ -120,6 +163,45 @@ const ListCoursePremium = () => {
               </button>
             </div>
           </div>
+          <h6 className="card-title">Membuat Grid System dengan Figma</h6>
+          <p className="card-text">by Simon Doe</p>
+          <div className="d-flex">
+            <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                color: "#6148FF",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              Advanced Level
+            </p>
+            <RiBook3Line style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              10 Modul
+            </p>
+            <RiTimeFill style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              100 menit
+            </p>
+          </div>
+          <div className="btn-kelas">
+          <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
+          </div>
+          <ModalBuyPremium />
         </div>
       </div>
       <div className="col">
@@ -176,6 +258,45 @@ const ListCoursePremium = () => {
               </button>
             </div>
           </div>
+          <h6 className="card-title">Membuat Grid System dengan Figma</h6>
+          <p className="card-text">by Simon Doe</p>
+          <div className="d-flex">
+            <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                color: "#6148FF",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              Advanced Level
+            </p>
+            <RiBook3Line style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              10 Modul
+            </p>
+            <RiTimeFill style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              100 menit
+            </p>
+          </div>
+          <div className="btn-kelas">
+          <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
+          </div>
+          <ModalBuyPremium />
         </div>
       </div>
       <div className="col">
@@ -232,20 +353,49 @@ const ListCoursePremium = () => {
               </button>
             </div>
           </div>
+          <h6 className="card-title">Membuat Grid System dengan Figma</h6>
+          <p className="card-text">by Simon Doe</p>
+          <div className="d-flex">
+            <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                color: "#6148FF",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              Advanced Level
+            </p>
+            <RiBook3Line style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              10 Modul
+            </p>
+            <RiTimeFill style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              100 menit
+            </p>
+          </div>
+          <div className="btn-kelas">
+            <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
+          </div>
+          <ModalBuyPremium />
         </div>
       </div>
-
-      <style>
-        {`
-      @media (max-width: 425px) {
-        .card {
-          width: 400px;
-          margin-right: 10px;
-        }
-      }`}
-      </style>
     </div>
-  );
-};
+  )
+}
 
 export default ListCoursePremium;

@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Heroes from "../../assets/hero.png";
 import BgHero from "../../assets/bg-hero.png";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -27,6 +28,7 @@ function Hero() {
           <h1 style={{ fontSize: "30px", fontWeight: "600", color: "#FFFFFF" }}>
             Belajar<br /> dari Praktisi Terbaik!
           </h1>
+          <Link to={`/login`} style={{textDecoration:"none", color:"#fff"}}>
           <button
             style={{
               width: "250px",
@@ -36,10 +38,11 @@ function Hero() {
               fontWeight: "700",
               borderRadius: "15px",
             }}
-            className="btn btn-primary"
+            className="btn button"
           >
             IKUTI KELAS
           </button>
+          </Link>
         </div>
       </Col>
     </Row>
@@ -49,6 +52,13 @@ function Hero() {
         .hero {
           display: none;
         }
+      }
+      .button {
+        transition: transform .5s; 
+      }
+      
+      .button:hover {
+        transform: scale(1.1);
       }
     `}
   </style>

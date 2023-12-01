@@ -12,15 +12,26 @@ function Category() {
         </div>
                 <Row xs={2} md={6} className="g-4">
                 {Array.from({ length: 6 }).map((_, idx) => (
-                    <Col key={idx}>
-                        <a href="#" style={{textDecoration:"none", color:"black"}}>
-                        <Card.Img variant="top" src={Background} />
+                    <Col key={idx} >
+                        <a href="#"  style={{textDecoration:"none", color:"black"}}>
+                        <Card.Img variant="top" src={Background} className='kolom'/>
                         <Card.Title style={{textAlign:"center", fontSize:"15px", fontWeight:"700", paddingTop:"5px"}}>UI/UX Design</Card.Title>
                         </a>
                     </Col>
                 ))}
                 </Row>
         </div>
+        <style>
+        {`
+        .kolom {
+          transition: transform .3s; 
+        }
+        
+        .kolom:hover {
+          transform: scale(1.2);
+        }
+        `}
+      </style>
     </div>
   )
 }

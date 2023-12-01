@@ -28,8 +28,9 @@ function Login() {
         />
       </div>
       <div className="mb-3">
+        
         <Link
-          to={"/login"}
+          to={`/myClass`}
           className="btn rounded-4 text-light"
           style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
         >
@@ -41,7 +42,7 @@ function Login() {
         <p>
           Belum punya akun?{" "}
           <span>
-            <Link to={"/register"} style={{ textDecoration: "none", color: `var(--primary-purple)`, fontWeight: "bold" }}>
+            <Link to={`/register`} style={{ textDecoration: "none", color: `var(--primary-purple)`, fontWeight: "bold" }}>
               Daftar di sini
             </Link>
           </span>

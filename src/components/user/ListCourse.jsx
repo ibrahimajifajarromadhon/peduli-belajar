@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
+import { Link } from 'react-router-dom';
 // import '../../style/ListCourse.css'
 
 function ListCourse() {
@@ -57,7 +58,7 @@ function ListCourse() {
               </p>
             </div>
             <div className="btn-kelas">
-              <button className="btn btn-primary">Mulai Kelas</button>
+              <Link to={"/detailClass/1"} className="btn btn-primary">Mulai Kelas</Link>
             </div>
           </div>
         </div>

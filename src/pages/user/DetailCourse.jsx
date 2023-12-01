@@ -8,12 +8,14 @@ import { FaCirclePlay } from "react-icons/fa6";
 import BarProgress from "../../components/user/BarProgress";
 import { PiLockKeyFill } from "react-icons/pi";
 import ReactPlayer from "react-player";
+import { FaStar } from "react-icons/fa";
+import { RiBook3Line } from "react-icons/ri";
+import { RiTimeFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 function DetailCourse() {
-
   const VIDEO_PATH = "https://youtu.be/ixOd42SEUF0";
-  const telegramGroupUrl = 'https://t.me/+g7QgBy1YNd40Zjc1';
-
+  const telegramGroupUrl = "https://t.me/+g7QgBy1YNd40Zjc1";
 
   return (
     <>
@@ -23,6 +25,8 @@ function DetailCourse() {
         style={{ backgroundColor: "#EBF3FC", height: "250px" }}
       >
         <div className="container" style={{ marginTop: "60px" }}>
+        <Link to={`/allCourseClass`} style={{textDecoration:"none", color:"#fff"}}>
+
           <a
             className="d-flex"
             href="#"
@@ -41,7 +45,8 @@ function DetailCourse() {
               Kelas Lainnya
             </p>
           </a>
-          <p style={{ margin: "0px" }}>
+          </Link>
+          <div className="col-7 d-flex" style={{ margin: "0px" }}>
             <a
               href="#"
               style={{
@@ -55,7 +60,11 @@ function DetailCourse() {
             >
               UI/UX Design
             </a>
-          </p>
+            <div className="ms-auto" style={{ fontWeight: "700" }}>
+              <FaStar style={{ color: "#F9CC00", marginBottom: "5px" }} /> 5.0
+            </div>
+          </div>
+
           <h2 style={{ fontWeight: "700", margin: "0px" }}>
             <a href="#" style={{ textDecoration: "none", color: "black" }}>
               Intro to Basic of User Interaction Design
@@ -66,46 +75,56 @@ function DetailCourse() {
               by Simon Doe
             </a>
           </p>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-start",
-              gap: "5px",
-              marginTop: "5px",
-            }}
-          >
-            <RiShieldStarLine style={{ color: "#73CA5C", marginTop: "5px" }} />
-            <p style={{ margin: "0px" }}>
-              <a
-                href="#"
-                style={{
-                  textDecoration: "none",
-                  color: "#6148FF",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}
-              >
-                Beginner Level
-              </a>
+          <div className="d-flex" style={{ marginTop: "10px" }}>
+            <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                color: "#6148FF",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              Advanced Level
+            </p>
+            <RiBook3Line style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              10 Modul
+            </p>
+            <RiTimeFill style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+            <p
+              style={{
+                textDecoration: "none",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              100 menit
             </p>
           </div>
-          
-          <a href={telegramGroupUrl} ><button
-            className="btn"
-            style={{
-              backgroundColor: "#73CA5C",
-              borderRadius: "25px",
-              height: "40px",
-              padding: "5px",
-              marginTop: "10px",
-              width: "250px",
-              fontWeight: "700",
-              color: "white",
-            }}
-          >
-            Join Grup Telegram
-            <HiOutlineChatAlt2 style={{ marginLeft: "5px" }} />
-          </button>
+
+          <a href={telegramGroupUrl}>
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "#73CA5C",
+                borderRadius: "25px",
+                height: "40px",
+                padding: "5px",
+                width: "250px",
+                fontWeight: "700",
+                color: "white",
+              }}
+            >
+              Join Grup Telegram
+              <HiOutlineChatAlt2 style={{ marginLeft: "5px" }} />
+            </button>
           </a>
         </div>
       </div>
@@ -113,7 +132,7 @@ function DetailCourse() {
         <div className="row">
           <div className="col-8">
             <div className="player-wrapper">
-            <ReactPlayer url={VIDEO_PATH} className="player" />
+              <ReactPlayer url={VIDEO_PATH} className="player" />
             </div>
             <div style={{ marginTop: "30px", marginBottom: "50px" }}>
               <h2 style={{ fontWeight: "700", fontSize: "25px" }}>
@@ -173,7 +192,7 @@ function DetailCourse() {
           <div
             className="col-4"
             style={{
-              height: "500px",
+              height: "50%",
               backgroundColor: "white",
               borderRadius: "15px",
               marginTop: "-180px",
@@ -250,43 +269,41 @@ function DetailCourse() {
                   <FaCirclePlay
                     style={{
                       marginLeft: "15px",
-                      color: "#73CA5C",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                </li>
-                <hr />
-                <li
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Tujuan Mengikuti Kelas Design System
-                  <FaCirclePlay
-                    style={{
-                      marginLeft: "15px",
-                      color: "#73CA5C",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                </li>
-                <hr />
-                <li
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Tujuan Mengikuti Kelas Design System
-                  <FaCirclePlay
-                    style={{
-                      marginLeft: "15px",
                       color: "#6148FF",
+                      width: "20px",
+                      height: "20px",
+                    }}
+                  />
+                </li>
+                <hr />
+
+                <p style={{ marginTop: "25px", marginLeft: "-18px" }}>
+                  <a
+                    href="#"
+                    style={{
+                      margin: "0px",
+                      padding: "0px",
+                      textDecoration: "none",
+                      color: "#6148FF",
+                      fontSize: "15px",
+                      fontWeight: "700",
+                    }}
+                  >
+                    Chapter 2 - Memulai Desain
+                  </a>
+                </p>
+                <li
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "15px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Tujuan Mengikuti Kelas Design System
+                  <PiLockKeyFill
+                    style={{
+                      marginLeft: "15px",
+                      color: "#D9D9D9",
                       width: "20px",
                       height: "20px",
                     }}
@@ -311,6 +328,41 @@ function DetailCourse() {
                   />
                 </li>
                 <hr />
+                <li
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "15px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Tujuan Mengikuti Kelas Design System
+                  <PiLockKeyFill
+                    style={{
+                      marginLeft: "15px",
+                      color: "#D9D9D9",
+                      width: "20px",
+                      height: "20px",
+                    }}
+                  />
+                </li>
+                <hr />
+                <li
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "15px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Tujuan Mengikuti Kelas Design System
+                  <PiLockKeyFill
+                    style={{
+                      marginLeft: "15px",
+                      color: "#D9D9D9",
+                      width: "20px",
+                      height: "20px",
+                    }}
+                  />
+                </li>
               </ol>
             </div>
           </div>
