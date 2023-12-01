@@ -53,17 +53,8 @@ function SidebarAdmin() {
         </ul>
       </div>
 
-      <div className="d-flex flex-column bg-transparant position-absolute z-1 flex-shrink-0 p-3  p-4 vh-100 d-lg-none">
-        <ul className="nav nav-pills flex-column">
-          <li className="nav-items">
-            <NavLink to="dashboard" className="nav-link d-flex fs-5 align-items-center">
-              <SiStudyverse className="text-dark" />
-            </NavLink>
-          </li>
-        </ul>
-        <br />
-        <hr className="text-light" />
-        <ul className="nav nav-pills flex-column mb-auto">
+      <div className="d-flex flex-row bg-transparant  z-1  p-4 d-lg-none" style={{ top:"0px", left:"0px"}}>
+        <ul className="nav nav-pills mb-auto">
           <li className="nav-item">
             <NavLink
               to="dashboard"
@@ -82,11 +73,11 @@ function SidebarAdmin() {
               <AiOutlineProfile className="text-dark" />
             </NavLink>
           </li>
-          <li className="nav-item rounded">
+          {/* <li className="nav-item rounded">
             <a href="#" className="nav-link text-white fs-5">
               <FiLogOut className="text-danger"/>
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </>

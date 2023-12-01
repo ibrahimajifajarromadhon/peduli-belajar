@@ -185,16 +185,6 @@ const ListMyCourse = () => {
           </div>
         </div>
       </div>
-
-      <style>
-      {`
-      @media (max-width: 425px) {
-        .card {
-          width: 400px;
-          margin-right: 10px;
-        }
-      }`}
-    </style>
     </div>
   );
 };
