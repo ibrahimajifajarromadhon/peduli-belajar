@@ -9,6 +9,7 @@ import Img from "../../assets/image.png";
 import { FaStar } from "react-icons/fa";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 function WebHomepage() {
   return (
@@ -116,6 +117,7 @@ function WebHomepage() {
                       100 menit
                     </p>
                   </div>
+                  <Link to={`/login`} style={{textDecoration:"none", color:"#fff"}}>
                   <button
                     className="btn button-beli"
                     style={{ margin: "0px", borderRadius: "35px" }}
@@ -132,6 +134,7 @@ function WebHomepage() {
                       </h6>
                     </div>
                   </button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>

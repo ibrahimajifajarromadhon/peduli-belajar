@@ -11,6 +11,7 @@ import ReactPlayer from "react-player";
 import { FaStar } from "react-icons/fa";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 function DetailCourse() {
   const VIDEO_PATH = "https://youtu.be/ixOd42SEUF0";
@@ -24,6 +25,8 @@ function DetailCourse() {
         style={{ backgroundColor: "#EBF3FC", height: "250px" }}
       >
         <div className="container" style={{ marginTop: "60px" }}>
+        <Link to={`/allCourseClass`} style={{textDecoration:"none", color:"#fff"}}>
+
           <a
             className="d-flex"
             href="#"
@@ -42,6 +45,7 @@ function DetailCourse() {
               Kelas Lainnya
             </p>
           </a>
+          </Link>
           <div className="col-7 d-flex" style={{ margin: "0px" }}>
             <a
               href="#"
