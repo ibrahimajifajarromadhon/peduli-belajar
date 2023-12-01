@@ -4,30 +4,37 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import Img from "../../assets/image.png";
 import { Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import MasterCard from "../../assets/mastercard.png";
+import Visa from "../../assets/visa.png";
+import Amex from "../../assets/amex.png";
+import Paypal from "../../assets/paypal.png";
 
 function BayarCourse() {
   return (
     <>
       <div className="container" style={{ marginTop: "55px" }}>
-      <Link to={`/premiumClass`} style={{textDecoration:"none", color:"#fff"}}>
-        <a
-          className="d-flex"
-          href="#"
-          style={{ textDecoration: "none", color: "black" }}
+        <Link
+          to={`/premiumClass`}
+          style={{ textDecoration: "none", color: "#fff" }}
         >
-          <FaArrowLeft style={{ marginTop: "30px", marginBottom: "10px" }} />
-          <p
-            style={{
-              margin: "0px",
-              marginTop: "25px",
-              fontWeight: "700",
-              marginLeft: "15px",
-              marginBottom: "10px",
-            }}
+          <a
+            className="d-flex"
+            href="#"
+            style={{ textDecoration: "none", color: "black" }}
           >
-            Kembali
-          </p>
-        </a>
+            <FaArrowLeft style={{ marginTop: "30px", marginBottom: "10px" }} />
+            <p
+              style={{
+                margin: "0px",
+                marginTop: "25px",
+                fontWeight: "700",
+                marginLeft: "15px",
+                marginBottom: "10px",
+              }}
+            >
+              Kembali
+            </p>
+          </a>
         </Link>
         <div className="d-flex justify-content-center">
           <button className="button">
@@ -59,9 +66,60 @@ function BayarCourse() {
                 data-bs-parent="#accordionFlushExample"
               >
                 <div className="accordion-body">
-                  Placeholder content for this accordion, which is intended to
-                  demonstrate the <code>.accordion-flush</code> className. This
-                  is the first item's accordion body.
+                  <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
+                    <a href="#">
+                      <img src={MasterCard} alt="" />
+                    </a>
+                    <a href="#">
+                      <img src={Visa} alt="" />
+                    </a>
+                    <a href="#">
+                      <img src={Amex} alt="" />
+                    </a>
+                    <a href="#">
+                      <img src={Paypal} alt="" />
+                    </a>
+                  </div>
+                  <form>
+                    <div className="form-group1">
+                      <label htmlFor="cardNumber">Card number</label>
+                      <input
+                        type="text"
+                        id="cardNumber"
+                        className="form-control"
+                        placeholder="4480 0000 0000 0000"
+                      />
+                    </div>
+                    <div className="form-group1">
+                      <label htmlFor="cardHolderName">Card holder name</label>
+                      <input
+                        type="text"
+                        id="cardHolderName"
+                        className="form-control"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <div className="form-group">
+                        <label htmlFor="cvv">CVV</label>
+                        <input
+                          type="text"
+                          id="cvv"
+                          className="form-control"
+                          placeholder="000"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="expireDate">Expiry date</label>
+                        <input
+                          type="text"
+                          id="expireDate"
+                          className="form-control"
+                          placeholder="07/24"
+                        />
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -85,116 +143,176 @@ function BayarCourse() {
                 data-bs-parent="#accordionFlushExample"
               >
                 <div className="accordion-body">
-                  Placeholder content for this accordion, which is intended to
-                  demonstrate the <code>.accordion-flush</code> className. This
-                  is the second item's accordion body. Let's imagine this being
-                  filled with some actual content.
+                  <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
+                    <a href="#">
+                      <img src={MasterCard} alt="" />
+                    </a>
+                    <a href="#">
+                      <img src={Visa} alt="" />
+                    </a>
+                    <a href="#">
+                      <img src={Amex} alt="" />
+                    </a>
+                    <a href="#">
+                      <img src={Paypal} alt="" />
+                    </a>
+                  </div>
+                  <form>
+                    <div className="form-group1">
+                      <label htmlFor="cardNumber">Card number</label>
+                      <input
+                        type="text"
+                        id="cardNumber"
+                        className="form-control"
+                        placeholder="4480 0000 0000 0000"
+                      />
+                    </div>
+                    <div className="form-group1">
+                      <label htmlFor="cardHolderName">Card holder name</label>
+                      <input
+                        type="text"
+                        id="cardHolderName"
+                        className="form-control"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <div className="form-group">
+                        <label htmlFor="cvv">CVV</label>
+                        <input
+                          type="text"
+                          id="cvv"
+                          className="form-control"
+                          placeholder="000"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="expireDate">Expiry date</label>
+                        <input
+                          type="text"
+                          id="expireDate"
+                          className="form-control"
+                          placeholder="07/24"
+                        />
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="col-5 wrapper p-4" style={{ marginTop: "55px" }}>
-          <p style={{fontWeight:"700", fontSize:"25px", marginBottom:"0px"}}>Pembayaran Kelas</p>
+          <p
+            style={{ fontWeight: "700", fontSize: "25px", marginBottom: "0px" }}
+          >
+            Pembayaran Kelas
+          </p>
           <Row xs={1} md={1} className="g-4">
-          {Array.from({ length: 1 }).map((_, idx) => (
-            <Col key={idx}>
-              <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
-                <Card.Img
-                  variant="top"
-                  src={Img}
-                  style={{ margin: "0px", padding: "0px" }}
-                />
-                <Card.Body>
-                  <div className="d-flex">
-                    <a
-                      href="#"
-                      style={{
-                        margin: "0px",
-                        padding: "0px",
-                        textDecoration: "none",
-                        color: "#6148FF",
-                        fontSize: "15px",
-                        fontWeight: "800",
-                      }}
-                    >
-                      UI/UX Design
-                    </a>
-                  </div>
-                  <Card.Title style={{ fontWeight: "700" }}>
-                    Belajar Web Designer dengan Figma
-                  </Card.Title>
-                  <Card.Text style={{ fontWeight: "600" }}>
-                    by John Doe
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-            <div className="d-flex justify-content-between payment mt-3">
+            {Array.from({ length: 1 }).map((_, idx) => (
+              <Col key={idx}>
+                <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
+                  <Card.Img
+                    variant="top"
+                    src={Img}
+                    style={{ margin: "0px", padding: "0px" }}
+                  />
+                  <Card.Body>
+                    <div className="d-flex">
+                      <a
+                        href="#"
+                        style={{
+                          margin: "0px",
+                          padding: "0px",
+                          textDecoration: "none",
+                          color: "#6148FF",
+                          fontSize: "15px",
+                          fontWeight: "800",
+                        }}
+                      >
+                        UI/UX Design
+                      </a>
+                    </div>
+                    <Card.Title style={{ fontWeight: "700" }}>
+                      Belajar Web Designer dengan Figma
+                    </Card.Title>
+                    <Card.Text style={{ fontWeight: "600" }}>
+                      by John Doe
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+          <div className="d-flex justify-content-between payment mt-3">
             <p>Harga</p>
             <p>PPN 11%</p>
             <p>Total Bayar</p>
-            </div>
-            <div className="d-flex justify-content-between">
+          </div>
+          <div className="d-flex justify-content-between">
             <p className="payment1">Rp 349,000</p>
             <p className="payment1">Rp 38,390</p>
             <p className="total">Rp 387,390</p>
-            </div>
+          </div>
           <div className="d-flex justify-content-center">
-          <button className="button-kirim">
-          <Link to={`/successBayarCourse`} style={{textDecoration:"none", color:"#fff"}}>
-          Bayar dan Ikuti Kelas Selamanya<FaArrowCircleRight style={{marginLeft:"10px" ,width:"28px", height:"27px"}}/>
-          </Link>
-          </button>
+            <button className="button-kirim">
+              <Link
+                to={`/successBayarCourse`}
+                style={{ textDecoration: "none", color: "#fff" }}
+              >
+                Bayar dan Ikuti Kelas Selamanya
+                <FaArrowCircleRight
+                  style={{ marginLeft: "10px", width: "28px", height: "27px" }}
+                />
+              </Link>
+            </button>
           </div>
         </div>
-        </div>
+      </div>
 
-        <style>{`
+      <style>{`
+            .wrapper {
+                border:1px solid #6148FF;
+                border-radius: 25px;
+                margin-left: 20px;
+                width: 40%;
+                height: 100%;
+            }
+            
+            .wrapper h3 {
+                font-weight: 700;
+                font-size: 25px;
+            }
 
-        .wrapper {
-            border:1px solid #6148FF;
-            border-radius: 25px;
-            margin-left: 20px;
-            width: 40%;
-            height: 100%;
-        }
-        .wrapper h3 {
-            font-weight: 700;
-            font-size: 25px;
-        }
+            .payment {
+                font-weight: 700;
+                font-size: 15px;
+                margin-bottom: -10px;
+            }
 
-        .payment {
-            font-weight: 700;
-            font-size: 15px;
-            margin-bottom: -10px;
-        }
+            .payment1 {
+                font-weight: 400;
+                padding: 0px;
+                margin: 0px
+            }
 
-        .payment1 {
-            font-weight: 400;
-            padding: 0px;
-            margin: 0px
-        }
+            .total {
+                font-weight: 700;
+                padding: 0px;
+                margin: 0px;
+                color: #6148FF;
+            }
 
-        .total {
-            font-weight: 700;
-            padding: 0px;
-            margin: 0px;
-            color: #6148FF;
-        }
-
-        .button-kirim {
-            background-color: #FF0000;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 25px;
-            font-weight: 600;
-            margin-top: 50px;
-            width: 85%;
-        }
+            .button-kirim {
+                background-color: #FF0000;
+                color: #fff;
+                border: none;
+                padding: 10px;
+                border-radius: 25px;
+                font-weight: 600;
+                margin-top: 50px;
+                width: 85%;
+            }
 
             .accordion-item {
                 margin-top:10px;
@@ -232,6 +350,26 @@ function BayarCourse() {
                 color:gray;
                 background-color:gray;
                 box-shadow:0px 0px 4px 0px grey;
+            }
+
+            .form-group, .form-group1 label {
+              font-weight: 600;
+              padding: 0px;
+              margin: 0px;
+            }
+    
+            .form-group1 input[type="text"], .form-group input[type="text"] {
+              border: none;
+              border-bottom: 1px solid #D0D0D0;
+              width: 100%;
+              padding-bottom: 5px; 
+              outline: none; 
+            }
+    
+            .form-group1 input, .form-group input {
+              margin-bottom: 1.5em; 
+              border-radius: 0px;
+              width: 50px;
             }
 
         `}</style>
