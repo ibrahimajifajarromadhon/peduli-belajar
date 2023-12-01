@@ -5,6 +5,8 @@ import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
+import ModalBuyPremium from './ModalBuyPremium';
+// import ModalStartClass from './ModalStartClass';
 // import '../../style/ListCourse.css'
 
 const ListCoursePremium = () => {
@@ -58,8 +60,11 @@ const ListCoursePremium = () => {
             </p>
           </div>
           <div className="btn-kelas">
-          <button className="btn btn-primary"><IoDiamond />Premium</button>
+          <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
+          {/* <button className="btn1 btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><IoDiamond />Premium</button> */}
           </div>
+          <ModalBuyPremium />
+          {/* <ModalStartClass /> */}
         </div>
       </div>
     </div>
@@ -111,8 +116,9 @@ const ListCoursePremium = () => {
             </p>
           </div>
           <div className="btn-kelas">
-          <button className="btn btn-primary"><IoDiamond />Premium</button>
+          <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
           </div>
+          <ModalBuyPremium />
         </div>
       </div>
     </div>
@@ -164,8 +170,9 @@ const ListCoursePremium = () => {
             </p>
           </div>
           <div className="btn-kelas">
-          <button className="btn btn-primary"><IoDiamond />Premium</button>
+          <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
           </div>
+          <ModalBuyPremium />
         </div>
       </div>
     </div>
@@ -217,21 +224,12 @@ const ListCoursePremium = () => {
             </p>
           </div>
           <div className="btn-kelas">
-            <button className="btn btn-primary"><IoDiamond />Premium</button>
+            <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
           </div>
+          <ModalBuyPremium />
         </div>
       </div>
     </div>
-
-    <style>
-      {`
-      @media (max-width: 425px) {
-        .card {
-          width: 400px;
-          margin-right: 10px;
-        }
-      }`}
-    </style> 
   </div>
   )
 }

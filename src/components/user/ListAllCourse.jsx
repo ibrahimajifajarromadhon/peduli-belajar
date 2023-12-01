@@ -5,6 +5,9 @@ import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
 import { IoDiamond } from "react-icons/io5";
+import ModalBuyPremium from './ModalBuyPremium';
+import { Link } from 'react-router-dom';
+import ModalStartClass from './ModalStartClass';
 
 const ListAllCourse = () => {
   return (
@@ -57,8 +60,10 @@ const ListAllCourse = () => {
               </p>
             </div>
             <div className="btn-kelas">
-                <button className="btn btn-primary"><IoDiamond />Premium</button>
+                <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" type='button'><IoDiamond />Premium</button>
           </div>
+          {/* <ModalBuyPremium /> */}
+          <ModalStartClass />
           </div>
         </div>
       </div>
@@ -110,7 +115,7 @@ const ListAllCourse = () => {
               </p>
             </div>
             <div className="btn-kelas">
-              <button className="btn btn-primary">Mulai Kelas</button>
+              <Link to={"/detailClass/1"} className="btn btn-primary">Mulai Kelas</Link>
             </div>
           </div>
         </div>
@@ -221,16 +226,6 @@ const ListAllCourse = () => {
           </div>
         </div>
       </div>
-
-      <style>
-      {`
-      @media (max-width: 425px) {
-        .card {
-          width: 400px;
-          margin-right: 10px;
-        }
-      }`}
-    </style>
     </div>
   )
 }
