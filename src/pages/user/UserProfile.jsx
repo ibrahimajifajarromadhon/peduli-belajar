@@ -13,7 +13,7 @@ function UserProfile() {
           <div style={{backgroundColor:`var(--primary-purple)`}} className="w-100 rounded-top-2 d-flex justify-content-center h-100 align-items-center m-0">
             <p className="m-2 text-light" style={{fontWeight:"bold"}}>AKUN</p>
           </div>
-          <div className="d-flex flex-lg-row flex-column align-items-center w-100">
+          <div className="d-flex flex-lg-row flex-column align-items-start w-100">
             <SidebarProfile />
             <div className="p-4 w-100 d-flex justify-content-center align-items-center w-100">
               <Outlet />
