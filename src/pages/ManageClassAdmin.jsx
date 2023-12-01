@@ -10,7 +10,6 @@ function ManageClassAdmin() {
       make: "Chevrolet",
       tipe_kelas : "premium",
       level : "midlle",
-      action : "ubah"
     },
     {
       model: "Avenger",
@@ -19,7 +18,6 @@ function ManageClassAdmin() {
       make: "Dodge",
       tipe_kelas : "premium",
       level : "midlle",
-      action : "ubah"
     },
     {
       model: "V70",
@@ -28,7 +26,6 @@ function ManageClassAdmin() {
       make: "Volvo",
       tipe_kelas : "premium",
       level : "midlle",
-      action : "ubah"
     },
     {
       model: "Insight",
@@ -37,7 +34,6 @@ function ManageClassAdmin() {
       make: "Honda",
       tipe_kelas : "premium",
       level : "midlle",
-      action : "ubah"
     },
     {
       model: "Civic",
@@ -46,7 +42,6 @@ function ManageClassAdmin() {
       make: "Honda",
       tipe_kelas : "premium",
       level : "midlle",
-      action : "ubah"
     },
   ];
 

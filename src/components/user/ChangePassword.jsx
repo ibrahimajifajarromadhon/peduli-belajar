@@ -2,7 +2,7 @@ import React from 'react'
 
 function ChangePassword() {
   return (
-    <div className="register w-50 p-3 d-flex flex-column justify-content-center">
+    <div className="register w-50 p-3 d-flex flex-column justify-content-center w-100">
       <h3 style={{ color: `var( --neutral-black)`, textAlign: "center", fontWeight: "bold" }}>
         Ubah Password
       </h3>

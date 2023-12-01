@@ -3,7 +3,7 @@ import foto from '../../assets/foto.svg' // Pastikan pathnya benar
 
 function MyProfile() {
   return (
-    <div className="register w-50 p-3 d-flex flex-column justify-content-center">
+    <div className="register w-50 p-3 d-flex flex-column justify-content-center w-100">
       <div className="d-flex justify-content-center align-items-center mb-3">
         <img src={foto} alt="foto" />
       </div>

@@ -246,7 +246,8 @@ function ModalAddClass() {
 
                   <button
                     type="button"
-                    className="btn btn-primary rounded-pill"
+                    className="btn rounded-pill text-light my-3"
+                    style={{backgroundColor:`var(--primary-blue)`}}
                     onClick={addChapter}
                     >
                     Tambah Chapter
@@ -254,7 +255,8 @@ function ModalAddClass() {
 
                   <button
                     type="button"
-                    className="btn btn-success rounded-pill mx-4 "
+                    className="btn rounded-pill mx-4 text-light"
+                    style={{backgroundColor:`var(--primary-purple)`}}
                     onClick={handleSubmit}
                   >
                     Simpan
@@ -264,10 +266,11 @@ function ModalAddClass() {
               <div className="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-danger rounded-pill"
+                  className="btn rounded-pill text-light"
+                  style={{backgroundColor: `var(--neutral-grey)`}}
                   data-bs-dismiss="modal"
                 >
-                  Upload Video
+                  cancel
                 </button>
               </div>
             </div>
