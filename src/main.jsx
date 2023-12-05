@@ -32,6 +32,7 @@ import ChangePassword from "./components/user/ChangePassword.jsx";
 import PaymentHistory from "./components/user/PaymentHistory.jsx";
 import MyProfile from "./components/user/MyProfile.jsx";
 import Notification from "./pages/user/Notification.jsx";
+import Otp from "./pages/auth/Otp.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
         <Route element={<LoginAdmin />} path="/loginAdmin"></Route>
         <Route element={<Login />} path="/login"></Route>
         <Route element={<Register />} path="/register"></Route>
+        <Route element={<Otp />} path="/otp"></Route>
       </Route>
 
       <Route element={<Admin />} path="/admin">
