@@ -3,8 +3,87 @@ import { useLocation } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { IoTrash } from "react-icons/io5";
 
-// Move state and functions to the top level
 const initialUpdateData = {};
+
+const UpdateModal = ({
+  isOpen,
+  onClose,
+  onUpdate,
+  updateData,
+  setUpdateData,
+}) => {
+  const handleInputChange = (e, column) => {
+    setUpdateData({
+      ...updateData,
+      [column]: e.target.value,
+    });
+  };
+
+  const handleUpdate = () => {
+    onUpdate();
+    onClose();
+  };
+
+  const handleCancelUpdate = () => {
+    // Cancel update, reset state
+    setUpdateData({});
+  };
+
+  return (
+    <div
+      className={`modal fade ${isOpen ? "show" : ""}`}
+      tabIndex="-1"
+      role="dialog"
+      aria-hidden={!isOpen}
+      style={{ display: isOpen ? "block" : "none" }}
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      aria-labelledby="staticBackdropLabel"
+    >
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Update Data</h5>
+            <button
+              type="button"
+              className="btn-close"
+              onClick={() => {
+                handleCancelUpdate();
+                onClose();
+              }}
+              aria-label="Close"
+            ></button>
+          </div>
+          <div className="modal-body">
+            <form>
+              {Object.keys(updateData).map((column, columnIndex) => (
+                <div key={columnIndex} className="mb-3">
+                  <label htmlFor={column} className="form-label">
+                    {column}
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id={column}
+                    value={updateData[column] || ""}
+                    onChange={(e) => handleInputChange(e, column)}
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleUpdate}
+              >
+                Save
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const TableAdmin = ({ data }) => {
   const location = useLocation();
@@ -14,6 +93,7 @@ const TableAdmin = ({ data }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 992);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
   const [updateData, setUpdateData] = useState(initialUpdateData);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,6 +110,7 @@ const TableAdmin = ({ data }) => {
   const handleUbah = (index) => {
     setSelectedRowIndex(index);
     setUpdateData(data[index]);
+    setIsModalOpen(true);
   };
 
   const handleUpdateData = () => {
@@ -38,18 +119,24 @@ const TableAdmin = ({ data }) => {
     // Reset state
     setSelectedRowIndex(null);
     setUpdateData(initialUpdateData);
+    setIsModalOpen(false);
   };
 
   const handleCancelUpdate = () => {
     // Cancel update, reset state
     setSelectedRowIndex(null);
     setUpdateData(initialUpdateData);
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = (index) => {
+    // Implement delete logic here
+    console.log("Deleting data at index:", index);
   };
 
   return (
     <div className="table-responsive p-4">
       {isSmallScreen ? (
-        // ... (remaining code for small screens)
         <div className="accordion" id="accordionExample">
           {data.map((aData, index) => (
             <div className="accordion-item" key={index}>
@@ -58,7 +145,6 @@ const TableAdmin = ({ data }) => {
                   className={`accordion-button ${
                     index === 0 ? "" : "collapsed"
                   }`}
-                  // style={{backgroundColor:`var(--primary-purple)`}}
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target={`#collapse-${index}`}
@@ -78,46 +164,6 @@ const TableAdmin = ({ data }) => {
                       <strong>{column}:</strong> {aData[column]}
                     </div>
                   ))}
-                  {isKelolaKelasRoute && selectedRowIndex === index && (
-                    <div>
-                      {/* Formulir untuk update */}
-                      <form>
-                        {columns.map((column, columnIndex) => (
-                          <div key={columnIndex} className="mb-3">
-                            <label htmlFor={column} className="form-label">
-                              {column}
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id={column}
-                              value={updateData[column] || ""}
-                              onChange={(e) =>
-                                setUpdateData({
-                                  ...updateData,
-                                  [column]: e.target.value,
-                                })
-                              }
-                            />
-                          </div>
-                        ))}
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          onClick={handleUpdateData}
-                        >
-                          Update
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-secondary mx-2"
-                          onClick={handleCancelUpdate}
-                        >
-                          Cancel
-                        </button>
-                      </form>
-                    </div>
-                  )}
                   {isKelolaKelasRoute && selectedRowIndex !== index && (
                     <div>
                       <strong>Action:</strong>{" "}
@@ -177,42 +223,12 @@ const TableAdmin = ({ data }) => {
                 {data.map((aData, index) => (
                   <tr key={index}>
                     {columns.map((column, i) => (
-                      <td key={i}>
-                        {selectedRowIndex === index ? (
-                          <input
-                            type="text"
-                            value={updateData[column] || ""}
-                            onChange={(e) =>
-                              setUpdateData({
-                                ...updateData,
-                                [column]: e.target.value,
-                              })
-                            }
-                          />
-                        ) : (
-                          aData[column]
-                        )}
-                      </td>
+                      <td key={i}>{aData[column]}</td>
                     ))}
                     {isKelolaKelasRoute && (
                       <td className="d-flex justify-content-center">
-                        {selectedRowIndex === index ? (
-                          <>
-                            <button
-                              onClick={handleUpdateData}
-                              className="btn rounded-pill text-light"
-                              style={{backgroundColor: `var(--primary-purple)`}}
-                            >
-                              Save
-                            </button>
-                            <button
-                              onClick={handleCancelUpdate}
-                              className="btn btn-secondary rounded-pill text-light mx-2"
-                            >
-                              Cancel
-                            </button>
-                          </>
-                        ) : (
+                        {(selectedRowIndex === null ||
+                          selectedRowIndex !== index) && (
                           <>
                             <button
                               onClick={() => handleUbah(index)}
@@ -220,6 +236,9 @@ const TableAdmin = ({ data }) => {
                                 backgroundColor: `var(--primary-purple)`,
                               }}
                               className="btn rounded-pill text-light"
+                              type="button"
+                              data-bs-toggle="modal"
+                              data-bs-target="#staticBackdrop"
                             >
                               Update
                             </button>
@@ -242,6 +261,19 @@ const TableAdmin = ({ data }) => {
             </table>
           </div>
         </>
+      )}
+      {isKelolaKelasRoute && selectedRowIndex !== null && (
+        <UpdateModal
+          isOpen={isModalOpen}
+          onClose={() => {
+            handleCancelUpdate(); // Reset state in TableAdmin
+            setIsModalOpen(false); // Close the modal
+          }}
+          onUpdate={handleUpdateData}
+          updateData={updateData}
+          setUpdateData={setUpdateData}
+          backdrop="static"
+        />
       )}
     </div>
   );

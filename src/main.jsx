@@ -14,7 +14,6 @@ import {
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import Admin from "./layout/Admin.jsx";
 import ManageClassAdmin from "./pages/ManageClassAdmin.jsx";
-// import WebHomepage from "./pages/user/WebHomepage.jsx";
 import Authenticaton from "./layout/Authenticaton.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
@@ -32,6 +31,8 @@ import ChangePassword from "./components/user/ChangePassword.jsx";
 import PaymentHistory from "./components/user/PaymentHistory.jsx";
 import MyProfile from "./components/user/MyProfile.jsx";
 import Notification from "./pages/user/Notification.jsx";
+import ResetPassword from "./pages/auth/ResetPassword.jsx";
+import Otp from "./pages/auth/Otp.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,8 @@ const router = createBrowserRouter(
         <Route element={<LoginAdmin />} path="/loginAdmin"></Route>
         <Route element={<Login />} path="/login"></Route>
         <Route element={<Register />} path="/register"></Route>
+        <Route element={<ResetPassword />} path="/reset-password"></Route>
+        <Route element={<Otp />} path="/otp"></Route>
       </Route>
 
       <Route element={<Admin />} path="/admin">

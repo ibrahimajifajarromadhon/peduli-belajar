@@ -1,5 +1,5 @@
 import React from 'react'
-import foto from '../../assets/foto.svg' // Pastikan pathnya benar
+import foto from '../../assets/foto.svg'
 
 function MyProfile() {
   return (
@@ -14,8 +14,8 @@ function MyProfile() {
         <input
           type="email"
           className="form-control rounded-3"
-          id="formGroupExampleInput2"
-          placeholder=""
+          id="name"
+          placeholder="Masukan Nama"
         />
       </div>
       <div className="mb-3">
@@ -25,8 +25,8 @@ function MyProfile() {
         <input
           type="password"
           className="form-control rounded-3"
-          id="formGroupExampleInput4"
-          placeholder=""
+          id="email"
+          placeholder="Masukan Email"
         />
       </div>
       <div className="mb-3">
@@ -36,7 +36,7 @@ function MyProfile() {
         <input
           type="password"
           className="form-control rounded-3"
-          id="formGroupExampleInput4"
+          id="phone"
           placeholder="Masukkan Password"
         />
       </div>
@@ -47,8 +47,8 @@ function MyProfile() {
         <input
           type="password"
           className="form-control rounded-3"
-          id="formGroupExampleInput4"
-          placeholder="Masukkan Negara tempat tinggal"
+          id="country"
+          placeholder="Masukkan Negara"
         />
       </div>
       <div className="mb-3">
@@ -58,8 +58,8 @@ function MyProfile() {
         <input
           type="password"
           className="form-control rounded-3"
-          id="formGroupExampleInput4"
-          placeholder="Masukkan Kota tempat tinggal"
+          id="city"
+          placeholder="Masukkan Kota "
         />
       </div>
       <div className="mb-3">
@@ -67,11 +67,19 @@ function MyProfile() {
         <button
           to={"/userProfile"}
           className="btn rounded-4 text-light"
-          style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
+          style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontWeight:"700" }}
         >
           Simpan Profil Saya
         </button>
       </div>
+      <style>{`
+      input {
+        height: 48px
+      }
+      label {
+        font-weight: 600
+      }
+      `}</style>
     </div>
   )
 }

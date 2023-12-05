@@ -48,6 +48,15 @@ function ChangePassword() {
         >
           Ubah Password 
         </button>
+
+        <style>{`
+        input {
+          height: 48px
+        }
+        label {
+          
+        }
+        `}</style>
     </div>
   )
 }

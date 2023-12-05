@@ -83,6 +83,7 @@ function SidebarProfile() {
       }
       hr {
         margin-bottom: 1px; 
+        color: var(--primary-purple);
       }
       `}</style>
     </div>
