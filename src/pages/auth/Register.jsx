@@ -51,7 +51,7 @@ function Register() {
       </div>
       <div className="mb-3">
         <Link
-          to={"/login"}
+          to={"/otp"}
           className="btn rounded-4 text-light"
           style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
         >
