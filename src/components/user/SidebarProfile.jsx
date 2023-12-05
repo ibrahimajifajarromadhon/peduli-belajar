@@ -1,33 +1,3 @@
-// import React from 'react'
-// import { NavLink } from 'react-router-dom';
-// import { CiEdit } from "react-icons/ci";
-// import { IoSettingsOutline } from "react-icons/io5";
-// import { SlBasket } from "react-icons/sl";
-// import { FiLogOut } from "react-icons/fi";
-
-// function SidebarProfile() {
-//   return (
-//     <div className='d-flex flex-column w-100 p-4 gap-2'>
-//   <NavLink to="myProfile" className='d-flex gap-4' activeClassName="active-link" style={{ textDecoration: "none", color: "black" }}>
-//     <span><CiEdit /></span>Profile saya
-//   </NavLink>
-//   <hr />
-//   <NavLink to="changePassword" className='d-flex gap-4' activeClassName="active-link" style={{ textDecoration: "none", color: "black" }}>
-//     <span><IoSettingsOutline /></span>Ubah password
-//   </NavLink>
-//   <hr />
-//   <NavLink to="paymentHistory" className='d-flex gap-4' activeClassName="active-link" style={{ textDecoration: "none", color: "black" }}>
-//     <span><SlBasket /></span>Riwayat Pembayaran
-//   </NavLink>
-//   <hr />
-//   <NavLink exact to="/welcome" className='d-flex gap-4' activeClassName="active-link" style={{ textDecoration: "none", color: "black" }}>
-//     <span><FiLogOut /></span>Keluar
-//   </NavLink>
-// </div>
-//   )
-// }
-
-// export default SidebarProfile;
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
@@ -47,65 +17,73 @@ function SidebarProfile() {
     <div className="d-flex flex-column w-100 p-4 gap-2">
       <NavLink
         to="myProfile"
-        className={`d-flex gap-4 sidebar-link ${
+        className={`d-flex gap-3 sidebar-link ${
           activeLink === "/myProfile" ? "active-link" : ""
         }`}
       >
         <span>
           <CiEdit />
         </span>
-        Profile saya
+        <p>Profile Saya</p>
       </NavLink>
       <hr />
       <NavLink
         to="changePassword"
-        className={`d-flex gap-4 sidebar-link ${
+        className={`d-flex gap-3 sidebar-link ${
           activeLink === "/changePassword" ? "active-link" : ""
         }`}
       >
         <span>
           <IoSettingsOutline />
         </span>
-        Ubah password
+        <p>Ubah Password</p>
       </NavLink>
       <hr />
       <NavLink
         to="paymentHistory"
-        className={`d-flex gap-4 sidebar-link ${
+        className={`d-flex gap-3 sidebar-link ${
           activeLink === "/paymentHistory" ? "active-link" : ""
         }`}
       >
         <span>
           <SlBasket />
         </span>
-        Riwayat Pembayaran
+        <p>Riwayat Pembayaran</p>
       </NavLink>
       <hr />
       <NavLink
         exact
         to="/welcome"
-        className={`d-flex gap-4 sidebar-link ${
+        className={`d-flex gap-3 sidebar-link ${
           activeLink === "/welcome" ? "active-link" : ""
         }`}
       >
         <span>
           <FiLogOut />
         </span>
-        Keluar
+        <p>Keluar</p>
       </NavLink>
+      <hr />
 
       <style>{`
-      /* styles.css atau di file CSS global */
       .sidebar-link {
         text-decoration: none;
-        color: black; /* atau warna lain yang diinginkan */
+        color: black; 
       }
-      
-      .sidebar-link .active-link {
+      span {
+        font-size: 1.5em;
         color: var(--primary-purple);
       }
-      
-
+      p {
+        margin: auto 0px;
+        font-weight: 500
+      }
+      p:hover {
+        color: var(--primary-purple);
+      }
+      hr {
+        margin-bottom: 1px; 
+      }
       `}</style>
     </div>
   );
