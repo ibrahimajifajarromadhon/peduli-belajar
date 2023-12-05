@@ -19,8 +19,8 @@ const ModalBuyPremium = () => {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h3 className="modal-title text-center" id="exampleModalLabel">
-              Selangkah Lagi Menuju Kelas Premium
+            <h3 className="modal-title text-center ms-auto" id="exampleModalLabel" style={{fontWeight:"700", marginTop:"20px"}}>
+              Selangkah Lagi Menuju <p style={{color:"#6148FF"}}>Kelas Premium</p>
             </h3>
             <button
               type="button"
@@ -76,29 +76,40 @@ const ModalBuyPremium = () => {
               100 menit
             </p>
           </div>
-          <div className="btn-kelas">
-          <button
-                    className="btn btn-primary"
-                    style={{margin:"0px", borderRadius:"35px"}}
-                  >
-                    <div className="d-flex">
-                    <h6 style={{padding:"5px", marginRight:"10px"}}>Beli</h6>
-                    <h6 style={{padding:"5px", margin:"0px"}}>Rp 249.000</h6> 
-                    </div>
-                  </button>
-          </div>
+          <button className="btn btn-bayar" style={{margin:"0px", borderRadius:"35px"}}>
+            <div className="d-flex">
+            <h6 style={{marginRight:"10px", marginLeft:"20px", marginTop:"5px"}}>Beli</h6>
+            <h6 style={{marginTop:"5px"}}>Rp 249.000</h6> 
+            </div>
+          </button>
         </div>
       </div>
           </div>
           <Link to={`/bayarCourse`}  style={{textDecoration:"none", color:"#fff"}}>
           <div className="text-center">
-            <button type="button" className="btn btn-primary text-center" style={{width:'50%', marginBottom:'20px', borderRadius:'20px', backgroundColor: "#6148FF"}}               data-bs-dismiss="modal">
+            <button type="button" className="btn text-center" style={{width:'50%', marginBottom:'20px', borderRadius:'20px', backgroundColor: "#6148FF", color:"white", fontWeight:"600", padding:"5px"}} data-bs-dismiss="modal">
               Beli Sekarang <FaArrowRightLong />
             </button>
             </div>
             </Link>
         </div>
       </div>
+
+      <style>{`
+      .btn-bayar  {
+        padding: 5px;
+        background-color: #489CFF;
+        color: white;
+        border-radius: 25px;
+        width: 45%;
+        font-weight: 600;
+      }
+
+      .btn-bayar:hover {
+        background-color: #489CFF;
+        color: white;
+      }
+      `}</style>
     </div>
   );
 };

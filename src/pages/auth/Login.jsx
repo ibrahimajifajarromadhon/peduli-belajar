@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Login() {
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
-      <h4 style={{ color: `var(--primary-purple)`, textAlign: "center" }}>Masuk</h4>
+      <h4 style={{ color: `var(--primary-purple)`, paddingBottom:"20px", fontWeight:"700" }}>Masuk</h4>
       <div className="mb-3">
         <label htmlFor="formGroupExampleInput2" className="form-label">
           Email
@@ -13,7 +13,7 @@ function Login() {
           type="email"
           className="form-control rounded-4"
           id="formGroupExampleInput2"
-          placeholder="jhonDoe@gmail.com"
+          placeholder="Contoh: johndoe@gmail.com"
         />
       </div>
       <div className="mb-3">
@@ -24,20 +24,19 @@ function Login() {
           type="password"
           className="form-control rounded-4"
           id="formGroupExampleInput4"
-          placeholder="........"
+          placeholder="Masukkan Password"
         />
       </div>
       <div className="mb-3">
         
         <Link
-          to={`/myClass`}
+          to={`/allCourseClass`}
           className="btn rounded-4 text-light"
           style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
         >
           Masuk
         </Link>
       </div>
-      <hr />
       <div className="text-center">
         <p>
           Belum punya akun?{" "}
@@ -58,6 +57,10 @@ function Login() {
               height: 100% !important;
               background-color: var(--primary-young-blue) !important;
             }
+          }
+
+          input {
+            height: 48px;
           }
         `}
       </style>
