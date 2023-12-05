@@ -75,7 +75,7 @@ function Register() {
           type="email"
           className="form-control rounded-4"
           id="formGroupExampleInput2"
-          placeholder="Contoh: jhondoe@gmail.com"
+          placeholder="Contoh: johndoe@gmail.com"
           value={email}
           onChange={handleEmailChange}
         />
