@@ -12,7 +12,7 @@ function UserProfile() {
           backgroundColor: `var(--primary-young-blue)`,
           height: "150px",
           position: "absolute",
-          width:"100%"
+          width:"100%",
         }}
       ></div>
       <div className="d-flex flex-column justify-content-between align-items-center position-relative z-1" style={{marginTop:"4em"}}>
@@ -21,6 +21,7 @@ function UserProfile() {
           style={{
             width: "70%",
             border: "1px solid var(--primary-purple)",
+            marginBottom:"10em"
           }}
           className="card d-flex flex-column"
         >
@@ -40,10 +41,6 @@ function UserProfile() {
             </div>
           </div>
         </div>
-        <Link to={"/notification"} className="btn btn-warning m-3">
-          {" "}
-          notifikasi
-        </Link>
       </div>
     </>
   );

@@ -61,28 +61,28 @@ const Otp = () => {
   };
 
   return (
-    <div className="container" style={{ padding: '100px' }}>
+    <div className="" style={{ padding: '2em' }}>
       <Link to="/register">
         <FaArrowLeft style={{ color: 'var(--neutral-black)' }} />
       </Link>
   
-      <h3 style={{ marginTop: '20px', marginLeft: '50px', color: 'var(--primary-purple)', fontWeight: 700 }}>
+      <h3 className='' style={{ marginTop: '20px', color: 'var(--primary-purple)', fontWeight: 700 }}>
         Masukan OTP
       </h3>
       <br />
       <div className="container height-100 d-flex justify-content-center align-items-center">
         <div className="position-relative">
           <div className="">
-            <h6>Ketik 6 digit kode yang dikirimkan ke <b>J*****@gmail.com</b></h6>
+            <h6 className='text-center'>Ketik 6 digit kode yang dikirimkan ke <b>J*****@gmail.com</b></h6>
             <br />
-            <div id="otp" className="inputs d-flex flex-row justify-content-center mt-2">
+            <div id="otp" className="inputs d-flex flex-row justify-content-center mt-2 gap-2">
               {[...Array(6).keys()].map((index) => (
                 <input
                   key={index}
                   className="m-1 text-center form-control rounded-4"
                   style={{
-                    width: '42px',
-                    height: '42px',
+                    width: '3em',
+                    height: '3em',
                     border: '1px solid var(--primary-purple)',
                     color: 'black',
                     fontWeight: 700,
