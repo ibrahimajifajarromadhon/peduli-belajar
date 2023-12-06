@@ -9,8 +9,8 @@ function MyClassHomepage() {
     <div style={{ backgroundColor: "#EBF3FC", marginTop:'4em' }}>
     <div className='container'>
       <div className='topic d-flex'>
-        <h5 className='mt-5'>Kelas Berjalan </h5>
-        <input className='form-control ms-auto mt-5' placeholder='cari kelas...' type='search' style={{width:'20%', borderRadius:'20px', borderColor: "#6148FF"}}/>
+        <h4 className='mt-5' style={{fontWeight:"700"}}>Kelas Berjalan </h4>
+        <input className='form-control ms-auto mt-5' placeholder='Cari Kelas' type='search'  style={{width:'20%', padding:"10px", borderRadius:"15px", borderColor: "#6148FF"}}/>
         <button
           className="btn btn-primary ms-auto mt-5"
           type="button"
@@ -29,18 +29,13 @@ function MyClassHomepage() {
         </div>
         <div className='col-md-8'>
           <div className='btn-menu d-flex mt-4'>
-            <button className='btn btn-light me-4' style={{width:'20%', backgroundColor: "#6148FF", color: "white"}}>All</button>
-            <button className='btn btn-light me-4' style={{width:'40%'}}>In Progress</button>
-            <button className='btn btn-light me-4' style={{width:'30%'}}>Done</button>
+            <button className='btn btn-light me-4' style={{width:'20%', backgroundColor: "#6148FF", color: "white", padding:"10px", borderRadius:"15px", fontWeight:"600"}}>All</button>
+            <button className='btn btn-light me-4' style={{width:'40%', padding:"10px", borderRadius:"15px", fontWeight:"600"}}>In Progress</button>
+            <button className='btn btn-light me-4' style={{width:'30%', padding:"10px", borderRadius:"15px", fontWeight:"600"}}>Done</button>
           </div>
           <div className='mt-3'>
             <ListMyCourse />      
           </div>
-          <div className="mt-3">
-              <Link to={"/premiumClass"} className="btn btn-warning">
-                Move to Premium Class
-              </Link>
-            </div>
         </div>
       </div>
     </div> 

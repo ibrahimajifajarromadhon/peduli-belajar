@@ -117,23 +117,28 @@ function WebHomepage() {
                       100 menit
                     </p>
                   </div>
-                  <Link to={`/login`} style={{textDecoration:"none", color:"#fff"}}>
-                  <button
-                    className="btn button-beli"
-                    style={{ margin: "0px", borderRadius: "35px" }}
+                  <Link
+                    to={`/login`}
+                    style={{ textDecoration: "none", color: "#fff" }}
                   >
-                    <div className="d-flex">
-                      <IoDiamond
-                        style={{ marginTop: "7px", marginLeft: "5px" }}
-                      />
-                      <h6 style={{ padding: "5px", marginRight: "40px" }}>
-                        Beli
-                      </h6>
-                      <h6 style={{ padding: "5px", margin: "0px" }}>
-                        Rp 249.000
-                      </h6>
-                    </div>
-                  </button>
+                    <button
+                      className="btn btn-beli"
+                      style={{ margin: "0px", borderRadius: "35px" }}
+                    >
+                      <div className="d-flex">
+                        <IoDiamond className="icon-beli" />
+                        <h6
+                          style={{
+                            marginRight: "10px",
+                            marginLeft: "20px",
+                            marginTop: "5px",
+                          }}
+                        >
+                          Beli
+                        </h6>
+                        <h6 style={{ marginTop: "5px" }}>Rp 249.000</h6>
+                      </div>
+                    </button>
                   </Link>
                 </Card.Body>
               </Card>
@@ -157,16 +162,22 @@ function WebHomepage() {
           color: #fff;
         }
 
-        .button-beli {
+        .btn-beli {
           background-color: #489CFF;
           color: #fff;
           padding: 3px;
-          width: 200px
+          width: 57%;
         }
 
-        .button-beli:hover {
+        .btn-beli:hover {
           background-color: #6148FF;
           color: #fff;
+        }
+
+        .icon-beli {
+          margin-left: 13px;
+          margin-top: 7px;
+          margin-right: -8px;
         }
         `}
       </style>

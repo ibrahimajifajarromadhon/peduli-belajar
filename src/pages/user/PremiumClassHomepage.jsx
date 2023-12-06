@@ -10,8 +10,8 @@ function PremiumClassHomepage() {
 <div style={{ backgroundColor: "#EBF3FC", marginTop:'4em' }}>
     <div className='container'>
       <div className='topic d-flex'>
-        <h5 className='mt-5'>Topik Kelas </h5>
-        <input className='form-control ms-auto mt-5' placeholder='cari kelas...' type='search' style={{width:'20%', borderRadius:'20px', borderColor: "#6148FF"}}/>
+        <h4 className='mt-5' style={{fontWeight:"700"}}>Topik Kelas </h4>
+        <input className='form-control ms-auto mt-5' placeholder='Cari Kelas' type='search' style={{width:'20%', padding:"10px", borderRadius:"15px", borderColor: "#6148FF"}}/>
         <button
           className="btn btn-primary ms-auto mt-5"
           type="button"
@@ -28,20 +28,15 @@ function PremiumClassHomepage() {
             <FilterClass />            
           </div>
         </div>
-        <div className='col-md-8'>
+        <div className='col-md-8' style={{ marginBottom: '2em' }}>
           <div className='btn-menu d-flex mt-4'>
-            <Link to={"/allCourseClass"} className='btn btn-light me-4' style={{width:'20%'}}>All</Link>
-            <Link to={"/premiumClass"} className='btn btn-light me-4' style={{width:'40%', backgroundColor: "#6148FF", color: "white"}}>Kelas Premium</Link>
-            <Link to={"/freeClass"} className='btn btn-light me-4' style={{width:'30%'}}>Kelas Gratis</Link>
+            <Link to={"/allCourseClass"} className='btn btn-light me-4' style={{width:'20%', padding:"10px", borderRadius:"15px", fontWeight:"600"}}>All</Link>
+            <Link to={"/premiumClass"} className='btn btn-light me-4' style={{width:'40%', backgroundColor: "#6148FF", color: "white", padding:"10px", borderRadius:"15px", fontWeight:"600"}}>Kelas Premium</Link>
+            <Link to={"/freeClass"} className='btn btn-light me-4' style={{width:'30%', padding:"10px", borderRadius:"15px", fontWeight:"600"}}>Kelas Gratis</Link>
           </div>
           <div className='mt-3'>
             <ListCoursePremium />    
           </div>
-          <div className="mt-3">
-                <Link to={"/myclass"} className="btn btn-danger">
-                  Back to my class
-                </Link>
-              </div>
         </div>
       </div>
     </div>

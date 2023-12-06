@@ -9,7 +9,7 @@ import Visa from "../../assets/visa.png";
 import Amex from "../../assets/amex.png";
 import Paypal from "../../assets/paypal.png";
 
-function BayarCourse() {
+const BayarCourse = () => {
   return (
     <>
       <div className="container" style={{ marginTop: "55px" }}>

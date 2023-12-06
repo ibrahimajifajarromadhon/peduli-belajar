@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 function LoginAdmin() {
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
-      <h4 style={{ color: `var(--primary-purple)`, textAlign: "center" }}>
-        Masuk Sebagai Admin
+      <h4 style={{ color: `var(--primary-purple)`, textAlign: "center", paddingBottom:"20px", fontWeight:"700" }}>
+        Login      
       </h4>
       <div className="mb-3">
         <label htmlFor="formGroupExampleInput2" className="form-label">
@@ -30,7 +30,6 @@ function LoginAdmin() {
         />
       </div>
       <div className="mb-3">
-        <hr />
         <br />
         <Link
           to={"/admin/dashboard"}
@@ -50,6 +49,10 @@ function LoginAdmin() {
               height: 100% !important;
               background-color: var(--primary-young-blue) !important;
             }
+          }
+
+          input {
+            height: 48px;
           }
         `}
       </style>
