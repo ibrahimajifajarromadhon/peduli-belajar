@@ -5,11 +5,11 @@ import { FaArrowLeft } from 'react-icons/fa';
 const Otp = () => {
   const [counter, setCounter] = useState(60);
   const [userOtp, setUserOtp] = useState('');
-  const expectedOtp = '123456'; // Replace this with your actual OTP
+  const expectedOtp = '123456'; 
 
   useEffect(() => {
     if (counter > 0) {
-      const timer = setTimeout(() => setCounter(counter - 1), 10);
+      const timer = setTimeout(() => setCounter(counter - 1), 600);
       return () => clearTimeout(timer);
     }
   }, [counter]);
@@ -50,9 +50,7 @@ const Otp = () => {
 
   const handleLogin = () => {
     if (userOtp === expectedOtp) {
-      // Successful login
       console.log('Login Successful!');
-      // You can redirect or perform any action here
     } else {
       // Invalid OTP
       console.log('Invalid OTP. Please try again.');
@@ -113,16 +111,15 @@ const Otp = () => {
               </span>
             )}
             <br />
-            <Link to="/myclass">
               <button
                 id="loginButton"
                 className="btn rounded-4 text-light"
                 style={{ backgroundColor: 'var(--primary-purple)', width: '100%' }}
                 onClick={handleLogin}
+                type='submit'
               >
                 Masuk
               </button>
-            </Link>
           </div>
         </div>
       </div>

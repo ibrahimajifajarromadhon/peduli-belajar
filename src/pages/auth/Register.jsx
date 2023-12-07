@@ -1,14 +1,51 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import axios from "axios";
 
 function Register() {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [nomorTelepon, setNomorTelepon] = useState("");
+  const [noTelp, setNoTelp] = useState("");
   const [password, setPassword] = useState("");
   const [passwordValid, setPasswordValid] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [validNomor, setValidNomor] = useState(false);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      let data = JSON.stringify({
+        fullName,
+        email,
+        noTelp,
+        password,
+      });
+
+      let config = {
+        method: "POST",
+        url: `${import.meta.env.VITE_API}/api/auth/signup`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      console.log({data:data})
+
+      const response = await axios.request(config);
+      const { token } = response.data;
+
+      localStorage.setItem("token", token);
+
+      // navigate("/");
+
+      window.location.href = "/otp";
+    } catch (error) {
+      console.error('Terjadi kesalahan:', error);
+    }
+  };
 
   const handleEmailChange = (event) => {
     const newEmail = event.target.value;
@@ -24,7 +61,7 @@ function Register() {
 
   const handleNomorChange = (event) => {
     const newNomor = event.target.value;
-    setNomorTelepon(newNomor);
+    setNoTelp(newNomor);
 
     if (newNomor.length >= 12) {
       setValidNomor(true);
@@ -46,6 +83,7 @@ function Register() {
 
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
+      <form onSubmit={onSubmit}>
       <h4
         style={{
           color: `var(--primary-purple)`,
@@ -64,6 +102,8 @@ function Register() {
           className="form-control rounded-4"
           id="formGroupExampleInput"
           placeholder="Nama Lengkap"
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
         />
       </div>
 
@@ -77,7 +117,10 @@ function Register() {
           id="formGroupExampleInput2"
           placeholder="Contoh: johndoe@gmail.com"
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => {
+            handleEmailChange(e);
+            setEmail(e.target.value);
+          }}
         />
         {email.length > 0 && (
           <span className="position-absolute top-50 end-0 translate-middle-y">
@@ -105,10 +148,13 @@ function Register() {
           className="form-control rounded-4"
           id="formGroupExampleInput3"
           placeholder="08..."
-          value={nomorTelepon}
-          onChange={handleNomorChange}
+          value={noTelp}
+          onChange={(e) => {
+            handleNomorChange(e);
+            setNoTelp(e.target.value);
+          }}
         />
-        {nomorTelepon.length > 0 && (
+        {noTelp.length > 0 && (
           <span className="position-absolute top-50 end-0 translate-middle-y">
             {validNomor ? (
               <FaCheckCircle
@@ -135,7 +181,10 @@ function Register() {
           id="formGroupExampleInput4"
           placeholder="Buat Password"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={(e) => {
+            handlePasswordChange(e);
+            setPassword(e.target.value);
+          }}
         />
         {password.length > 0 && (
           <span className="position-absolute top-50 end-0 translate-middle-y">
@@ -155,13 +204,13 @@ function Register() {
       </div>
 
       <div className="mb-3">
-        <Link
-          to={"/otp"}
+        <button
           className="btn rounded-4 text-light"
           style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
+          type="submit"
         >
           Daftar
-        </Link>
+        </button>
       </div>
       <div className="text-center">
         <p>
@@ -183,6 +232,7 @@ function Register() {
           <div className="btn button-danger">Password min 8 karakter!</div>
         )}
       </div>
+      </form>
 
       {/* Media Query for Large Screens */}
       <style>
