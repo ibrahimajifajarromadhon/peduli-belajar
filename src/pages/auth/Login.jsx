@@ -81,6 +81,9 @@ function Login() {
         // Registrasi berhasil
         const data = await response.json();
         console.log('Login berhasil:', data);
+        const { token } = data.data;
+
+        localStorage.setItem("token", token);
         // Lakukan sesuatu setelah registrasi berhasil
       } else {
         // Registrasi gagal

@@ -4,7 +4,7 @@ import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
-function Register() {
+function RegisterAdmin() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [noTelp, setNoTelp] = useState("");
@@ -27,7 +27,7 @@ function Register() {
 
       let config = {
         method: "POST",
-        url: `${import.meta.env.VITE_API}/api/auth/signup`,
+        url: `${import.meta.env.VITE_API}/api/auth/signup/admin`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -41,7 +41,7 @@ function Register() {
 
       localStorage.setItem("token", token);
 
-      navigate(`/otp/${email}`);
+      navigate(`/otpAdmin/${email}`);
     } catch (error) {
       console.error('Terjadi kesalahan:', error);
     }
@@ -91,7 +91,7 @@ function Register() {
           fontWeight: "700",
         }}
       >
-        Daftar
+        Daftar Admin
       </h4>
       <div className="mb-3">
         <label htmlFor="formGroupExampleInput" className="form-label">
@@ -217,7 +217,7 @@ function Register() {
           Sudah punya akun?{" "}
           <span>
             <Link
-              to={"/login"}
+              to={"/loginAdmin"}
               style={{
                 textDecoration: "none",
                 color: `var(--primary-purple)`,
@@ -268,5 +268,5 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterAdmin;
 
