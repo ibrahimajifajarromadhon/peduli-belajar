@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import registrasiAdmin from "../../api/registerAdmin";
 
 function Register() {
+  const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("");
   const [nomorTelepon, setNomorTelepon] = useState("");
   const [password, setPassword] = useState("");
   const [passwordValid, setPasswordValid] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [validNomor, setValidNomor] = useState(false);
+  const navigate = useNavigate();
+
+  const handleFullNameChange = (event) => {
+    const newName = event.target.value;
+    setFullName(newName);
+  }
 
   const handleEmailChange = (event) => {
     const newEmail = event.target.value;
@@ -44,6 +52,23 @@ function Register() {
     }
   };
 
+  const registerUser = async (e) => {
+    e.preventDefault();
+
+    try{
+      const response = await registrasiAdmin({
+        fullName,
+        email,
+        nomorTelepon,
+        password,
+      });
+      console.log("registrasi berhasil", response);
+      navigate("/otp", {state: {email}});
+    }catch (error) {
+      console.log("registrasi faild", error)
+    }
+  };
+
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
       <h4
@@ -64,6 +89,8 @@ function Register() {
           className="form-control rounded-4"
           id="formGroupExampleInput"
           placeholder="Nama Lengkap"
+          value={fullName}
+          onChange={handleFullNameChange}
         />
       </div>
 
@@ -159,6 +186,7 @@ function Register() {
           to={"/otp"}
           className="btn rounded-4 text-light"
           style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
+          onClick={registerUser}
         >
           Daftar
         </Link>
