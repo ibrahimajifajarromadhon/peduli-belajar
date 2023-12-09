@@ -1,14 +1,19 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaBell, FaChalkboardTeacher, FaUser } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
 
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate()
 
-  const handleLogout = () => {
-    setIsLoggedIn(false); 
-  };
+  useEffect (() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setIsLoggedIn(true)
+    }
+  })
 
   return (
     <nav
@@ -67,7 +72,11 @@ function Header() {
                     fontWeight: "bold",
                     marginTop:"5px"
                   }}
-                  onClick={handleLogout} 
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    setIsLoggedIn(false);
+                    return navigate("/");
+                  }} 
                 > 
                 <MdOutlineLogin style={{ marginRight: "1px" }} /> Keluar{" "}
                 </button>
