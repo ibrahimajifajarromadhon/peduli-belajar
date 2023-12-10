@@ -112,7 +112,7 @@ const ListAllCourse = () => {
                 100 menit
               </p>
             </div>
-              <Link to={"/detailClass/1"} className="btn btn-kelas">Mulai Kelas</Link>
+              <Link to={`/detailClass/WD2125`} className="btn btn-kelas">Mulai Kelas</Link>
           </div>
         </div>
       </div>

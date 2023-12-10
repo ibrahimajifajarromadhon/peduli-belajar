@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Hero from "../../components/user/Hero";
 import Category from "../../components/user/Category";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, CardImg, Col, Row } from "react-bootstrap";
 import Footer from "../../components/user/Footer";
 import { RiShieldStarLine } from "react-icons/ri";
 import { IoDiamond } from "react-icons/io5";
@@ -10,8 +10,36 @@ import { FaStar } from "react-icons/fa";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function WebHomepage() {
+  const [courses, setCourses] = useState([]);
+  const [uniqueCategories, setUniqueCategories] = useState([]);
+
+  useEffect(() => {
+    const apiUrl = `${import.meta.env.VITE_API}/api/course`;
+    // const token = localStorage.getItem('token');
+
+    // const config = {
+    //     headers: {
+    //         Authorization: `Bearer ${token}`
+    //     }
+    // };
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        setCourses(response.data.data);
+        console.log({response:response.data})
+        const categories = response.data.data.map((course) => course.category);
+        // Set unique categories by converting the array to a Set and back to an array
+        setUniqueCategories(Array.from(new Set(categories)));
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
   return (
     <div style={{ marginTop: "3.7em", overflow: "hidden" }}>
       <Hero />
@@ -42,12 +70,19 @@ function WebHomepage() {
             </a>
           </p>
         </div>
-        <button className="btn button">All</button>
-        <button className="btn button">Data Science</button>
-        <button className="btn button">Web Development</button>
+
+        <Link to={"/allCourseClass"}>
+          <button className="btn button">All</button>
+          {uniqueCategories.map((category) => (
+            <button key={category} className="btn button">
+              {category}
+            </button>
+          ))}
+        </Link>
+
         <Row xs={1} md={3} className="g-4 mb-5">
-          {Array.from({ length: 3 }).map((_, idx) => (
-            <Col key={idx}>
+          {courses.map((course) => (
+            <Col key={course.id}>
               <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
                 <Card.Img
                   variant="top"
@@ -67,18 +102,18 @@ function WebHomepage() {
                         fontWeight: "800",
                       }}
                     >
-                      UI/UX Design
+                      {course.category}
                     </a>
-
                     <div className="ms-auto">
-                      <FaStar style={{ color: "yellow" }} /> 4.8
+                      <FaStar style={{ color: "yellow", fontWeight: "700" }} />{" "}
+                      4.5
                     </div>
                   </div>
                   <Card.Title style={{ fontWeight: "700" }}>
-                    Belajar Web Designer dengan Figma
+                    {course.title}
                   </Card.Title>
                   <Card.Text style={{ fontWeight: "600" }}>
-                    by John Doe
+                    by {course.teacher}
                   </Card.Text>
                   <div className="d-flex">
                     <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
@@ -90,7 +125,7 @@ function WebHomepage() {
                         fontWeight: "600",
                       }}
                     >
-                      Advanced Level
+                      {course.level} Level
                     </p>
                     <RiBook3Line
                       style={{ color: "#73CA5C", marginLeft: "30px" }}
@@ -102,7 +137,7 @@ function WebHomepage() {
                         fontWeight: "600",
                       }}
                     >
-                      10 Modul
+                      {course.modules} Modul
                     </p>
                     <RiTimeFill
                       style={{ color: "#73CA5C", marginLeft: "30px" }}
@@ -114,31 +149,42 @@ function WebHomepage() {
                         fontWeight: "600",
                       }}
                     >
-                      100 menit
+                      50 menit
                     </p>
                   </div>
                   <Link
                     to={`/login`}
                     style={{ textDecoration: "none", color: "#fff" }}
                   >
-                    <button
-                      className="btn btn-beli"
-                      style={{ margin: "0px", borderRadius: "35px" }}
-                    >
-                      <div className="d-flex">
-                        <IoDiamond className="icon-beli" />
-                        <h6
-                          style={{
-                            marginRight: "10px",
-                            marginLeft: "20px",
-                            marginTop: "5px",
-                          }}
-                        >
-                          Beli
-                        </h6>
-                        <h6 style={{ marginTop: "5px" }}>Rp 249.000</h6>
-                      </div>
-                    </button>
+                    {course.price === 0 ? (
+                      <button
+                        className="btn btn-free"
+                        style={{ margin: "0px", borderRadius: "35px" }}
+                      >
+                        <h6 style={{ marginTop: "5px" }}>Gratis</h6>
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-premium"
+                        style={{ margin: "0px", borderRadius: "35px" }}
+                      >
+                        <div className="d-flex">
+                          <IoDiamond className="icon-premium" />
+                          <h6
+                            style={{
+                              marginRight: "10px",
+                              marginLeft: "20px",
+                              marginTop: "5px",
+                            }}
+                          >
+                            Beli
+                          </h6>
+                          <h6 style={{ marginTop: "5px" }}>
+                            Rp {course.price}
+                          </h6>
+                        </div>
+                      </button>
+                    )}
                   </Link>
                 </Card.Body>
               </Card>
@@ -162,19 +208,31 @@ function WebHomepage() {
           color: #fff;
         }
 
-        .btn-beli {
+        .btn-free {
           background-color: #489CFF;
           color: #fff;
-          padding: 3px;
-          width: 57%;
+          padding: 0.3em;
+          width: 40%;
         }
 
-        .btn-beli:hover {
+        .btn-free:hover {
           background-color: #6148FF;
           color: #fff;
         }
 
-        .icon-beli {
+        .btn-premium {
+          background-color: #489CFF;
+          color: #fff;
+          padding: 0.3em;
+          width: 57%;
+        }
+
+        .btn-premium:hover {
+          background-color: #6148FF;
+          color: #fff;
+        }
+
+        .icon-premium {
           margin-left: 13px;
           margin-top: 7px;
           margin-right: -8px;

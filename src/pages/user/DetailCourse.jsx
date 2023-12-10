@@ -10,12 +10,43 @@ import ReactPlayer from "react-player";
 import { FaStar } from "react-icons/fa";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaAddressBook } from "react-icons/fa";
+import axios from "axios";
+import { useEffect, useState } from 'react';
 
 const DetailCourse = () => {
-  const VIDEO_PATH = "https://youtu.be/ixOd42SEUF0";
   const telegramGroupUrl = "https://t.me/+g7QgBy1YNd40Zjc1";
+
+  const { courseCode } = useParams();
+  const [dataCourse, setDataCourse] = useState(null);
+
+  useEffect(() => {
+    const detailApiUrl = `${import.meta.env.VITE_API}/api/course/${courseCode}`;
+
+    // const token = localStorage.getItem('token');
+
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // };
+
+    axios.get(detailApiUrl)
+      .then(response => {
+        setDataCourse(response.data.data);
+        console.log({response:response.data})
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, [courseCode]);
+
+  if (!dataCourse) {
+    return <p>Loading...</p>;
+  }
+console.log({dataCourse})
+  const VIDEO_PATH = `${import.meta.env.VITE_API}/api/course/${dataCourse.chapter[0].subject[0].videoLink}`;
 
   return (
     <>
@@ -59,7 +90,7 @@ const DetailCourse = () => {
                 fontWeight: "800",
               }}
             >
-              UI/UX Design
+              {dataCourse.category}
             </a>
             <div className="ms-auto" style={{ fontWeight: "700" }}>
               <FaStar style={{ color: "#F9CC00", marginBottom: "5px" }} /> 5.0
@@ -68,12 +99,12 @@ const DetailCourse = () => {
 
           <h2 style={{ fontWeight: "700", margin: "0px" }}>
             <a href="#" style={{ textDecoration: "none", color: "black" }}>
-              Intro to Basic of User Interaction Design
+            {dataCourse.name}
             </a>
           </h2>
           <p style={{ fontWeight: "600", margin: "0px", marginTop: "5px" }}>
             <a href="#" style={{ textDecoration: "none", color: "black" }}>
-              by Simon Doe
+              by {dataCourse.author}
             </a>
           </p>
           <div className="d-flex" style={{ marginTop: "10px" }}>
@@ -86,7 +117,7 @@ const DetailCourse = () => {
                 fontWeight: "600",
               }}
             >
-              Advanced Level
+              {dataCourse.level} Level
             </p>
             <RiBook3Line style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
             <p
@@ -339,26 +370,7 @@ const DetailCourse = () => {
                   lineHeight: "30px",
                 }}
               >
-                Design system adalah kumpulan komponen design, code, ataupun
-                dokumentasi yang dapat digunakan sebagai panduan utama yang
-                memunginkan designer serta developer memiliki lebih banyak
-                kontrol atas berbagai platform. Dengan hadirnya design system,
-                dapat menjaga konsistensi tampilan user interface dan
-                meningkatkan user experience menjadi lebih baik. Disisi bisnis,
-                design system sangat berguna dalam menghemat waktu dan biaya
-                ketika mengembangkan suatu produk.
-                <br />
-                Bersama mentor XXX, kita akan mempelajari design system dari
-                mulai manfaat, alur kerja pembuatannya, tools yang digunakan,
-                hingga pada akhirnya, kita akan membuat MVP dari design system.
-                Selain itu, mentor juga akan menjelaskan berbagai resource yang
-                dibutuhkan untuk mencari inspirasi mengenai design system.{" "}
-                <br />
-                Kelas ini sesuai untuk Anda yang ingin memahami apa itu design
-                system. Tidak hanya ditujukan untuk UI/UX Designer ataupun
-                Developer, kelas ini sangat sesuai untuk stakeholder lain agar
-                dapat memudahkan tim dalam bekerja sama. Yuk segera daftar dan
-                kami tunggu di kelas ya!
+                {dataCourse.description}
               </p>
               <br />
               <h2 style={{ fontWeight: "700", fontSize: "25px" }}>
@@ -398,7 +410,7 @@ const DetailCourse = () => {
             <div style={{ margin: "15px" }}>
               <div className="row">
               <div className="col-7">
-                <h2 style={{ fontWeight: "700", fontSize: "22px" }}>
+                <h2 style={{ fontWeight: "700", fontSize: "20px" }}>
                   Materi Belajar
                 </h2>
                 
@@ -419,7 +431,7 @@ const DetailCourse = () => {
                 </div>
               </div>
               </div>
-              <p style={{ marginTop: "10px" }}>
+              {/* <p style={{ marginTop: "10px" }}>
                 <a
                   href="#"
                   style={{
@@ -431,10 +443,65 @@ const DetailCourse = () => {
                     fontWeight: "700",
                   }}
                 >
-                  Chapter 1 - Pendahuluan
+                  Chapter {dataCourse.chapter.length > 0 && dataCourse.chapter[0].chapterNo} - {dataCourse.chapter.length > 0 && dataCourse.chapter[0].chapterTitle}
                 </a>
-              </p>
+              </p> */}
               <ol style={{ marginLeft: "-15px", marginTop: "18px" }}>
+  {dataCourse.chapter.map((chapter, chapterIndex) => (
+    <React.Fragment key={chapterIndex}>
+      <p style={{ marginTop: "25px", marginLeft: "-18px" }}>
+        <a
+          href="#"
+          style={{
+            margin: "0px",
+            padding: "0px",
+            textDecoration: "none",
+            color: "#6148FF",
+            fontSize: "15px",
+            fontWeight: "700",
+          }}
+        >
+          Chapter {chapter.chapterNo} - {chapter.chapterTitle}
+        </a>
+      </p>
+      {chapter.subject.map((subject, subjectIndex) => (
+        <React.Fragment key={subjectIndex}>
+          <li
+            style={{
+              fontWeight: "400",
+              fontSize: "15px",
+              marginBottom: "20px",
+            }}
+          >
+            {subject.videoTitle}
+            {subject.subjectType === 'FREE' ? (
+              <FaCirclePlay
+                style={{
+                  marginLeft: "15px",
+                  color: "#73CA5C",
+                  width: "20px",
+                  height: "20px",
+                }}
+              />
+            ) : (
+              <PiLockKeyFill
+                style={{
+                  marginLeft: "15px",
+                  color: "#D9D9D9",
+                  width: "20px",
+                  height: "20px",
+                }}
+              />
+            )}
+          </li>
+          <hr />
+        </React.Fragment>
+      ))}
+    </React.Fragment>
+  ))}
+</ol>
+
+              {/* <ol style={{ marginLeft: "-15px", marginTop: "18px" }}>
                 <li
                   style={{
                     fontWeight: "400",
@@ -442,25 +509,7 @@ const DetailCourse = () => {
                     marginBottom: "20px",
                   }}
                 >
-                  Tujuan Mengikuti Kelas Design System
-                  <FaCirclePlay
-                    style={{
-                      marginLeft: "15px",
-                      color: "#73CA5C",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                </li>
-                <hr />
-                <li
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Tujuan Mengikuti Kelas Design System
+                  {dataCourse.chapter[0].subject[0].videoTitle}
                   <FaCirclePlay
                     style={{
                       marginLeft: "15px",
@@ -523,60 +572,7 @@ const DetailCourse = () => {
                   />
                 </li>
                 <hr />
-                <li
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Tujuan Mengikuti Kelas Design System
-                  <PiLockKeyFill
-                    style={{
-                      marginLeft: "15px",
-                      color: "#D9D9D9",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                </li>
-                <hr />
-                <li
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Tujuan Mengikuti Kelas Design System
-                  <PiLockKeyFill
-                    style={{
-                      marginLeft: "15px",
-                      color: "#D9D9D9",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                </li>
-                <hr />
-                <li
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Tujuan Mengikuti Kelas Design System
-                  <PiLockKeyFill
-                    style={{
-                      marginLeft: "15px",
-                      color: "#D9D9D9",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                </li>
-              </ol>
+              </ol> */}
             </div>
           </div>
         </div>
