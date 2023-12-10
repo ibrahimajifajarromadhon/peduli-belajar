@@ -65,7 +65,7 @@ const UsersActivity = () => {
               style={iconStyle}
             />
           </div>
-          <div className="col-md-8">
+          <div className="col-md-9">
             <Card.Body>
               <Card.Title style={textStyle}>20</Card.Title>
               <Card.Text style={textStyle}>Premium Class</Card.Text>
