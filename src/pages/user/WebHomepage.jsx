@@ -32,7 +32,6 @@ function WebHomepage() {
         setCourses(response.data.data);
         console.log({response:response.data})
         const categories = response.data.data.map((course) => course.category);
-        // Set unique categories by converting the array to a Set and back to an array
         setUniqueCategories(Array.from(new Set(categories)));
       })
       .catch((error) => {
