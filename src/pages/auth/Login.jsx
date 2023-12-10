@@ -66,34 +66,7 @@ function Login() {
   // const authenticateUser = (enteredEmail, enteredPassword) => {
   //   return enteredEmail === "test@user.com" && enteredPassword === "password";
   // };
-  // const handleLogin = async () => {
-  //   try {
-  //     const response = await fetch('https://peduli-belajar-backend-production.up.railway.app/api/auth/signin', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         email: email,
-  //         password: password,
-  //       }),
-  //     });
 
-  //     if (response.ok) {
-  //       // Registrasi berhasil
-  //       const data = await response.json();
-  //       console.log('Login berhasil:', data);
-  //       // Lakukan sesuatu setelah registrasi berhasil
-  //     } else {
-  //       // Registrasi gagal
-  //       console.log('Login gagal');
-  //       // Lakukan sesuatu jika registrasi gagal
-  //     }
-  //   } catch (error) {
-  //     console.error('Terjadi kesalahan:', error);
-  //     // Lakukan sesuatu jika terjadi kesalahan
-  //   }
-  // }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -195,10 +168,8 @@ function Login() {
       <div className="mb-3">
         
         <button
-          // to={`/allCourseClass`}
           className="btn rounded-4 text-light"
           style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
-          // onClick={handleLogin}
           type="submit"
         >
           Masuk

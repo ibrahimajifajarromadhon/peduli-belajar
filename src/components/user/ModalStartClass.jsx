@@ -5,23 +5,7 @@ import { Link } from "react-router-dom";
 const ModalStartClass = () => {
   return (
     <>
-    {/* <div className='modal-bottom'>
-    <div class="offcanvas offcanvas-bottom" tabIndex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body small">
-    <img src={img} alt="" style={{marginLeft:'150px'}}/>
-    <div className='text-center'>
-        <b>Persiapkan hal berikut untuk belajar yang maksimal:</b>
-        <p className='mt-3'>Mempunyai akun Figma atau Install Adobe XD <br/> 
-        Menggunakan internet minimal kecepatan 2Mbps <br/>
-        Belajar di tempat yang nyaman</p>
-    </div>    
-  </div>
-</div>
-    </div> */}
+
     <div
       className="modal fade"
       id="exampleModal"

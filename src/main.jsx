@@ -71,7 +71,7 @@ const router = createBrowserRouter(
         <Route element={<SuccessBayarCourse />} path="successBayarCourse"></Route>
         <Route element={<FreeClassHomepage />} path="freeClass"></Route>{" "}
         {/*ubah ke filter*/}
-        <Route element={<DetailCourse />} path="detailClass/:id"></Route>
+        <Route element={<DetailCourse />} path="detailClass/:courseCode"></Route>
         <Route element={<UserProfile />} path="userProfile">
         <Route index element={<Navigate to="myProfile" replace />} />
           <Route element={<MyProfile />} path="myProfile"></Route>
