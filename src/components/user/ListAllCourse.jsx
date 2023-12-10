@@ -50,7 +50,7 @@ const ListAllCourse = ({filter}) => {
   return (
     <div className="row row-cols-1 row-cols-md-2 g-4 ">
       {filteredCourses.map((course) => (
-        <div className="col" key={course.id}>
+        <div className="col" key={course.courseCode}>
           <div className="card" style={{ borderRadius: "22px" }}>
             <img src={ImgCourse} className="card-img-top" alt="..."/>
             <div className="card-body">
@@ -99,7 +99,7 @@ const ListAllCourse = ({filter}) => {
               </div>
               <div>
               {course.type === "GRATIS" ? (
-                <Link to={`/detailClass/${course.id}`} className="btn btn-kelas">
+                <Link to={`/detailClass/${course.courseCode}`} className="btn btn-kelas">
                   Mulai Kelas
                 </Link>
               ) : (
