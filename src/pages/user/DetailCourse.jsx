@@ -99,12 +99,12 @@ console.log({dataCourse})
 
           <h2 style={{ fontWeight: "700", margin: "0px" }}>
             <a href="#" style={{ textDecoration: "none", color: "black" }}>
-            {dataCourse.name}
+            {dataCourse.title}
             </a>
           </h2>
           <p style={{ fontWeight: "600", margin: "0px", marginTop: "5px" }}>
             <a href="#" style={{ textDecoration: "none", color: "black" }}>
-              by {dataCourse.author}
+              by {dataCourse.teacher}
             </a>
           </p>
           <div className="d-flex" style={{ marginTop: "10px" }}>

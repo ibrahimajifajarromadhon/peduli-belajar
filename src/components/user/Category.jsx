@@ -63,7 +63,7 @@ function Category() {
           {uniqueCategories.map((category) => {
             return (
               <Col key={category}>
-                <Link to={"/allCourseClass"} style={{ textDecoration: "none" }}>
+                <Link to={"/login"} style={{ textDecoration: "none" }}>
                   <a
                     href="#"
                     style={{ textDecoration: "none", color: "black" }}

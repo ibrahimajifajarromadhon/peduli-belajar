@@ -6,13 +6,15 @@ import {
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
+import axios from "axios";
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const [passwordValid, setPasswordValid] = useState(false);
   // const [validEmail, setValidEmail] = useState(false);
-  // const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   // const [isRegisteredEmail, setIsRegisteredEmail] = useState(true);
   // const [incorrectPassword, setIncorrectPassword] = useState(false);
   // const navigate = useNavigate();
@@ -64,43 +66,45 @@ function Login() {
   // const authenticateUser = (enteredEmail, enteredPassword) => {
   //   return enteredEmail === "test@user.com" && enteredPassword === "password";
   // };
-  const handleLogin = async () => {
+
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await fetch('https://peduli-belajar-backend-production.up.railway.app/api/auth/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+      let data = JSON.stringify({
+        email,
+        password,
       });
 
-      if (response.ok) {
-        // Registrasi berhasil
-        const data = await response.json();
-        console.log('Login berhasil:', data);
-        const { token } = data.data;
+      let config = {
+        method: "post",
+        url: `${import.meta.env.VITE_API}/api/auth/signin`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
 
-        localStorage.setItem("token", token);
-        // Lakukan sesuatu setelah registrasi berhasil
-      } else {
-        // Registrasi gagal
-        console.log('Login gagal');
-        // Lakukan sesuatu jika registrasi gagal
-      }
+      const response = await axios.request(config);
+      const { token } = response.data.data;
+
+      localStorage.setItem("token", token);
+
+      navigate("/allCourseClass");
+
     } catch (error) {
       console.error('Terjadi kesalahan:', error);
-      // Lakukan sesuatu jika terjadi kesalahan
     }
-  }
+  };
+
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        handleLogin();
-      }}> 
+      <form onSubmit={onSubmit}> 
       <h4 style={{ color: `var(--primary-purple)`, paddingBottom:"20px", fontWeight:"700"  }}>
         Masuk
       </h4>
@@ -138,7 +142,7 @@ function Login() {
           Password
         </label>
         <input
-          // type={showPassword ? "text" : "password"}
+          type={showPassword ? "text" : "password"}
           className="form-control rounded-4"
           id="formGroupExampleInput4"
           placeholder="Masukkan Password"
@@ -148,9 +152,9 @@ function Login() {
         />
         <span
           className="position-absolute top-50 end-0 translate-middle-y"
-          // onClick={togglePasswordVisibility}
+          onClick={togglePasswordVisibility}
         >
-          {/* {showPassword ? (
+          {showPassword ? (
             <FaEyeSlash
               style={{ marginRight: "15px", marginTop: "35px", color: "grey" }}
             />
@@ -158,16 +162,14 @@ function Login() {
             <FaEye
               style={{ marginRight: "15px", marginTop: "35px", color: "grey" }}
             />
-          )} */}
+          )}
         </span>
       </div>
       <div className="mb-3">
         
         <button
-          // to={`/allCourseClass`}
           className="btn rounded-4 text-light"
           style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
-          // onClick={handleLogin}
           type="submit"
         >
           Masuk

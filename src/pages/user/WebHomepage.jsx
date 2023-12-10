@@ -70,7 +70,7 @@ function WebHomepage() {
           </p>
         </div>
 
-        <Link to={"/allCourseClass"}>
+        <Link to={"/login"}>
           <button className="btn button">All</button>
           {uniqueCategories.map((category) => (
             <button key={category} className="btn button">

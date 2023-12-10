@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ListAllCourse from "../../components/user/ListAllCourse";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import FilterClass from "../../components/user/FilterClass";
 import { CiFilter } from "react-icons/ci";
 
 const AllCourseHomepage = () => {
+  const [filter, setFilter] = useState("all");
+
   return (
     <>
       <div style={{ backgroundColor: "#EBF3FC", marginTop: "4em" }}>
@@ -42,23 +44,25 @@ const AllCourseHomepage = () => {
             </div>
             <div className="col-md-8" style={{ marginBottom: "2em" }}>
               <div className="btn-menu d-flex mt-4">
-                <Link
-                  to={"/allCourseClass"}
-                  className="btn btn-light me-4"
+                <button
+                  className={`btn btn-light me-4 ${
+                    filter === "all" ? "active" : ""
+                  }`}
+                  onClick={() => setFilter("all")}
                   style={{
                     width: "20%",
-                    backgroundColor: "#6148FF",
-                    color: "white",
                     padding: "10px",
                     borderRadius: "15px",
                     fontWeight: "600",
                   }}
                 >
                   All
-                </Link>
-                <Link
-                  to={"/premiumClass"}
-                  className="btn btn-light me-4"
+                </button>
+                <button
+                  className={`btn btn-light me-4 ${
+                    filter === "premium" ? "active" : ""
+                  }`}
+                  onClick={() => setFilter("premium")}
                   style={{
                     width: "40%",
                     padding: "10px",
@@ -67,10 +71,12 @@ const AllCourseHomepage = () => {
                   }}
                 >
                   Kelas Premium
-                </Link>
-                <Link
-                  to={"/freeClass"}
-                  className="btn btn-light me-4"
+                </button>
+                <button
+                  className={`btn btn-light me-4 ${
+                    filter === "gratis" ? "active" : ""
+                  }`}
+                  onClick={() => setFilter("gratis")}
                   style={{
                     width: "30%",
                     padding: "10px",
@@ -79,10 +85,10 @@ const AllCourseHomepage = () => {
                   }}
                 >
                   Kelas Gratis
-                </Link>
+                </button>
               </div>
               <div className="mt-3">
-                <ListAllCourse />
+                <ListAllCourse filter={filter} />
               </div>
             </div>
           </div>
@@ -103,6 +109,10 @@ const AllCourseHomepage = () => {
           display: block;
           height: 10%;
         }
+      }
+      .btn-menu .btn.active {
+        background-color: #6148ff;
+        color: white;
       }
       `}
         </style>
