@@ -37,7 +37,7 @@ const Otp = () => {
         await axios.request(config);
         console.log({config: config});
         setSuccess(true);
-        navigate("/login");
+        navigate("/loginAdmin");
     } catch (error) {
       console.error('Error:', error);
       setFail(true);

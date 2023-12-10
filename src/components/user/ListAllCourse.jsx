@@ -62,8 +62,8 @@ const ListAllCourse = ({filter}) => {
                   <FaStar style={{ color: "yellow" }} /> 4.8
                 </div>
               </div>
-              <h6 className="card-title">{course.name}</h6>
-              <p className="card-text">by {course.author}</p>
+              <h6 className="card-title">{course.title}</h6>
+              <p className="card-text">by {course.teacher}</p>
               <div className="d-flex">
                 <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
                 <p

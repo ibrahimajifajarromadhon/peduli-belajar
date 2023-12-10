@@ -33,6 +33,8 @@ import MyProfile from "./components/user/MyProfile.jsx";
 import Notification from "./pages/user/Notification.jsx";
 import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import Otp from "./pages/auth/Otp.jsx";
+import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
+import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,8 +44,10 @@ const router = createBrowserRouter(
         <Route element={<LoginAdmin />} path="/loginAdmin"></Route>
         <Route element={<Login />} path="/login"></Route>
         <Route element={<Register />} path="/register"></Route>
+        <Route element={<RegisterAdmin />} path="/registerAdmin"></Route>
         <Route element={<ResetPassword />} path="/reset-password"></Route>
-        <Route element={<Otp />} path="/otp"></Route>
+        <Route element={<Otp />} path="/otp/:email"></Route>
+        <Route element={<OtpAdmin />} path="/otpAdmin/:email"></Route>
       </Route>
 
       <Route element={<Admin />} path="/admin">

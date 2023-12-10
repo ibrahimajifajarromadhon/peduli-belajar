@@ -45,7 +45,9 @@ const AllCourseHomepage = () => {
             <div className="col-md-8" style={{ marginBottom: "2em" }}>
               <div className="btn-menu d-flex mt-4">
                 <button
-                  className={`btn btn-light me-4 ${filter === "all" ? "active" : ""}`}
+                  className={`btn btn-light me-4 ${
+                    filter === "all" ? "active" : ""
+                  }`}
                   onClick={() => setFilter("all")}
                   style={{
                     width: "20%",
@@ -57,7 +59,9 @@ const AllCourseHomepage = () => {
                   All
                 </button>
                 <button
-                  className={`btn btn-light me-4 ${filter === "premium" ? "active" : ""}`}
+                  className={`btn btn-light me-4 ${
+                    filter === "premium" ? "active" : ""
+                  }`}
                   onClick={() => setFilter("premium")}
                   style={{
                     width: "40%",
@@ -69,7 +73,9 @@ const AllCourseHomepage = () => {
                   Kelas Premium
                 </button>
                 <button
-                  className={`btn btn-light me-4 ${filter === "gratis" ? "active" : "" }`}
+                  className={`btn btn-light me-4 ${
+                    filter === "gratis" ? "active" : ""
+                  }`}
                   onClick={() => setFilter("gratis")}
                   style={{
                     width: "30%",

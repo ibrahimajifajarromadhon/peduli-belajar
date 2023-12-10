@@ -46,7 +46,7 @@ function LoginAdmin() {
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
       <h4 style={{ color: `var(--primary-purple)`, textAlign: "center", paddingBottom:"20px", fontWeight:"700" }}>
-        Login      
+        Login Admin    
       </h4>
       <form onSubmit={onSubmit}>
       <div className="mb-3  position-relative">
@@ -100,8 +100,24 @@ function LoginAdmin() {
         </button>
       </div>
       </form>
+      <div className="text-center">
+        <p>
+          Belum punya akun?{" "}
+          <span>
+            <Link
+              to={`/registerAdmin`}
+              style={{
+                textDecoration: "none",
+                color: `var(--primary-purple)`,
+                fontWeight: "bold",
+              }}
+            >
+              Daftar di sini
+            </Link>
+          </span>
+        </p>
+      </div>
 
-      {/* Media Query for Large Screens */}
       <style >
         {`
           @media (max-width: 628px) {
