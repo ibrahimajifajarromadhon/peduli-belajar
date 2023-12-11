@@ -14,37 +14,12 @@ const Otp = () => {
   const [resendSuccess, setResendSuccess] = useState(false); 
   const navigate = useNavigate();
 
-  const navigate = useNavigate();
-
-  const location = useLocation();
-  const userEmail = location.state?.email || "";
-
-  // useEffect(() => {
-  //   if (!otpSent && counter > 0) {
-  //     otpRequest(userEmail).then((response) => {
-  //       setExpectedOtp(response.otp);
-  //       setOtpSent(true);
-  //     });
-  //   }
-  //   if (counter > 0 && !resendDisabled) {
-  //     const timer = setTimeout(() => setCounter(counter - 1), 1000);
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [counter, userEmail, resendDisabled]);
   useEffect(() => {
     if (counter > 0) {
       const timer = setTimeout(() => setCounter(counter - 1), 600);
       return () => clearTimeout(timer);
     }
-  
-    if (!otpSent && counter === 0) {
-      otpRequest(userEmail).then((response) => {
-        setExpectedOtp(response.otp);
-        setOtpSent(true); // Tandai bahwa OTP sudah terkirim
-      });
-    }
-  }, [counter, userEmail, otpSent]);
-  
+  }, [counter]);
 
   const handleVerification = async (e) => {
     e.preventDefault();
@@ -62,7 +37,7 @@ const Otp = () => {
         await axios.request(config);
         console.log({config: config});
         setSuccess(true);
-        navigate("/login");
+        navigate("/loginAdmin");
     } catch (error) {
       console.error('Error:', error);
       setFail(true);
@@ -107,7 +82,7 @@ const Otp = () => {
     <div className="" style={{ padding: '2em' }}>
       
       <Link to="/register">
-        <FaArrowLeft style={{ color: "var(--neutral-black)" }} />
+        <FaArrowLeft style={{ color: 'var(--neutral-black)' }} />
       </Link>
       <form onSubmit={handleVerification}>
       <h3 className='' style={{ marginTop: '20px', color: 'var(--primary-purple)', fontWeight: 700 }}>
@@ -143,19 +118,17 @@ const Otp = () => {
             </div>
             <br />
             {counter > 0 ? (
-              <p style={{ textAlign: "center" }}>
-                Kirim Ulang OTP dalam {counter} detik
-              </p>
+              <p style={{ textAlign: 'center' }}>Kirim Ulang OTP dalam {counter} detik</p>
             ) : (
               <span
                 style={{
-                  textAlign: "center",
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  color: "red",
+                  textAlign: 'center',
+                  display: 'block',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  color: 'red',
                   fontWeight: 700,
-                  cursor: "pointer",
+                  cursor: 'pointer',
                 }}
                 onClick={handleResendOTP}
               >
@@ -223,6 +196,8 @@ const Otp = () => {
       </style>
     </div>
   );
+  
+  
 };
 
 export default Otp;

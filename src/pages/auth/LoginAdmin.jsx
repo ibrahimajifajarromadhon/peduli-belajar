@@ -5,7 +5,7 @@ function LoginAdmin() {
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
       <h4 style={{ color: `var(--primary-purple)`, textAlign: "center", paddingBottom:"20px", fontWeight:"700" }}>
-        Login      
+        Login Admin    
       </h4>
       <div className="mb-3">
         <label htmlFor="formGroupExampleInput2" className="form-label">
@@ -39,8 +39,24 @@ function LoginAdmin() {
           Masuk
         </Link>
       </div>
+      <div className="text-center">
+        <p>
+          Belum punya akun?{" "}
+          <span>
+            <Link
+              to={`/registerAdmin`}
+              style={{
+                textDecoration: "none",
+                color: `var(--primary-purple)`,
+                fontWeight: "bold",
+              }}
+            >
+              Daftar di sini
+            </Link>
+          </span>
+        </p>
+      </div>
 
-      {/* Media Query for Large Screens */}
       <style >
         {`
           @media (max-width: 628px) {
