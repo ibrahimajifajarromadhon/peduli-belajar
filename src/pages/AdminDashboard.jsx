@@ -1,53 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TableAdmin from "../components/TableAdmin";
+import getStatusOrder from "../api/getStatusOrder";
 
 function AdminDashboard() {
-  const data = [
-    {
-      "first_name": "John",
-      "last_name": "Nelson",
-      "email": "john_nelson@live.com",
-      "status": "belum bayar",
-      "metode_pembayaran" : "Credit Card",
-      "tanggal_bayar" : "11, agustus 2023"
-    },
-    {
-      "first_name": "Rebecca",
-      "last_name": "Johnson",
-      "email": "rebecca_johnson@aol.com",
-      "status": "belum bayar",
-      "metode_pembayaran" : "Credit Card",
-      "tanggal_bayar" : "11, agustus 2023"
-    },
-    {
-      "first_name": "Benjamin",
-      "last_name": "Lewis",
-      "email": "benjamin@hotmail.com",
-      "status": "belum bayar",
-      "metode_pembayaran" : "Credit Card",
-      "tanggal_bayar" : "11, agustus 2023"
-    },
-    {
-      "first_name": "Jason",
-      "last_name": "King",
-      "email": "j_king@live.com",
-      "status": "belum bayar",
-      "metode_pembayaran" : "Credit Card",
-      "tanggal_bayar" : "11, agustus 2023"
-    },
-    {
-      "first_name": "Owen",
-      "last_name": "Davis",
-      "email": "owenjdavis@live.com",
-      "status": "belum bayar",
-      "metode_pembayaran" : "Credit Card",
-      "tanggal_bayar" : "11, agustus 2023"
-    },
-  ];
+  const [statusOrder, setStatusOrder] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getStatusOrder();
+
+        if (Array.isArray(response.data)) {
+          setStatusOrder(response.data);
+        } else {
+          console.log("data bukan array", response.data);
+        }
+      } catch (error) {
+        console.log("error fetching course:", error.message);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (!statusOrder || statusOrder.length === 0) {
+    return (
+      <p
+        style={{ color: `var(--primary-purple)`, fontWeight: "700" }}
+        className="text-center"
+      >
+        Loading...
+      </p>
+    );
+  }
+  const data = statusOrder.map((order) => ({
+    Kategori: order.category,
+    Kelas_Premium: order.title,
+    Status: order.status,
+    Metode_Pembayaran: order.paymentMethod,
+    Tanggal_Bayar: order.paymentDate
+  }))
 
   return (
     <>
-      <TableAdmin data={data} />
+      <TableAdmin data={data} coloredColumn={{positive: "--allert-green", negative: "--allert-red", column: {key: "Status", value: ["SUDAH BAYAR", "BELUM BAYAR"]}}}/>
     </>
   );
 }

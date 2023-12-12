@@ -1,7 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import Icon from "../assets/icon.svg";
+import getAllCourses from "../api/getAllCourse";
+
 const UsersActivity = () => {
+  const [courses, setCourses] = useState([]);
+  const [freeCourseCount, setFreeCourse] = useState(0);
+  const [premiumCourseCount, setPremiumCourse] = useState(0);
+
+  useState(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllCourses();
+
+        const freeCourse = response.data.filter(
+          (course) => course.type && course.type.toUpperCase() === "GRATIS"
+        ).length;
+
+        const premiumCourse = response.data.filter(
+          (course) => course.type && course.type.toUpperCase() === "PREMIUM"
+        ).length;
+
+        setFreeCourse(freeCourse);
+        setPremiumCourse(premiumCourse);
+        if (Array.isArray(response.data)) {
+          setCourses(response.data);
+        } else {
+          console.error("Received data is not an array:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching courses:", error.message);
+      }
+    };
+    fetchData();
+  }, []);
+
   const cardStyle = {
     maxWidth: "100%",
     marginBottom: "1em",
@@ -49,8 +82,8 @@ const UsersActivity = () => {
           </div>
           <div className="">
             <Card.Body>
-              <Card.Title style={textStyle}>25</Card.Title>
-              <Card.Text style={textStyle}>Active Class</Card.Text>
+              <Card.Title style={textStyle}>{freeCourseCount}</Card.Title>
+              <Card.Text style={textStyle}>Free Class</Card.Text>
             </Card.Body>
           </div>
         </div>
@@ -67,14 +100,14 @@ const UsersActivity = () => {
           </div>
           <div className="col-md-8">
             <Card.Body>
-              <Card.Title style={textStyle}>20</Card.Title>
+              <Card.Title style={textStyle}>{premiumCourseCount}</Card.Title>
               <Card.Text style={textStyle}>Premium Class</Card.Text>
             </Card.Body>
           </div>
         </div>
       </Card>
 
-      <style jsx>{`
+      <style>{`
         .activity-container {
           display: flex;
           justify-content: space-between;

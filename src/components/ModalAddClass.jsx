@@ -1,40 +1,63 @@
 import React, { useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
+import { createClass } from "../api/createClass";
 
 function ModalAddClass() {
   const [classData, setClassData] = useState({
-    name: "",
+    title: "",
     category: "",
     courseCode: "",
     type: "",
     level: "",
     price: 0,
     description: "",
-    chapters: [],
+    teacher: "",
+    chapter: [],
   });
 
   const handleInputChange = (field, value) => {
-    setClassData((prevData) => ({
-      ...prevData,
-      [field]: value,
-    }));
+    setClassData((prevData) => {
+      console.log(prevData);
+      return {
+        ...prevData,
+        [field]: value,
+      };
+    });
   };
 
   const addChapter = () => {
-    setClassData((prevData) => ({
-      ...prevData,
-      chapters: [
-        ...prevData.chapters,
-        {
-          chapter_no: prevData.chapters.length + 1,
-          chapter_title: "",
-          subjects: [
-            { subject_no: 1, video_title: "", video_link: "" },
-            { subject_no: 2, video_title: "", video_link: "" },
-          ],
-        },
-      ],
-    }));
+    setClassData((prevData) => {
+      console.log(prevData);
+      return {
+        ...prevData,
+        chapter: [
+          ...prevData.chapter,
+          {
+            chapterNo: prevData.chapter.length + 1,
+            chapterTitle: "",
+            subject: [],
+          },
+        ],
+      };
+    });
+  };
+
+  const addSubject = (chapterIndex, isPremium) => {
+    setClassData((prevData) => {
+      const updatedChapters = [...prevData.chapter];
+      if (chapterIndex >= 0 && chapterIndex < updatedChapters.length) {
+        updatedChapters[chapterIndex].subject.push({
+          subjectNo: updatedChapters[chapterIndex].subject.length + 1,
+          videoTitle: "",
+          videoLink: "",
+          subjectType: { name: isPremium ? "PREMIUM" : "FREE" },
+        });
+      }
+      return {
+        ...prevData,
+        chapter: updatedChapters,
+      };
+    });
   };
 
   const handleChapterInputChange = (
@@ -44,24 +67,59 @@ function ModalAddClass() {
     subjectIndex
   ) => {
     setClassData((prevData) => {
-      const updatedChapters = [...prevData.chapters];
+      console.log(prevData);
+      const updatedChapters = [...prevData.chapter];
       if (chapterIndex !== undefined && subjectIndex !== undefined) {
-        updatedChapters[chapterIndex].subjects[subjectIndex][field] = value;
+        updatedChapters[chapterIndex].subject[subjectIndex][field] = value;
       } else if (chapterIndex !== undefined) {
         updatedChapters[chapterIndex][field] = value;
       }
       return {
         ...prevData,
-        chapters: updatedChapters,
+        chapter: updatedChapters,
       };
     });
   };
 
-  const handleSubmit = () => {
-    // Send classData to API using a POST request
-    console.log(classData);
-    // Add your API call logic here
+  const removeSubject = (chapterIndex, subjectIndex) => {
+    setClassData((prevData) => {
+      const updatedChapters = [...prevData.chapter];
+      updatedChapters[chapterIndex].subject.splice(subjectIndex, 1);
+      return {
+        ...prevData,
+        chapter: updatedChapters,
+      };
+    });
   };
+
+  const handleSubmit = async () => {
+    try {
+      await createClass(classData);
+      console.log("berhasil menambahkan");
+    } catch (error) {
+      console.log("gagal menambahkan", error.message);
+    }
+  };
+  // useEffect(() => {
+  //   if (isUpdateMode && courseIdToUpdate) {
+  //     const courseToUpdate = getCourseById(courseIdToUpdate); // Gantilah dengan cara yang sesuai
+  //     if (courseToUpdate) {
+  //       setClassData(courseToUpdate);
+  //     }
+  //   } else {
+  //     setClassData({
+  //       title: "",
+  //       category: "",
+  //       courseCode: "",
+  //       type: "",
+  //       level: "",
+  //       price: 0,
+  //       description: "",
+  //       teacher: "",
+  //       chapter: [],
+  //     });
+  //   }
+  // }, [isUpdateMode, courseIdToUpdate]);
 
   return (
     <div className="class">
@@ -110,9 +168,9 @@ function ModalAddClass() {
                       type="text"
                       className="form-control"
                       id="class-name"
-                      value={classData.name}
+                      value={classData.title}
                       onChange={(e) =>
-                        handleInputChange("name", e.target.value)
+                        handleInputChange("title", e.target.value)
                       }
                     />
                   </div>
@@ -120,35 +178,92 @@ function ModalAddClass() {
                     <label htmlFor="category-name" className="col-form-label">
                       Kategori
                     </label>
-                    <input className="form-control" id="category-name"></input>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="category-name"
+                      value={classData.category}
+                      onChange={(e) =>
+                        handleInputChange("category", e.target.value)
+                      }
+                    />
                   </div>
 
                   <div className="mb-1">
                     <label htmlFor="class-code" className="col-form-label">
                       Kode Kelas
                     </label>
-                    <input className="form-control" id="category-name"></input>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="class-code"
+                      value={classData.courseCode}
+                      onChange={(e) =>
+                        handleInputChange("courseCode", e.target.value)
+                      }
+                    />
                   </div>
 
                   <div className="mb-1">
                     <label htmlFor="class-type" className="col-form-label">
                       Tipe Kelas
                     </label>
-                    <input className="form-control" id="category-name"></input>
+                    <select
+                      className="form-control"
+                      id="type-name"
+                      value={classData.type}
+                      onChange={(e) =>
+                        handleInputChange("type", e.target.value)
+                      }
+                    >
+                      <option value="free">Free</option>
+                      <option value="premium">Premium</option>
+                    </select>
                   </div>
 
                   <div className="mb-1">
                     <label htmlFor="level-type" className="col-form-label">
                       Level
                     </label>
-                    <input className="form-control" id="category-name"></input>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="level-name"
+                      value={classData.level}
+                      onChange={(e) =>
+                        handleInputChange("level", e.target.value)
+                      }
+                    />
                   </div>
 
                   <div className="mb-1">
                     <label htmlFor="class-price" className="col-form-label">
                       Harga
                     </label>
-                    <input className="form-control" id="category-name"></input>
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="price-name"
+                      value={classData.price}
+                      onChange={(e) =>
+                        handleInputChange("price", e.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="mb-1">
+                    <label htmlFor="level-type" className="col-form-label">
+                      Author
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="author-name"
+                      value={classData.teacher}
+                      onChange={(e) =>
+                        handleInputChange("teacher", e.target.value)
+                      }
+                    />
                   </div>
 
                   <div className="mb-1">
@@ -158,15 +273,19 @@ function ModalAddClass() {
                     <textarea
                       className="form-control"
                       id="message-text"
+                      value={classData.description}
+                      onChange={(e) =>
+                        handleInputChange("description", e.target.value)
+                      }
                     ></textarea>
                   </div>
 
-                  {classData.chapters.map((chapter, chapterIndex) => (
+                  {classData.chapter.map((chapter, chapterIndex) => (
                     <div
                       key={chapterIndex}
                       className="bg-success-subtle p-3 mb-3 rounded"
                     >
-                      <h5>Chapter {chapter.chapter_no}</h5>
+                      <h5>Chapter {chapter.chapterNo}</h5>
                       <div className="mb-3">
                         <label
                           htmlFor={`chapter-title-${chapterIndex}`}
@@ -178,10 +297,10 @@ function ModalAddClass() {
                           type="text"
                           className="form-control"
                           id={`chapter-title-${chapterIndex}`}
-                          value={chapter.chapter_title}
+                          value={chapter.chapterTitle}
                           onChange={(e) =>
                             handleChapterInputChange(
-                              "chapter_title",
+                              "chapterTitle",
                               e.target.value,
                               chapterIndex
                             )
@@ -189,12 +308,12 @@ function ModalAddClass() {
                         />
                       </div>
 
-                      {chapter.subjects.map((subject, subjectIndex) => (
+                      {chapter.subject.map((subject, subjectIndex) => (
                         <div
                           key={subjectIndex}
                           className="bg-light p-3 mb-3 rounded"
                         >
-                          <h6>Subject {subject.subject_no}</h6>
+                          <h6>Subject {subject.subjectNo}</h6>
                           <div className="mb-3">
                             <label
                               htmlFor={`video-title-${chapterIndex}-${subjectIndex}`}
@@ -209,7 +328,7 @@ function ModalAddClass() {
                               value={subject.video_title}
                               onChange={(e) =>
                                 handleChapterInputChange(
-                                  "video_title",
+                                  "videoTitle",
                                   e.target.value,
                                   chapterIndex,
                                   subjectIndex
@@ -231,7 +350,7 @@ function ModalAddClass() {
                               value={subject.video_link}
                               onChange={(e) =>
                                 handleChapterInputChange(
-                                  "video_link",
+                                  "videoLink",
                                   e.target.value,
                                   chapterIndex,
                                   subjectIndex
@@ -239,24 +358,64 @@ function ModalAddClass() {
                               }
                             />
                           </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor={`subject-type-${chapterIndex}-${subjectIndex}`}
+                              className="form-label"
+                            >
+                              Subject Type
+                            </label>
+                            <select
+                              className="form-select"
+                              id={`subject-type-${chapterIndex}-${subjectIndex}`}
+                              value={subject.subjectType.name}
+                              onChange={(e) =>
+                                handleChapterInputChange(
+                                  "subjectType",
+                                  { name: e.target.value },
+                                  chapterIndex,
+                                  subjectIndex
+                                )
+                              }
+                            >
+                              <option value="FREE">FREE</option>
+                              <option value="PREMIUM">PREMIUM</option>
+                            </select>
+                          </div>
+                          <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={() =>
+                              removeSubject(chapterIndex, subjectIndex)
+                            }
+                          >
+                            Remove Subject
+                          </button>
                         </div>
                       ))}
+                      <button
+                        type="button"
+                        className="btn btn-success"
+                        onClick={() => addSubject(chapterIndex)}
+                      >
+                        Add Subject
+                      </button>
                     </div>
                   ))}
 
                   <button
                     type="button"
                     className="btn rounded-pill text-light my-3"
-                    style={{backgroundColor:`var(--primary-blue)`}}
+                    style={{ backgroundColor: `var(--primary-blue)` }}
                     onClick={addChapter}
-                    >
+                  >
                     Tambah Chapter
                   </button>
 
                   <button
                     type="button"
                     className="btn rounded-pill mx-4 text-light"
-                    style={{backgroundColor:`var(--primary-purple)`}}
+                    style={{ backgroundColor: `var(--primary-purple)` }}
                     onClick={handleSubmit}
                   >
                     Simpan
@@ -267,10 +426,10 @@ function ModalAddClass() {
                 <button
                   type="button"
                   className="btn rounded-pill text-light"
-                  style={{backgroundColor: `var(--neutral-grey)`}}
+                  style={{ backgroundColor: `var(--neutral-grey)` }}
                   data-bs-dismiss="modal"
                 >
-                  cancel
+                  Cancel
                 </button>
               </div>
             </div>
@@ -282,5 +441,3 @@ function ModalAddClass() {
 }
 
 export default ModalAddClass;
-
-                 

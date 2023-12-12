@@ -35,6 +35,8 @@ import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import Otp from "./pages/auth/Otp.jsx";
 import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
+import TestAPI from "./components/TestAPI.jsx";
+import TestCreateAPI from "./components/TestCreateAPI.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -80,6 +82,9 @@ const router = createBrowserRouter(
         </Route>
         <Route element={<Notification />} path="notification"></Route>
       </Route>
+
+      <Route element={<TestAPI/> } path={"/test"}></Route>
+      <Route element={<TestCreateAPI/> } path={"/testCreate"}></Route>
     </>
   )
 );

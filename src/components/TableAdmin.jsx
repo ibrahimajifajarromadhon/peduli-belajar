@@ -2,98 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { IoTrash } from "react-icons/io5";
+import deleteCourse from "../api/deleteCourse";
 
-const initialUpdateData = {};
-
-const UpdateModal = ({
-  isOpen,
-  onClose,
-  onUpdate,
-  updateData,
-  setUpdateData,
-}) => {
-  const handleInputChange = (e, column) => {
-    setUpdateData({
-      ...updateData,
-      [column]: e.target.value,
-    });
-  };
-
-  const handleUpdate = () => {
-    onUpdate();
-    onClose();
-  };
-
-  const handleCancelUpdate = () => {
-    // Cancel update, reset state
-    setUpdateData({});
-  };
-
-  return (
-    <div
-      className={`modal fade ${isOpen ? "show" : ""}`}
-      tabIndex="-1"
-      role="dialog"
-      aria-hidden={!isOpen}
-      style={{ display: isOpen ? "block" : "none" }}
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      aria-labelledby="staticBackdropLabel"
-    >
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Update Data</h5>
-            <button
-              type="button"
-              className="btn-close"
-              onClick={() => {
-                handleCancelUpdate();
-                onClose();
-              }}
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="modal-body">
-            <form>
-              {Object.keys(updateData).map((column, columnIndex) => (
-                <div key={columnIndex} className="mb-3">
-                  <label htmlFor={column} className="form-label">
-                    {column}
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id={column}
-                    value={updateData[column] || ""}
-                    onChange={(e) => handleInputChange(e, column)}
-                  />
-                </div>
-              ))}
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleUpdate}
-              >
-                Save
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const TableAdmin = ({ data }) => {
+const TableAdmin = ({ data, coloredColumn }) => {
   const location = useLocation();
   const isKelolaKelasRoute = location.pathname === "/admin/class";
-
   const columns = Object.keys(data[0]);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 992);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
-  const [updateData, setUpdateData] = useState(initialUpdateData);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const [isModalAddClassOpen, setIsModalAddClassOpen] = useState(false);
+  const [courseToUpdate, setCourseToUpdate] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -110,28 +29,18 @@ const TableAdmin = ({ data }) => {
   const handleUbah = (index) => {
     setSelectedRowIndex(index);
     setUpdateData(data[index]);
-    setIsModalOpen(true);
+    setCourseToUpdate(data[index]); 
+    setIsModalAddClassOpen(true);
   };
 
-  const handleUpdateData = () => {
-    // Implement your update logic here
-    console.log("Data to be updated:", updateData);
-    // Reset state
-    setSelectedRowIndex(null);
-    setUpdateData(initialUpdateData);
-    setIsModalOpen(false);
-  };
-
-  const handleCancelUpdate = () => {
-    // Cancel update, reset state
-    setSelectedRowIndex(null);
-    setUpdateData(initialUpdateData);
-    setIsModalOpen(false);
-  };
-
-  const handleDelete = (index) => {
-    // Implement delete logic here
-    console.log("Deleting data at index:", index);
+  const handleDelete = async (classCode) => {
+    try {
+      await deleteCourse(classCode);
+      console.log("data delete successfuly");
+      console.log(classCode);
+    } catch (error) {
+      console.log("error delete data");
+    }
   };
 
   return (
@@ -165,7 +74,7 @@ const TableAdmin = ({ data }) => {
                     </div>
                   ))}
                   {isKelolaKelasRoute && selectedRowIndex !== index && (
-                    <div>
+                    <div className="action-buttons">
                       <strong>Action:</strong>{" "}
                       <button
                         onClick={() => handleUbah(index)}
@@ -176,7 +85,7 @@ const TableAdmin = ({ data }) => {
                         </span>
                       </button>
                       <button
-                        onClick={() => handleDelete(index)}
+                        onClick={() => handleDelete(aData.Kode_Kelas)}
                         className="btn text-light rounded-pill"
                       >
                         <span style={{ color: `var(--allert-red)` }}>
@@ -189,6 +98,44 @@ const TableAdmin = ({ data }) => {
               </div>
             </div>
           ))}
+          <style>{`
+          .accordion-item {
+            margin-bottom: 1rem;
+          }
+          
+          .accordion-header {
+            background-color: var(--primary-purple); 
+          }
+          
+          .accordion-button {
+            color: var(--primary-purple); 
+            font-weight: 500;
+          }
+          
+          .accordion-collapse {
+            background-color: #fff; 
+            border: 1px solid #ddd; 
+            border-radius: 0.25rem;
+          }
+          
+          .mb-3 {
+            margin-bottom: 1rem;
+          }
+          
+          .action-buttons {
+            margin-top: 0.5rem;
+          }
+          .accordion-button::after {
+            background-color: var(--primary-light-grey);
+            padding: 1em;
+            border-radius: 50%;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background-position: center;
+
+        } 
+          `}</style>
         </div>
       ) : (
         <>
@@ -221,9 +168,39 @@ const TableAdmin = ({ data }) => {
               </thead>
               <tbody>
                 {data.map((aData, index) => (
-                  <tr key={index}>
+                  <tr key={aData.Kode_Kelas}>
                     {columns.map((column, i) => (
-                      <td key={i}>{aData[column]}</td>
+                      <td
+                        key={i}
+                        style={{
+                          color:
+                            column === coloredColumn.column.key &&
+                            //  ( column === "Type_Kelas" || column === "Status" ) &&
+                            aData[coloredColumn.column.key].toUpperCase() ===
+                              coloredColumn.column.value[0]
+                              ? `var(${coloredColumn.positive})`
+                              : column === coloredColumn.column.key &&
+                                aData[
+                                  coloredColumn.column.key
+                                ].toUpperCase() ===
+                                  coloredColumn.column.value[1]
+                              ? `var(${coloredColumn.negative})`
+                              : "black",
+
+                          fontWeight:
+                            column === "Type_Kelas" ||
+                            column === "Nama_Kelas" ||
+                            column === "Harga" ||
+                            column === "Level" ||
+                            column === "Status" ||
+                            column === "Kelas_Premium" ||
+                            column === "Metode_Pembayaran"
+                              ? "600"
+                              : "normal",
+                        }}
+                      >
+                        {aData[column]}
+                      </td>
                     ))}
                     {isKelolaKelasRoute && (
                       <td className="d-flex justify-content-center">
@@ -231,7 +208,6 @@ const TableAdmin = ({ data }) => {
                           selectedRowIndex !== index) && (
                           <>
                             <button
-                              onClick={() => handleUbah(index)}
                               style={{
                                 backgroundColor: `var(--primary-purple)`,
                               }}
@@ -243,7 +219,7 @@ const TableAdmin = ({ data }) => {
                               Update
                             </button>
                             <button
-                              onClick={() => handleDelete(index)}
+                              onClick={() => handleDelete(aData.Kode_Kelas)}
                               style={{
                                 backgroundColor: `var(--allert-red)`,
                               }}
@@ -262,19 +238,16 @@ const TableAdmin = ({ data }) => {
           </div>
         </>
       )}
-      {isKelolaKelasRoute && selectedRowIndex !== null && (
-        <UpdateModal
-          isOpen={isModalOpen}
-          onClose={() => {
-            handleCancelUpdate(); // Reset state in TableAdmin
-            setIsModalOpen(false); // Close the modal
-          }}
-          onUpdate={handleUpdateData}
-          updateData={updateData}
-          setUpdateData={setUpdateData}
-          backdrop="static"
-        />
-      )}
+      {/* <ModalAddClass
+        isOpen={isModalAddClassOpen}
+        onClose={() => {
+          handleCancelUpdate();
+          setIsModalAddClassOpen(false);
+        }}
+        onUpdate={handleUpdateData}
+        courseIdToUpdate={courseToUpdate?.courseId} // Kirim data yang akan diperbarui ke modal
+        // ... (props lainnya)
+      /> */}
     </div>
   );
 };

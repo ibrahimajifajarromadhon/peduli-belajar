@@ -10,60 +10,39 @@ import {
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [passwordValid, setPasswordValid] = useState(false);
-  // const [validEmail, setValidEmail] = useState(false);
-  // const [showPassword, setShowPassword] = useState(false);
-  // const [isRegisteredEmail, setIsRegisteredEmail] = useState(true);
-  // const [incorrectPassword, setIncorrectPassword] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await fetch('https://peduli-belajar-backend-production.up.railway.app/api/auth/signin', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         email: email,
+  //         password: password,
+  //       }),
+  //     });
 
-  // const handleEmailChange = (event) => {
-  //   const newEmail = event.target.value;
-  //   setEmail(newEmail);
+  //     if (response.ok) {
+  //       // Registrasi berhasil
+  //       const data = await response.json();
+  //       console.log('Login berhasil:', data);
+  //       const { token } = data.data;
 
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   if (emailRegex.test(newEmail)) {
-  //     setValidEmail(true);
-  //     setIsRegisteredEmail(checkIfEmailIsRegistered(newEmail));
-  //   } else {
-  //     setValidEmail(false);
+  //       localStorage.setItem("token", token);
+  //       // Lakukan sesuatu setelah registrasi berhasil
+  //       navigate("/allCourseClass")
+  //     } else {
+  //       // Registrasi gagal
+  //       console.log('Login gagal');
+  //       // Lakukan sesuatu jika registrasi gagal
+  //     }
+  //   } catch (error) {
+  //     console.error('Terjadi kesalahan:', error);
+  //     // Lakukan sesuatu jika terjadi kesalahan
   //   }
-  // };
-
-  // const handlePasswordChange = (event) => {
-  //   const newPassword = event.target.value;
-  //   setPassword(newPassword);
-
-  //   if (newPassword.length >= 8) {
-  //     setPasswordValid(true);
-  //   } else {
-  //     setPasswordValid(false);
-  //   }
-  // };
-
-  // const togglePasswordVisibility = () => {
-  //   setShowPassword(!showPassword);
-  // };
-
-  // const checkIfEmailIsRegistered = (checkEmail) => {
-  //   const registeredEmails = ["test@user.com"];
-  //   return registeredEmails.includes(checkEmail);
-  // };
-
-  // const handleLogin = () => {
-  //   const isAuthenticated = authenticateUser(email, password);
-
-  //   if (!isAuthenticated) {
-  //     setIncorrectPassword(true);
-  //   } else {
-  //     setIncorrectPassword(false);
-  //     navigate("/myClass");
-  //   }
-  // };
-
-  // const authenticateUser = (enteredEmail, enteredPassword) => {
-  //   return enteredEmail === "test@user.com" && enteredPassword === "password";
-  // };
+  // }
   const handleLogin = async () => {
     try {
       const response = await fetch('https://peduli-belajar-backend-production.up.railway.app/api/auth/signin', {
@@ -76,15 +55,20 @@ function Login() {
           password: password,
         }),
       });
-
+   
       if (response.ok) {
         // Registrasi berhasil
         const data = await response.json();
         console.log('Login berhasil:', data);
-        const { token } = data.data;
-
+        const { token, role } = data.data;
+   
         localStorage.setItem("token", token);
         // Lakukan sesuatu setelah registrasi berhasil
+        if (role === 'ADMIN') {
+          navigate("/admin");
+        } else if (role === 'USER') {
+          navigate("/myclass");
+        }
       } else {
         // Registrasi gagal
         console.log('Login gagal');
@@ -94,7 +78,8 @@ function Login() {
       console.error('Terjadi kesalahan:', error);
       // Lakukan sesuatu jika terjadi kesalahan
     }
-  }
+   }
+   
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
       <form onSubmit={(e) => {

@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+
 
 const Otp = () => {
   const inputRefs = useRef([]);
@@ -14,37 +16,29 @@ const Otp = () => {
   const [resendSuccess, setResendSuccess] = useState(false); 
   const navigate = useNavigate();
 
-  const navigate = useNavigate();
 
-  const location = useLocation();
-  const userEmail = location.state?.email || "";
+  // const location = useLocation();
+  // const userEmail = location.state?.email || "";
 
   // useEffect(() => {
-  //   if (!otpSent && counter > 0) {
-  //     otpRequest(userEmail).then((response) => {
-  //       setExpectedOtp(response.otp);
-  //       setOtpSent(true);
-  //     });
-  //   }
-  //   if (counter > 0 && !resendDisabled) {
-  //     const timer = setTimeout(() => setCounter(counter - 1), 1000);
+  //   if (counter > 0) {
+  //     const timer = setTimeout(() => setCounter(counter - 1), 600);
   //     return () => clearTimeout(timer);
   //   }
-  // }, [counter, userEmail, resendDisabled]);
+  
+  //   if (!otpSent && counter === 0) {
+  //     otpRequest(userEmail).then((response) => {
+  //       setExpectedOtp(response.otp);
+  //       setOtpSent(true); 
+  //     });
+  //   }
+  // }, [counter, userEmail, otpSent]);
   useEffect(() => {
     if (counter > 0) {
       const timer = setTimeout(() => setCounter(counter - 1), 600);
       return () => clearTimeout(timer);
     }
-  
-    if (!otpSent && counter === 0) {
-      otpRequest(userEmail).then((response) => {
-        setExpectedOtp(response.otp);
-        setOtpSent(true); // Tandai bahwa OTP sudah terkirim
-      });
-    }
-  }, [counter, userEmail, otpSent]);
-  
+  }, [counter]);
 
   const handleVerification = async (e) => {
     e.preventDefault();

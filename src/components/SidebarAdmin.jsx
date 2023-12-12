@@ -29,7 +29,7 @@ function SidebarAdmin() {
             <NavLink
               to="dashboard"
               className="nav-link text-light fs-5 d-flex align-items-center"
-              activeClassName="active"
+              activeclassname="active"
             >
               <LuLayoutDashboard />
               <span className="mx-3">Dashboard</span>
@@ -39,7 +39,7 @@ function SidebarAdmin() {
             <NavLink
               to="class"
               className="nav-link text-light fs-5 d-flex align-items-center mb-5"
-              activeClassName="active"
+              activeclassname="active"
             >
               <AiOutlineProfile />
               <span className="mx-3">Kelola Kelas</span>
@@ -62,7 +62,7 @@ function SidebarAdmin() {
             <NavLink
               to="dashboard"
               className="nav-link fs-5 d-flex align-items-center"
-              activeClassName="active"
+              activeclassname="active"
             >
               <LuLayoutDashboard className="text-dark" />
             </NavLink>
@@ -71,7 +71,7 @@ function SidebarAdmin() {
             <NavLink
               to="class"
               className="nav-link text-light fs-5 d-flex align-items-center "
-              activeClassName="active"
+              activeclassname="active"
             >
               <AiOutlineProfile className="text-dark" />
             </NavLink>
