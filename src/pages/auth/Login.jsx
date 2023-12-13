@@ -7,6 +7,7 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,9 +16,7 @@ function Login() {
   // const [passwordValid, setPasswordValid] = useState(false);
   // const [validEmail, setValidEmail] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  // const [isRegisteredEmail, setIsRegisteredEmail] = useState(true);
-  // const [incorrectPassword, setIncorrectPassword] = useState(false);
-  // const navigate = useNavigate();
+  const [validation, setValidation] = useState([]);
 
   // const handleEmailChange = (event) => {
   //   const newEmail = event.target.value;
@@ -26,7 +25,6 @@ function Login() {
   //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   //   if (emailRegex.test(newEmail)) {
   //     setValidEmail(true);
-  //     setIsRegisteredEmail(checkIfEmailIsRegistered(newEmail));
   //   } else {
   //     setValidEmail(false);
   //   }
@@ -42,31 +40,6 @@ function Login() {
   //     setPasswordValid(false);
   //   }
   // };
-
-  // const togglePasswordVisibility = () => {
-  //   setShowPassword(!showPassword);
-  // };
-
-  // const checkIfEmailIsRegistered = (checkEmail) => {
-  //   const registeredEmails = ["test@user.com"];
-  //   return registeredEmails.includes(checkEmail);
-  // };
-
-  // const handleLogin = () => {
-  //   const isAuthenticated = authenticateUser(email, password);
-
-  //   if (!isAuthenticated) {
-  //     setIncorrectPassword(true);
-  //   } else {
-  //     setIncorrectPassword(false);
-  //     navigate("/myClass");
-  //   }
-  // };
-
-  // const authenticateUser = (enteredEmail, enteredPassword) => {
-  //   return enteredEmail === "test@user.com" && enteredPassword === "password";
-  // };
-
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -93,12 +66,13 @@ function Login() {
       const response = await axios.request(config);
       const { token } = response.data.data;
 
-      localStorage.setItem("token", token);
+      Cookies.set("token", token);
 
       navigate("/allCourseClass");
 
     } catch (error) {
       console.error('Terjadi kesalahan:', error);
+      setValidation(error.response.data);
     }
   };
 
@@ -121,21 +95,6 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
           // onChange={handleEmailChange}
         />
-        {/* {email.length > 0 && (
-          <span className="position-absolute top-50 end-0 translate-middle-y">
-            {validEmail ? (
-              <FaCheckCircle
-                className="text-success"
-                style={{ marginRight: "10px", marginTop: "30px" }}
-              />
-            ) : (
-              <FaTimesCircle
-                className="text-danger"
-                style={{ marginRight: "10px", marginTop: "30px" }}
-              />
-            )}
-          </span>
-        )} */}
       </div>
       <div className="mb-3 position-relative">
         <label htmlFor="formGroupExampleInput4" className="form-label">
@@ -193,13 +152,10 @@ function Login() {
         </p>
         {/* {password.length > 0 && !passwordValid && (
           <div className="btn button-danger">Password min 8 karakter!</div>
-        )}
-        {!isRegisteredEmail && (
-          <div className="btn button-danger">Alamat email tidak terdaftar!</div>
-        )}
-        {incorrectPassword && (
-          <div className="btn button-danger">Maaf, kata sandi salah!</div>
         )} */}
+                  {validation.message && (
+            <div className="btn button-danger">{validation.message}</div>
+          )}
       </div>
       </form>
 

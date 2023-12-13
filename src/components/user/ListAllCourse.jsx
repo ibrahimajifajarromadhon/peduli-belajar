@@ -8,12 +8,13 @@ import { IoDiamond } from "react-icons/io5";
 import ModalBuyPremium from "./ModalBuyPremium";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const ListAllCourse = ({filter}) => {
   const [listCourse, setListCourse] = useState([]);
 
   const getCourse = async () => {
-    const token = localStorage.getItem("token");
+    const token = Cookies.get('token');
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_API}/api/course`,
