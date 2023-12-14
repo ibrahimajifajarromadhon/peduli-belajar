@@ -18,7 +18,7 @@ const ModalBuyPremium = ({ courseCode }) => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API}/api/course/${courseCode}`);
         setCourseData(response.data.data.courses);
-        console.log({response: response.datacourses})
+        console.log({response: response.data.data.courses})
       } catch (error) {
         console.error("Error fetching course data", error);
       }

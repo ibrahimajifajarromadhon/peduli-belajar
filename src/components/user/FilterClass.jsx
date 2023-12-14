@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 function FilterClass() {
+  const [selectedFilter, setSelectedFilter] = useState({
+    GRATIS: false,
+    PREMIUM: false,
+    UIUX_DESIGN: false,
+    WEB_DEVELOPMENT: false,
+    DATA_SCIENCE: false,
+    ANDROID_DEVELOPMENT: false,
+    IOS_DEVELOPMENT: false,
+    PRODUCT_MANAGEMENT: false,
+  })
   return (
     <>
     <div className="filter-bottom">
@@ -29,7 +39,7 @@ function FilterClass() {
                 id="checkboxBaruRs"
               />
               <label className="label-filter-new" htmlFor="checkboxBaruRs">
-                Paling Baru
+                Gratis
               </label>
             </div>
             <div className="form-check">
@@ -39,7 +49,7 @@ function FilterClass() {
                 id="checkboxPopularRs"
               />
               <label className="label-filter-popular" htmlFor="checkboxPopularRs">
-                Paling Populer
+                Premium
               </label>
             </div>
             <div className="form-check">

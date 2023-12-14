@@ -8,42 +8,39 @@ import { IoDiamond } from "react-icons/io5";
 import ModalBuyPremium from "./ModalBuyPremium";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const ListAllCourse = ({ filter }) => {
   const [listCourse, setListCourse] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
-  const getCourse = async (page) => {
-    const token = localStorage.getItem("token");
+  const getCourse = async () => {
+    const token = Cookies.get('token');
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API}/api/course/filter`,
+        `${import.meta.env.VITE_API}/api/course/filter?page=1&size=20&type=PREMIUM &type=GRATIS`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-          },
-          params: { page },
+          }
         }
       );
       setListCourse(response.data.data.courses);
-      setTotalPages(response.data.data.totalPage);
     } catch (error) {
       console.log("terjadi kesalahan");
     }
   };
 
   useEffect(() => {
-    getCourse(currentPage);
-  }, [currentPage]);
+    getCourse();
+  }, []);
 
   const filterCourses = () => {
     if (filter === "all") {
       return listCourse;
     } else if (filter === "premium") {
-      return listCourse.filter((course) => course.type === "PREMIUM");
+      return listCourse.filter((course) => course.price !== 0 );
     } else if (filter === "gratis") {
-      return listCourse.filter((course) => course.type === "GRATIS");
+      return listCourse.filter((course) => course.price === 0 );
     } else {
       return [];
     }
@@ -63,7 +60,7 @@ const ListAllCourse = ({ filter }) => {
                   {course.category.replace(/_/g, ' ')}
                 </h5>
                 <div className="ms-auto">
-                  <FaStar style={{ color: "yellow" }} /> 4.8
+                  <FaStar style={{ color: "yellow" }} /> {course.rating}
                 </div>
               </div>
               <h6 className="card-title">{course.title}</h6>
@@ -88,7 +85,7 @@ const ListAllCourse = ({ filter }) => {
                     fontWeight: "600",
                   }}
                 >
-                  10 Modul
+                  {course.modul} Modul
                 </p>
                 <RiTimeFill style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
                 <p
@@ -102,54 +99,29 @@ const ListAllCourse = ({ filter }) => {
                 </p>
               </div>
               <div>
-                {course.type === "GRATIS" ? (
-                  <Link
-                    to={`/detailClass/${course.courseCode}`}
-                    className="btn btn-kelas"
-                  >
-                    Mulai Kelas
-                  </Link>
-                ) : (
-                  <>
-                    <button
-                      className="btn btn-kelas"
-                      data-bs-toggle="modal"
-                      data-bs-target={`#exampleModal-${course.courseCode}`}
-                      type="button"
-                    >
-                      <IoDiamond />
-                      Premium
-                    </button>
-                    <ModalBuyPremium courseCode={course.courseCode} />
-                  </>
-                )}
+              {course.price === 0 ? (
+                <Link to={`/detailClass/${course.courseCode}`} className="btn btn-kelas">
+                  Mulai Kelas
+                </Link>
+              ) : (
+                <>
+                <button
+                  className="btn btn-kelas"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#exampleModal-${course.courseCode}`}
+                  type="button"
+                >
+                  <IoDiamond />
+                  Premium
+                </button>
+                <ModalBuyPremium courseCode={course.courseCode} />
+                </>
+              )}
               </div>
             </div>
           </div>
         </div>
       ))}
-      <div className="col">
-        <nav aria-label="Page navigation">
-          <ul className="pagination">
-            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-              <button
-                className="page-link"
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                Previous
-              </button>
-            </li>
-            <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
-              <button
-                className="page-link"
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
-                Next
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>
       <style>{`
         .btn-kelas  {
           padding: 5px;
