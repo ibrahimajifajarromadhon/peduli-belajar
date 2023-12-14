@@ -7,6 +7,7 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 import axios from "axios";
+import Cookies from "js-cookie"; // Import the js-cookie library
 
 function Login() {
   const navigate = useNavigate();
@@ -92,8 +93,13 @@ function Login() {
 
       const response = await axios.request(config);
       const { token } = response.data.data;
-
+      
+      // Log to check if the token is received
+      console.log('Received Token:', token);
+      
+      // Set the token in both localStorage and a cookie
       localStorage.setItem("token", token);
+      Cookies.set("token", token, { expires: 7 }); // Set cookie expiration as needed
 
       navigate("/allCourseClass");
 

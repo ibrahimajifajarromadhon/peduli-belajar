@@ -17,21 +17,14 @@ function WebHomepage() {
   const [uniqueCategories, setUniqueCategories] = useState([]);
 
   useEffect(() => {
-    const apiUrl = `${import.meta.env.VITE_API}/api/course`;
-    // const token = localStorage.getItem('token');
-
-    // const config = {
-    //     headers: {
-    //         Authorization: `Bearer ${token}`
-    //     }
-    // };
+    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter`;
 
     axios
       .get(apiUrl)
       .then((response) => {
-        setCourses(response.data.data);
-        console.log({response:response.data})
-        const categories = response.data.data.map((course) => course.category);
+        setCourses(response.data.data.courses);
+        console.log({response:response.data.data})
+        const categories = response.data.data.courses.map((course) => course.category);
         setUniqueCategories(Array.from(new Set(categories)));
       })
       .catch((error) => {
@@ -74,7 +67,7 @@ function WebHomepage() {
           <button className="btn button">All</button>
           {uniqueCategories.map((category) => (
             <button key={category} className="btn button">
-              {category}
+              {category.replace(/_/g, ' ')}
             </button>
           ))}
         </Link>
@@ -101,7 +94,7 @@ function WebHomepage() {
                         fontWeight: "800",
                       }}
                     >
-                      {course.category}
+                      {course.category.replace(/_/g, ' ')}
                     </a>
                     <div className="ms-auto">
                       <FaStar style={{ color: "yellow", fontWeight: "700" }} />{" "}
@@ -124,7 +117,7 @@ function WebHomepage() {
                         fontWeight: "600",
                       }}
                     >
-                      {course.level} Level
+                      {course.level} LEVEL
                     </p>
                     <RiBook3Line
                       style={{ color: "#73CA5C", marginLeft: "30px" }}
@@ -179,7 +172,7 @@ function WebHomepage() {
                             Beli
                           </h6>
                           <h6 style={{ marginTop: "5px" }}>
-                            Rp {course.price}
+                            Rp {course.price.toLocaleString()}
                           </h6>
                         </div>
                       </button>

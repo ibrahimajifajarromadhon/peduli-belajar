@@ -1,41 +1,93 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Img from "../../assets/image.png";
 import { Card, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MasterCard from "../../assets/mastercard.png";
 import Visa from "../../assets/visa.png";
 import Amex from "../../assets/amex.png";
 import Paypal from "../../assets/paypal.png";
+import BRI from "../../assets/BRI.png";
+import BTN from "../../assets/BTN.png";
+import BSI from "../../assets/BSI.png";
+import Muamalat from "../../assets/Muamalat.png";
+import { useLocation } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const BayarCourse = () => {
+  const [paymentMethod, setPaymentMethod] = useState(""); 
+  const [emailUser, setEmailUser] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email || "";
+  const courseData = location.state?.courseData || "";
+  const price = courseData?.price || 0;
+  const ppn = price * 0.11;
+  const total = price - ppn;
+
+  useEffect(() => {
+    setEmailUser(location.state?.email || "");
+  }, [location.state]);
+
+  const handleBack = () => {
+    navigate(-1, { state: { emailUser } });
+  };
+
+  console.log({paymentMethod})
+
+  const handlePayment = async () => {
+    try {
+      const paymentData = {
+        email: email,
+        courseCode: courseData?.courseCode || "",
+        paymentMethod: paymentMethod || "",
+      };
+
+      const token = Cookies.get("token");
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await fetch(`${import.meta.env.VITE_API}/api/order`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(paymentData),
+      });
+
+      if (response.ok) {
+        console.log("Pembayaran berhasil!");
+        navigate(`/successBayarCourse`, { state: { email } });
+      } else {
+        console.error("Gagal melakukan pembayaran");
+      }
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+    }
+  };
+
   return (
     <>
       <div className="container" style={{ marginTop: "55px" }}>
-        <Link
-          to={`/premiumClass`}
-          style={{ textDecoration: "none", color: "#fff" }}
+        <div
+          className="d-flex"
+          onClick={handleBack}
+          style={{ textDecoration: "none", color: "black", cursor: "pointer" }}
         >
-          <a
-            className="d-flex"
-            href="#"
-            style={{ textDecoration: "none", color: "black" }}
+          <FaArrowLeft style={{ marginTop: "30px", marginBottom: "10px" }} />
+          <p
+            style={{
+              margin: "0px",
+              marginTop: "25px",
+              fontWeight: "700",
+              marginLeft: "15px",
+              marginBottom: "10px",
+            }}
           >
-            <FaArrowLeft style={{ marginTop: "30px", marginBottom: "10px" }} />
-            <p
-              style={{
-                margin: "0px",
-                marginTop: "25px",
-                fontWeight: "700",
-                marginLeft: "15px",
-                marginBottom: "10px",
-              }}
-            >
-              Kembali
-            </p>
-          </a>
-        </Link>
+            Kembali
+          </p>
+        </div>
         <div className="d-flex justify-content-center batas">
           <button className="button">
             Selesaikan Pembayaran sampai 10 Maret 2023 12:00
@@ -59,6 +111,7 @@ const BayarCourse = () => {
                     data-bs-target="#flush-collapseOne"
                     aria-expanded="false"
                     aria-controls="flush-collapseOne"
+            onClick={() => setPaymentMethod("Bank Transfer")}
                   >
                     Bank Transfer
                   </button>
@@ -72,56 +125,27 @@ const BayarCourse = () => {
                   <div className="accordion-body">
                     <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
                       <a href="#">
-                        <img src={MasterCard} alt="" />
+                        <img src={BRI} alt="Bank BRI" style={{width:"2.5em", height:"1em"}} />
                       </a>
                       <a href="#">
-                        <img src={Visa} alt="" />
+                        <img src={BTN} alt="Bank BTN" style={{width:"3em", height:"1.3em"}}/>
                       </a>
                       <a href="#">
-                        <img src={Amex} alt="" />
+                        <img src={BSI} alt="Bank BSI" style={{width:"2.7em", height:"1.1em"}}/>
                       </a>
                       <a href="#">
-                        <img src={Paypal} alt="" />
+                        <img src={Muamalat} alt="Bank Muamalat" style={{width:"3.5em", height:"1.4em"}}/>
                       </a>
                     </div>
                     <form>
                       <div className="form-group1">
-                        <label htmlFor="cardNumber">Card number</label>
+                        <label htmlFor="virtualAccount">Virtual Account</label>
                         <input
                           type="text"
-                          id="cardNumber"
-                          className="form-control"
-                          placeholder="4480 0000 0000 0000"
+                          id="virtualAccountNumber"
+                          className="form-control-plaintext"
+                          value="3118 6000 0001 031"
                         />
-                      </div>
-                      <div className="form-group1">
-                        <label htmlFor="cardHolderName">Card holder name</label>
-                        <input
-                          type="text"
-                          id="cardHolderName"
-                          className="form-control"
-                          placeholder="John Doe"
-                        />
-                      </div>
-                      <div className="d-flex justify-content-between">
-                        <div className="form-group">
-                          <label htmlFor="cvv">CVV</label>
-                          <input
-                            type="text"
-                            id="cvv"
-                            className="form-control"
-                            placeholder="000"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="expireDate">Expiry date</label>
-                          <input
-                            type="text"
-                            id="expireDate"
-                            className="form-control"
-                            placeholder="07/24"
-                          />
-                        </div>
                       </div>
                     </form>
                   </div>
@@ -136,6 +160,7 @@ const BayarCourse = () => {
                     data-bs-target="#flush-collapseTwo"
                     aria-expanded="false"
                     aria-controls="flush-collapseTwo"
+                    onClick={() => setPaymentMethod("Credit Card")}
                   >
                     Credit Card
                   </button>
@@ -163,21 +188,21 @@ const BayarCourse = () => {
                     </div>
                     <form>
                       <div className="form-group1">
-                        <label htmlFor="cardNumber">Card number</label>
+                        <label htmlFor="cardNumber">Card Number</label>
                         <input
                           type="text"
                           id="cardNumber"
-                          className="form-control"
-                          placeholder="4480 0000 0000 0000"
+                          className="form-control-plaintext"
+                          value="4480 0000 0000 0000"
                         />
                       </div>
                       <div className="form-group1">
-                        <label htmlFor="cardHolderName">Card holder name</label>
+                        <label htmlFor="cardHolderName">Card Holder Name</label>
                         <input
                           type="text"
                           id="cardHolderName"
-                          className="form-control"
-                          placeholder="John Doe"
+                          className="form-control-plaintext"
+                          value="John Doe"
                         />
                       </div>
                       <div className="d-flex justify-content-between">
@@ -186,8 +211,8 @@ const BayarCourse = () => {
                           <input
                             type="text"
                             id="cvv"
-                            className="form-control"
-                            placeholder="000"
+                            className="form-control-plaintext"
+                            value="123"
                           />
                         </div>
                         <div className="form-group">
@@ -195,8 +220,8 @@ const BayarCourse = () => {
                           <input
                             type="text"
                             id="expireDate"
-                            className="form-control"
-                            placeholder="07/24"
+                            className="form-control-plaintext"
+                            value="12/23"
                           />
                         </div>
                       </div>
@@ -206,7 +231,7 @@ const BayarCourse = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-6 order-md-2 wrapper p-4">
+          <div className="col-md-6 order-md-2 wrapper p-4 mb-5">
             <p
               style={{
                 fontWeight: "700",
@@ -217,8 +242,8 @@ const BayarCourse = () => {
               Pembayaran Kelas
             </p>
             <Row xs={1} md={1} className="g-4">
-              {Array.from({ length: 1 }).map((_, idx) => (
-                <Col key={idx}>
+              {courseData && (
+                <Col>
                   <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
                     <Card.Img
                       variant="top"
@@ -238,45 +263,46 @@ const BayarCourse = () => {
                             fontWeight: "800",
                           }}
                         >
-                          UI/UX Design
+                          {courseData.category}
                         </a>
                       </div>
                       <Card.Title style={{ fontWeight: "700" }}>
-                        Belajar Web Designer dengan Figma
+                        {courseData.title}
                       </Card.Title>
                       <Card.Text style={{ fontWeight: "600" }}>
-                        by John Doe
+                        by {courseData.teacher}
                       </Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>
-              ))}
+              )}
             </Row>
-            <div className="d-flex justify-content-between payment mt-3">
-              <p>Harga</p>
-              <p>PPN 11%</p>
-              <p>Total Bayar</p>
-            </div>
-            <div className="d-flex justify-content-between">
-              <p className="payment1">Rp 349,000</p>
-              <p className="payment1">Rp 38,390</p>
-              <p className="total">Rp 387,390</p>
+            <div className="table-container">
+              <table className="payment-table">
+                <tbody>
+                  <tr className="payment-header">
+                    <td>Harga</td>
+                    <td>PPN 11%</td>
+                    <td>Total Bayar</td>
+                  </tr>
+                  <tr>
+                    <td className="payment1">Rp {price.toLocaleString()}</td>
+                    <td className="payment1">Rp {ppn.toLocaleString()}</td>
+                    <td className="total">Rp {total.toLocaleString()}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div className="d-flex justify-content-center">
-              <button className="button-kirim">
-                <Link
-                  to={`/successBayarCourse`}
-                  style={{ textDecoration: "none", color: "#fff" }}
-                >
-                  Bayar dan Ikuti Kelas Selamanya
-                  <FaArrowCircleRight
-                    style={{
-                      marginLeft: "10px",
-                      width: "28px",
-                      height: "27px",
-                    }}
-                  />
-                </Link>
+              <button className="button-kirim" onClick={handlePayment}>
+                Bayar dan Ikuti Kelas Selamanya
+                <FaArrowCircleRight
+                  style={{
+                    marginLeft: "10px",
+                    width: "28px",
+                    height: "27px",
+                  }}
+                />
               </button>
             </div>
           </div>
@@ -301,23 +327,32 @@ const BayarCourse = () => {
                 width: 400px;
             }
 
-            .payment {
-                font-weight: 700;
-                font-size: 15px;
-                margin-bottom: -10px;
+            .table-container {
+              margin: 10px 20px 20px;
+              width: 100%;
+              overflow: hidden;
+              border-collapse: collapse;
             }
 
-            .payment1 {
-                font-weight: 400;
-                padding: 0px;
-                margin: 0px
+            .payment-table {
+              width: 100%;
+              border: 2px solid transparent;
             }
 
-            .total {
-                font-weight: 700;
-                padding: 0px;
-                margin: 0px;
-                color: #6148FF;
+            .payment-table td {
+              border: 2px solid transparent;
+            }
+
+            .payment-header {
+              font-weight: 700;
+            }
+
+            .payment-table .total {
+              font-weight: 700;
+            }
+
+            .payment-table .total {
+              color: #6148FF;
             }
 
             .button-kirim {
@@ -393,6 +428,6 @@ const BayarCourse = () => {
         `}</style>
     </>
   );
-}
+};
 
 export default BayarCourse;

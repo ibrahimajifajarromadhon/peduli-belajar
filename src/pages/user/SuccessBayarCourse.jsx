@@ -1,9 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Success from "../../assets/success-img.png";
 import ModalStartClass from '../../components/user/ModalStartClass';
+import React, { useState, useEffect } from "react";
 
 function BayarCourse() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const email = location.state?.email || '';
+
+    const [emailUser, setEmailUser] = useState("");
+
+    useEffect(() => {
+        setEmailUser(location.state?.email || "");
+      }, [location.state]);
+    
+      const handleBack = () => {
+        navigate(-1, { state: { emailUser } });
+      };
+
   return (
     <>
         <div className="container" style={{ marginTop: "100px" }}>
@@ -14,6 +28,8 @@ function BayarCourse() {
                 </button>
                 </div>
             </div>
+            <h1>email : {email}</h1>
+
         </div>
         <hr className="wrapper" />
         <div className="container">
@@ -29,9 +45,9 @@ function BayarCourse() {
           <ModalStartClass />
           </div>
             <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginBottom:"50px", marginTop:"5px"}}>
-            <Link to={`/premiumClass`} style={{textDecoration:"none", color:"#fff"}}>
-            <button className="btn" style={{color:"#489CFF", fontWeight:"600"}}>Kembali ke Beranda</button>
-            </Link>
+            {/* <Link to={`/premiumClass`} style={{textDecoration:"none", color:"#fff"}}> */}
+            <button onClick={handleBack} className="btn" style={{color:"#489CFF", fontWeight:"600"}}>Kembali ke Beranda</button>
+            {/* </Link> */}
             </div>
         </div>
 
