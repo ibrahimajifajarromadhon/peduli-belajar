@@ -44,7 +44,7 @@ function ChangePassword() {
         <button
           to={"/userProfile"}
           className="btn rounded-4 text-light"
-          style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
+          style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontWeight:"700" }}
         >
           Ubah Password 
         </button>
