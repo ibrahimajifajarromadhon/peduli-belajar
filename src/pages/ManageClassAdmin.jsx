@@ -71,8 +71,8 @@ function ManageClassAdmin() {
     const fetchData = async () => {
       try {
         const response = await getAllCourses({
-          page:2,
-          size: 3,
+          page:1,
+          size: 1,
           category: ["UIUX_DESIGN", "DATA_SCIENCE", "WEB_DEVELOPMENT"],
           level: ["BEGINNER", "INTERMEDIATE", "ADVANCE"],
           type: ["GRATIS", "PREMIUM"],

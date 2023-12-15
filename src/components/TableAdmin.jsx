@@ -259,7 +259,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const columns = Object.keys(data[0]);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 992);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
-  const ITEMS_PER_PAGE = 1; // Jumlah item per halaman
+  const ITEMS_PER_PAGE = 4; 
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);

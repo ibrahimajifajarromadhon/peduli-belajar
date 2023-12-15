@@ -2,9 +2,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const token = Cookies.get("token")
-const apiUrl = `${import.meta.env.VITE_API}/api/admin/totalPremiumCourse`;
+const apiUrl = `${import.meta.env.VITE_API}/api/admin/totalCourse`;
 
-const activeUser = async () => {
+const totalClass = async () => {
   try {
     const response = await axios.get(apiUrl, {
       headers: {
@@ -18,4 +18,4 @@ const activeUser = async () => {
   }
 };
 
-export default activeUser;
+export default totalClass;

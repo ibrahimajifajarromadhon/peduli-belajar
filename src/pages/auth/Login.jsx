@@ -135,32 +135,6 @@ function Login() {
           Masuk
         </button>
       </div>
-      <div className="text-center">
-        <p>
-          Belum punya akun?{" "}
-          <span>
-            <Link
-              to={`/register`}
-              style={{
-                textDecoration: "none",
-                color: `var(--primary-purple)`,
-                fontWeight: "bold",
-              }}
-            >
-              Daftar di sini
-            </Link>
-          </span>
-          </p>
-        </div>
-        <div className="mb-3">
-          <button
-            className="btn rounded-4 text-light"
-            style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
-            type="submit"
-          >
-            Masuk
-          </button>
-        </div>
         <div className="text-center">
           <p>
             Belum punya akun?{" "}

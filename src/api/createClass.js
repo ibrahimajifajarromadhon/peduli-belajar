@@ -1,7 +1,8 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const apiUrl = `${import.meta.env.VITE_API}/api/admin`;
-const authToken = localStorage.getItem("token");
+const authToken = Cookies.get("token");
 
 const createClass = async (requestData) => {
   const headers = {

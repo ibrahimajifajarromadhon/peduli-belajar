@@ -13,7 +13,7 @@ function AdminDashboard() {
         if (Array.isArray(response.data)) {
           setStatusOrder(response.data);
         } else {
-          console.log("data bukan array", response.data);
+          console.log("data bukan array", response);
         }
       } catch (error) {
         console.log("error fetching course:", error.message);

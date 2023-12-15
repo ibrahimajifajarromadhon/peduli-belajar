@@ -1,6 +1,7 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
-const token = localStorage.getItem("token")
+const token = Cookies.get("token")
 const apiUrl = `${import.meta.env.VITE_API}/api/admin/status-order`;
 
 const getStatusOrder = async () => {
@@ -11,7 +12,6 @@ const getStatusOrder = async () => {
         "Content-Type": "application/json", 
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log("gagal mengambil api", error.message);
