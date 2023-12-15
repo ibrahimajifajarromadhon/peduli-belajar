@@ -38,24 +38,21 @@ function Category() {
             Kategori Belajar
           </h1>
           <p>
-            <a
-              href="#"
-              style={{
+          <Link to={"/allCourseClass"} style={{
                 textDecoration: "none",
-                color: `var(--primary-purple)`,
+                color: "#6148FF",
                 fontSize: "15px",
                 fontWeight: "800",
-              }}
-            >
+              }}>
               Lihat Semua{" "}
-            </a>
+            </Link>
           </p>
         </div>
         <Row xs={2} md={6} className="g-4">
           {uniqueCategories.map((category) => {
             return (
               <Col key={category}>
-                <Link to={"/login"} style={{ textDecoration: "none" }}>
+                <Link to={"/allCourseClass"} style={{ textDecoration: "none" }}>
                   <a
                     href="#"
                     style={{ textDecoration: "none", color: "black" }}

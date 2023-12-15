@@ -14,32 +14,57 @@ import BSI from "../../assets/BSI.png";
 import Muamalat from "../../assets/Muamalat.png";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
+import { Toast, Button  } from "react-bootstrap";
 
 const BayarCourse = () => {
-  const [paymentMethod, setPaymentMethod] = useState(""); 
-  const [emailUser, setEmailUser] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [orderDetails, setOrderDetails] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
-  const email = location.state?.email || "";
   const courseData = location.state?.courseData || "";
-  const price = courseData?.price || 0;
-  const ppn = price * 0.11;
-  const total = price - ppn;
+  const courseCode = courseData.courseCode;
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    setEmailUser(location.state?.email || "");
-  }, [location.state]);
+    const fetchOrderDetails = async () => {
+      try {
+        const token = Cookies.get("token");
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+
+        const response = await fetch(
+          `${import.meta.env.VITE_API}/api/order/${courseCode}`,
+          {
+            method: "GET",
+            headers: headers,
+          }
+        );
+
+        if (response.ok) {
+          const orderDetails = await response.json();
+          setOrderDetails(orderDetails.data);
+        } else {
+          console.error("Failed to fetch order details");
+        }
+      } catch (error) {
+        console.error("An error occurred while fetching order details:", error);
+      }
+    };
+
+    fetchOrderDetails();
+  }, [courseCode]);
 
   const handleBack = () => {
-    navigate(-1, { state: { emailUser } });
+    navigate(`/allCourseClass`);
   };
-
-  console.log({paymentMethod})
+  console.log({ paymentMethod });
+  console.log({ orderDetails: orderDetails });
 
   const handlePayment = async () => {
     try {
       const paymentData = {
-        email: email,
         courseCode: courseData?.courseCode || "",
         paymentMethod: paymentMethod || "",
       };
@@ -50,7 +75,7 @@ const BayarCourse = () => {
         Authorization: `Bearer ${token}`,
       };
 
-      const response = await fetch(`${import.meta.env.VITE_API}/api/order`, {
+      const response = await fetch(`${import.meta.env.VITE_API}/api/order/`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify(paymentData),
@@ -58,9 +83,13 @@ const BayarCourse = () => {
 
       if (response.ok) {
         console.log("Pembayaran berhasil!");
-        navigate(`/successBayarCourse`, { state: { email } });
+        navigate(`/successBayarCourse`, {
+          state: { courseCode: courseData?.courseCode },
+        });
       } else {
         console.error("Gagal melakukan pembayaran");
+        setShowAlert(true);
+
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
@@ -69,6 +98,26 @@ const BayarCourse = () => {
 
   return (
     <>
+    <Toast
+        show={showAlert}
+        onClose={() => setShowAlert(false)}
+        style={{
+          position: "fixed",
+          top: "80px",
+          right: "20px",
+          minWidth: "250px",
+        }}
+      >
+        <Toast.Header closeButton={false}>
+          <strong className="me-auto">Gagal Pembayaran</strong>
+          <Button variant="outline-dark" size="sm" onClick={() => setShowAlert(false)}>
+            Close
+          </Button>
+        </Toast.Header>
+        <Toast.Body>
+          Gagal melakukan pembayaran. Silakan beli course yang lain.
+        </Toast.Body>
+      </Toast>
       <div className="container" style={{ marginTop: "55px" }}>
         <div
           className="d-flex"
@@ -111,7 +160,7 @@ const BayarCourse = () => {
                     data-bs-target="#flush-collapseOne"
                     aria-expanded="false"
                     aria-controls="flush-collapseOne"
-            onClick={() => setPaymentMethod("Bank Transfer")}
+                    onClick={() => setPaymentMethod("BANK_TRANSFER")}
                   >
                     Bank Transfer
                   </button>
@@ -125,16 +174,32 @@ const BayarCourse = () => {
                   <div className="accordion-body">
                     <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
                       <a href="#">
-                        <img src={BRI} alt="Bank BRI" style={{width:"2.5em", height:"1em"}} />
+                        <img
+                          src={BRI}
+                          alt="Bank BRI"
+                          style={{ width: "2.5em", height: "1em" }}
+                        />
                       </a>
                       <a href="#">
-                        <img src={BTN} alt="Bank BTN" style={{width:"3em", height:"1.3em"}}/>
+                        <img
+                          src={BTN}
+                          alt="Bank BTN"
+                          style={{ width: "3em", height: "1.3em" }}
+                        />
                       </a>
                       <a href="#">
-                        <img src={BSI} alt="Bank BSI" style={{width:"2.7em", height:"1.1em"}}/>
+                        <img
+                          src={BSI}
+                          alt="Bank BSI"
+                          style={{ width: "2.7em", height: "1.1em" }}
+                        />
                       </a>
                       <a href="#">
-                        <img src={Muamalat} alt="Bank Muamalat" style={{width:"3.5em", height:"1.4em"}}/>
+                        <img
+                          src={Muamalat}
+                          alt="Bank Muamalat"
+                          style={{ width: "3.5em", height: "1.4em" }}
+                        />
                       </a>
                     </div>
                     <form>
@@ -144,8 +209,8 @@ const BayarCourse = () => {
                           type="text"
                           id="virtualAccountNumber"
                           className="form-control-plaintext"
-                          value="3118 6000 0001 031"
-                        />
+                          defaultValue="3118 6000 0001 031"
+                          />
                       </div>
                     </form>
                   </div>
@@ -160,7 +225,7 @@ const BayarCourse = () => {
                     data-bs-target="#flush-collapseTwo"
                     aria-expanded="false"
                     aria-controls="flush-collapseTwo"
-                    onClick={() => setPaymentMethod("Credit Card")}
+                    onClick={() => setPaymentMethod("CREDIT_CARD")}
                   >
                     Credit Card
                   </button>
@@ -193,7 +258,7 @@ const BayarCourse = () => {
                           type="text"
                           id="cardNumber"
                           className="form-control-plaintext"
-                          value="4480 0000 0000 0000"
+                          defaultValue="4480 0000 0000 0000"
                         />
                       </div>
                       <div className="form-group1">
@@ -202,7 +267,7 @@ const BayarCourse = () => {
                           type="text"
                           id="cardHolderName"
                           className="form-control-plaintext"
-                          value="John Doe"
+                          defaultValue="John Doe"
                         />
                       </div>
                       <div className="d-flex justify-content-between">
@@ -212,7 +277,7 @@ const BayarCourse = () => {
                             type="text"
                             id="cvv"
                             className="form-control-plaintext"
-                            value="123"
+                            defaultValue="123"
                           />
                         </div>
                         <div className="form-group">
@@ -221,7 +286,7 @@ const BayarCourse = () => {
                             type="text"
                             id="expireDate"
                             className="form-control-plaintext"
-                            value="12/23"
+                            defaultValue="12/23"
                           />
                         </div>
                       </div>
@@ -263,14 +328,14 @@ const BayarCourse = () => {
                             fontWeight: "800",
                           }}
                         >
-                          {courseData.category}
+                          {orderDetails.category}
                         </a>
                       </div>
                       <Card.Title style={{ fontWeight: "700" }}>
-                        {courseData.title}
+                        {orderDetails.courseTitle}
                       </Card.Title>
                       <Card.Text style={{ fontWeight: "600" }}>
-                        by {courseData.teacher}
+                        by {orderDetails.authorCourse}
                       </Card.Text>
                     </Card.Body>
                   </Card>
@@ -286,9 +351,9 @@ const BayarCourse = () => {
                     <td>Total Bayar</td>
                   </tr>
                   <tr>
-                    <td className="payment1">Rp {price.toLocaleString()}</td>
-                    <td className="payment1">Rp {ppn.toLocaleString()}</td>
-                    <td className="total">Rp {total.toLocaleString()}</td>
+                    <td className="payment1">Rp {orderDetails.price?.toLocaleString()}</td>
+                    <td className="payment1">Rp {orderDetails.tax?.toLocaleString()}</td>
+                    <td className="total">Rp {orderDetails.totalPrice?.toLocaleString()}</td>
                   </tr>
                 </tbody>
               </table>

@@ -1,8 +1,15 @@
 import React from 'react'
 import img from '../../assets/img-onboarding.png'
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ModalStartClass = () => {
+const ModalStartClass = ({ courseCode }) => {
+  const navigate = useNavigate();
+
+  const handleStartClass = () => {
+    navigate(`/detailClass/${courseCode}`);
+  };
+
   return (
     <>
 
@@ -36,13 +43,13 @@ const ModalStartClass = () => {
 
             </div>
           </div>
-          <Link to={`/detailClass/:id`} style={{textDecoration:"none", color:"#fff"}}>
+          {/* <Link to={`/detailClass/:id`} style={{textDecoration:"none", color:"#fff"}}> */}
           <div className="text-center">
-            <button type="button" className="btn btn-primary text-center" style={{width:'50%', marginBottom:'20px', borderRadius:'20px', backgroundColor: "#6148FF"}} data-bs-dismiss="modal">
+            <button onClick={handleStartClass} type="button" className="btn btn-primary text-center" style={{width:'50%', marginBottom:'20px', borderRadius:'20px', backgroundColor: "#6148FF"}} data-bs-dismiss="modal">
               Ikuti Kelas
             </button>
             </div>
-            </Link>
+            {/* </Link> */}
         </div>
       </div>
 

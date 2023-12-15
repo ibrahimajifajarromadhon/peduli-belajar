@@ -1,53 +1,78 @@
-import React from "react";
-import Header from "../../components/user/Header";
-import Footer from "../../components/user/Footer";
+import React, { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { FaArrowLeft } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { HiOutlineChatAlt2 } from "react-icons/hi";
 import { FaCirclePlay } from "react-icons/fa6";
 import { PiLockKeyFill } from "react-icons/pi";
-import ReactPlayer from "react-player";
 import { FaStar } from "react-icons/fa";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
 import { Link, useParams } from "react-router-dom";
 import { FaAddressBook } from "react-icons/fa";
-import axios from "axios";
-import { useEffect, useState } from 'react';
+import Header from "../../components/user/Header";
+import Footer from "../../components/user/Footer";
+import ModalBuyPremium from "../../components/user/ModalBuyPremium";
 
 const DetailCourse = () => {
   const telegramGroupUrl = "https://t.me/+g7QgBy1YNd40Zjc1";
-
   const { courseCode } = useParams();
   const [dataCourse, setDataCourse] = useState(null);
+  const [watchedSubjects, setWatchedSubjects] = useState([]);
+  const [currentSubjectIndex, setCurrentSubjectIndex] = useState(0);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   useEffect(() => {
     const detailApiUrl = `${import.meta.env.VITE_API}/api/course/${courseCode}`;
 
-    // const token = localStorage.getItem('token');
+    const token = Cookies.get("token");
 
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    axios.get(detailApiUrl)
-      .then(response => {
+    axios
+      .get(detailApiUrl, config)
+      .then((response) => {
         setDataCourse(response.data.data);
-        console.log({response:response.data})
+        setWatchedSubjects(new Array(response.data.data.chapter.length).fill(false));
+        console.log({ response: response.data });
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }, [courseCode]);
 
   if (!dataCourse) {
     return <p>Loading...</p>;
   }
-console.log({dataCourse})
-  const VIDEO_PATH = `${import.meta.env.VITE_API}/api/course/${dataCourse.chapter[0].subject[0].videoLink}`;
 
+  console.log({ dataCourse });
+
+  const currentSubject = dataCourse.chapter[0].subject[currentSubjectIndex];
+  const VIDEO_PATH = `${import.meta.env.VITE_API}/api/course/${currentSubject.videoLink}`;
+
+  const handleVideoEnded = () => {
+    setWatchedSubjects((prevWatched) => {
+      const newWatched = [...prevWatched];
+      newWatched[currentSubjectIndex] = true;
+      return newWatched;
+    });
+
+    if (dataCourse.type === "PREMIUM" && currentSubjectIndex === dataCourse.chapter.length - 1) {
+      setShowPremiumModal(true);
+    } else if (currentSubjectIndex < dataCourse.chapter.length - 1) {
+      setCurrentSubjectIndex((prevIndex) => prevIndex + 1);
+    }
+  };
+  
+  const handleClosePremiumModal = () => {
+    setShowPremiumModal(false);
+  };
   return (
     <>
       <Header />
@@ -90,16 +115,16 @@ console.log({dataCourse})
                 fontWeight: "800",
               }}
             >
-              {dataCourse.category}
+              {dataCourse.category.replace(/_/g, " ")}
             </a>
             <div className="ms-auto" style={{ fontWeight: "700" }}>
               <FaStar style={{ color: "#F9CC00", marginBottom: "5px" }} /> 5.0
             </div>
           </div>
-
-          <h2 style={{ fontWeight: "700", margin: "0px" }}>
+          <div className="col-7 column-header">
+          <h2 style={{ fontWeight: "700", margin: "0px"}}>
             <a href="#" style={{ textDecoration: "none", color: "black" }}>
-            {dataCourse.title}
+              {dataCourse.title}
             </a>
           </h2>
           <p style={{ fontWeight: "600", margin: "0px", marginTop: "5px" }}>
@@ -117,7 +142,7 @@ console.log({dataCourse})
                 fontWeight: "600",
               }}
             >
-              {dataCourse.level} Level
+              {dataCourse.level} LEVEL
             </p>
             <RiBook3Line style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
             <p
@@ -127,7 +152,7 @@ console.log({dataCourse})
                 fontWeight: "600",
               }}
             >
-              10 Modul
+              {dataCourse.modul} Modul
             </p>
             <RiTimeFill style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
             <p
@@ -139,6 +164,7 @@ console.log({dataCourse})
             >
               100 menit
             </p>
+            </div>
           </div>
 
           <a href={telegramGroupUrl}>
@@ -180,7 +206,7 @@ console.log({dataCourse})
                 }}
               >
                 <div style={{ margin: "15px" }}>
-                  <p style={{ marginTop: "10px" }}>
+                  {/* <p style={{ marginTop: "10px" }}>
                     <a
                       href="#"
                       style={{
@@ -194,63 +220,10 @@ console.log({dataCourse})
                     >
                       Chapter 1 - Pendahuluan
                     </a>
-                  </p>
+                  </p> */}
                   <ol style={{ marginLeft: "-15px", marginTop: "18px" }}>
-                    <li
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "13px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      Tujuan Mengikuti Kelas Design System
-                      <FaCirclePlay
-                        style={{
-                          marginLeft: "15px",
-                          color: "#73CA5C",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                    </li>
-                    <hr />
-                    <li
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "13px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      Tujuan Mengikuti Kelas Design System
-                      <FaCirclePlay
-                        style={{
-                          marginLeft: "15px",
-                          color: "#73CA5C",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                    </li>
-                    <hr />
-                    <li
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "13px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      Tujuan Mengikuti Kelas Design System
-                      <FaCirclePlay
-                        style={{
-                          marginLeft: "15px",
-                          color: "#6148FF",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                    </li>
-                    <hr />
-
+                  {dataCourse.chapter.map((chapter, chapterIndex) => (
+                  <React.Fragment key={chapterIndex}>
                     <p style={{ marginTop: "25px", marginLeft: "-18px" }}>
                       <a
                         href="#"
@@ -263,80 +236,44 @@ console.log({dataCourse})
                           fontWeight: "700",
                         }}
                       >
-                        Chapter 2 - Memulai Desain
+                        Chapter {chapter.chapterNo} - {chapter.chapterTitle}
                       </a>
                     </p>
-                    <li
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "13px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      Tujuan Mengikuti Kelas Design System
-                      <PiLockKeyFill
-                        style={{
-                          marginLeft: "15px",
-                          color: "#D9D9D9",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                    </li>
-                    <hr />
-                    <li
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "13px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      Tujuan Mengikuti Kelas Design System
-                      <PiLockKeyFill
-                        style={{
-                          marginLeft: "15px",
-                          color: "#D9D9D9",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                    </li>
-                    <hr />
-                    <li
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "13px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      Tujuan Mengikuti Kelas Design System
-                      <PiLockKeyFill
-                        style={{
-                          marginLeft: "15px",
-                          color: "#D9D9D9",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                    </li>
-                    <hr />
-                    <li
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "13px",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      Tujuan Mengikuti Kelas Design System
-                      <PiLockKeyFill
-                        style={{
-                          marginLeft: "15px",
-                          color: "#D9D9D9",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                    </li>
+                    {chapter.subject.map((subject, subjectIndex) => (
+                      <React.Fragment key={subjectIndex}>
+                        <li
+                          style={{
+                            fontWeight: "400",
+                            fontSize: "13px",
+                            marginBottom: "20px",
+                          }}
+                        >
+                          {subject.videoTitle}
+                          {subject.subjectType === "GRATIS" ? (
+                            <FaCirclePlay
+                              style={{
+                                marginLeft: "15px",
+                                color: watchedSubjects[subjectIndex] ? "#73CA5C" : "#6148FF",                               
+                                width: "20px",
+                                height: "20px",
+                              }}
+                            />
+                          ) : (
+                            <PiLockKeyFill
+                              style={{
+                                marginLeft: "15px",
+                                color: "#D9D9D9",
+                                width: "20px",
+                                height: "20px",
+                              }}
+                            />
+                          )}
+                        </li>
+                        <hr />
+                      </React.Fragment>
+                    ))}
+                  </React.Fragment>
+                ))}
                   </ol>
                 </div>
               </div>
@@ -357,7 +294,12 @@ console.log({dataCourse})
         <div className="row">
           <div className="col-md-7 order-md-1">
             <div className="player-wrapper">
-              <ReactPlayer url={VIDEO_PATH} className="player" />
+            <ReactPlayer
+                url={VIDEO_PATH}
+                className="player"
+                onEnded={handleVideoEnded}
+              />
+              
             </div>
             <div style={{ marginTop: "30px", marginBottom: "50px" }}>
               <h2 style={{ fontWeight: "700", fontSize: "25px" }}>
@@ -409,173 +351,95 @@ console.log({dataCourse})
           >
             <div style={{ margin: "15px" }}>
               <div className="row">
-              <div className="col-7">
-                <h2 style={{ fontWeight: "700", fontSize: "20px" }}>
-                  Materi Belajar
-                </h2>
-                
-
-              </div>
-              <div className="col-5">
-              <div
-              className="progress mt-2"
-              role="progressbar"
-              aria-label="Info example"
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
-            <div className="progress-bar bg-success text-white" style={{width: "70%", fontWeight:"600"}}>
-                70% complete
-            </div>
+                <div className="col-7">
+                  <h2 style={{ fontWeight: "700", fontSize: "20px" }}>
+                    Materi Belajar
+                  </h2>
+                </div>
+                <div className="col-5">
+                  <div
+                    className="progress mt-2"
+                    role="progressbar"
+                    aria-label="Info example"
+                    aria-valuenow="50"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    <div
+                      className="progress-bar bg-success text-white"
+                      style={{ width: "70%", fontWeight: "600" }}
+                    >
+                      70% complete
+                    </div>
+                  </div>
                 </div>
               </div>
-              </div>
-              {/* <p style={{ marginTop: "10px" }}>
-                <a
-                  href="#"
-                  style={{
-                    margin: "0px",
-                    padding: "0px",
-                    textDecoration: "none",
-                    color: "#6148FF",
-                    fontSize: "15px",
-                    fontWeight: "700",
-                  }}
-                >
-                  Chapter {dataCourse.chapter.length > 0 && dataCourse.chapter[0].chapterNo} - {dataCourse.chapter.length > 0 && dataCourse.chapter[0].chapterTitle}
-                </a>
-              </p> */}
               <ol style={{ marginLeft: "-15px", marginTop: "18px" }}>
-  {dataCourse.chapter.map((chapter, chapterIndex) => (
-    <React.Fragment key={chapterIndex}>
-      <p style={{ marginTop: "25px", marginLeft: "-18px" }}>
-        <a
-          href="#"
-          style={{
-            margin: "0px",
-            padding: "0px",
-            textDecoration: "none",
-            color: "#6148FF",
-            fontSize: "15px",
-            fontWeight: "700",
-          }}
-        >
-          Chapter {chapter.chapterNo} - {chapter.chapterTitle}
-        </a>
-      </p>
-      {chapter.subject.map((subject, subjectIndex) => (
-        <React.Fragment key={subjectIndex}>
-          <li
-            style={{
-              fontWeight: "400",
-              fontSize: "15px",
-              marginBottom: "20px",
-            }}
-          >
-            {subject.videoTitle}
-            {subject.subjectType === 'FREE' ? (
-              <FaCirclePlay
-                style={{
-                  marginLeft: "15px",
-                  color: "#73CA5C",
-                  width: "20px",
-                  height: "20px",
-                }}
-              />
-            ) : (
-              <PiLockKeyFill
-                style={{
-                  marginLeft: "15px",
-                  color: "#D9D9D9",
-                  width: "20px",
-                  height: "20px",
-                }}
-              />
-            )}
-          </li>
-          <hr />
-        </React.Fragment>
-      ))}
-    </React.Fragment>
-  ))}
-</ol>
-
-              {/* <ol style={{ marginLeft: "-15px", marginTop: "18px" }}>
-                <li
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  {dataCourse.chapter[0].subject[0].videoTitle}
-                  <FaCirclePlay
-                    style={{
-                      marginLeft: "15px",
-                      color: "#73CA5C",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                </li>
-                <hr />
-                <li
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Tujuan Mengikuti Kelas Design System
-                  <FaCirclePlay
-                    style={{
-                      marginLeft: "15px",
-                      color: "#6148FF",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                </li>
-                <hr />
-
-                <p style={{ marginTop: "25px", marginLeft: "-18px" }}>
-                  <a
-                    href="#"
-                    style={{
-                      margin: "0px",
-                      padding: "0px",
-                      textDecoration: "none",
-                      color: "#6148FF",
-                      fontSize: "15px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    Chapter 2 - Memulai Desain
-                  </a>
-                </p>
-                <li
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Tujuan Mengikuti Kelas Design System
-                  <PiLockKeyFill
-                    style={{
-                      marginLeft: "15px",
-                      color: "#D9D9D9",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                </li>
-                <hr />
-              </ol> */}
+                {dataCourse.chapter.map((chapter, chapterIndex) => (
+                  <React.Fragment key={chapterIndex}>
+                    <p style={{ marginTop: "25px", marginLeft: "-18px" }}>
+                      <a
+                        href="#"
+                        style={{
+                          margin: "0px",
+                          padding: "0px",
+                          textDecoration: "none",
+                          color: "#6148FF",
+                          fontSize: "15px",
+                          fontWeight: "700",
+                        }}
+                      >
+                        Chapter {chapter.chapterNo} - {chapter.chapterTitle}
+                      </a>
+                    </p>
+                    {chapter.subject.map((subject, subjectIndex) => (
+                      <React.Fragment key={subjectIndex}>
+                        <li
+                          style={{
+                            fontWeight: "400",
+                            fontSize: "15px",
+                            marginBottom: "20px",
+                          }}
+                        >
+                          {subject.videoTitle}
+                          {subject.subjectType === "GRATIS" ? (
+                            <FaCirclePlay
+                              style={{
+                                marginLeft: "15px",
+                                color: watchedSubjects[subjectIndex] ? "#73CA5C" : "#6148FF",                               
+                                width: "20px",
+                                height: "20px",
+                              }}
+                            />
+                          ) : (
+                            <PiLockKeyFill
+                              style={{
+                                marginLeft: "15px",
+                                color: "#D9D9D9",
+                                width: "20px",
+                                height: "20px",
+                              }}
+                            />
+                          )}
+                        </li>
+                        <hr />
+                      </React.Fragment>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </ol>
             </div>
           </div>
         </div>
+        {showPremiumModal && (
+          <>
+          <ModalBuyPremium 
+          courseCode={courseCode} 
+          handleCloseModal={handleClosePremiumModal}
+
+          />
+          </>
+        )}
         <style>
           {`
             @media (max-width: 768px) {
@@ -601,6 +465,10 @@ console.log({dataCourse})
                 font-weight: 700;
                 border-radius: 25px;
               }
+              
+              .column-header {
+                width: auto;
+              }
             }
 
             @media (min-width: 769px) {
@@ -611,7 +479,8 @@ console.log({dataCourse})
 
             .wrapper {
               background-color: #EBF3FC;
-              height: 270px;
+              height: auto;
+              padding-bottom: 1em;
             }
             
             .player {

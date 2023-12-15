@@ -17,7 +17,7 @@ function WebHomepage() {
   const [uniqueCategories, setUniqueCategories] = useState([]);
 
   useEffect(() => {
-    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter`;
+    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter?page=1&size=20`;
 
     axios
       .get(apiUrl)
@@ -49,21 +49,18 @@ function WebHomepage() {
             Kursus Popular
           </h1>
           <p>
-            <a
-              href="#"
-              style={{
+          <Link to={"/allCourseClass"} style={{
                 textDecoration: "none",
                 color: "#6148FF",
                 fontSize: "15px",
                 fontWeight: "800",
-              }}
-            >
+              }}>
               Lihat Semua{" "}
-            </a>
+            </Link>
           </p>
         </div>
 
-        <Link to={"/login"}>
+        <Link to={"/allCourseClass"}>
           <button className="btn button">All</button>
           {uniqueCategories.map((category) => (
             <button key={category} className="btn button">
@@ -74,7 +71,7 @@ function WebHomepage() {
 
         <Row xs={1} md={3} className="g-4 mb-5">
           {courses.map((course) => (
-            <Col key={course.id}>
+            <Col key={course.courseCode}>
               <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
                 <Card.Img
                   variant="top"
@@ -129,7 +126,7 @@ function WebHomepage() {
                         fontWeight: "600",
                       }}
                     >
-                      {course.modules} Modul
+                      {course.modul} Modul
                     </p>
                     <RiTimeFill
                       style={{ color: "#73CA5C", marginLeft: "30px" }}
@@ -141,7 +138,7 @@ function WebHomepage() {
                         fontWeight: "600",
                       }}
                     >
-                      50 menit
+                      50 Menit
                     </p>
                   </div>
                   <Link
