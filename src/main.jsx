@@ -19,10 +19,10 @@ import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import User from "./layout/User.jsx";
 import MyClassHomepage from "./pages/user/MyClassHomepage.jsx";
-import PremiumClassHomepage from "./pages/user/PremiumClassHomepage.jsx";
+// import PremiumClassHomepage from "./pages/user/PremiumClassHomepage.jsx";
 import LoginAdmin from "./pages/auth/LoginAdmin.jsx";
 import DetailCourse from "./pages/user/DetailCourse.jsx";
-import FreeClassHomepage from "./pages/user/FreeClassHomepage.jsx";
+// import FreeClassHomepage from "./pages/user/FreeClassHomepage.jsx";
 import AllCourseHomepage from "./pages/user/AllCourseHomepage.jsx";
 import BayarCourse from "./pages/user/BayarCourse.jsx";
 import SuccessBayarCourse from "./pages/user/SuccessBayarCourse.jsx";
@@ -67,11 +67,11 @@ const router = createBrowserRouter(
           path="allCourseClass"
         ></Route>{" "}
         {/*ubah ke filter*/}
-        <Route element={<PremiumClassHomepage />} path="premiumClass"></Route>
-        <Route element={<FreeClassHomepage />} path="freeClass"></Route>
+        {/* <Route element={<PremiumClassHomepage />} path="premiumClass"></Route>
+        <Route element={<FreeClassHomepage />} path="freeClass"></Route> */}
         <Route element={<BayarCourse />} path="bayarCourse"></Route>
         <Route element={<SuccessBayarCourse />} path="successBayarCourse"></Route>
-        <Route element={<FreeClassHomepage />} path="freeClass"></Route>{" "}
+        {/* <Route element={<FreeClassHomepage />} path="freeClass"></Route>{" "} */}
         {/*ubah ke filter*/}
         <Route element={<DetailCourse />} path="detailClass/:courseCode"></Route>
         <Route element={<UserProfile />} path="userProfile">

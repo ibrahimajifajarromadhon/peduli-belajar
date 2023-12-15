@@ -9,22 +9,14 @@ function Category() {
   const [uniqueCategories, setUniqueCategories] = useState([]);
 
   useEffect(() => {
-    const apiUrl = `${import.meta.env.VITE_API}/api/course`;
-    // const token = localStorage.getItem('token');
-
-    // const config = {
-    //     headers: {
-    //         Authorization: `Bearer ${token}`
-    //     }
-    // };
+    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter`;
 
     axios
       .get(apiUrl)
       .then((response) => {
-        setCourses(response.data.data);
-        const categories = response.data.data.map((course) => course.category);
+        setCourses(response.data.data.courses);
+        const categories = response.data.data.courses.map((course) => course.category);
         setUniqueCategories(Array.from(new Set(categories)));
-        // setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -46,24 +38,21 @@ function Category() {
             Kategori Belajar
           </h1>
           <p>
-            <a
-              href="#"
-              style={{
+          <Link to={"/allCourseClass"} style={{
                 textDecoration: "none",
-                color: `var(--primary-purple)`,
+                color: "#6148FF",
                 fontSize: "15px",
                 fontWeight: "800",
-              }}
-            >
+              }}>
               Lihat Semua{" "}
-            </a>
+            </Link>
           </p>
         </div>
         <Row xs={2} md={6} className="g-4">
           {uniqueCategories.map((category) => {
             return (
               <Col key={category}>
-                <Link to={"/login"} style={{ textDecoration: "none" }}>
+                <Link to={"/allCourseClass"} style={{ textDecoration: "none" }}>
                   <a
                     href="#"
                     style={{ textDecoration: "none", color: "black" }}
@@ -76,12 +65,12 @@ function Category() {
                     <Card.Title
                       style={{
                         textAlign: "center",
-                        fontSize: "15px",
+                        fontSize: "13px",
                         fontWeight: "700",
                         paddingTop: "5px",
                       }}
                     >
-                      {category}
+                      {category.replace(/_/g, ' ')}
                     </Card.Title>
                   </a>
                 </Link>

@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 function LoginAdmin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [validation, setValidation] = useState([]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -34,12 +36,13 @@ function LoginAdmin() {
       const response = await axios.request(config);
       const { token } = response.data.data;
 
-      localStorage.setItem("token", token);
+      Cookies.set("token", token);
 
       navigate("/admin");
 
     } catch (error) {
       console.error('Terjadi kesalahan:', error);
+      setValidation(error.response.data);
     }
   };
 
@@ -116,6 +119,9 @@ function LoginAdmin() {
             </Link>
           </span>
         </p>
+        {validation.message && (
+            <div className="btn button-danger">{validation.message}</div>
+          )}
       </div>
 
       <style >

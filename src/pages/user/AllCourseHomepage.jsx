@@ -96,25 +96,26 @@ const AllCourseHomepage = () => {
 
         <style>
           {`
-      .topic .btn {
-        display: none;
-      }
-      
-      @media (max-width: 576px) {
-        .topic .form-control {
-          display: none;
-        }
+          .topic .btn {
+            display: none;
+          }
 
-        .topic .btn {
-          display: block;
-          height: 10%;
-        }
-      }
-      .btn-menu .btn.active {
-        background-color: #6148ff;
-        color: white;
-      }
-      `}
+          .btn-menu .btn.active {
+            background-color: #6148ff;
+            color: white;
+          }
+
+          @media (max-width: 576px) {
+            .topic .form-control {
+              display: none;
+            }
+
+            .topic .btn {
+              display: block;
+              height: 10%;
+              }
+          }
+        `}
         </style>
       </div>
     </>

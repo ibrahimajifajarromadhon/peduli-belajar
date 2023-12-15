@@ -5,6 +5,7 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { AiOutlineProfile } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function SidebarAdmin() {
   return (
@@ -46,7 +47,7 @@ function SidebarAdmin() {
             </NavLink>
           </li>
           <li className="nav-item rounded">
-          <Link to={`/loginAdmin`} style={{ color: `var(--primary-purple)`}}>
+          <Link to={`/loginAdmin`} style={{ color: `var(--primary-purple)`}} onClick={() => {Cookies.remove('token')}}>
             <a href="#" className="nav-link text-white fs-5">
               <FiLogOut />
               <span className="mx-3">Log Out</span>

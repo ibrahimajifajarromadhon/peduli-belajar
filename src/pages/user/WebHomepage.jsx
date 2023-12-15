@@ -17,21 +17,14 @@ function WebHomepage() {
   const [uniqueCategories, setUniqueCategories] = useState([]);
 
   useEffect(() => {
-    const apiUrl = `${import.meta.env.VITE_API}/api/course`;
-    // const token = localStorage.getItem('token');
-
-    // const config = {
-    //     headers: {
-    //         Authorization: `Bearer ${token}`
-    //     }
-    // };
+    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter?page=1&size=20`;
 
     axios
       .get(apiUrl)
       .then((response) => {
-        setCourses(response.data.data);
-        console.log({response:response.data})
-        const categories = response.data.data.map((course) => course.category);
+        setCourses(response.data.data.courses);
+        console.log({response:response.data.data})
+        const categories = response.data.data.courses.map((course) => course.category);
         setUniqueCategories(Array.from(new Set(categories)));
       })
       .catch((error) => {
@@ -56,32 +49,29 @@ function WebHomepage() {
             Kursus Popular
           </h1>
           <p>
-            <a
-              href="#"
-              style={{
+          <Link to={"/allCourseClass"} style={{
                 textDecoration: "none",
                 color: "#6148FF",
                 fontSize: "15px",
                 fontWeight: "800",
-              }}
-            >
+              }}>
               Lihat Semua{" "}
-            </a>
+            </Link>
           </p>
         </div>
 
-        <Link to={"/login"}>
+        <Link to={"/allCourseClass"}>
           <button className="btn button">All</button>
           {uniqueCategories.map((category) => (
             <button key={category} className="btn button">
-              {category}
+              {category.replace(/_/g, ' ')}
             </button>
           ))}
         </Link>
 
         <Row xs={1} md={3} className="g-4 mb-5">
           {courses.map((course) => (
-            <Col key={course.id}>
+            <Col key={course.courseCode}>
               <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
                 <Card.Img
                   variant="top"
@@ -101,7 +91,7 @@ function WebHomepage() {
                         fontWeight: "800",
                       }}
                     >
-                      {course.category}
+                      {course.category.replace(/_/g, ' ')}
                     </a>
                     <div className="ms-auto">
                       <FaStar style={{ color: "yellow", fontWeight: "700" }} />{" "}
@@ -124,7 +114,7 @@ function WebHomepage() {
                         fontWeight: "600",
                       }}
                     >
-                      {course.level} Level
+                      {course.level} LEVEL
                     </p>
                     <RiBook3Line
                       style={{ color: "#73CA5C", marginLeft: "30px" }}
@@ -136,7 +126,7 @@ function WebHomepage() {
                         fontWeight: "600",
                       }}
                     >
-                      {course.modules} Modul
+                      {course.modul} Modul
                     </p>
                     <RiTimeFill
                       style={{ color: "#73CA5C", marginLeft: "30px" }}
@@ -148,7 +138,7 @@ function WebHomepage() {
                         fontWeight: "600",
                       }}
                     >
-                      50 menit
+                      50 Menit
                     </p>
                   </div>
                   <Link
@@ -179,7 +169,7 @@ function WebHomepage() {
                             Beli
                           </h6>
                           <h6 style={{ marginTop: "5px" }}>
-                            Rp {course.price}
+                            Rp {course.price.toLocaleString()}
                           </h6>
                         </div>
                       </button>
