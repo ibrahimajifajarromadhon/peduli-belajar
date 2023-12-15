@@ -36,7 +36,7 @@ function LoginAdmin() {
 
       localStorage.setItem("token", token);
 
-      navigate("/admin/dashboard");
+      navigate("/admin");
 
     } catch (error) {
       console.error('Terjadi kesalahan:', error);

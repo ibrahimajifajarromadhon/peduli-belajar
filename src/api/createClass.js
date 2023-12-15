@@ -4,7 +4,6 @@ const apiUrl = `${import.meta.env.VITE_API}/api/admin`;
 const authToken = localStorage.getItem("token");
 
 const createClass = async (requestData) => {
-    // console.log(requestData)
   const headers = {
     'Authorization': `Bearer ${authToken}`,
     'Content-Type': 'application/json'

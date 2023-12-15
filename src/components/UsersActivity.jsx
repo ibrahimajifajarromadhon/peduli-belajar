@@ -133,7 +133,7 @@ const UsersActivity = () => {
 
         @media (max-width: 628px) {
           .activity-container {
-            gap: 0.5em;
+            gap: 0.5em !important;
           }
           .card {
             width: 100%;

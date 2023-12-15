@@ -50,7 +50,7 @@ function ModalAddClass() {
           subjectNo: updatedChapters[chapterIndex].subject.length + 1,
           videoTitle: "",
           videoLink: "",
-          subjectType: { name: isPremium ? "PREMIUM" : "FREE" },
+          subjectType: { name: isPremium ? "PREMIUM" : "GRATIS" },
         });
       }
       return {
@@ -216,8 +216,8 @@ function ModalAddClass() {
                         handleInputChange("type", e.target.value)
                       }
                     >
-                      <option value="free">Free</option>
-                      <option value="premium">Premium</option>
+                      <option value="GRATIS">GRATIS</option>
+                      <option value="PREMIUM">PREMIUM</option>
                     </select>
                   </div>
 
@@ -253,7 +253,7 @@ function ModalAddClass() {
 
                   <div className="mb-1">
                     <label htmlFor="level-type" className="col-form-label">
-                      Author
+                      Teacher
                     </label>
                     <input
                       type="text"

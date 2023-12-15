@@ -33,16 +33,24 @@ function AdminDashboard() {
     );
   }
   const data = statusOrder.map((order) => ({
+    Username: order.username,
     Kategori: order.category,
     Kelas_Premium: order.title,
     Status: order.status,
     Metode_Pembayaran: order.paymentMethod,
-    Tanggal_Bayar: order.paymentDate
-  }))
+    Tanggal_Bayar: order.paymentDate,
+  }));
 
   return (
     <>
-      <TableAdmin data={data} coloredColumn={{positive: "--allert-green", negative: "--allert-red", column: {key: "Status", value: ["SUDAH BAYAR", "BELUM BAYAR"]}}}/>
+      <TableAdmin
+        data={data}
+        coloredColumn={{
+          positive: "--allert-green",
+          negative: "--allert-red",
+          column: { key: "Status", value: ["SUDAH BAYAR", "BELUM BAYAR"] },
+        }}
+      />
     </>
   );
 }

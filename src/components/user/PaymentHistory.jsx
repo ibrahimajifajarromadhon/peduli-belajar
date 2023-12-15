@@ -1,34 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import imgCourse from "../../assets/image-course.png";
 import { IoDiamond } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine, RiBook3Line, RiTimeFill } from "react-icons/ri";
+import historyPayment from '../../api/historyPayment';
+import { useLocation } from 'react-router-dom';
 
-const PaymentHistory = ({ filter, email }) => { // Tambahkan props email
+const PaymentHistory = ({ filter }) => {
+  const location = useLocation();
+  const emailFromState = location.state?.email || null;
   const [listPaymentHistory, setListPaymentHistory] = useState([]);
+  
 
   useEffect(() => {
-    const getPaymentHistory = async (email) => {
-      console.log(email);
-      const token = localStorage.getItem("token");
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API}/api/order/payment-history/${email}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setListPaymentHistory(response.data.data);
-      } catch (error) {
-        console.error("terjadi kesalahan", error); 
-      }
+    const fetchData = async () => {
+      console.log(location)
+      console.log(emailFromState)
+        try {
+            const response = await historyPayment(emailFromState);
+            setListPaymentHistory(response);
+        } catch (error) {
+            console.log('error fetching course: ', error.message);
+        }
     };
+    fetchData();
+}, [emailFromState, filter]);
 
-    getPaymentHistory();
-  }, [email]); 
+
   const filterPaymentHistory = () => {
     if (filter === "all") {
       return listPaymentHistory;

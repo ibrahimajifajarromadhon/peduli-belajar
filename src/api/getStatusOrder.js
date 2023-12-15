@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const token = localStorage.getItem("token")
-const apiUrl = `${import.meta.env.VITE_API}/api/admin/order/status-order`;
+const apiUrl = `${import.meta.env.VITE_API}/api/admin/status-order`;
 
 const getStatusOrder = async () => {
   try {

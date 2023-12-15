@@ -74,7 +74,6 @@ function Login() {
   //   return enteredEmail === "test@user.com" && enteredPassword === "password";
   // };
 
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -102,33 +101,38 @@ function Login() {
 
       localStorage.setItem("token", token);
 
-      navigate("/allCourseClass");
-
+      navigate("/allCourseClass")
     } catch (error) {
-      console.error('Terjadi kesalahan:', error);
+      console.error("Terjadi kesalahan:", error);
     }
   };
 
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
-      <form onSubmit={onSubmit}> 
-      <h4 style={{ color: `var(--primary-purple)`, paddingBottom:"20px", fontWeight:"700"  }}>
-        Masuk
-      </h4>
-      <div className="mb-3 position-relative">
-        <label htmlFor="formGroupExampleInput2" className="form-label">
-          Email
-        </label>
-        <input
-          type="email"
-          className="form-control rounded-4"
-          id="formGroupExampleInput2"
-          placeholder="Contoh: johndoe@gmail.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          // onChange={handleEmailChange}
-        />
-        {/* {email.length > 0 && (
+      <form onSubmit={onSubmit}>
+        <h4
+          style={{
+            color: `var(--primary-purple)`,
+            paddingBottom: "20px",
+            fontWeight: "700",
+          }}
+        >
+          Masuk
+        </h4>
+        <div className="mb-3 position-relative">
+          <label htmlFor="formGroupExampleInput2" className="form-label">
+            Email
+          </label>
+          <input
+            type="email"
+            className="form-control rounded-4"
+            id="formGroupExampleInput2"
+            placeholder="Contoh: johndoe@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            // onChange={handleEmailChange}
+          />
+          {/* {email.length > 0 && (
           <span className="position-absolute top-50 end-0 translate-middle-y">
             {validEmail ? (
               <FaCheckCircle
@@ -143,62 +147,69 @@ function Login() {
             )}
           </span>
         )} */}
-      </div>
-      <div className="mb-3 position-relative">
-        <label htmlFor="formGroupExampleInput4" className="form-label">
-          Password
-        </label>
-        <input
-          type={showPassword ? "text" : "password"}
-          className="form-control rounded-4"
-          id="formGroupExampleInput4"
-          placeholder="Masukkan Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          // onChange={handlePasswordChange}
-        />
-        <span
-          className="position-absolute top-50 end-0 translate-middle-y"
-          onClick={togglePasswordVisibility}
-        >
-          {showPassword ? (
-            <FaEyeSlash
-              style={{ marginRight: "15px", marginTop: "35px", color: "grey" }}
-            />
-          ) : (
-            <FaEye
-              style={{ marginRight: "15px", marginTop: "35px", color: "grey" }}
-            />
-          )}
-        </span>
-      </div>
-      <div className="mb-3">
-        
-        <button
-          className="btn rounded-4 text-light"
-          style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
-          type="submit"
-        >
-          Masuk
-        </button>
-      </div>
-      <div className="text-center">
-        <p>
-          Belum punya akun?{" "}
-          <span>
-            <Link
-              to={`/register`}
-              style={{
-                textDecoration: "none",
-                color: `var(--primary-purple)`,
-                fontWeight: "bold",
-              }}
-            >
-              Daftar di sini
-            </Link>
+        </div>
+        <div className="mb-3 position-relative">
+          <label htmlFor="formGroupExampleInput4" className="form-label">
+            Password
+          </label>
+          <input
+            type={showPassword ? "text" : "password"}
+            className="form-control rounded-4"
+            id="formGroupExampleInput4"
+            placeholder="Masukkan Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            // onChange={handlePasswordChange}
+          />
+          <span
+            className="position-absolute top-50 end-0 translate-middle-y"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? (
+              <FaEyeSlash
+                style={{
+                  marginRight: "15px",
+                  marginTop: "35px",
+                  color: "grey",
+                }}
+              />
+            ) : (
+              <FaEye
+                style={{
+                  marginRight: "15px",
+                  marginTop: "35px",
+                  color: "grey",
+                }}
+              />
+            )}
           </span>
-        </p>
-        {/* {password.length > 0 && !passwordValid && (
+        </div>
+        <div className="mb-3">
+          <button
+            className="btn rounded-4 text-light"
+            style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
+            type="submit"
+          >
+            Masuk
+          </button>
+        </div>
+        <div className="text-center">
+          <p>
+            Belum punya akun?{" "}
+            <span>
+              <Link
+                to={`/register`}
+                style={{
+                  textDecoration: "none",
+                  color: `var(--primary-purple)`,
+                  fontWeight: "bold",
+                }}
+              >
+                Daftar di sini
+              </Link>
+            </span>
+          </p>
+          {/* {password.length > 0 && !passwordValid && (
           <div className="btn button-danger">Password min 8 karakter!</div>
         )}
         {!isRegisteredEmail && (
@@ -207,7 +218,7 @@ function Login() {
         {incorrectPassword && (
           <div className="btn button-danger">Maaf, kata sandi salah!</div>
         )} */}
-      </div>
+        </div>
       </form>
 
       {/* Media Query for Large Screens */}
