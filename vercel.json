@@ -1,31 +1,29 @@
 {
     "version": 2,
+    "builds": [
+      { "src": "public/**/*", "use": "@vercel/static" },
+      { "src": "src/**/*.jsx", "use": "@vercel/node" }
+    ],
     "routes": [
-      { "src": "/loginAdmin", "dest": "/path/to/loginAdmin" },
-      { "src": "/login", "dest": "/path/to/login" },
-      { "src": "/register", "dest": "/path/to/register" },
-      { "src": "/registerAdmin", "dest": "/path/to/registerAdmin" },
-      { "src": "/reset-password", "dest": "/path/to/reset-password" },
-      { "src": "/otp/:email", "dest": "/path/to/otp" },
-      { "src": "/otpAdmin/:email", "dest": "/path/to/otpAdmin" },
-  
-      { "src": "/admin/dashboard", "dest": "/path/to/admin/dashboard" },
-      { "src": "/admin/class", "dest": "/path/to/admin/class" },
-  
-      { "src": "/welcome", "dest": "/path/to/welcome" },
-      { "src": "/myClass", "dest": "/path/to/myClass" },
-      { "src": "/allCourseClass", "dest": "/path/to/allCourseClass" },
-      { "src": "/bayarCourse", "dest": "/path/to/bayarCourse" },
-      { "src": "/successBayarCourse", "dest": "/path/to/successBayarCourse" },
-      { "src": "/detailClass/:courseCode", "dest": "/path/to/detailClass" },
-  
-      { "src": "/userProfile/myProfile", "dest": "/path/to/userProfile/myProfile" },
-      { "src": "/userProfile/changePassword", "dest": "/path/to/userProfile/changePassword" },
-      { "src": "/userProfile/paymentHistory", "dest": "/path/to/userProfile/paymentHistory" },
-  
-      { "src": "/notification", "dest": "/path/to/notification" },
-  
-      { "src": "/(.*)", "dest": "/path/to/404" }
+      { "src": "/loginAdmin", "dest": "/src/pages/auth/LoginAdmin.jsx" },
+      { "src": "/login", "dest": "/src/pages/auth/Login.jsx" },
+      { "src": "/register", "dest": "/src/pages/auth/Register.jsx" },
+      { "src": "/registerAdmin", "dest": "/src/pages/auth/RegisterAdmin.jsx" },
+      { "src": "/reset-password", "dest": "/src/pages/auth/ResetPassword.jsx" },
+      { "src": "/otp/:email", "dest": "/src/pages/auth/Otp.jsx" },
+      { "src": "/otpAdmin/:email", "dest": "/src/pages/auth/OtpAdmin.jsx" },
+      { "src": "/admin/dashboard", "dest": "/src/pages/AdminDashboard.jsx" },
+      { "src": "/admin/class", "dest": "/src/pages/ManageClassAdmin.jsx" },
+      { "src": "/myClass", "dest": "/src/pages/user/MyClassHomepage.jsx" },
+      { "src": "/allCourseClass", "dest": "/src/pages/user/AllCourseHomepage.jsx" },
+      { "src": "/bayarCourse", "dest": "/src/pages/user/BayarCourse.jsx" },
+      { "src": "/successBayarCourse", "dest": "/src/pages/user/SuccessBayarCourse.jsx" },
+      { "src": "/detailClass/:courseCode", "dest": "/src/pages/user/DetailCourse.jsx" },
+      { "src": "/userProfile/myProfile", "dest": "/src/components/user/MyProfile.jsx" },
+      { "src": "/userProfile/changePassword", "dest": "/src/components/user/ChangePassword.jsx" },
+      { "src": "/userProfile/paymentHistory", "dest": "/src/components/user/PaymentHistory.jsx" },
+      { "src": "/notification", "dest": "/src/pages/user/Notification.jsx" },
+      { "src": "/welcome", "dest": "/src/App.jsx" }
     ]
   }
   
