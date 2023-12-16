@@ -1,5 +1,31 @@
 {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/" }
+    "version": 2,
+    "routes": [
+      { "src": "/loginAdmin", "dest": "/path/to/loginAdmin" },
+      { "src": "/login", "dest": "/path/to/login" },
+      { "src": "/register", "dest": "/path/to/register" },
+      { "src": "/registerAdmin", "dest": "/path/to/registerAdmin" },
+      { "src": "/reset-password", "dest": "/path/to/reset-password" },
+      { "src": "/otp/:email", "dest": "/path/to/otp" },
+      { "src": "/otpAdmin/:email", "dest": "/path/to/otpAdmin" },
+  
+      { "src": "/admin/dashboard", "dest": "/path/to/admin/dashboard" },
+      { "src": "/admin/class", "dest": "/path/to/admin/class" },
+  
+      { "src": "/welcome", "dest": "/path/to/welcome" },
+      { "src": "/myClass", "dest": "/path/to/myClass" },
+      { "src": "/allCourseClass", "dest": "/path/to/allCourseClass" },
+      { "src": "/bayarCourse", "dest": "/path/to/bayarCourse" },
+      { "src": "/successBayarCourse", "dest": "/path/to/successBayarCourse" },
+      { "src": "/detailClass/:courseCode", "dest": "/path/to/detailClass" },
+  
+      { "src": "/userProfile/myProfile", "dest": "/path/to/userProfile/myProfile" },
+      { "src": "/userProfile/changePassword", "dest": "/path/to/userProfile/changePassword" },
+      { "src": "/userProfile/paymentHistory", "dest": "/path/to/userProfile/paymentHistory" },
+  
+      { "src": "/notification", "dest": "/path/to/notification" },
+  
+      { "src": "/(.*)", "dest": "/path/to/404" }
     ]
-}
+  }
+  
