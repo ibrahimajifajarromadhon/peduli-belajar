@@ -70,7 +70,7 @@ function Category() {
                         paddingTop: "5px",
                       }}
                     >
-                      {category.replace(/_/g, ' ')}
+                      {category.categoryName.replace(/_/g, ' ')}
                     </Card.Title>
                   </a>
                 </Link>

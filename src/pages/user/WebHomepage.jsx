@@ -64,7 +64,7 @@ function WebHomepage() {
           <button className="btn button">All</button>
           {uniqueCategories.map((category) => (
             <button key={category} className="btn button">
-              {category.replace(/_/g, ' ')}
+              {category.categoryName.replace(/_/g, ' ')}
             </button>
           ))}
         </Link>
@@ -91,7 +91,7 @@ function WebHomepage() {
                         fontWeight: "800",
                       }}
                     >
-                      {course.category.replace(/_/g, ' ')}
+                      {course.category.categoryName.replace(/_/g, ' ')}
                     </a>
                     <div className="ms-auto">
                       <FaStar style={{ color: "yellow", fontWeight: "700" }} />{" "}
