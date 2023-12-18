@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
 import { IoSettingsOutline } from "react-icons/io5";
 import { SlBasket } from "react-icons/sl";
 import { FiLogOut } from "react-icons/fi";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 function SidebarProfile() {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState("");
+  const navigate = useNavigate()
 
   useEffect(() => {
     setActiveLink(location.pathname);
   }, [location.pathname]);
+  
+  const handleLogout = () => {
+    Cookies.remove('token')
+    toast.success("Logout berhasil!");
+    navigate('/login'); 
+  };
 
   return (
     <div className="d-flex flex-column w-100 p-4 gap-2">
@@ -22,9 +31,9 @@ function SidebarProfile() {
         }`}
       >
         <span>
-          <CiEdit />
+          <CiEdit style={{width:"1.3em", height:"1.3em"}} />
         </span>
-        <p>Profile Saya</p>
+        <p className="sidebar">Profile Saya</p>
       </NavLink>
       <hr />
       <NavLink
@@ -34,9 +43,9 @@ function SidebarProfile() {
         }`}
       >
         <span>
-          <IoSettingsOutline />
+          <IoSettingsOutline style={{width:"1.3em", height:"1.3em"}} />
         </span>
-        <p>Ubah Password</p>
+        <p className="sidebar">Ubah Password</p>
       </NavLink>
       <hr />
       <NavLink
@@ -46,22 +55,22 @@ function SidebarProfile() {
         }`}
       >
         <span>
-          <SlBasket />
+          <SlBasket style={{width:"1.3em", height:"1.3em"}} />
         </span>
-        <p>Riwayat Pembayaran</p>
+        <p className="sidebar">Riwayat Pembayaran</p>
       </NavLink>
       <hr />
       <NavLink
         exact
-        to="/welcome"
         className={`d-flex gap-3 sidebar-link ${
-          activeLink === "/welcome" ? "active-link" : ""
+          activeLink === "/login" ? "active-link" : ""
         }`}
+        onClick={handleLogout}
       >
         <span>
-          <FiLogOut />
+          <FiLogOut style={{width:"1.3em", height:"1.3em"}} />
         </span>
-        <p>Keluar</p>
+        <p className="sidebar">Keluar</p>
       </NavLink>
       <hr />
 
@@ -70,21 +79,33 @@ function SidebarProfile() {
         text-decoration: none;
         color: black; 
       }
+
       span {
         font-size: 1.5em;
         color: var(--primary-purple);
       }
+
       p {
         margin: auto 0px;
-        font-weight: 500
       }
-      p:hover {
+
+      .sidebar {
+        margin: auto 0px;
+        transition: transform .3s;
+        font-weight: 600
+      }
+
+      .sidebar:hover {
         color: var(--primary-purple);
+        transform: scale(1.1);
+        font-weight: 700
       }
+
       hr {
         margin-bottom: 1px; 
         color: var(--primary-purple);
       }
+
       `}</style>
     </div>
   );

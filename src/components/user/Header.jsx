@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaBell, FaChalkboardTeacher, FaUser } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -75,6 +76,7 @@ function Header() {
                   onClick={() => {
                     Cookies.remove('token');
                     setIsLoggedIn(false);
+                    toast.success("Logout berhasil!");
                     return navigate("/");
                   }} 
                 > 

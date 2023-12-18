@@ -33,13 +33,13 @@ const AllCourseHomepage = () => {
               data-bs-target="#offcanvasBottom"
               aria-controls="offcanvasBottom"
             >
-              <CiFilter />
+              <CiFilter  setFilter={setFilter}/>
             </button>
           </div>
           <div className="row">
             <div className="col-md-4" style={{ marginBottom: "2em" }}>
               <div className="mt-4">
-                <FilterClass />
+                <FilterClass setFilter={setFilter} />
               </div>
             </div>
             <div className="col-md-8" style={{ marginBottom: "2em" }}>

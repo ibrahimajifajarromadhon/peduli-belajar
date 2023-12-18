@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from "react-toastify";
 
-const Otp = () => {
+const OtpAdmin = () => {
   const inputRefs = useRef([]);
   const { email } = useParams();
   const [counter, setCounter] = useState(0);
   const [otp, setOtp] = useState(['', '', '', '', '', '']); 
-  const [success, setSuccess] = useState(false); 
-  const [fail, setFail] = useState(false); 
-  const [resendSuccess, setResendSuccess] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,12 +33,10 @@ const Otp = () => {
         };
 
         await axios.request(config);
-        console.log({config: config});
-        setSuccess(true);
+        toast.success("Registrasi berhasil!");
         navigate("/loginAdmin");
     } catch (error) {
-      console.error('Error:', error);
-      setFail(true);
+      toast.error("Kode OTP salah!");
     }
   };
 
@@ -53,12 +49,15 @@ const Otp = () => {
         },
         body: JSON.stringify({ email })
       });
-      const data = await response.json();
-      console.log({data:data})
-      setResendSuccess(true);
+
+      if (response.ok) {
+        toast.success("Kode OTP berhasil dikirim!");
+      } else {
+        toast.error("Kode OTP gagal dikirim! Silakan coba lagi.");
+      }
 
     } catch (error) {
-      console.error('Error:', error);
+      toast.error("Kode OTP gagal dikirim! Silakan coba lagi.");
     }
   };
 
@@ -81,7 +80,7 @@ const Otp = () => {
   return (
     <div className="" style={{ padding: '2em' }}>
       
-      <Link to="/register">
+      <Link to="/registerAdmin">
         <FaArrowLeft style={{ color: 'var(--neutral-black)' }} />
       </Link>
       <form onSubmit={handleVerification}>
@@ -148,56 +147,11 @@ const Otp = () => {
         </div>
       
       </div>
-      <div className='text-center'>
-      {success && ( 
-        <div className="btn button-success" >Registrasi berhasil</div>
-      )}
-      {fail && ( 
-        <div className="btn button-fail" >Maaf, Kode OTP Salah!</div>
-      )}
-      {resendSuccess && ( 
-        <div className="btn button-success" >Kode OTP berhasil dikirim ulang</div>
-      )}
-      </div>
       </form>
-
-      <style>
-        {`
-          .button-success {
-            background-color: #73CA5C;
-            color: #fff;
-            border-radius: 15px;
-            padding: 10px;
-            font-weight: 400;
-            width: 70%;
-            margin-top: 6em;
-          }
-
-          .button-success:hover {
-            background-color: #73CA5C;
-            color: white;
-          }
-
-          .button-fail {
-            background-color: #FF0000;
-            color: #fff;
-            border-radius: 15px;
-            padding: 10px;
-            font-weight: 400;
-            width: 50%;
-            margin-top: 6em;
-          }
-
-          .button-fail:hover {
-            background-color: #FF0000;
-            color: white;
-          }
-        `}
-      </style>
     </div>
   );
   
   
 };
 
-export default Otp;
+export default OtpAdmin;
