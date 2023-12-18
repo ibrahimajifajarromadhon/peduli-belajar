@@ -5,7 +5,6 @@ import { Card, CardImg, Col, Row } from "react-bootstrap";
 import Footer from "../../components/user/Footer";
 import { RiShieldStarLine } from "react-icons/ri";
 import { IoDiamond } from "react-icons/io5";
-// import Img from "../../assets/image.png";
 import { FaStar } from "react-icons/fa";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";

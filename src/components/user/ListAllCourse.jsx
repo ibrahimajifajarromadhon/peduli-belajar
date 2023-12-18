@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import ImgCourse from "../../assets/image-course.png";
 import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
@@ -48,6 +47,7 @@ const ListAllCourse = ({ filter }) => {
   };
 
   const filteredCourses = filterCourses();
+  
   const navigate = useNavigate();
 
   const handleButtonClick = (course) => {
@@ -97,7 +97,7 @@ const ListAllCourse = ({ filter }) => {
                   style={{
                     textDecoration: "none",
                     color: "#6148FF",
-                    fontSize: "12px",
+                    fontSize: "11px",
                     fontWeight: "600",
                   }}
                 >
@@ -107,7 +107,7 @@ const ListAllCourse = ({ filter }) => {
                 <p
                   style={{
                     textDecoration: "none",
-                    fontSize: "12px",
+                    fontSize: "11px",
                     fontWeight: "600",
                   }}
                 >
@@ -117,7 +117,7 @@ const ListAllCourse = ({ filter }) => {
                 <p
                   style={{
                     textDecoration: "none",
-                    fontSize: "12px",
+                    fontSize: "11px",
                     fontWeight: "600",
                   }}
                 >
@@ -162,6 +162,11 @@ const ListAllCourse = ({ filter }) => {
         .btn-kelas:hover {
           background-color: #6148FF;
           color: white;
+        }
+
+        .card-img-top {
+          width: 100%;
+          height: 150px;
         }
       `}</style>
     </div>

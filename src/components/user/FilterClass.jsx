@@ -1,25 +1,72 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-function FilterClass() {
-  const [selectedFilter, setSelectedFilter] = useState({
-    GRATIS: false,
-    PREMIUM: false,
-    UIUX_DESIGN: false,
-    WEB_DEVELOPMENT: false,
-    DATA_SCIENCE: false,
-    ANDROID_DEVELOPMENT: false,
-    IOS_DEVELOPMENT: false,
-    PRODUCT_MANAGEMENT: false,
-  })
+function FilterClass({setFilter}) {
+  const [selectedFilters, setSelectedFilters] = useState({
+    categoryName: [],
+    type: [],
+    level: [],
+  });
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API}/api/course/filter`,
+        {
+          params: {
+            page: 1,
+            size: 10,
+            categoryName: selectedFilters.categoryName.join(","),
+            type: selectedFilters.type.join(","),
+            level: selectedFilters.level.join(","),
+          },
+        }
+      );
+
+
+      console.log(response.data.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [selectedFilters]);
+
+  const handleFilterChange = (filterType, value) => {
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterType]: value,
+    }));
+  };
+
+  const clearFilters = () => {
+    setSelectedFilters({
+      categoryName: [],
+      type: [],
+      level: [],
+    });
+
+    const checkboxes = document.querySelectorAll('.form-check-input');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+  };
+
+  const applyFilter = () => {
+    setFilter(selectedFilters);
+  };
+
   return (
     <>
-    <div className="filter-bottom">
+      <div className="filter-bottom">
         <div
           className="offcanvas offcanvas-bottom"
           tabIndex="-1"
           id="offcanvasBottom"
           aria-labelledby="offcanvasBottomLabel"
-          style={{height:'550px', borderRadius:'25px 25px 0px 0px'}}
+          style={{ height: "550px", borderRadius: "25px 25px 0px 0px" }}
         >
           <div className="offcanvas-header">
             <h5 className="offcanvas-title" id="offcanvasBottomLabel"></h5>
@@ -31,24 +78,24 @@ function FilterClass() {
             ></button>
           </div>
           <div className="offcanvas-body">
-          <h6 className="card-title">Filter</h6>
+            <h6 className="card-title">Filter</h6>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxBaruRs"
+                onChange={(e) =>
+                  handleFilterChange("type", [
+                    ...selectedFilters.type,
+                    "PREMIUM",
+                  ])
+                }
               />
-              <label className="label-filter-new" htmlFor="checkboxBaruRs">
-                Gratis
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="checkboxPopularRs"
-              />
-              <label className="label-filter-popular" htmlFor="checkboxPopularRs">
+              <label
+                className="label-filter"
+                htmlFor="checkboxBaruRs"
+                style={{ fontWeight: "500" }}
+              >
                 Premium
               </label>
             </div>
@@ -56,23 +103,40 @@ function FilterClass() {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="checkboxDiscountRs"
+                id="checkboxPopularRs"
+                onChange={(e) =>
+                  handleFilterChange("type", [
+                    ...selectedFilters.type,
+                    "GRATIS",
+                  ])
+                }
               />
               <label
-                className="label-filter-discount"
-                htmlFor="checkboxDiscountRs"
+                className="label-filter"
+                htmlFor="checkboxPopularRs"
+                style={{ fontWeight: "500" }}
               >
-                Promo
+                Gratis
               </label>
             </div>
-          <h6 className="card-title mt-4">Kategori</h6>
+            <h6 className="card-title mt-4">Kategori</h6>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxUIDesignRs"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "UIUX_DESIGN",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxUIDesignRs">
+              <label
+                className="label-filter"
+                htmlFor="checkboxUIDesignRs"
+                style={{ fontWeight: "500" }}
+              >
                 UI/UX Design
               </label>
             </div>
@@ -81,8 +145,18 @@ function FilterClass() {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxWebDevelopmentRs"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "WEB_DEVELOPMENT",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxWebDevelopmentRs">
+              <label
+                className="label-filter"
+                htmlFor="checkboxWebDevelopmentRs"
+                style={{ fontWeight: "500" }}
+              >
                 Web Development
               </label>
             </div>
@@ -91,32 +165,99 @@ function FilterClass() {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxAndroidDevelopmentRs"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "ANDROID_DEVELOPMENT",
+                  ])
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxAndroidDevelopmentRs"
+                style={{ fontWeight: "500" }}
               >
                 Android Development
               </label>
             </div>
-          <h6 className="card-title mt-4">Level Kesulitan</h6>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="checkboxAllLevelRs"
+                id="checkboxDataScienceRs"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "DATA_SCIENCE",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxAllLevelRs">
-                Semua Level
+              <label
+                className="label-filter"
+                htmlFor="checkboxDataScienceRs"
+                style={{ fontWeight: "500" }}
+              >
+                Data Science
               </label>
             </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="checkboxProductManagementRs"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "PRODUCT_MANAGEMENT",
+                  ])
+                }
+              />
+              <label
+                className="label-filter"
+                htmlFor="checkboxProductManagementRs"
+                style={{ fontWeight: "500" }}
+              >
+                Product Management
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="checkboxIosDevelopmentRs"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "IOS_DEVELOPMENT",
+                  ])
+                }
+              />
+              <label
+                className="label-filter"
+                htmlFor="checkboxIosDevelopmentRs"
+                style={{ fontWeight: "500" }}
+              >
+                IOS Development
+              </label>
+            </div>
+            <h6 className="card-title mt-4">Level Kesulitan</h6>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxBeginnerLevelRs"
+                onChange={(e) =>
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
+                    "BEGINNER",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxBeginnerLevelRs">
+              <label
+                className="label-filter"
+                htmlFor="checkboxBeginnerLevelRs"
+                style={{ fontWeight: "500" }}
+              >
                 Beginner Level
               </label>
             </div>
@@ -125,10 +266,17 @@ function FilterClass() {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxIntermediateLevelRs"
+                onChange={(e) =>
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
+                    "INTERMEDIATE",
+                  ])
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxIntermediateLevelRs"
+                style={{ fontWeight: "500" }}
               >
                 Intermediate Level
               </label>
@@ -138,31 +286,69 @@ function FilterClass() {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxAdvancedLevelRs"
+                onChange={(e) =>
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
+                    "ADVANCE",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxAdvancedLevelRs">
+              <label
+                className="label-filter"
+                htmlFor="checkboxAdvancedLevelRs"
+                style={{ fontWeight: "500" }}
+              >
                 Advanced Level
               </label>
             </div>
             <div className="text-center mt-3">
-              <button className="btn btn-light" style={{backgroundColor: "#6148FF", color:'white', borderRadius:'20px', width:'50%'}}>Terapkan Filter</button>
+              <button
+                className="btn btn-light"
+                style={{
+                  backgroundColor: "#6148FF",
+                  color: "white",
+                  borderRadius: "20px",
+                  width: "50%",
+                }}
+                onClick={applyFilter}
+              >
+                Terapkan Filter
+              </button>
             </div>
-            <p className="p text-center text-danger mt-3">Hapus Filter</p>
+            <p
+              className="p text-center text-danger mt-3"
+              onClick={clearFilters}
+            >
+              Hapus Filter
+            </p>
           </div>
-          </div>
+        </div>
       </div>
 
       <div className="filter">
         <div className="card rounded-4 p-3" style={{ width: "280px" }}>
           <div className="card-body">
-            <h6 className="card-title" style={{fontWeight:"700"}}>Filter</h6>
+            <h6 className="card-title" style={{ fontWeight: "700" }}>
+              Filter
+            </h6>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxBaru"
+                onChange={(e) =>
+                  handleFilterChange("type", [
+                    ...selectedFilters.type,
+                    "PREMIUM",
+                  ])
+                }
               />
-              <label className="label-filter-new" htmlFor="checkboxBaru" style={{fontWeight:"500"}}>
-                Paling Baru
+              <label
+                className="label-filter"
+                htmlFor="checkboxBaru"
+                style={{ fontWeight: "500" }}
+              >
+                Premium
               </label>
             </div>
             <div className="form-check">
@@ -170,35 +356,43 @@ function FilterClass() {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxPopular"
-              />
-              <label className="label-filter-popular" htmlFor="checkboxPopular" style={{fontWeight:"500"}}>
-                Paling Populer
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="checkboxDiscount"
+                onChange={(e) =>
+                  handleFilterChange("type", [
+                    ...selectedFilters.type,
+                    "GRATIS",
+                  ])
+                }
               />
               <label
-                className="label-filter-discount"
-                htmlFor="checkboxDiscount"
-                style={{fontWeight:"500"}}
+                className="label-filter"
+                htmlFor="checkboxPopular"
+                style={{ fontWeight: "500" }}
               >
-                Promo
+                Gratis
               </label>
             </div>
           </div>
           <div className="card-body">
-            <h6 className="card-title" style={{fontWeight:"700"}}>Kategori</h6>
+            <h6 className="card-title" style={{ fontWeight: "700" }}>
+              Kategori
+            </h6>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxUIDesign"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "UIUX_DESIGN",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxUIDesign" style={{fontWeight:"500"}}>
+              <label
+                className="label-filter"
+                htmlFor="checkboxUIDesign"
+                style={{ fontWeight: "500" }}
+              >
                 UI/UX Design
               </label>
             </div>
@@ -207,8 +401,18 @@ function FilterClass() {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxWebDevelopment"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "WEB_DEVELOPMENT",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxWebDevelopment" style={{fontWeight:"500"}}>
+              <label
+                className="label-filter"
+                htmlFor="checkboxWebDevelopment"
+                style={{ fontWeight: "500" }}
+              >
                 Web Development
               </label>
             </div>
@@ -217,35 +421,103 @@ function FilterClass() {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxAndroidDevelopment"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "ANDROID_DEVELOPMENT",
+                  ])
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxAndroidDevelopment"
-                style={{fontWeight:"500"}}
+                style={{ fontWeight: "500" }}
               >
                 Android Development
               </label>
             </div>
-          </div>
-          <div className="card-body">
-            <h6 className="card-title" style={{fontWeight:"700"}}>Level Kesulitan</h6>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="checkboxAllLevel"
+                id="checkboxDataScience"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "DATA_SCIENCE",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxAllLevel" style={{fontWeight:"500"}}>
-                Semua Level
+              <label
+                className="label-filter"
+                htmlFor="checkboxDataScience"
+                style={{ fontWeight: "500" }}
+              >
+                Data Science
               </label>
             </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="checkboxProductManagement"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "PRODUCT_MANAGEMENT",
+                  ])
+                }
+              />
+              <label
+                className="label-filter"
+                htmlFor="checkboxProductManagement"
+                style={{ fontWeight: "500" }}
+              >
+                Product Management
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="checkboxIosDevelopment"
+                onChange={(e) =>
+                  handleFilterChange("categoryName", [
+                    ...selectedFilters.categoryName,
+                    "IOS_DEVELOPMENT",
+                  ])
+                }
+              />
+              <label
+                className="label-filter"
+                htmlFor="checkboxIosDevelopment"
+                style={{ fontWeight: "500" }}
+              >
+                IOS Development
+              </label>
+            </div>
+          </div>
+          <div className="card-body">
+            <h6 className="card-title" style={{ fontWeight: "700" }}>
+              Level Kesulitan
+            </h6>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxBeginnerLevel"
+                onChange={(e) =>
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
+                    "BEGINNER",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxBeginnerLevel" style={{fontWeight:"500"}}>
+              <label
+                className="label-filter"
+                htmlFor="checkboxBeginnerLevel"
+                style={{ fontWeight: "500" }}
+              >
                 Beginner Level
               </label>
             </div>
@@ -254,11 +526,17 @@ function FilterClass() {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxIntermediateLevel"
+                onChange={(e) =>
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
+                    "INTERMEDIATE",
+                  ])
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxIntermediateLevel"
-                style={{fontWeight:"500"}}
+                style={{ fontWeight: "500" }}
               >
                 Intermediate Level
               </label>
@@ -268,19 +546,48 @@ function FilterClass() {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxAdvancedLevel"
+                onChange={(e) =>
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
+                    "ADVANCE",
+                  ])
+                }
               />
-              <label className="label-filter" htmlFor="checkboxAdvancedLevel" style={{fontWeight:"500"}}>
+              <label
+                className="label-filter"
+                htmlFor="checkboxAdvancedLevel"
+                style={{ fontWeight: "500" }}
+              >
                 Advanced Level
               </label>
             </div>
           </div>
-          <p className="p text-center" style={{color:"#FF0000", fontWeight:"600", marginTop:"20px"}}>Hapus Filter</p>
+          <p
+            className="p text-center"
+            style={{ color: "#FF0000", fontWeight: "600", marginTop: "20px" }}
+            onClick={clearFilters}
+          >
+            Hapus Filter
+          </p>
         </div>
 
         <style>
           {`
         .filter-bottom {
           display: none;
+        }
+
+        .form-check-input {
+          height: 25px;
+          width: 25px;
+        }
+
+        .form-check {
+          margin-top: 10px;
+        }
+
+        .label-filter {
+          margin-left: 10px;
         }
 
         @media (max-width: 576px) {
@@ -294,7 +601,7 @@ function FilterClass() {
         }`}
         </style>
       </div>
-      </>
+    </>
   );
 }
 
