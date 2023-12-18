@@ -17,7 +17,7 @@ function WebHomepage() {
   const [uniqueCategories, setUniqueCategories] = useState([]);
 
   useEffect(() => {
-    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter?page=1&size=20`;
+    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter`;
 
     axios
       .get(apiUrl)

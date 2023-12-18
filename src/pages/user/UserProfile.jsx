@@ -16,7 +16,7 @@ function UserProfile() {
         }}
       ></div>
       <div className="d-flex flex-column justify-content-between align-items-center position-relative z-1" style={{marginTop:"4em"}}>
-        <Link to={"/myclass"} style={{marginTop: "2.5em", textDecoration:"none", color:`var(--primary-purple)`, fontSize:"16px", width:"78%", marginBottom:"1em", fontWeight:"700"}}><span style={{fontSize:"1.3em", marginRight:"1.5em"}}><FaArrowLeft/></span>Kembali ke Beranda</Link>
+        <Link to={"/allCourseClass"} style={{marginTop: "2.5em", textDecoration:"none", color:`var(--primary-purple)`, fontSize:"16px", width:"78%", marginBottom:"1em", fontWeight:"700"}}><span style={{fontSize:"1.3em", marginRight:"1.5em"}}><FaArrowLeft/></span>Kembali ke Beranda</Link>
         <div
           style={{
             width: "70%",
