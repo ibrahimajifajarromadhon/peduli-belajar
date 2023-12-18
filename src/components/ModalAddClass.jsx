@@ -3,10 +3,11 @@ import { CiCirclePlus } from "react-icons/ci";
 import { createClass } from "../api/createClass";
 
 function ModalAddClass() {
+  const [isPriceDisabled, setIsPriceDisabled] = useState(false);
   const [classData, setClassData] = useState({
     title: "",
-    category: "",
     courseCode: "",
+    category: {categoryName: ""},
     type: "",
     level: "",
     price: 0,
@@ -20,7 +21,7 @@ function ModalAddClass() {
       console.log(prevData);
       return {
         ...prevData,
-        [field]: value,
+        [field]: field === "category" ? {categoryName: value } : value,
       };
     });
   };
@@ -42,7 +43,7 @@ function ModalAddClass() {
     });
   };
 
-  const addSubject = (chapterIndex, isPremium) => {
+  const addSubject = (chapterIndex) => {
     setClassData((prevData) => {
       const updatedChapters = [...prevData.chapter];
       if (chapterIndex >= 0 && chapterIndex < updatedChapters.length) {
@@ -50,7 +51,7 @@ function ModalAddClass() {
           subjectNo: updatedChapters[chapterIndex].subject.length + 1,
           videoTitle: "",
           videoLink: "",
-          subjectType: { name: isPremium ? "PREMIUM" : "GRATIS" },
+          subjectType: "",
         });
       }
       return {
@@ -100,26 +101,6 @@ function ModalAddClass() {
       console.log("gagal menambahkan", error.message);
     }
   };
-  // useEffect(() => {
-  //   if (isUpdateMode && courseIdToUpdate) {
-  //     const courseToUpdate = getCourseById(courseIdToUpdate); // Gantilah dengan cara yang sesuai
-  //     if (courseToUpdate) {
-  //       setClassData(courseToUpdate);
-  //     }
-  //   } else {
-  //     setClassData({
-  //       title: "",
-  //       category: "",
-  //       courseCode: "",
-  //       type: "",
-  //       level: "",
-  //       price: 0,
-  //       description: "",
-  //       teacher: "",
-  //       chapter: [],
-  //     });
-  //   }
-  // }, [isUpdateMode, courseIdToUpdate]);
 
   return (
     <div className="class">
@@ -178,15 +159,26 @@ function ModalAddClass() {
                     <label htmlFor="category-name" className="col-form-label">
                       Kategori
                     </label>
-                    <input
+                    <select
                       type="text"
-                      className="form-control"
+                      className="form-select"
                       id="category-name"
-                      value={classData.category}
+                      value={classData.category.categoryName}
                       onChange={(e) =>
                         handleInputChange("category", e.target.value)
                       }
-                    />
+                    >
+                      <option value="UIUX_DESIGN">UIUX Design</option>
+                      <option value="DATA_SCIENCE">Data Science</option>
+                      <option value="WEB_DEVELOPMENT">Web Development</option>
+                      <option value="ANDROID_DEVELOPMENT">
+                        Android Development
+                      </option>
+                      <option value="IOS_DEVELOPMENT">iOS Development</option>
+                      <option value="PRODUCT_MANAGEMENT">
+                        Product Management
+                      </option>
+                    </select>
                   </div>
 
                   <div className="mb-1">
@@ -208,32 +200,70 @@ function ModalAddClass() {
                     <label htmlFor="class-type" className="col-form-label">
                       Tipe Kelas
                     </label>
-                    <select
-                      className="form-control"
-                      id="type-name"
-                      value={classData.type}
-                      onChange={(e) =>
-                        handleInputChange("type", e.target.value)
-                      }
-                    >
-                      <option value="GRATIS">GRATIS</option>
-                      <option value="PREMIUM">PREMIUM</option>
-                    </select>
+                    <div className="d-flex">
+                      <div
+                        className="form-check form-check-inline rounded-2 py-1"
+                        style={{ backgroundColor: `var(--allert-green)`, paddingLeft: "2em", paddingRight:"1em" }}
+                      >
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          id="gratisRadio"
+                          value="GRATIS"
+                          checked={classData.type === "GRATIS"}
+                          onChange={() => {
+                            handleInputChange("type", "GRATIS");
+                            setIsPriceDisabled(true);
+                          }}
+                        />
+                        <label
+                          className="form-check-label text-light"
+                          htmlFor="gratisRadio"
+                        >
+                          GRATIS
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline rounded-2 py-1"
+                      style={{backgroundColor:`var(--primary-purple)`, paddingLeft: "2em", paddingRight:"1em"}}>
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          id="premiumRadio"
+                          value="PREMIUM"
+                          checked={classData.type === "PREMIUM"}
+                          onChange={() => {
+                            handleInputChange("type", "PREMIUM");
+                            setIsPriceDisabled(false);
+                          }}
+                        />
+                        <label
+                          className="form-check-label text-light"
+                          htmlFor="premiumRadio"
+                        >
+                          PREMIUM
+                        </label>
+                      </div>
+                      
+                    </div>
                   </div>
 
                   <div className="mb-1">
                     <label htmlFor="level-type" className="col-form-label">
                       Level
                     </label>
-                    <input
+                    <select
                       type="text"
-                      className="form-control"
+                      className="form-select"
                       id="level-name"
                       value={classData.level}
                       onChange={(e) =>
                         handleInputChange("level", e.target.value)
                       }
-                    />
+                    >
+                      <option value="BEGINNER">Beginner</option>
+                      <option value="INTERMEDIATE">Intermediate</option>
+                      <option value="ADVANCE">Advance</option>
+                    </select>
                   </div>
 
                   <div className="mb-1">
@@ -248,6 +278,7 @@ function ModalAddClass() {
                       onChange={(e) =>
                         handleInputChange("price", e.target.value)
                       }
+                      disabled={isPriceDisabled}
                     />
                   </div>
 
@@ -325,7 +356,7 @@ function ModalAddClass() {
                               type="text"
                               className="form-control"
                               id={`video-title-${chapterIndex}-${subjectIndex}`}
-                              value={subject.video_title}
+                              value={subject.videoTitle}
                               onChange={(e) =>
                                 handleChapterInputChange(
                                   "videoTitle",
@@ -347,7 +378,7 @@ function ModalAddClass() {
                               type="text"
                               className="form-control"
                               id={`video-link-${chapterIndex}-${subjectIndex}`}
-                              value={subject.video_link}
+                              value={subject.videoLink}
                               onChange={(e) =>
                                 handleChapterInputChange(
                                   "videoLink",
@@ -368,18 +399,18 @@ function ModalAddClass() {
                             <select
                               className="form-select"
                               id={`subject-type-${chapterIndex}-${subjectIndex}`}
-                              value={subject.subjectType.name}
+                              value={subject.subjectType}
                               onChange={(e) =>
                                 handleChapterInputChange(
                                   "subjectType",
-                                  { name: e.target.value },
+                                  e.target.value,
                                   chapterIndex,
                                   subjectIndex
                                 )
                               }
                             >
-                              <option value="FREE">FREE</option>
-                              <option value="PREMIUM">PREMIUM</option>
+                              <option value="GRATIS">Gratis</option>
+                              <option value="PREMIUM">Premium</option>
                             </select>
                           </div>
                           <button
@@ -434,6 +465,11 @@ function ModalAddClass() {
               </div>
             </div>
           </div>
+          <style>{`
+          label{
+            font-weight: 500
+          }
+          `}</style>
         </div>
       </div>
     </div>

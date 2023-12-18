@@ -19,10 +19,8 @@ import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import User from "./layout/User.jsx";
 import MyClassHomepage from "./pages/user/MyClassHomepage.jsx";
-// import PremiumClassHomepage from "./pages/user/PremiumClassHomepage.jsx";
 import LoginAdmin from "./pages/auth/LoginAdmin.jsx";
 import DetailCourse from "./pages/user/DetailCourse.jsx";
-// import FreeClassHomepage from "./pages/user/FreeClassHomepage.jsx";
 import AllCourseHomepage from "./pages/user/AllCourseHomepage.jsx";
 import BayarCourse from "./pages/user/BayarCourse.jsx";
 import SuccessBayarCourse from "./pages/user/SuccessBayarCourse.jsx";
@@ -35,8 +33,7 @@ import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import Otp from "./pages/auth/Otp.jsx";
 import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
-import TestAPI from "./components/TestAPI.jsx";
-import TestCreateAPI from "./components/TestCreateAPI.jsx";
+import UpdateCourse from "./components/UpdateCourse.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -66,13 +63,8 @@ const router = createBrowserRouter(
           element={<AllCourseHomepage />}
           path="allCourseClass"
         ></Route>{" "}
-        {/*ubah ke filter*/}
-        {/* <Route element={<PremiumClassHomepage />} path="premiumClass"></Route>
-        <Route element={<FreeClassHomepage />} path="freeClass"></Route> */}
         <Route element={<BayarCourse />} path="bayarCourse"></Route>
         <Route element={<SuccessBayarCourse />} path="successBayarCourse"></Route>
-        {/* <Route element={<FreeClassHomepage />} path="freeClass"></Route>{" "} */}
-        {/*ubah ke filter*/}
         <Route element={<DetailCourse />} path="detailClass/:courseCode"></Route>
         <Route element={<UserProfile />} path="userProfile">
         <Route index element={<Navigate to="myProfile" replace />} />
@@ -83,8 +75,7 @@ const router = createBrowserRouter(
         <Route element={<Notification />} path="notification"></Route>
       </Route>
 
-      <Route element={<TestAPI/> } path={"/test"}></Route>
-      <Route element={<TestCreateAPI/> } path={"/testCreate"}></Route>
+      {/* <Route element={<UpdateCourse/> } path={"/test"}></Route> */}
     </>
   )
 );

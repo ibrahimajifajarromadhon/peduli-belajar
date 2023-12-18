@@ -67,10 +67,18 @@ function Login() {
 
       const response = await axios.request(config);
       const { token } = response.data.data;
-
       Cookies.set("token", token);
 
-      navigate("/allCourseClass")
+      const roler = response.data.data.role;
+      if(roler === 'USER'){
+        navigate("/allCourseClass")
+      }else if(roler === 'ADMIN'){
+        navigate("/admin")
+      }else{
+        console.log("user tidak ditemukan")
+      }
+
+
     } catch (error) {
       console.error('Terjadi kesalahan:', error);
       setValidation(error.response.data);

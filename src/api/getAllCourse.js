@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = `${import.meta.env.VITE_API}/api/course/filter`;
+const apiUrl = `${import.meta.env.VITE_API}/api/course/filter?page=1&size=20`;
 
 const getAllCourses = async () => {
   try {
@@ -13,18 +13,3 @@ const getAllCourses = async () => {
 };
 
 export default getAllCourses;
-// import axios from "axios";
-
-// const apiUrl = `${import.meta.env.VITE_API}/api/course/filter`;
-
-// const getAllCourses = async (options) => {
-//   try {
-//     const response = await axios.get(apiUrl, { params: options });
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching courses:", error.message);
-//     throw error;
-//   }
-// };
-
-// export default getAllCourses;

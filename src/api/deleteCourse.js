@@ -1,6 +1,7 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
-const token = localStorage.getItem("token");
+const token = Cookies.get("token");
 
 const header = {
   Authorization: `Bearer ${token}`,
@@ -8,8 +9,9 @@ const header = {
 };
 
 const deleteCourse = async (courseCode) => {
+  console.log(token)
   try {
-    await axios.delete(`${import.meta.env.VITE_API}/api/admin/${courseCode}`, {
+    await axios.delete(`${import.meta.env.VITE_API}/api/admin/course/${courseCode}`, {
       headers: header
     });
     console.log("delete course success", courseCode);

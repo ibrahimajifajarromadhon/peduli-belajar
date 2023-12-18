@@ -48,10 +48,10 @@ function SidebarAdmin() {
           </li>
           <li className="nav-item rounded">
           <Link to={`/loginAdmin`} style={{ color: `var(--primary-purple)`}} onClick={() => {Cookies.remove('token')}}>
-            <a href="#" className="nav-link text-white fs-5">
+            <p href="#" className="nav-link text-white fs-5">
               <FiLogOut />
               <span className="mx-3">Log Out</span>
-            </a>
+            </p>
           </Link>
           </li>
         </ul>
@@ -77,11 +77,6 @@ function SidebarAdmin() {
               <AiOutlineProfile className="text-dark" />
             </NavLink>
           </li>
-          {/* <li className="nav-item rounded">
-            <a href="#" className="nav-link text-white fs-5">
-              <FiLogOut className="text-danger"/>
-            </a>
-          </li> */}
         </ul>
       </div>
     </>
