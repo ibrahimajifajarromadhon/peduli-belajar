@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import { ToastContainer } from "react-toastify";
 import {
   Navigate,
   Route,
@@ -34,19 +32,22 @@ import Otp from "./pages/auth/Otp.jsx";
 import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-
       <Route element={<Authenticaton />}>
         <Route element={<LoginAdmin />} path="/loginAdmin"></Route>
         <Route element={<Login />} path="/login"></Route>
         <Route element={<Register />} path="/register"></Route>
         <Route element={<RegisterAdmin />} path="/registerAdmin"></Route>
-        <Route element={<ResetPassword />} path="/reset-password/:token"></Route>
+        <Route
+          element={<ResetPassword />}
+          path="/reset-password/:token"
+        ></Route>
         <Route element={<Otp />} path="/otp/:email"></Route>
         <Route element={<OtpAdmin />} path="/otpAdmin/:email"></Route>
       </Route>
@@ -66,10 +67,16 @@ const router = createBrowserRouter(
           path="allCourseClass"
         ></Route>{" "}
         <Route element={<BayarCourse />} path="bayarCourse"></Route>
-        <Route element={<SuccessBayarCourse />} path="successBayarCourse"></Route>
-        <Route element={<DetailCourse />} path="detailClass/:courseCode"></Route>
+        <Route
+          element={<SuccessBayarCourse />}
+          path="successBayarCourse"
+        ></Route>
+        <Route
+          element={<DetailCourse />}
+          path="detailClass/:courseCode"
+        ></Route>
         <Route element={<UserProfile />} path="userProfile">
-        <Route index element={<Navigate to="myProfile" replace />} />
+          <Route index element={<Navigate to="myProfile" replace />} />
           <Route element={<MyProfile />} path="myProfile"></Route>
           <Route element={<ChangePassword />} path="changePassword"></Route>
           <Route element={<PaymentHistory />} path="paymentHistory"></Route>

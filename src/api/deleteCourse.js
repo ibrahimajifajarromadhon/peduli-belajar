@@ -9,6 +9,7 @@ const header = {
 };
 
 const deleteCourse = async (courseCode) => {
+  console.log(courseCode)
   console.log(token)
   try {
     await axios.delete(`${import.meta.env.VITE_API}/api/admin/course/${courseCode}`, {

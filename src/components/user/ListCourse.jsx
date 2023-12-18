@@ -5,7 +5,6 @@ import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
-// import '../../style/ListCourse.css'
 
 function ListCourse() {
   return (

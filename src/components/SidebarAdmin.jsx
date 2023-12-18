@@ -47,7 +47,7 @@ function SidebarAdmin() {
             </NavLink>
           </li>
           <li className="nav-item rounded">
-          <Link to={`/loginAdmin`} style={{ color: `var(--primary-purple)`}} onClick={() => {Cookies.remove('token')}}>
+          <Link to={`/login`} style={{ color: `var(--primary-purple)`}} onClick={() => {Cookies.remove('token')}}>
             <p href="#" className="nav-link text-white fs-5">
               <FiLogOut />
               <span className="mx-3">Log Out</span>

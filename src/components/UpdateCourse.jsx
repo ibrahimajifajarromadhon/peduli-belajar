@@ -64,36 +64,6 @@ function UpdateCourse({ courseCode, showModal }) {
     }
   };
 
-  // const handleChapterInputChange = (
-  //   field,
-  //   value,
-  //   chapterIndex,
-  //   subjectIndex
-  // ) => {
-  //   if (isEditing) {
-  //     setGetDetail((prevDetail) => {
-  //       const updatedChapters = [...prevDetail.data.chapter];
-  //       if (chapterIndex !== undefined && subjectIndex !== undefined) {
-  //         updatedChapters[chapterIndex].subject[subjectIndex][field] = value;
-  //       } else if (chapterIndex !== undefined) {
-  //         if (field === 'category') {
-  //           updatedChapters[chapterIndex][field].categoryName = value;
-  //         } else {
-  //           updatedChapters[chapterIndex][field] = value;
-  //         }
-  //         updatedChapters[chapterIndex][field] = value;
-  //       }
-  //       return {
-  //         ...prevDetail,
-  //         data: {
-  //           ...prevDetail.data,
-  //           chapter: updatedChapters,
-  //         },
-  //       };
-  //     });
-  //   }
-  // };
-
   const handleChapterInputChange = (
     field,
     value,
