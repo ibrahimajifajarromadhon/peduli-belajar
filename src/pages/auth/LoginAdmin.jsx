@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 function LoginAdmin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [validation, setValidation] = useState([]);
+  // const [validation, setValidation] = useState([]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -37,12 +38,11 @@ function LoginAdmin() {
       const { token } = response.data.data;
 
       Cookies.set("token", token);
+      toast.success("Login berhasil!");
 
       navigate("/admin/dashboard");
-
     } catch (error) {
-      console.error('Terjadi kesalahan:', error);
-      setValidation(error.response.data);
+      toast.error("Login gagal!, silahkan coba lagi");
     }
   };
 
@@ -119,9 +119,9 @@ function LoginAdmin() {
             </Link>
           </span>
         </p>
-        {validation.message && (
+        {/* {validation.message && (
             <div className="btn button-danger">{validation.message}</div>
-          )}
+          )} */}
       </div>
 
       <style >

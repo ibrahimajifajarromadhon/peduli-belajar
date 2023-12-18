@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ImgCourse from "../../assets/image-course.png";
+// import ImgCourse from "../../assets/image-course.png";
 import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
@@ -64,14 +64,29 @@ const ListAllCourse = ({ filter }) => {
       {filteredCourses.map((course) => (
         <div className="col" key={course.courseCode}>
           <div className="card" style={{ borderRadius: "22px" }}>
-            <img src={ImgCourse} className="card-img-top" alt="..." />
+            <div
+              className="d-flex align-items-center justify-content-center"
+              style={{ borderRadius: "22px" }}
+            >
+              <img
+                src={course.category.categoryImage}
+                className="card-img-top"
+                alt="..."
+                style={{
+                  margin: "5px",
+                  padding: "0px",
+                  width: "40%",
+                  height: "50%",
+                }}
+              />
+            </div>
             <div className="card-body">
               <div className="d-flex">
                 <h5 className="card-title" style={{ color: "#6148FF" }}>
-                  {course.category.replace(/_/g, " ")}
+                  {course.category.categoryName.replace(/_/g, " ")}
                 </h5>
                 <div className="ms-auto">
-                  <FaStar style={{ color: "yellow" }} /> 4.9
+                  <FaStar style={{ color: "yellow" }} /> {course.rating}
                 </div>
               </div>
               <h6 className="card-title">{course.title}</h6>
@@ -88,7 +103,7 @@ const ListAllCourse = ({ filter }) => {
                 >
                   {course.level} LEVEL
                 </p>
-                <RiBook3Line style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+                <RiBook3Line style={{ color: "#73CA5C", marginLeft: "20px" }} />{" "}
                 <p
                   style={{
                     textDecoration: "none",
@@ -98,7 +113,7 @@ const ListAllCourse = ({ filter }) => {
                 >
                   {course.modul} Modul
                 </p>
-                <RiTimeFill style={{ color: "#73CA5C", marginLeft: "30px" }} />{" "}
+                <RiTimeFill style={{ color: "#73CA5C", marginLeft: "20px" }} />{" "}
                 <p
                   style={{
                     textDecoration: "none",
@@ -145,7 +160,7 @@ const ListAllCourse = ({ filter }) => {
         }
 
         .btn-kelas:hover {
-          background-color: #489CFF;
+          background-color: #6148FF;
           color: white;
         }
       `}</style>

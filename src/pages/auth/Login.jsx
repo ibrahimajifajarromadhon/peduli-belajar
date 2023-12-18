@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 function Login() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function Login() {
   // const [passwordValid, setPasswordValid] = useState(false);
   // const [validEmail, setValidEmail] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [validation, setValidation] = useState([]);
+  // const [validation, setValidation] = useState([]);
 
   // const handleEmailChange = (event) => {
   //   const newEmail = event.target.value;
@@ -67,12 +68,12 @@ function Login() {
       const { token } = response.data.data;
 
       Cookies.set("token", token);
+      toast.success("Login berhasil!");
 
       navigate("/allCourseClass");
 
     } catch (error) {
-      console.error('Terjadi kesalahan:', error);
-      setValidation(error.response.data);
+        toast.error("Login gagal!, silahkan coba lagi");
     }
   };
 
@@ -153,9 +154,9 @@ function Login() {
         {/* {password.length > 0 && !passwordValid && (
           <div className="btn button-danger">Password min 8 karakter!</div>
         )} */}
-                  {validation.message && (
+                  {/* {validation.message && (
             <div className="btn button-danger">{validation.message}</div>
-          )}
+          )} */}
       </div>
       </form>
 

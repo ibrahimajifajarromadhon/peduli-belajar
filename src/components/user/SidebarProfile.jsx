@@ -5,6 +5,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { SlBasket } from "react-icons/sl";
 import { FiLogOut } from "react-icons/fi";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 function SidebarProfile() {
   const location = useLocation();
@@ -16,11 +17,11 @@ function SidebarProfile() {
   }, [location.pathname]);
   
   const handleLogout = () => {
-    Cookies.remove('yourTokenName'); 
-    if (Cookies.remove('token')) {
-      navigate('/login'); 
-    }
+    Cookies.remove('token')
+    toast.success("Logout berhasil!");
+    navigate('/login'); 
   };
+
   return (
     <div className="d-flex flex-column w-100 p-4 gap-2">
       <NavLink
@@ -61,9 +62,8 @@ function SidebarProfile() {
       <hr />
       <NavLink
         exact
-        to="/welcome"
         className={`d-flex gap-3 sidebar-link ${
-          activeLink === "/welcome" ? "active-link" : ""
+          activeLink === "/login" ? "active-link" : ""
         }`}
         onClick={handleLogout}
       >

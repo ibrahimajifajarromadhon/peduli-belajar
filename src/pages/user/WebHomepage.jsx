@@ -5,7 +5,7 @@ import { Card, CardImg, Col, Row } from "react-bootstrap";
 import Footer from "../../components/user/Footer";
 import { RiShieldStarLine } from "react-icons/ri";
 import { IoDiamond } from "react-icons/io5";
-import Img from "../../assets/image.png";
+// import Img from "../../assets/image.png";
 import { FaStar } from "react-icons/fa";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
@@ -64,7 +64,7 @@ function WebHomepage() {
           <button className="btn button">All</button>
           {uniqueCategories.map((category) => (
             <button key={category} className="btn button">
-              {category.replace(/_/g, ' ')}
+              {category.categoryName.replace(/_/g, " ")}
             </button>
           ))}
         </Link>
@@ -72,11 +72,11 @@ function WebHomepage() {
         <Row xs={1} md={3} className="g-4 mb-5">
           {courses.map((course) => (
             <Col key={course.courseCode}>
-              <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
+              <Card className="d-flex align-items-center justify-content-center" style={{ borderRadius: "25px", marginTop: "20px" }}>
                 <Card.Img
                   variant="top"
-                  src={Img}
-                  style={{ margin: "0px", padding: "0px" }}
+                  src={course.category.categoryImage}
+                  style={{ margin: "0px", padding: "0px", width:"50%", height:"50%" }}
                 />
                 <Card.Body>
                   <div className="d-flex">
@@ -91,7 +91,7 @@ function WebHomepage() {
                         fontWeight: "800",
                       }}
                     >
-                      {course.category.replace(/_/g, ' ')}
+                      {course.category.categoryName.replace(/_/g, " ")}
                     </a>
                     <div className="ms-auto">
                       <FaStar style={{ color: "yellow", fontWeight: "700" }} />{" "}

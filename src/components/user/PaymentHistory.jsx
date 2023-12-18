@@ -35,11 +35,13 @@ const PaymentHistory = ({ filter }) => {
       {listPaymentHistory.map((payment) => (
         <div className="col" key={payment.courseCode}>
           <div className="card" style={{ borderRadius: "22px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
-            <img src={imgCourse} className="card-img-top" alt={payment.title} />
+            <div className="d-flex align-items-center justify-content-center" >
+              <img src={payment.category.categoryImage} className="card-img-top" alt={payment.title} style={{ margin: "2px", padding: "0px", width:"35%", height:"15%" }} />
+            </div>
             <div className="card-body">
               <div className="d-flex">
                 <h5 className="card-title" style={{ color: "#6148FF", fontWeight: "700" }}>
-                  {payment.category.replace(/_/g, " ")}
+                  {payment.category.categoryName.replace(/_/g, " ")}
                 </h5>
                 <div className="ms-auto">
                   <FaStar style={{ color: "yellow" }} /> {payment.rating} 

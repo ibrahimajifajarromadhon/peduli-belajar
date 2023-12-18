@@ -35,6 +35,8 @@ import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import Otp from "./pages/auth/Otp.jsx";
 import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,7 +47,7 @@ const router = createBrowserRouter(
         <Route element={<Login />} path="/login"></Route>
         <Route element={<Register />} path="/register"></Route>
         <Route element={<RegisterAdmin />} path="/registerAdmin"></Route>
-        <Route element={<ResetPassword />} path="/reset-password"></Route>
+        <Route element={<ResetPassword />} path="/reset-password/:token"></Route>
         <Route element={<Otp />} path="/otp/:email"></Route>
         <Route element={<OtpAdmin />} path="/otpAdmin/:email"></Route>
       </Route>
@@ -87,5 +89,6 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer theme="colored" />
   </React.StrictMode>
 );
