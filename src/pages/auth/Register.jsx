@@ -1,18 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Register() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [noTelp, setNoTelp] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [validNomor, setValidNomor] = useState(false);
   const navigate = useNavigate();
+
+  const visiblePassword = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -34,16 +41,15 @@ function Register() {
         data: data,
       };
 
-      console.log({data:data})
-
       const response = await axios.request(config);
       const { token } = response.data;
 
-      localStorage.setItem("token", token);
+      Cookies.set("token", token);
+      toast.success("Kode OTP berhasil dikirim!");
 
       navigate(`/otp/${email}`);
     } catch (error) {
-      console.error('Terjadi kesalahan:', error);
+      toast.error("Registrasi gagal, silahkan coba lagi!");
     }
   };
 
@@ -81,157 +87,185 @@ function Register() {
     }
   };
 
+  const registerUser = async (e) => {
+    e.preventDefault();
+
+    try{
+      const response = await registrasiAdmin({
+        fullName,
+        email,
+        nomorTelepon,
+        password,
+      });
+      console.log("registrasi berhasil", response);
+      navigate("/otp", {state: {email}});
+    }catch (error) {
+      console.log("registrasi faild", error)
+    }
+  };
+
   return (
     <div className="register w-50 p-3 d-flex flex-column justify-content-center">
       <form onSubmit={onSubmit}>
-      <h4
-        style={{
-          color: `var(--primary-purple)`,
-          paddingBottom: "20px",
-          fontWeight: "700",
-        }}
-      >
-        Daftar
-      </h4>
-      <div className="mb-3">
-        <label htmlFor="formGroupExampleInput" className="form-label">
-          Nama
-        </label>
-        <input
-          type="text"
-          className="form-control rounded-4"
-          id="formGroupExampleInput"
-          placeholder="Nama Lengkap"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-        />
-      </div>
-
-      <div className="mb-3 position-relative">
-        <label htmlFor="formGroupExampleInput2" className="form-label">
-          Email
-        </label>
-        <input
-          type="email"
-          className="form-control rounded-4"
-          id="formGroupExampleInput2"
-          placeholder="Contoh: johndoe@gmail.com"
-          value={email}
-          onChange={(e) => {
-            handleEmailChange(e);
-            setEmail(e.target.value);
+        <h4
+          style={{
+            color: `var(--primary-purple)`,
+            paddingBottom: "20px",
+            fontWeight: "700",
           }}
-        />
-        {email.length > 0 && (
-          <span className="position-absolute top-50 end-0 translate-middle-y">
-            {validEmail ? (
-              <FaCheckCircle
-                className="text-success"
-                style={{ marginRight: "10px", marginTop: "30px" }}
-              />
-            ) : (
-              <FaTimesCircle
-                className="text-danger"
-                style={{ marginRight: "10px", marginTop: "30px" }}
-              />
-            )}
-          </span>
-        )}
-      </div>
-
-      <div className="mb-3 position-relative">
-        <label htmlFor="formGroupExampleInput3" className="form-label">
-          Nomor Telepon
-        </label>
-        <input
-          type="tel"
-          className="form-control rounded-4"
-          id="formGroupExampleInput3"
-          placeholder="08..."
-          value={noTelp}
-          onChange={(e) => {
-            handleNomorChange(e);
-            setNoTelp(e.target.value);
-          }}
-        />
-        {noTelp.length > 0 && (
-          <span className="position-absolute top-50 end-0 translate-middle-y">
-            {validNomor ? (
-              <FaCheckCircle
-                className="text-success"
-                style={{ marginRight: "10px", marginTop: "30px" }}
-              />
-            ) : (
-              <FaTimesCircle
-                className="text-danger"
-                style={{ marginRight: "10px", marginTop: "30px" }}
-              />
-            )}
-          </span>
-        )}
-      </div>
-
-      <div className="mb-3 position-relative">
-        <label htmlFor="formGroupExampleInput4" className="form-label">
-          Password
-        </label>
-        <input
-          type="password"
-          className="form-control rounded-4"
-          id="formGroupExampleInput4"
-          placeholder="Buat Password"
-          value={password}
-          onChange={(e) => {
-            handlePasswordChange(e);
-            setPassword(e.target.value);
-          }}
-        />
-        {password.length > 0 && (
-          <span className="position-absolute top-50 end-0 translate-middle-y">
-            {passwordValid ? (
-              <FaCheckCircle
-                className="text-success"
-                style={{ marginRight: "10px", marginTop: "30px" }}
-              />
-            ) : (
-              <FaTimesCircle
-                className="text-danger"
-                style={{ marginRight: "10px", marginTop: "30px" }}
-              />
-            )}
-          </span>
-        )}
-      </div>
-
-      <div className="mb-3">
-        <button
-          className="btn rounded-4 text-light"
-          style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
-          type="submit"
         >
           Daftar
-        </button>
-      </div>
-      <div className="text-center">
-        <p>
-          Sudah punya akun?{" "}
-          <span>
-            <Link
-              to={"/login"}
-              style={{
-                textDecoration: "none",
-                color: `var(--primary-purple)`,
-                fontWeight: "bold",
-              }}
-            >
-              Masuk di sini
-            </Link>
+        </h4>
+        <div className="mb-3">
+          <label htmlFor="formGroupExampleInput" className="form-label">
+            Nama
+          </label>
+          <input
+            type="text"
+            className="form-control rounded-4"
+            id="formGroupExampleInput"
+            placeholder="Nama Lengkap"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-3 position-relative">
+          <label htmlFor="formGroupExampleInput2" className="form-label">
+            Email
+          </label>
+          <input
+            type="email"
+            className="form-control rounded-4"
+            id="formGroupExampleInput2"
+            placeholder="Contoh: johndoe@gmail.com"
+            value={email}
+            onChange={(e) => {
+              handleEmailChange(e);
+              setEmail(e.target.value);
+            }}
+            required
+          />
+          {email.length > 0 && (
+            <span className="position-absolute top-50 end-0 translate-middle-y">
+              {validEmail ? (
+                <FaCheckCircle
+                  className="text-success"
+                  style={{ marginRight: "10px", marginTop: "30px" }}
+                />
+              ) : (
+                <FaTimesCircle
+                  className="text-danger"
+                  style={{ marginRight: "10px", marginTop: "30px" }}
+                />
+              )}
+            </span>
+          )}
+        </div>
+
+        <div className="mb-3 position-relative">
+          <label htmlFor="formGroupExampleInput3" className="form-label">
+            Nomor Telepon
+          </label>
+          <input
+            type="tel"
+            className="form-control rounded-4"
+            id="formGroupExampleInput3"
+            placeholder="08..."
+            value={noTelp}
+            onChange={(e) => {
+              handleNomorChange(e);
+              setNoTelp(e.target.value);
+            }}
+            required
+          />
+          {noTelp.length > 0 && (
+            <span className="position-absolute top-50 end-0 translate-middle-y">
+              {validNomor ? (
+                <FaCheckCircle
+                  className="text-success"
+                  style={{ marginRight: "10px", marginTop: "30px" }}
+                />
+              ) : (
+                <FaTimesCircle
+                  className="text-danger"
+                  style={{ marginRight: "10px", marginTop: "30px" }}
+                />
+              )}
+            </span>
+          )}
+        </div>
+
+        <div className="mb-3 position-relative">
+          <label htmlFor="formGroupExampleInput4" className="form-label">
+            Password
+          </label>
+          <input
+            type={passwordVisible ? "text" : "password"}
+            className="form-control rounded-4"
+            id="formGroupExampleInput4"
+            placeholder="Buat Password"
+            value={password}
+            onChange={(e) => {
+              handlePasswordChange(e);
+              setPassword(e.target.value);
+            }}
+            required
+          />
+          <span
+            className="position-absolute top-50 end-0 translate-middle-y"
+            onClick={visiblePassword}
+          >
+            {passwordVisible ? (
+              <FaEyeSlash
+                style={{
+                  marginRight: "15px",
+                  marginTop: "30px",
+                  color: "grey",
+                }}
+              />
+            ) : (
+              <FaEye
+                style={{
+                  marginRight: "15px",
+                  marginTop: "30px",
+                  color: "grey",
+                }}
+              />
+            )}
           </span>
-        </p>
-        {password.length > 0 && !passwordValid && (
-          <div className="btn button-danger">Password min 8 karakter!</div>
-        )}
-      </div>
+        </div>
+
+        <div className="mb-3">
+          <button
+            className="btn rounded-4 text-light"
+            style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
+            type="submit"
+          >
+            Daftar
+          </button>
+        </div>
+        <div className="text-center">
+          <p>
+            Sudah punya akun?{" "}
+            <span>
+              <Link
+                to={"/login"}
+                style={{
+                  textDecoration: "none",
+                  color: `var(--primary-purple)`,
+                  fontWeight: "bold",
+                }}
+              >
+                Masuk di sini
+              </Link>
+            </span>
+          </p>
+          {password.length > 0 && !passwordValid && (
+            <div className="btn button-danger">Password min 8 karakter!</div>
+          )}
+        </div>
       </form>
 
       <style>
@@ -269,4 +303,3 @@ function Register() {
 }
 
 export default Register;
-

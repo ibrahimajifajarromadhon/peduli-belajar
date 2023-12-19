@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ListAllCourse from "../../components/user/ListAllCourse";
-// import { Link } from "react-router-dom";
 import FilterClass from "../../components/user/FilterClass";
 import { CiFilter } from "react-icons/ci";
 
@@ -33,13 +32,13 @@ const AllCourseHomepage = () => {
               data-bs-target="#offcanvasBottom"
               aria-controls="offcanvasBottom"
             >
-              <CiFilter />
+              <CiFilter  setFilter={setFilter}/>
             </button>
           </div>
           <div className="row">
             <div className="col-md-4" style={{ marginBottom: "2em" }}>
               <div className="mt-4">
-                <FilterClass />
+                <FilterClass setFilter={setFilter} />
               </div>
             </div>
             <div className="col-md-8" style={{ marginBottom: "2em" }}>

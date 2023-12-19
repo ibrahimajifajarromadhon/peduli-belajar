@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
-import Img from "../../assets/image.png";
 import { Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import MasterCard from "../../assets/mastercard.png";
@@ -14,7 +13,7 @@ import BSI from "../../assets/BSI.png";
 import Muamalat from "../../assets/Muamalat.png";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Toast, Button  } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const BayarCourse = () => {
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -23,7 +22,6 @@ const BayarCourse = () => {
   const location = useLocation();
   const courseData = location.state?.courseData || "";
   const courseCode = courseData.courseCode;
-  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -44,9 +42,17 @@ const BayarCourse = () => {
 
         if (response.ok) {
           const orderDetails = await response.json();
-          setOrderDetails(orderDetails.data);
+          const updatedOrderDetails = {
+            ...orderDetails.data,
+            category: {
+              categoryName: orderDetails.data.category?.categoryName || "",
+              categoryImage: orderDetails.data.category?.categoryImage || "",
+            },
+          };
+
+          setOrderDetails(updatedOrderDetails);        
         } else {
-          console.error("Failed to fetch order details");
+          toast.success("Gagal fetching order course!");
         }
       } catch (error) {
         console.error("An error occurred while fetching order details:", error);
@@ -60,7 +66,6 @@ const BayarCourse = () => {
     navigate(`/allCourseClass`);
   };
   console.log({ paymentMethod });
-  console.log({ orderDetails: orderDetails });
 
   const handlePayment = async () => {
     try {
@@ -82,42 +87,20 @@ const BayarCourse = () => {
       });
 
       if (response.ok) {
-        console.log("Pembayaran berhasil!");
+        toast.success("Pembayaran berhasil!");
         navigate(`/successBayarCourse`, {
           state: { courseCode: courseData?.courseCode },
         });
       } else {
-        console.error("Gagal melakukan pembayaran");
-        setShowAlert(true);
-
+        toast.error("Gagal melakukan pembayaran!");
       }
     } catch (error) {
-      console.error("Terjadi kesalahan:", error);
+      toast.error("Gagal melakukan pembayaran!");
     }
   };
 
   return (
     <>
-    <Toast
-        show={showAlert}
-        onClose={() => setShowAlert(false)}
-        style={{
-          position: "fixed",
-          top: "80px",
-          right: "20px",
-          minWidth: "250px",
-        }}
-      >
-        <Toast.Header closeButton={false}>
-          <strong className="me-auto">Gagal Pembayaran</strong>
-          <Button variant="outline-dark" size="sm" onClick={() => setShowAlert(false)}>
-            Close
-          </Button>
-        </Toast.Header>
-        <Toast.Body>
-          Gagal melakukan pembayaran. Silakan beli course yang lain.
-        </Toast.Body>
-      </Toast>
       <div className="container" style={{ marginTop: "55px" }}>
         <div
           className="d-flex"
@@ -210,6 +193,7 @@ const BayarCourse = () => {
                           id="virtualAccountNumber"
                           className="form-control-plaintext"
                           defaultValue="3118 6000 0001 031"
+                          readOnly
                           />
                       </div>
                     </form>
@@ -259,6 +243,7 @@ const BayarCourse = () => {
                           id="cardNumber"
                           className="form-control-plaintext"
                           defaultValue="4480 0000 0000 0000"
+                          readOnly
                         />
                       </div>
                       <div className="form-group1">
@@ -268,6 +253,7 @@ const BayarCourse = () => {
                           id="cardHolderName"
                           className="form-control-plaintext"
                           defaultValue="John Doe"
+                          readOnly
                         />
                       </div>
                       <div className="d-flex justify-content-between">
@@ -278,6 +264,7 @@ const BayarCourse = () => {
                             id="cvv"
                             className="form-control-plaintext"
                             defaultValue="123"
+                            readOnly
                           />
                         </div>
                         <div className="form-group">
@@ -287,6 +274,7 @@ const BayarCourse = () => {
                             id="expireDate"
                             className="form-control-plaintext"
                             defaultValue="12/23"
+                            readOnly
                           />
                         </div>
                       </div>
@@ -307,14 +295,14 @@ const BayarCourse = () => {
               Pembayaran Kelas
             </p>
             <Row xs={1} md={1} className="g-4">
-              {courseData && (
-                <Col>
-                  <Card style={{ borderRadius: "25px", marginTop: "20px" }}>
+            {orderDetails && orderDetails.category && (
+               <Col>
+                  <Card className="d-flex align-items-center justify-content-center" style={{ borderRadius: "25px", marginTop: "20px" }}>
                     <Card.Img
                       variant="top"
-                      src={Img}
-                      style={{ margin: "0px", padding: "0px" }}
-                    />
+                      src={orderDetails.category?.categoryImage || ""} 
+                      style={{ margin: "5px", padding: "0px", width:"40%", height:"50%" }}
+                      />
                     <Card.Body>
                       <div className="d-flex">
                         <a
@@ -328,14 +316,14 @@ const BayarCourse = () => {
                             fontWeight: "800",
                           }}
                         >
-                          {orderDetails.category}
+                          {orderDetails.category?.categoryName.replace(/_/g, " ") || ""}
                         </a>
                       </div>
                       <Card.Title style={{ fontWeight: "700" }}>
                         {orderDetails.courseTitle}
                       </Card.Title>
                       <Card.Text style={{ fontWeight: "600" }}>
-                        by {orderDetails.authorCourse}
+                        by {orderDetails.teacher}
                       </Card.Text>
                     </Card.Body>
                   </Card>

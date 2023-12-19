@@ -15,7 +15,9 @@ function Category() {
       .get(apiUrl)
       .then((response) => {
         setCourses(response.data.data.courses);
-        const categories = response.data.data.courses.map((course) => course.category);
+        const categories = response.data.data.courses.map(
+          (course) => course.category
+        );
         setUniqueCategories(Array.from(new Set(categories)));
       })
       .catch((error) => {
@@ -38,12 +40,15 @@ function Category() {
             Kategori Belajar
           </h1>
           <p>
-          <Link to={"/allCourseClass"} style={{
+            <Link
+              to={"/allCourseClass"}
+              style={{
                 textDecoration: "none",
                 color: "#6148FF",
                 fontSize: "15px",
                 fontWeight: "800",
-              }}>
+              }}
+            >
               Lihat Semua{" "}
             </Link>
           </p>
@@ -59,7 +64,16 @@ function Category() {
                   >
                     <Card.Img
                       variant="top"
-                      src={Background}
+                      src={category.categoryImage}
+                      style={{
+                        margin: "5px",
+                        padding: "5px",
+                        width: "90%",
+                        height: "80%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
                       className="kolom"
                     />
                     <Card.Title
@@ -70,7 +84,7 @@ function Category() {
                         paddingTop: "5px",
                       }}
                     >
-                      {category.replace(/_/g, ' ')}
+                      {category.categoryName.replace(/_/g, ' ')}
                     </Card.Title>
                   </a>
                 </Link>

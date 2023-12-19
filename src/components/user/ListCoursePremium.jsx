@@ -7,7 +7,6 @@ import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
 import ModalBuyPremium from "./ModalBuyPremium";
 // import ModalStartClass from './ModalStartClass';
-// import '../../style/ListCourse.css'
 
 const ListCoursePremium = () => {
   return (

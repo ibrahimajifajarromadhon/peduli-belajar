@@ -30,7 +30,7 @@ function SidebarAdmin() {
             <NavLink
               to="dashboard"
               className="nav-link text-light fs-5 d-flex align-items-center"
-              activeClassName="active"
+              activeclassname="active"
             >
               <LuLayoutDashboard />
               <span className="mx-3">Dashboard</span>
@@ -40,18 +40,18 @@ function SidebarAdmin() {
             <NavLink
               to="class"
               className="nav-link text-light fs-5 d-flex align-items-center mb-5"
-              activeClassName="active"
+              activeclassname="active"
             >
               <AiOutlineProfile />
               <span className="mx-3">Kelola Kelas</span>
             </NavLink>
           </li>
           <li className="nav-item rounded">
-          <Link to={`/loginAdmin`} style={{ color: `var(--primary-purple)`}} onClick={() => {Cookies.remove('token')}}>
-            <a href="#" className="nav-link text-white fs-5">
+          <Link to={`/login`} style={{ color: `var(--primary-purple)`}} onClick={() => {Cookies.remove('token')}}>
+            <p href="#" className="nav-link text-white fs-5">
               <FiLogOut />
               <span className="mx-3">Log Out</span>
-            </a>
+            </p>
           </Link>
           </li>
         </ul>
@@ -63,7 +63,7 @@ function SidebarAdmin() {
             <NavLink
               to="dashboard"
               className="nav-link fs-5 d-flex align-items-center"
-              activeClassName="active"
+              activeclassname="active"
             >
               <LuLayoutDashboard className="text-dark" />
             </NavLink>
@@ -72,16 +72,11 @@ function SidebarAdmin() {
             <NavLink
               to="class"
               className="nav-link text-light fs-5 d-flex align-items-center "
-              activeClassName="active"
+              activeclassname="active"
             >
               <AiOutlineProfile className="text-dark" />
             </NavLink>
           </li>
-          {/* <li className="nav-item rounded">
-            <a href="#" className="nav-link text-white fs-5">
-              <FiLogOut className="text-danger"/>
-            </a>
-          </li> */}
         </ul>
       </div>
     </>
