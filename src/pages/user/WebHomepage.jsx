@@ -75,7 +75,7 @@ function WebHomepage() {
                 <Card.Img
                   variant="top"
                   src={course.category.categoryImage}
-                  style={{ margin: "0px", padding: "0px", width:"50%", height:"50%" }}
+                  style={{ margin: "5px", padding: "0px", width:"50%", height:"50%" }}
                 />
                 <Card.Body>
                   <div className="d-flex">
