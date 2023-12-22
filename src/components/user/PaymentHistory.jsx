@@ -35,7 +35,7 @@ const PaymentHistory = ({ filter }) => {
         <div className="col" key={payment.courseCode}>
           <div className="card" style={{ borderRadius: "22px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
             <div className="d-flex align-items-center justify-content-center" >
-              <img src={payment.category.categoryImage} className="card-img-top" alt={payment.title} style={{ margin: "2px", padding: "0px", width:"35%", height:"15%" }} />
+              <img src={payment.category.categoryImage} className="card-img-top" alt={payment.title} style={{ marginTop: "10px", padding: "0px", width:"30%", height:"10%" }} />
             </div>
             <div className="card-body">
               <div className="d-flex">
@@ -53,11 +53,11 @@ const PaymentHistory = ({ filter }) => {
                 <p style={{ textDecoration: "none", color: "#6148FF", fontSize: "12px", fontWeight: "600", marginLeft: "5px" }}>
                   {payment.level} LEVEL
                 </p>
-                <RiBook3Line style={{ color: "#73CA5C", marginLeft: "30px" }} />
+                <RiBook3Line className='icon-history' />
                 <p style={{ textDecoration: "none", fontSize: "12px", fontWeight: "600",marginLeft: "5px" }}>
                   {payment.modul} Modul 
                 </p>
-                <RiTimeFill style={{ color: "#73CA5C", marginLeft: "30px" }} />
+                <RiTimeFill className='icon-history' />
                 <p style={{ textDecoration: "none", fontSize: "12px", fontWeight: "600",marginLeft: "5px" }}>
                   100 menit 
                 </p>
@@ -78,6 +78,23 @@ const PaymentHistory = ({ filter }) => {
           </div>
         </div>
       ))}
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .icon-history {
+              margin-left: 10px;
+              color: #73CA5C;
+            }
+          }
+
+          @media (min-width: 769px) {
+            .icon-history {
+              margin-left: 30px;
+              color: #73CA5C;
+            }
+          }
+        `}
+      </style>
     </div>
   );
 

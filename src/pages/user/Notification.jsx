@@ -3,7 +3,6 @@ import { FaArrowLeft } from "react-icons/fa";
 import { IoNotificationsCircle } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-
 function Notification() {
   return (
     <>

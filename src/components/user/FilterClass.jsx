@@ -60,7 +60,7 @@ function FilterClass({setFilter}) {
 
   return (
     <>
-      <div className="filter-bottom">
+      <div className="filter-bottom" >
         <div
           className="offcanvas offcanvas-bottom"
           tabIndex="-1"

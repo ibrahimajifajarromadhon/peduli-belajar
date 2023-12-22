@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { toast } from 'react-hot-toast';
 
 function ChangePassword() {
   const [passwordOld, setPasswordOld] = useState("");

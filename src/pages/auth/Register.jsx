@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { toast } from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Register() {
@@ -87,25 +87,8 @@ function Register() {
     }
   };
 
-  const registerUser = async (e) => {
-    e.preventDefault();
-
-    try{
-      const response = await registrasiAdmin({
-        fullName,
-        email,
-        nomorTelepon,
-        password,
-      });
-      console.log("registrasi berhasil", response);
-      navigate("/otp", {state: {email}});
-    }catch (error) {
-      console.log("registrasi faild", error)
-    }
-  };
-
   return (
-    <div className="register w-50 p-3 d-flex flex-column justify-content-center">
+    <div className="register w-50 p-3 d-flex flex-column justify-content-center" style={{fontFamily:"Montserrat"}}>
       <form onSubmit={onSubmit}>
         <h4
           style={{
@@ -240,13 +223,13 @@ function Register() {
         <div className="mb-3">
           <button
             className="btn rounded-4 text-light"
-            style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
+            style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontFamily:"Montserrat" }}
             type="submit"
           >
             Daftar
           </button>
         </div>
-        <div className="text-center">
+        <div className="mt-4 text-center">
           <p>
             Sudah punya akun?{" "}
             <span>
@@ -280,6 +263,19 @@ function Register() {
 
           input {
             height: 48px;
+          }
+
+          p {
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+          }
+
+          .form-label {
+            font-family: Poppins;
+            font-size: 15px;
+            font-weight: 400;
+            text-align: left;
           }
 
           .button-danger {

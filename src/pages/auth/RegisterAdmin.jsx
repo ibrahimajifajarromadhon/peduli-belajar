@@ -4,7 +4,7 @@ import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { toast } from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function RegisterAdmin() {
@@ -91,7 +91,7 @@ function RegisterAdmin() {
   };
 
   return (
-    <div className="register w-50 p-3 d-flex flex-column justify-content-center">
+    <div className="register w-50 p-3 d-flex flex-column justify-content-center" style={{fontFamily:"Montserrat"}}>
       <form onSubmit={onSubmit}>
         <h4
           style={{
