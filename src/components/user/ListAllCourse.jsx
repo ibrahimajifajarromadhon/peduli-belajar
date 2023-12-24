@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const ListAllCourse = ({ filter }) => {
+const ListAllCourse = ({ filter, listCourses }) => {
   const [listCourse, setListCourse] = useState([]);
 
   const getCourse = async () => {
@@ -16,12 +16,15 @@ const ListAllCourse = ({ filter }) => {
     try {
       const response = await axios.get(
         `${
-          import.meta.env.VITE_API
-        }/api/course/filter?page=1&size=20&type=PREMIUM &type=GRATIS`,
+          import.meta.env.VITE_API}/api/course/filter`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          
+          params: {
+            size: 20,
+          }
         }
       );
       setListCourse(response.data.data.courses);
@@ -31,8 +34,12 @@ const ListAllCourse = ({ filter }) => {
   };
 
   useEffect(() => {
-    getCourse();
-  }, []);
+    if (listCourses && Array.isArray(listCourses) && listCourses.length > 0) {
+      setListCourse(listCourses);
+    } else {
+      getCourse();
+    }
+  }, [filter, listCourses]);
 
   const filterCourses = () => {
     if (filter === "all") {
