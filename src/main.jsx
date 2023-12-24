@@ -35,6 +35,7 @@ import ForgotPassword from "./pages/auth/ForgotPassword.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import ListMyCourse from "./components/user/ListMyCourse.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -84,6 +85,8 @@ const router = createBrowserRouter(
         </Route>
         <Route element={<Notification />} path="notification"></Route>
       </Route>
+
+      <Route element={<ListMyCourse/>} path="/kelasku"></Route>
     </>
   )
 );

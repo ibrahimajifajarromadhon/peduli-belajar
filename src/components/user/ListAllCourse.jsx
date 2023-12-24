@@ -9,7 +9,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 
-const ListAllCourse = ({ filter }) => {
+const ListAllCourse = ({ filter, listCourses }) => {
   const [listCourse, setListCourse] = useState([]);
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
@@ -23,12 +23,15 @@ const ListAllCourse = ({ filter }) => {
     try {
       const response = await axios.get(
         `${
-          import.meta.env.VITE_API
-        }/api/course/filter?page=1&size=20&type=PREMIUM &type=GRATIS`,
+          import.meta.env.VITE_API}/api/course/filter`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          
+          params: {
+            size: 20,
+          }
         }
       );
       setListCourse(response.data.data.courses);
@@ -38,8 +41,12 @@ const ListAllCourse = ({ filter }) => {
   };
 
   useEffect(() => {
-    getCourse();
-  }, []);
+    if (listCourses && Array.isArray(listCourses) && listCourses.length > 0) {
+      setListCourse(listCourses);
+    } else {
+      getCourse();
+    }
+  }, [filter, listCourses]);
 
   const filterCourses = () => {
     if (!searchQuery) {
@@ -60,7 +67,8 @@ const ListAllCourse = ({ filter }) => {
   };
 
   const filteredCourses = filterCourses();
-
+  console.log(filteredCourses)
+  
   const navigate = useNavigate();
 
   const handleButtonClick = (course) => {

@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { createClass } from "../api/createClass";
+import { toast } from "react-toastify";
 
 function ModalAddClass() {
   const [isPriceDisabled, setIsPriceDisabled] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [classData, setClassData] = useState({
     title: "",
     courseCode: "",
-    category: {categoryName: ""},
+    category: { categoryName: "" },
     type: "",
     level: "",
     price: 0,
     description: "",
-    teacher: "",
+    telegramLink: "",
     chapter: [],
   });
 
@@ -21,7 +24,7 @@ function ModalAddClass() {
       console.log(prevData);
       return {
         ...prevData,
-        [field]: field === "category" ? {categoryName: value } : value,
+        [field]: field === "category" ? { categoryName: value } : value,
       };
     });
   };
@@ -47,11 +50,18 @@ function ModalAddClass() {
     setClassData((prevData) => {
       const updatedChapters = [...prevData.chapter];
       if (chapterIndex >= 0 && chapterIndex < updatedChapters.length) {
-        updatedChapters[chapterIndex].subject.push({
-          subjectNo: updatedChapters[chapterIndex].subject.length + 1,
-          videoTitle: "",
-          videoLink: "",
-          subjectType: "",
+        const totalSubjectsBeforeChapter = updatedChapters
+        .slice(0, chapterIndex)
+        .reduce((total, ch) => total + ch.subject.length, 0);
+
+      const currentChapter = updatedChapters[chapterIndex];
+      const totalSubjectsInChapter = currentChapter.subject.length;
+
+      updatedChapters[chapterIndex].subject.push({
+        subjectNo: totalSubjectsBeforeChapter + totalSubjectsInChapter + 1,
+        videoTitle: "",
+        videoLink: "",
+        subjectType: "",
         });
       }
       return {
@@ -96,9 +106,10 @@ function ModalAddClass() {
   const handleSubmit = async () => {
     try {
       await createClass(classData);
-      console.log("berhasil menambahkan");
+      toast.success("berhasil menambahkan");
+      setIsModalOpen(false);
     } catch (error) {
-      console.log("gagal menambahkan", error.message);
+      toast.error("Pastikan data yang diinputkan benar", error.message);
     }
   };
 
@@ -112,6 +123,7 @@ function ModalAddClass() {
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
           data-bs-whatever="@mdo"
+          onClick={() => setIsModalOpen(true)}
         >
           <span>
             <CiCirclePlus className="fs-4" style={{ marginRight: "0.5em" }} />
@@ -120,11 +132,13 @@ function ModalAddClass() {
         </button>
 
         <div
-          className="modal fade"
+          // className="modal fade"
+          className={`modal fade ${isModalOpen ? "show" : ""}`}
           id="exampleModal"
           tabIndex="-1"
           aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
+          // aria-hidden="true"
+          aria-hidden={!isModalOpen}
         >
           <div className="modal-dialog">
             <div className="modal-content px-5">
@@ -203,7 +217,11 @@ function ModalAddClass() {
                     <div className="d-flex">
                       <div
                         className="form-check form-check-inline rounded-2 py-1"
-                        style={{ backgroundColor: `var(--allert-green)`, paddingLeft: "2em", paddingRight:"1em" }}
+                        style={{
+                          backgroundColor: `var(--allert-green)`,
+                          paddingLeft: "2em",
+                          paddingRight: "1em",
+                        }}
                       >
                         <input
                           className="form-check-input"
@@ -223,8 +241,14 @@ function ModalAddClass() {
                           GRATIS
                         </label>
                       </div>
-                      <div className="form-check form-check-inline rounded-2 py-1"
-                      style={{backgroundColor:`var(--primary-purple)`, paddingLeft: "2em", paddingRight:"1em"}}>
+                      <div
+                        className="form-check form-check-inline rounded-2 py-1"
+                        style={{
+                          backgroundColor: `var(--primary-purple)`,
+                          paddingLeft: "2em",
+                          paddingRight: "1em",
+                        }}
+                      >
                         <input
                           className="form-check-input"
                           type="radio"
@@ -243,7 +267,6 @@ function ModalAddClass() {
                           PREMIUM
                         </label>
                       </div>
-                      
                     </div>
                   </div>
 
@@ -284,15 +307,15 @@ function ModalAddClass() {
 
                   <div className="mb-1">
                     <label htmlFor="level-type" className="col-form-label">
-                      Teacher
+                      Telegram Kelas
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="author-name"
-                      value={classData.teacher}
+                      id="telegram-link"
+                      value={classData.telegramLink}
                       onChange={(e) =>
-                        handleInputChange("teacher", e.target.value)
+                        handleInputChange("telegramLink", e.target.value)
                       }
                     />
                   </div>
@@ -341,7 +364,7 @@ function ModalAddClass() {
 
                       {chapter.subject.map((subject, subjectIndex) => (
                         <div
-                          key={subjectIndex}
+                          key={`${chapterIndex}-${subjectIndex}`}
                           className="bg-light p-3 mb-3 rounded"
                         >
                           <h6>Subject {subject.subjectNo}</h6>

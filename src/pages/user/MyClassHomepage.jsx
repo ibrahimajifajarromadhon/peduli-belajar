@@ -1,78 +1,35 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import FilterClass from "../../components/user/FilterClass";
 import ListMyCourse from "../../components/user/ListMyCourse";
 import { CiFilter } from "react-icons/ci";
-import SearchIcon from "../../assets/bx_search-alt.svg";
 
 function MyClassHomepage() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
-  const [searchResults, setSearchResults] = useState([]);
+  const [progressButton, setProgressButton] = useState("all");
+  const [filteredData, setFilteredData] = useState([]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/api/course/filter?title=${searchQuery}`
-      );
-      const data = await response.json();
-      setSearchResults(data);
-      navigate(`/myClass?search=${searchQuery}`);
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+  const handleFilter = (data) => {
+    setFilteredData(data);
   };
+  console.log(filteredData);
 
   return (
     <div style={{ backgroundColor: "#EBF3FC", marginTop: "4em" }}>
       <div className="container">
-        <div className="topic d-flex justify-content-between">
-          <h4 className="mt-5" style={{ fontWeight: "700", fontFamily:"Montserrat" }}>
+        <div className="topic d-flex">
+          <h4 className="mt-5" style={{ fontWeight: "700" }}>
             Kelas Berjalan{" "}
           </h4>
-          <form
-            className="search-course d-flex mt-5"
-            role="search"
-            style={{ position: "relative", minWidth: "200px" }}
-          >
-            <input
-              className="form-control me-2 d-none d-md-block"
-              type="search"
-              placeholder="Cari Kelas..."
-              aria-label="Search"
-              style={{
-                paddingRight: "50px",
-                height: "3.1em",
-                width: "100%",
-                borderRadius: "16px",
-                fontFamily: "Montserrat",
-                fontWeight: "400",
-              }}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <img
-              className="search-icon"
-              src={SearchIcon}
-              alt="Search Icon"
-              onClick={handleSubmit}
-              style={{
-                position: "absolute",
-                right: "20px",
-                top: "82%",
-                transform: "translateY(-100%)",
-                width: "2em",
-                height: "2em",
-                backgroundColor: `var(--primary-purple)`,
-                borderRadius: "12px",
-                padding: "5px",
-                cursor: "pointer",
-              }}
-            />
-          </form>{" "}
+          <input
+            className="form-control ms-auto mt-5"
+            placeholder="Cari Kelas"
+            type="search"
+            style={{
+              width: "20%",
+              padding: "10px",
+              borderRadius: "15px",
+              borderColor: "#6148FF",
+            }}
+          />
           <button
             className="btn btn-primary ms-auto mt-5"
             type="button"
@@ -80,6 +37,7 @@ function MyClassHomepage() {
             data-bs-target="#offcanvasBottom"
             aria-controls="offcanvasBottom"
           >
+            {/* <CiFilter setProgressButton={setProgressButton}/> */}
             <CiFilter />
           </button>
         </div>
@@ -89,26 +47,28 @@ function MyClassHomepage() {
             style={{ marginBottom: "2em" }}
           >
             <div className="mt-4">
-              <FilterClass />
+              <FilterClass onFilter={handleFilter}/>
             </div>
           </div>
           <div className="col-md-8">
             <div className="btn-menu d-flex mt-4">
+                <button
+                  className={`btn btn-light me-4 ${ progressButton === "all" ? "active" : ""}`}
+                  onClick={() => setProgressButton("all")}
+                  style={{
+                    width: "20%",
+                    padding: "10px",
+                    borderRadius: "15px",
+                    fontWeight: "600",
+                  }}
+                >
+                  All
+                </button>
               <button
-                className="btn btn-light me-4"
-                style={{
-                  width: "20%",
-                  backgroundColor: "#6148FF",
-                  color: "white",
-                  padding: "10px",
-                  borderRadius: "15px",
-                  fontWeight: "600",
-                }}
-              >
-                All
-              </button>
-              <button
-                className="btn btn-light me-4"
+              className={`btn btn-light me-4 ${
+                progressButton === "in_progress" ? "active" : ""
+              }`}
+              onClick={() => setProgressButton("in_progress")}
                 style={{
                   width: "40%",
                   padding: "10px",
@@ -119,7 +79,10 @@ function MyClassHomepage() {
                 In Progress
               </button>
               <button
-                className="btn btn-light me-4"
+              className={`btn btn-light me-4 ${
+                progressButton === "done" ? "active" : ""
+              }`}
+              onClick={() => setProgressButton("done")}
                 style={{
                   width: "30%",
                   padding: "10px",
@@ -131,7 +94,7 @@ function MyClassHomepage() {
               </button>
             </div>
             <div className="mt-3">
-              <ListMyCourse />
+              <ListMyCourse progressButton={progressButton} listMyCourse={filteredData}/>
             </div>
           </div>
         </div>
@@ -143,7 +106,12 @@ function MyClassHomepage() {
         display: none;
       }
 
-      @media (max-width: 768px) {
+      .btn-menu .btn.active {
+        background-color: #6148ff;
+        color: white;
+      }
+
+      @media (max-width: 576px) {
         .topic .form-control {
           display: none;
         }

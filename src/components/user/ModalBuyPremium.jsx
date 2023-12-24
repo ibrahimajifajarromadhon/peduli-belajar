@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import imgCourse from "../../assets/image-course.png";
 import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";

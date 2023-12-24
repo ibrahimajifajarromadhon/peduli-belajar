@@ -10,6 +10,12 @@ const AllCourseHomepage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+
+  const handleFilter = (data) => {
+    setFilteredData(data);
+  };
+  console.log(filteredData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,13 +88,13 @@ const AllCourseHomepage = () => {
               data-bs-target="#offcanvasBottom"
               aria-controls="offcanvasBottom"
             >
-              <CiFilter setFilter={setFilter} />
+              <CiFilter />
             </button>
           </div>
           <div className="row">
             <div className="col-md-4" style={{ marginBottom: "2em" }}>
               <div className="mt-4">
-                <FilterClass setFilter={setFilter} />
+                <FilterClass onFilter={handleFilter}/>
               </div>
             </div>
             <div className="col-md-8" style={{ marginBottom: "2em" }}>
@@ -137,7 +143,7 @@ const AllCourseHomepage = () => {
                 </button>
               </div>
               <div className="mt-3">
-                <ListAllCourse filter={filter} />
+                <ListAllCourse filter={filter} listCourses={filteredData} />
               </div>
             </div>
           </div>

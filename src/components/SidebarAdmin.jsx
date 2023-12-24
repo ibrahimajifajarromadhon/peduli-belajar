@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { SiStudyverse } from "react-icons/si";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { AiOutlineProfile } from "react-icons/ai";
@@ -8,6 +8,15 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
 function SidebarAdmin() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate()
+
+  useEffect (() => {
+
+    if (Cookies.get('token')) {
+      setIsLoggedIn(true)
+    }
+  })
   return (
     <>
       <div
@@ -57,8 +66,8 @@ function SidebarAdmin() {
         </ul>
       </div>
 
-      <div className="d-flex flex-row bg-transparant  z-1  p-4 d-lg-none" style={{ top:"0px", left:"0px"}}>
-        <ul className="nav nav-pills mb-auto">
+      <div className="d-flex flex-row bg-transparant w-100  z-1  p-4 d-lg-none" style={{ top:"0px", left:"0px"}}>
+        <ul className="nav nav-pills mb-auto w-100">
           <li className="nav-item">
             <NavLink
               to="dashboard"
@@ -75,6 +84,22 @@ function SidebarAdmin() {
               activeclassname="active"
             >
               <AiOutlineProfile className="text-dark" />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+            style={{}}
+              to={`/login`}
+              className="nav-link text-light fs-5 d-flex align-items-center "
+              activeclassname="active"
+              onClick={() => {
+                Cookies.remove('token');
+                setIsLoggedIn(false);
+                toast.success("Logout berhasil!");
+                return navigate("/");
+              }} 
+            >
+              <FiLogOut className="text-danger" />
             </NavLink>
           </li>
         </ul>

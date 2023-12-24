@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function FilterClass({setFilter}) {
+function FilterClass({ onFilter }) {
   const [selectedFilters, setSelectedFilters] = useState({
     categoryName: [],
     type: [],
@@ -15,16 +15,22 @@ function FilterClass({setFilter}) {
         {
           params: {
             page: 1,
-            size: 10,
-            categoryName: selectedFilters.categoryName.join(","),
-            type: selectedFilters.type.join(","),
+            size: 20,
+            ...(selectedFilters.categoryName.length > 0 && {
+              categoryName: selectedFilters.categoryName.join(","),
+            }),
+            ...(selectedFilters.type.length > 0 && {
+              type: selectedFilters.type.join(","),
+            }),
+            ...(selectedFilters.level.length > 0 && {
             level: selectedFilters.level.join(","),
+            }),
           },
         }
       );
 
-
-      console.log(response.data.data);
+      onFilter(response.data.data.courses);
+      console.log(response.data.data.courses);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -55,7 +61,7 @@ function FilterClass({setFilter}) {
   };
 
   const applyFilter = () => {
-    setFilter(selectedFilters);
+    fetchData();
   };
 
   return (
@@ -564,7 +570,7 @@ function FilterClass({setFilter}) {
           </div>
           <p
             className="p text-center"
-            style={{ color: "#FF0000", fontWeight: "600", marginTop: "20px" }}
+            style={{ color: "#FF0000", fontWeight: "600", marginTop: "20px", cursor: "pointer" }}
             onClick={clearFilters}
           >
             Hapus Filter
