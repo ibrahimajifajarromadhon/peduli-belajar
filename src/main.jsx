@@ -31,13 +31,11 @@ import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import Otp from "./pages/auth/Otp.jsx";
 import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
-import updateCourse from "./api/updateCorse.js";
+import ListMyCourse from "./components/user/ListMyCourse.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import UpdateCourse from "./components/UpdateCourse.jsx";
-import ListMyCourse from "./components/user/ListMyCourse.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
