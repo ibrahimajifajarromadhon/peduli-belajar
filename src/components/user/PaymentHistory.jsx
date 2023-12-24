@@ -31,7 +31,18 @@ const PaymentHistory = ({ filter }) => {
   
   return (
     <div className="row row-cols-1 row-cols-md-1 g-4">
-      {listPaymentHistory.map((payment) => (
+      {listPaymentHistory.length === 0 ? (
+        <div className="col ">
+          <div className="card" style={{ height: "20em", borderRadius: "22px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
+            <div className="card-body text-center d-flex align-items-center justify-content-center">
+              <p style={{ fontSize: "18px", fontWeight: "700", fontFamily:"Poppins", color:"#6148FF" }}>
+               Payment history kosong. Silahkan membeli course premium yang tersedia!
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+      listPaymentHistory.map((payment) => (
         <div className="col" key={payment.courseCode}>
           <div className="card" style={{ borderRadius: "22px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
             <div className="d-flex align-items-center justify-content-center" >
@@ -77,7 +88,8 @@ const PaymentHistory = ({ filter }) => {
             </div>
           </div>
         </div>
-      ))}
+      ))
+      )}
       <style>
         {`
           @media (max-width: 768px) {

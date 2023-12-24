@@ -8,26 +8,10 @@ import { toast } from 'react-hot-toast';
 const Otp = () => {
   const inputRefs = useRef([]);
   const { email } = useParams();
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(60);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const navigate = useNavigate();
 
-  // const location = useLocation();
-  // const userEmail = location.state?.email || "";
-
-  // useEffect(() => {
-  //   if (counter > 0) {
-  //     const timer = setTimeout(() => setCounter(counter - 1), 600);
-  //     return () => clearTimeout(timer);
-  //   }
-
-  //   if (!otpSent && counter === 0) {
-  //     otpRequest(userEmail).then((response) => {
-  //       setExpectedOtp(response.otp);
-  //       setOtpSent(true);
-  //     });
-  //   }
-  // }, [counter, userEmail, otpSent]);
   useEffect(() => {
     if (counter > 0) {
       const timer = setTimeout(() => setCounter(counter - 1), 600);
@@ -61,7 +45,7 @@ const Otp = () => {
   const handleResendOTP = async () => {
     try {
       const response = await fetch(
-        `https://peduli-belajar-backend-production.up.railway.app/api/auth/regenerate-otp?email=${email}`,
+        `${import.meta.env.VITE_API}/api/auth/regenerate-otp?email=${email}`,
         {
           method: "PUT",
           headers: {
@@ -73,6 +57,7 @@ const Otp = () => {
 
       if (response.ok) {
         toast.success("Kode OTP berhasil dikirim!");
+        setCounter(60);
       } else {
         toast.error("Kode OTP gagal dikirim! Silakan coba lagi.");
       }
