@@ -11,12 +11,7 @@ function ManageClassAdmin() {
     const fetchData = async () => {
       try {
         const response = await getAllCourses();
-
-        if (response.status === 200 && response && Array.isArray(response.data.data.courses)) {
-          setCourses(response.data.data.courses);
-        } else {
-          setError("No courses found.");
-        }
+        setCourses(response.data);
       } catch (error) {
         setError(`Error fetching courses: ${error.message}`);
       } finally {

@@ -115,7 +115,7 @@ const DetailCourse = () => {
                 fontWeight: "800",
               }}
             >
-              {dataCourse.category.replace(/_/g, " ")}
+              {dataCourse.category.categoryName.replace(/_/g, " ")}
             </a>
             <div className="ms-auto" style={{ fontWeight: "700" }}>
               <FaStar style={{ color: "#F9CC00", marginBottom: "5px" }} /> 5.0

@@ -47,6 +47,7 @@ const ListAllCourse = ({ filter }) => {
   };
 
   const filteredCourses = filterCourses();
+  console.log(filteredCourses)
   
   const navigate = useNavigate();
 

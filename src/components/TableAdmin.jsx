@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { IoTrash } from "react-icons/io5";
 import deleteCourse from "../api/deleteCourse";
@@ -21,6 +21,11 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, data.length);
   const currentData = data.slice(startIndex, endIndex);
 
+  const [openAccordionIndex, setOpenAccordionIndex] = useState(null);
+
+  const handleAccordionToggle = (index) => {
+    setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,7 +51,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const handleGetDetailCourse = async (uniqCode) => {
     try {
       setShowModal(true);
-      setPassCode(uniqCode)
+      setPassCode(uniqCode);
     } catch (error) {
       console.log("gagal");
     }
@@ -57,38 +62,87 @@ const TableAdmin = ({ data, coloredColumn }) => {
   };
 
   return (
-    <div className="table-responsive p-4">
+    <div
+      className="table-responsive p-3 mx-3 my-2"
+      style={{ borderTop: `2px solid var(--primary-purple)` }}
+    >
       {isSmallScreen ? (
-        <div className="accordion" id="accordionExample">
+        <div className="accordion my-3" id="accordionExample">
           {data.map((aData, index) => (
             <div className="accordion-item" key={index}>
               <h2 className="accordion-header">
                 <button
                   className={`accordion-button ${
-                    index === 0 ? "" : "collapsed"
+                    index === openAccordionIndex ? "" : "collapsed"
                   }`}
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target={`#collapse-${index}`}
-                  aria-expanded="false"
+                  aria-expanded={index === openAccordionIndex ? 'true' : 'false'}
                   aria-controls={`collapse-${index}`}
+                  data-bs-parent="#accordionExample"
+                  onClick={() => handleAccordionToggle(index)}
                 >
-                  {`${index + 1}. ${columns[0]} : ${aData[columns[0]]}`}
+                  {`${index + 1}. ${columns[0].replace(/_/g, " ")} : ${aData[columns[0]]}`}
                 </button>
               </h2>
               <div
                 id={`collapse-${index}`}
-                className="accordion-collapse collapse"
+                className={`accordion-collapse collapse ${index === openAccordionIndex ? 'show' : ''}`}
               >
                 <div className="accordion-body">
                   {columns.map((column, columnIndex) => (
-                    <div key={columnIndex}>
-                      <strong>{column}:</strong> {aData[column]}
+                    <div key={columnIndex} className="d-flex flex-row">
+                      <div>
+                        <div style={{ width: "9em" }}>
+                          <strong
+                            className="d-flex align-items-center"
+                            style={{ width: "12em", fontSize: "14px" }}
+                          >
+                            {column.replace(/_/g, " ")}
+                          </strong>
+                        </div>
+                      </div>
+                      :
+                      <div
+                        className="d-flex align-items-center"
+                        style={{
+                          marginLeft: "0.5em",
+                          fontSize: "14px",
+                          color:
+                            column === coloredColumn.column.key &&
+                            aData[coloredColumn.column.key].toUpperCase() ===
+                              coloredColumn.column.value[0]
+                              ? `var(${coloredColumn.positive})`
+                              : column === coloredColumn.column.key &&
+                                aData[
+                                  coloredColumn.column.key
+                                ].toUpperCase() ===
+                                  coloredColumn.column.value[1]
+                              ? `var(${coloredColumn.negative})`
+                              : "black",
+
+                          fontWeight:
+                            column === "Type_Kelas" ||
+                            column === "Nama_Kelas" ||
+                            column === "Harga" ||
+                            column === "Level" ||
+                            column === "Status" ||
+                            column === "Kelas_Premium" ||
+                            column === "Metode_Pembayaran"
+                              ? "600"
+                              : "normal",
+                        }}
+                      >
+                        {aData[column]}
+                      </div>
                     </div>
                   ))}
                   {isKelolaKelasRoute && selectedRowIndex !== index && (
                     <div className="action-buttons">
-                      <strong>Action:</strong>{" "}
+                      <div>
+                        <strong>Action:</strong>{" "}
+                      </div>
                       <button
                         onClick={() => handleGetDetailCourse(aData.Kode_Kelas)}
                         className="btn rounded-pill text-light"
@@ -164,14 +218,16 @@ const TableAdmin = ({ data, coloredColumn }) => {
                         backgroundColor: `var(--primary-young-blue)`,
                       }}
                     >
-                      {column}
+                      {column.replace(/_/g," ")}
                     </th>
                   ))}
                   {isKelolaKelasRoute && (
                     <th
                       className="d-flex justify-content-center"
+                      scope="col"
                       style={{
                         backgroundColor: `var(--primary-young-blue)`,
+                        // height:"4.3em"
                       }}
                     >
                       Action
@@ -209,39 +265,44 @@ const TableAdmin = ({ data, coloredColumn }) => {
                             column === "Metode_Pembayaran"
                               ? "600"
                               : "normal",
+                          
+                          fontSize: "0.9em"
                         }}
                       >
                         {aData[column]}
                       </td>
                     ))}
                     {isKelolaKelasRoute && (
-                      <td className="d-flex justify-content-center">
+                      <td className="d-flex justify-content-center border-0">
                         {(selectedRowIndex === null ||
                           selectedRowIndex !== index) && (
                           <>
-                            <button
-                              style={{
-                                backgroundColor: `var(--primary-purple)`,
-                              }}
-                              className="btn rounded-pill text-light"
-                              type="button"
-                              data-bs-toggle="modal"
-                              data-bs-target="#staticBackdrop"
-                              onClick={() =>
-                                handleGetDetailCourse(aData.Kode_Kelas)
-                              }
-                            >
-                              Update
-                            </button>
-                            <button
-                              onClick={() => handleDelete(aData.Kode_Kelas)}
-                              style={{
-                                backgroundColor: `var(--allert-red)`,
-                              }}
-                              className="btn text-light rounded-pill mx-2"
-                            >
-                              Delete
-                            </button>
+                            <div className="d-flex flex-row justify-content-center align-items-center">
+                              <button
+                                style={{
+                                  backgroundColor: `var(--primary-purple)`,
+                                  marginBottom: "",
+                                }}
+                                className="btn rounded-pill text-light"
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop"
+                                onClick={() =>
+                                  handleGetDetailCourse(aData.Kode_Kelas)
+                                }
+                              >
+                                Update
+                              </button>
+                              <button
+                                onClick={() => handleDelete(aData.Kode_Kelas)}
+                                style={{
+                                  backgroundColor: `var(--allert-red)`,
+                                }}
+                                className="btn text-light rounded-pill mx-2"
+                              >
+                                Delete
+                              </button>
+                            </div>
                           </>
                         )}
                       </td>
@@ -264,7 +325,11 @@ const TableAdmin = ({ data, coloredColumn }) => {
           </div>
         </>
       )}
-      <div className="">{showModal && <UpdateCourse showModal={showModal} courseCode={passCode} />}</div>
+      <div className="">
+        {showModal && (
+          <UpdateCourse showModal={showModal} courseCode={passCode} />
+        )}
+      </div>
     </div>
   );
 };
