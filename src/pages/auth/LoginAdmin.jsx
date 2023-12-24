@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { toast } from 'react-hot-toast';
 
 function LoginAdmin() {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ function LoginAdmin() {
   };
 
   return (
-    <div className="register w-50 p-3 d-flex flex-column justify-content-center">
+    <div className="register w-50 p-3 d-flex flex-column justify-content-center" style={{fontFamily:"Montserrat"}}>
       <h4 style={{ color: `var(--primary-purple)`, textAlign: "center", paddingBottom:"20px", fontWeight:"700" }}>
         Login Admin    
       </h4>

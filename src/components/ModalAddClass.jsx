@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { createClass } from "../api/createClass";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 function ModalAddClass() {
   const [isPriceDisabled, setIsPriceDisabled] = useState(false);

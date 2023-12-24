@@ -13,7 +13,7 @@ import BSI from "../../assets/BSI.png";
 import Muamalat from "../../assets/Muamalat.png";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { toast } from 'react-hot-toast';
 
 const BayarCourse = () => {
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -22,6 +22,14 @@ const BayarCourse = () => {
   const location = useLocation();
   const courseData = location.state?.courseData || "";
   const courseCode = courseData.courseCode;
+
+  const payMethodCreditCard = () => {
+    setPaymentMethod("CREDIT_CARD");
+  }
+
+  const payMethodBankTransfer = () => {
+    setPaymentMethod("BANK_TRANSFER");
+  }
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -50,9 +58,9 @@ const BayarCourse = () => {
             },
           };
 
-          setOrderDetails(updatedOrderDetails);        
+          setOrderDetails(updatedOrderDetails);
         } else {
-          toast.success("Gagal fetching order course!");
+          toast.error("Gagal fetching order course!");
         }
       } catch (error) {
         console.error("An error occurred while fetching order details:", error);
@@ -115,6 +123,7 @@ const BayarCourse = () => {
               fontWeight: "700",
               marginLeft: "15px",
               marginBottom: "10px",
+              fontFamily:"Montserrat"
             }}
           >
             Kembali
@@ -122,7 +131,7 @@ const BayarCourse = () => {
         </div>
         <div className="d-flex justify-content-center batas">
           <button className="button">
-            Selesaikan Pembayaran sampai 10 Maret 2023 12:00
+            Selesaikan Pembayaran sampai 31 Desember 2023 12:00
           </button>
         </div>
       </div>
@@ -143,7 +152,7 @@ const BayarCourse = () => {
                     data-bs-target="#flush-collapseOne"
                     aria-expanded="false"
                     aria-controls="flush-collapseOne"
-                    onClick={() => setPaymentMethod("BANK_TRANSFER")}
+                    onClick={payMethodBankTransfer}
                   >
                     Bank Transfer
                   </button>
@@ -153,6 +162,7 @@ const BayarCourse = () => {
                   className="accordion-collapse collapse"
                   aria-labelledby="flush-headingOne"
                   data-bs-parent="#accordionFlushExample"
+                  style={{ borderRadius: "0px 0px 10px 10px", boxShadow: "0 5px 8px rgba(0, 0, 0, 0.1)", padding:"0px 50px 20px 50px" }}
                 >
                   <div className="accordion-body">
                     <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
@@ -194,13 +204,29 @@ const BayarCourse = () => {
                           className="form-control-plaintext"
                           defaultValue="3118 6000 0001 031"
                           readOnly
-                          />
+                        />
                       </div>
+                      {/* <div className="text-end">
+                        <button
+                          type="button"
+                          className="btn btn-pay"
+                          style={{
+                            textDecoration: "none",
+                            fontFamily: "Poppins",
+                            fontSize: "18px",
+                            padding: "10px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          <BiSolidDollarCircle style={{ marginRight: "5px" }} />
+                          Bayar
+                        </button>
+                      </div> */}
                     </form>
                   </div>
                 </div>
               </div>
-              <div className="accordion-item">
+              <div className="accordion-item" >
                 <h2 className="accordion-header" id="flush-headingTwo">
                   <button
                     className="accordion-button button2 collapsed"
@@ -209,7 +235,7 @@ const BayarCourse = () => {
                     data-bs-target="#flush-collapseTwo"
                     aria-expanded="false"
                     aria-controls="flush-collapseTwo"
-                    onClick={() => setPaymentMethod("CREDIT_CARD")}
+                    onClick={payMethodCreditCard}
                   >
                     Credit Card
                   </button>
@@ -219,6 +245,7 @@ const BayarCourse = () => {
                   className="accordion-collapse collapse"
                   aria-labelledby="flush-headingTwo"
                   data-bs-parent="#accordionFlushExample"
+                  style={{ borderRadius: "0px 0px 10px 10px", boxShadow: "0 5px 8px rgba(0, 0, 0, 0.1)", padding:"0px 50px 20px 50px" }}
                 >
                   <div className="accordion-body">
                     <div className="d-flex justify-content-center align-content-center gap-3 pb-3 pt-3">
@@ -278,13 +305,29 @@ const BayarCourse = () => {
                           />
                         </div>
                       </div>
+                      {/* <div className="text-end">
+                        <button
+                          type="button"
+                          className="btn btn-pay"
+                          style={{
+                            textDecoration: "none",
+                            fontFamily: "Poppins",
+                            fontSize: "18px",
+                            padding: "10px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          <BiSolidDollarCircle style={{ marginRight: "5px" }} />
+                          Bayar
+                        </button>
+                      </div> */}
                     </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-md-6 order-md-2 wrapper p-4 mb-5">
+          <div className="col-md-6 order-md-2 wrapper p-4 mb-5" style={{boxShadow: "0 5px 8px rgba(0, 0, 0, 0.1)"}}>
             <p
               style={{
                 fontWeight: "700",
@@ -295,14 +338,22 @@ const BayarCourse = () => {
               Pembayaran Kelas
             </p>
             <Row xs={1} md={1} className="g-4">
-            {orderDetails && orderDetails.category && (
-               <Col>
-                  <Card className="d-flex align-items-center justify-content-center" style={{ borderRadius: "25px", marginTop: "20px" }}>
+              {orderDetails && orderDetails.category && (
+                <Col>
+                  <Card
+                    className="d-flex align-items-center justify-content-center"
+                    style={{ borderRadius: "25px", marginTop: "15px" }}
+                  >
                     <Card.Img
                       variant="top"
-                      src={orderDetails.category?.categoryImage || ""} 
-                      style={{ margin: "5px", padding: "0px", width:"40%", height:"50%" }}
-                      />
+                      src={orderDetails.category?.categoryImage || ""}
+                      style={{
+                        marginTop: "15px",
+                        padding: "0px",
+                        width: "35%",
+                        height: "45%",
+                      }}
+                    />
                     <Card.Body>
                       <div className="d-flex">
                         <a
@@ -312,11 +363,14 @@ const BayarCourse = () => {
                             padding: "0px",
                             textDecoration: "none",
                             color: "#6148FF",
-                            fontSize: "15px",
+                            fontSize: "18px",
                             fontWeight: "800",
                           }}
                         >
-                          {orderDetails.category?.categoryName.replace(/_/g, " ") || ""}
+                          {orderDetails.category?.categoryName.replace(
+                            /_/g,
+                            " "
+                          ) || ""}
                         </a>
                       </div>
                       <Card.Title style={{ fontWeight: "700" }}>
@@ -339,9 +393,15 @@ const BayarCourse = () => {
                     <td>Total Bayar</td>
                   </tr>
                   <tr>
-                    <td className="payment1">Rp {orderDetails.price?.toLocaleString()}</td>
-                    <td className="payment1">Rp {orderDetails.tax?.toLocaleString()}</td>
-                    <td className="total">Rp {orderDetails.totalPrice?.toLocaleString()}</td>
+                    <td className="payment1">
+                      Rp {orderDetails.price?.toLocaleString()}
+                    </td>
+                    <td className="payment1">
+                      Rp {orderDetails.tax?.toLocaleString()}
+                    </td>
+                    <td className="total">
+                      Rp {orderDetails.totalPrice?.toLocaleString()}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -372,19 +432,22 @@ const BayarCourse = () => {
                 display: none;
               }
             }
-            
-            .wrapper {
-                border:1px solid #6148FF;
-                border-radius: 25px;
-                margin-left: 20px;
-                width: 400px;
-            }
 
+            @media (min-width: 768px) {
+                .wrapper {
+                  border:0.1px solid #6148FF;
+                  border-radius: 25px;
+                  margin-left: 100px;
+                  width: 450px;
+              }
+            }
+            
             .table-container {
               margin: 10px 20px 20px;
               width: 100%;
               overflow: hidden;
               border-collapse: collapse;
+              font-family: Montserrat;
             }
 
             .payment-table {
@@ -406,6 +469,15 @@ const BayarCourse = () => {
 
             .payment-table .total {
               color: #6148FF;
+            }
+
+            .btn-pay {
+              background-color: #00DC00;
+              color: #fff;
+            }
+            .btn-pay:hover {
+              background-color: #00B600;
+              color: #fff;
             }
 
             .button-kirim {
@@ -450,6 +522,7 @@ const BayarCourse = () => {
                 font-weight: 600;
                 width: 60%
             }
+
             hr{
                 height:2px;
                 border-width:0;
@@ -462,6 +535,13 @@ const BayarCourse = () => {
               font-weight: 600;
               padding: 0px;
               margin: 0px;
+font-family: Poppins;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: 0em;
+text-align: left;
+
             }
     
             .form-group1 input[type="text"], .form-group input[type="text"] {

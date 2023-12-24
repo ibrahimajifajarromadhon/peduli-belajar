@@ -1,6 +1,8 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { toast } from "react-hot-toast";
+import foto from "../../assets/foto.png";
 
 function MyProfile() {
   const [fullName, setFullName] = useState("");
@@ -12,15 +14,9 @@ function MyProfile() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [fullNameUser, setFullNameUser] = useState("");
-  const [noTelpUser, setNoTelpUser] = useState("");
-  const [cityUser, setCityUser] = useState("");
-  const [countryUser, setCountryUser] = useState("");
-  const [profilePictureUser, setProfilePictureUser] = useState("");
-
   useEffect(() => {
     setIsLoading(true);
-
+  
     axios.get(`${import.meta.env.VITE_API}/api/user`, {
       headers: {
         Authorization: `Bearer ${Cookies.get("token")}`,
@@ -33,82 +29,95 @@ function MyProfile() {
       setProfilePicture(response.data.data.profilePictureUrl);
       setEmail(response.data.data.email);
     })
-      .catch((error) => {
-        console.error('Terjadi kesalahan:', error);
-      }).finally (() => {
-        
-      })
+    .catch((error) => {
+      console.error('Terjadi kesalahan:', error);
+    })
+    .finally(() => {
       setIsLoading(false);
+    });
+  }, []);
 
-  },[])
-
-  const onProfilePictureChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProfilePicture(URL.createObjectURL(file));
-    }
-  };
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
   
     try {
       const formData = new FormData();
-      formData.append("profilePicture", profilePictureUser); 
-      formData.append("fullName", fullNameUser);
-      // formData.append("email", email);
-      formData.append("noTelp", noTelpUser);
-      formData.append("country", countryUser);
-      formData.append("city", cityUser);
-      
-      const config = {
-        method: "put",
-        url: `${import.meta.env.VITE_API}/api/user/edit-profile`,
+      formData.append('fullName', fullName);
+      formData.append('noTelp', noTelp);
+      formData.append('city', city);
+      formData.append('country', country);
+      if (profilePicture instanceof File) {
+        formData.append('profilePicture', profilePicture);
+      } else if (typeof profilePicture === 'string') {
+        const response = await fetch(profilePicture);
+        const blob = await response.blob();
+        const file = new File([blob], 'profile_picture.jpg', { type: 'image/jpeg' });
+        formData.append('profilePicture', file);
+      }
+
+      const response = await fetch(`${import.meta.env.VITE_API}/api/user/edit-profile`, {
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json", 
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
-        data: formData,
-      };
+        body: formData,
+      });
   
-      const response = await axios.request(config);
-      console.log(response.data);
+      const responseData = await response.json();
+      console.log(responseData);
+      toast.success('Data profil berhasil disimpan!')
     } catch (error) {
       console.error('Terjadi kesalahan:', error);
-      // setValidation(error.response.data);
+      toast.error('Data profil gagal disimpan!')
     } finally {
       setIsLoading(false);
     }
   };
-  
+  const onProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePicture(URL.createObjectURL(file));
+    }
+  };
   return (
     <form onSubmit={onSubmit} className="register w-50 p-3 d-flex flex-column justify-content-center w-100">
-      <div className="d-flex align-items-center mb-3">
-        <div>
+      <div className="d-flex align-items-center justify-content-center mb-3">
+        <div style={{ position: 'relative' }}>
           <input
             type="file"
             accept="image/*"
             onChange={onProfilePictureChange}
+            style={{ display: 'none' }}
+            id="fileInput"
           />
-          {profilePicture && (
+          <label htmlFor="fileInput" style={{ position: 'absolute', bottom: '0px', right: '10px', cursor: 'pointer' }}>
             <img
-              src={profilePicture}
-              alt="Profile"
-              style={{ width: '90px', height: '90px', marginTop: '10px' }}
+              src={foto}
+              alt="Upload"
+              style={{ width: '2.2em', height: '2.2em' }}
             />
-          )}
-        </div>
-        <div style={{ marginLeft: '20px' }}>
-          <p>Profile Picture URL:</p>
+          </label>
           {profilePicture && (
-            <img
-              src={profilePicture}
-              alt="Profile"
-              style={{ width: '90px', height: '90px' }}
-            />
+            <div
+              style={{
+                width: '8em',
+                height: '8em',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: '3px solid var(--primary-purple)',
+              }}
+            >
+              <img
+                src={profilePicture}
+                alt="Profile"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
           )}
         </div>
       </div>
+
       <div className="mb-3">
         <label htmlFor="formGroupExampleInput2" className="form-label">
           Nama
@@ -119,8 +128,8 @@ function MyProfile() {
           className="form-control rounded-3"
           id="name"
           placeholder="Masukan Nama"
-          value={fullName}
-          onChange={(e) => setFullNameUser(e.target.value)}
+          value={fullName}           
+          onChange={(e) => setFullName(e.target.value)}
           
         />
       </div>
@@ -135,8 +144,6 @@ function MyProfile() {
           id="email"
           placeholder="Masukan Email"
           value={email}
-          // onChange={(e) => setEmail(e.target.value)}
-
         />
       </div>
       <div className="mb-3">
@@ -150,7 +157,7 @@ function MyProfile() {
           id="phone"
           placeholder="Masukkan Nomor Telepon"
           value={noTelp}
-          onChange={(e) => setNoTelpUser(e.target.value)}
+          onChange={(e) => setNoTelp(e.target.value)}
           maxLength={13}
           minLength={10}
 
@@ -167,7 +174,7 @@ function MyProfile() {
           id="country"
           placeholder="Masukkan Negara"
           value={country}
-          onChange={(e) => setCountryUser(e.target.value)}
+          onChange={(e) => setCountry(e.target.value)}
 
         />
       </div>
@@ -182,7 +189,7 @@ function MyProfile() {
           id="city"
           placeholder="Masukkan Kota "
           value={city}
-          onChange={(e) => setCityUser(e.target.value)}
+          onChange={(e) => setCity(e.target.value)}
 
         />
       </div>
@@ -198,12 +205,19 @@ function MyProfile() {
         </button>
       </div>
       <style>{`
-      input {
-        height: 48px
-      }
-      label {
-        font-weight: 600
-      }
+        input {
+          height: 48px
+        }
+        label {
+          font-weight: 600
+        }
+
+        .register {
+          font-family: Poppins;
+          font-size: 14px;
+          font-weight: 400;
+          text-align: left;
+        }
       `}</style>
     </form>
   )

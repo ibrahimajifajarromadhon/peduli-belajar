@@ -9,6 +9,7 @@ function Footer() {
         padding: '20px',
         fontWeight:"600",
         width: '100%',
+        fontFamily:"Montserrat"
       }}>
         &copy; {new Date().getFullYear()} Peduli Belajar
       </footer>
