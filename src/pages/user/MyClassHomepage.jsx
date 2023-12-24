@@ -1,35 +1,85 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FilterClass from "../../components/user/FilterClass";
 import ListMyCourse from "../../components/user/ListMyCourse";
 import { CiFilter } from "react-icons/ci";
+import SearchIcon from "../../assets/bx_search-alt.svg";
 
 function MyClassHomepage() {
   const [progressButton, setProgressButton] = useState("all");
   const [filteredData, setFilteredData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleFilter = (data) => {
     setFilteredData(data);
   };
   console.log(filteredData);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API}/api/course/filter?title=${searchQuery}`
+      );
+      const data = await response.json();
+      setSearchResults(data);
+      navigate(`/myClass?search=${searchQuery}`);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <div style={{ backgroundColor: "#EBF3FC", marginTop: "4em" }}>
       <div className="container">
-        <div className="topic d-flex">
-          <h4 className="mt-5" style={{ fontWeight: "700" }}>
+        <div className="topic d-flex justify-content-between">
+          <h4 className="mt-5" style={{ fontWeight: "700", fontFamily:"Montserrat" }}>
             Kelas Berjalan{" "}
           </h4>
-          <input
-            className="form-control ms-auto mt-5"
-            placeholder="Cari Kelas"
-            type="search"
-            style={{
-              width: "20%",
-              padding: "10px",
-              borderRadius: "15px",
-              borderColor: "#6148FF",
-            }}
-          />
+          <form
+            className="search-course d-flex mt-5"
+            role="search"
+            style={{ position: "relative", minWidth: "200px" }}
+          >
+            <input
+              className="form-control me-2 d-none d-md-block"
+              type="search"
+              placeholder="Cari Kelas..."
+              aria-label="Search"
+              style={{
+                paddingRight: "50px",
+                height: "3.1em",
+                width: "100%",
+                borderRadius: "16px",
+                fontFamily: "Montserrat",
+                fontWeight: "400",
+              }}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <img
+              className="search-icon"
+              src={SearchIcon}
+              alt="Search Icon"
+              onClick={handleSubmit}
+              style={{
+                position: "absolute",
+                right: "20px",
+                top: "82%",
+                transform: "translateY(-100%)",
+                width: "2em",
+                height: "2em",
+                backgroundColor: `var(--primary-purple)`,
+                borderRadius: "12px",
+                padding: "5px",
+                cursor: "pointer",
+              }}
+            />
+          </form>{" "}
           <button
             className="btn btn-primary ms-auto mt-5"
             type="button"

@@ -614,7 +614,7 @@
 import React, { useEffect, useState } from "react";
 import getDetailCourse from "../api/getDetailsCourse";
 import updateCourse from "../api/updateCorse";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 function UpdateCourse({ courseCode }) {
   const [getDetail, setGetDetail] = useState();

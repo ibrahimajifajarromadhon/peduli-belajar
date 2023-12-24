@@ -36,9 +36,6 @@ function MyProfile() {
       setIsLoading(false);
     });
   }, []);
-  
-
-  
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -53,13 +50,12 @@ function MyProfile() {
       if (profilePicture instanceof File) {
         formData.append('profilePicture', profilePicture);
       } else if (typeof profilePicture === 'string') {
-        // If profilePicture is a URL, download the image and convert it to a File
         const response = await fetch(profilePicture);
         const blob = await response.blob();
         const file = new File([blob], 'profile_picture.jpg', { type: 'image/jpeg' });
         formData.append('profilePicture', file);
       }
-      
+
       const response = await fetch(`${import.meta.env.VITE_API}/api/user/edit-profile`, {
         method: 'PUT',
         headers: {
