@@ -5,7 +5,7 @@ import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
 import getMyCourse from "../../api/getMyCourse";
 
-const ListMyCourse = ({ progressButton }) => {
+const ListMyCourse = ({ progressButton, listMyCourse }) => {
   const [progresCourse, setProgresCourse] = useState([]);
 
   useEffect(() => {
@@ -17,8 +17,13 @@ const ListMyCourse = ({ progressButton }) => {
         console.log("gagal fetch api", error.message);
       }
     };
-    fetchData();
-  }, []);
+    if (listMyCourse && Array.isArray(listMyCourse) && listMyCourse.length > 0) {
+      setProgresCourse(listMyCourse);
+    } else {
+      fetchData();
+    }
+  }, [progressButton, listMyCourse]);
+
 
   const filterCourses = () => {
     if (progressButton === "all") {

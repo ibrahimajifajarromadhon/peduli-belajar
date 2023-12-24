@@ -5,6 +5,12 @@ import { CiFilter } from "react-icons/ci";
 
 function MyClassHomepage() {
   const [progressButton, setProgressButton] = useState("all");
+  const [filteredData, setFilteredData] = useState([]);
+
+  const handleFilter = (data) => {
+    setFilteredData(data);
+  };
+  console.log(filteredData);
 
   return (
     <div style={{ backgroundColor: "#EBF3FC", marginTop: "4em" }}>
@@ -31,7 +37,8 @@ function MyClassHomepage() {
             data-bs-target="#offcanvasBottom"
             aria-controls="offcanvasBottom"
           >
-            <CiFilter setProgressButton={setProgressButton}/>
+            {/* <CiFilter setProgressButton={setProgressButton}/> */}
+            <CiFilter />
           </button>
         </div>
         <div className="row">
@@ -40,7 +47,7 @@ function MyClassHomepage() {
             style={{ marginBottom: "2em" }}
           >
             <div className="mt-4">
-              <FilterClass />
+              <FilterClass onFilter={handleFilter}/>
             </div>
           </div>
           <div className="col-md-8">
@@ -87,7 +94,7 @@ function MyClassHomepage() {
               </button>
             </div>
             <div className="mt-3">
-              <ListMyCourse progressButton={progressButton}/>
+              <ListMyCourse progressButton={progressButton} listMyCourse={filteredData}/>
             </div>
           </div>
         </div>
