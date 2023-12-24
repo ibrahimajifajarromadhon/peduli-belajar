@@ -5,6 +5,12 @@ import { CiFilter } from "react-icons/ci";
 
 const AllCourseHomepage = () => {
   const [filter, setFilter] = useState("all");
+  const [filteredData, setFilteredData] = useState([]);
+
+  const handleFilter = (data) => {
+    setFilteredData(data);
+  };
+  console.log(filteredData);
 
   return (
     <>
@@ -32,13 +38,13 @@ const AllCourseHomepage = () => {
               data-bs-target="#offcanvasBottom"
               aria-controls="offcanvasBottom"
             >
-              <CiFilter  setFilter={setFilter}/>
+              <CiFilter />
             </button>
           </div>
           <div className="row">
             <div className="col-md-4" style={{ marginBottom: "2em" }}>
               <div className="mt-4">
-                <FilterClass setFilter={setFilter} />
+                <FilterClass onFilter={handleFilter}/>
               </div>
             </div>
             <div className="col-md-8" style={{ marginBottom: "2em" }}>
@@ -87,7 +93,7 @@ const AllCourseHomepage = () => {
                 </button>
               </div>
               <div className="mt-3">
-                <ListAllCourse filter={filter} />
+                <ListAllCourse filter={filter} listCourses={filteredData} />
               </div>
             </div>
           </div>

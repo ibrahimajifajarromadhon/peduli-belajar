@@ -71,7 +71,7 @@ const ModalBuyPremium = ({ courseCode, handleCloseModal  }) => {
                 <div className="card-body">
                   <div className="d-flex">
                     <h5 className="card-title" style={{ color: "#6148FF" }}>
-                      {courseData.category.replace(/_/g, ' ')}
+                      {courseData.category.categoryName.replace(/_/g, ' ')}
                     </h5>
                     <div className="ms-auto">
                       <FaStar style={{ color: "yellow" }} /> 4.9
