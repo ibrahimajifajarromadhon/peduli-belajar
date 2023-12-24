@@ -7,9 +7,16 @@ import { IoDiamond } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useLocation } from "react-router-dom";
 
 const ListAllCourse = ({ filter, listCourses }) => {
   const [listCourse, setListCourse] = useState([]);
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get("search");
+
+  useEffect(() => {
+    console.log("Search Query:", searchQuery);
+  }, [searchQuery]);
 
   const getCourse = async () => {
     const token = Cookies.get("token");
@@ -42,18 +49,25 @@ const ListAllCourse = ({ filter, listCourses }) => {
   }, [filter, listCourses]);
 
   const filterCourses = () => {
-    if (filter === "all") {
-      return listCourse;
-    } else if (filter === "premium") {
-      return listCourse.filter((course) => course.price !== 0);
-    } else if (filter === "gratis") {
-      return listCourse.filter((course) => course.price === 0);
+    if (!searchQuery) {
+      if (filter === "all") {
+        return listCourse;
+      } else if (filter === "premium") {
+        return listCourse.filter((course) => course.price !== 0);
+      } else if (filter === "gratis") {
+        return listCourse.filter((course) => course.price === 0);
+      } else {
+        return [];
+      }
     } else {
-      return [];
+      return listCourse.filter((course) =>
+        course.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
   };
 
   const filteredCourses = filterCourses();
+  console.log(filteredCourses)
   
   const navigate = useNavigate();
 
@@ -68,93 +82,103 @@ const ListAllCourse = ({ filter, listCourses }) => {
 
   return (
     <div className="row row-cols-1 row-cols-md-2 g-4">
-      {filteredCourses.map((course) => (
-        <div className="col" key={course.courseCode}>
-          <div className="card" style={{ borderRadius: "22px" }}>
-            <div
-              className="d-flex align-items-center justify-content-center"
-              style={{ borderRadius: "22px" }}
-            >
-              <img
-                src={course.category.categoryImage}
-                className="card-img-top"
-                alt="..."
-                style={{
-                  margin: "5px",
-                  padding: "0px",
-                  width: "40%",
-                  height: "50%",
-                }}
-              />
-            </div>
-            <div className="card-body">
-              <div className="d-flex">
-                <h5 className="card-title" style={{ color: "#6148FF" }}>
-                  {course.category.categoryName.replace(/_/g, " ")}
-                </h5>
-                <div className="ms-auto">
-                  <FaStar style={{ color: "yellow" }} /> {course.rating}
+      {filteredCourses.length === 0 ? (
+        <div className="col">
+          <i><p style={{fontFamily:"Montserrat", fontWeight:"600"}}>No search results found.</p></i>
+        </div>
+      ) : (
+        filteredCourses.map((course) => (
+          <div className="col" key={course.courseCode}>
+            <div className="card" style={{ borderRadius: "22px" }}>
+              <div
+                className="d-flex align-items-center justify-content-center"
+                style={{ borderRadius: "22px" }}
+              >
+                <img
+                  src={course.category.categoryImage}
+                  className="card-img-top"
+                  alt="..."
+                  style={{
+                    marginTop: "15px",
+                    padding: "0px",
+                    width: "40%",
+                    height: "50%",
+                  }}
+                />
+              </div>
+              <div className="card-body">
+                <div className="d-flex">
+                  <h5 className="card-title" style={{fontFamily:"Montserrat", fontWeight:"700", color: "#6148FF" }}>
+                    {course.category.categoryName.replace(/_/g, " ")}
+                  </h5>
+                  <div className="ms-auto" style={{fontFamily:"Montserrat", fontWeight:"600"}}>
+                    <FaStar style={{ color: "yellow" }} /> {course.rating}
+                  </div>
                 </div>
-              </div>
-              <h6 className="card-title">{course.title}</h6>
-              <p className="card-text">by {course.teacher}</p>
-              <div className="d-flex">
-                <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
-                <p
-                  style={{
-                    textDecoration: "none",
-                    color: "#6148FF",
-                    fontSize: "11px",
-                    fontWeight: "600",
-                  }}
-                >
-                  {course.level} LEVEL
-                </p>
-                <RiBook3Line style={{ color: "#73CA5C", marginLeft: "20px" }} />{" "}
-                <p
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "11px",
-                    fontWeight: "600",
-                  }}
-                >
-                  {course.modul} Modul
-                </p>
-                <RiTimeFill style={{ color: "#73CA5C", marginLeft: "20px" }} />{" "}
-                <p
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "11px",
-                    fontWeight: "600",
-                  }}
-                >
-                  100 Menit
-                </p>
-              </div>
-              <div>
-                {course.price === 0 ? (
-                  <button
-                    className="btn btn-kelas"
-                    onClick={() => handleButtonClick(course)}
+                <h6 className="card-title" style={{fontFamily:"Montserrat", fontWeight:"700"}}>{course.title}</h6>
+                <p className="card-text" style={{fontFamily:"Montserrat", fontWeight:"500", fontSize:"14px"}}>by {course.teacher}</p>
+                <div className="d-flex" style={{fontFamily:"Montserrat"}}>
+                  <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
+                  <p
+                    style={{
+                      textDecoration: "none",
+                      color: "#6148FF",
+                      fontSize: "11px",
+                      fontWeight: "600",
+                    }}
                   >
-                    Mulai Kelas
-                  </button>
-                ) : (
-                  <>
+                    {course.level} LEVEL
+                  </p>
+                  <RiBook3Line
+                    style={{ color: "#73CA5C", marginLeft: "20px" }}
+                  />{" "}
+                  <p
+                    style={{
+                      textDecoration: "none",
+                      fontSize: "11px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    {course.modul} Modul
+                  </p>
+                  <RiTimeFill
+                    style={{ color: "#73CA5C", marginLeft: "20px" }}
+                  />{" "}
+                  <p
+                    style={{
+                      textDecoration: "none",
+                      fontSize: "11px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    100 Menit
+                  </p>
+                </div>
+                <div style={{fontFamily:"Montserrat"}}>
+                  {course.price === 0 ? (
                     <button
-                      onClick={() => handleButtonClick(course)}
                       className="btn btn-kelas"
+                      onClick={() => handleButtonClick(course)}
                     >
-                      <IoDiamond />
-                      Premium
+                      Mulai Kelas
                     </button>
-                  </>
-                )}
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleButtonClick(course)}
+                        className="btn btn-kelas"
+                      >
+                        <IoDiamond />
+                        Premium
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
       <style>{`
         .btn-kelas  {
           padding: 5px;
@@ -163,7 +187,6 @@ const ListAllCourse = ({ filter, listCourses }) => {
           border-radius: 25px;
           width: 40%;
           font-weight: 600;
-          h
         }
 
         .btn-kelas:hover {

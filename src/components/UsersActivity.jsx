@@ -75,7 +75,7 @@ const UsersActivity = () => {
           </div>
           <div className="">
             <Card.Body>
-              <Card.Title style={textStyle}>{totalData ? totalData : "Loading..."}</Card.Title>
+              <Card.Title style={textStyle}>{totalData ? totalData : "..."}</Card.Title>
               <Card.Text style={textStyle}>Active Class</Card.Text>
             </Card.Body>
           </div>
@@ -93,7 +93,7 @@ const UsersActivity = () => {
           </div>
           <div className="col-md-9">
             <Card.Body>
-              <Card.Title style={textStyle}>{premiumData ? premiumData : "Loadiing..."}</Card.Title>
+              <Card.Title style={textStyle}>{premiumData ? premiumData : "..."}</Card.Title>
               <Card.Text style={textStyle}>Premium Class</Card.Text>
             </Card.Body>
           </div>

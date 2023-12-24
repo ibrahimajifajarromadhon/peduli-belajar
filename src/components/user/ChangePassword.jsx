@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { toast } from 'react-hot-toast';
 
 function ChangePassword() {
   const [passwordOld, setPasswordOld] = useState("");
@@ -37,7 +37,7 @@ function ChangePassword() {
       };
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API}/api/user/updatePassword`, {
+      const response = await fetch(`${import.meta.env.VITE_API}/api/user/update-password`, {
         method: 'PUT',
         headers,
         body: JSON.stringify(dataUpdate)
@@ -57,8 +57,8 @@ function ChangePassword() {
       className="register w-50 p-3 d-flex flex-column justify-content-center w-100"
       style={{
         fontFamily: "Poppins",
-        fontSize: "12px",
-        fontWeight: "400",
+        fontSize: "14px",
+        fontWeight: "600",
         textAlign: "left",
       }}
     >

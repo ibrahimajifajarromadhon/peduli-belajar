@@ -19,11 +19,10 @@ function UserProfile() {
         <Link to={"/allCourseClass"} style={{marginTop: "2.5em", textDecoration:"none", color:`var(--primary-purple)`, fontSize:"16px", width:"78%", marginBottom:"1em", fontWeight:"700"}}><span style={{fontSize:"1.3em", marginRight:"1.5em"}}><FaArrowLeft/></span>Kembali ke Beranda</Link>
         <div
           style={{
-            width: "70%",
             border: "1px solid var(--primary-purple)",
             marginBottom:"10em"
           }}
-          className="card d-flex flex-column"
+          className="side-bar card d-flex flex-column"
         >
           
           <div
@@ -42,6 +41,20 @@ function UserProfile() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .side-bar {
+              width: 90%;
+            }
+          }
+          @media (min-width: 769px) {
+            .side-bar {
+              width: 70%;
+            }
+          }
+        `}
+      </style>
     </>
   );
 }

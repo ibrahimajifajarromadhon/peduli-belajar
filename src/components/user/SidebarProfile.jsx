@@ -5,7 +5,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { SlBasket } from "react-icons/sl";
 import { FiLogOut } from "react-icons/fi";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { toast } from 'react-hot-toast';
 
 function SidebarProfile() {
   const location = useLocation();
@@ -33,7 +33,7 @@ function SidebarProfile() {
         <span>
           <CiEdit style={{width:"1.3em", height:"1.3em"}} />
         </span>
-        <p className="sidebar">Profile Saya</p>
+        <p className="sidebar" style={{fontFamily:"Montserrat"}}>Profile Saya</p>
       </NavLink>
       <hr />
       <NavLink
@@ -45,7 +45,7 @@ function SidebarProfile() {
         <span>
           <IoSettingsOutline style={{width:"1.3em", height:"1.3em"}} />
         </span>
-        <p className="sidebar">Ubah Password</p>
+        <p className="sidebar" style={{fontFamily:"Montserrat"}}>Ubah Password</p>
       </NavLink>
       <hr />
       <NavLink
@@ -57,7 +57,7 @@ function SidebarProfile() {
         <span>
           <SlBasket style={{width:"1.3em", height:"1.3em"}} />
         </span>
-        <p className="sidebar">Riwayat Pembayaran</p>
+        <p className="sidebar" style={{fontFamily:"Montserrat"}}>Riwayat Pembayaran</p>
       </NavLink>
       <hr />
       <NavLink
@@ -70,7 +70,7 @@ function SidebarProfile() {
         <span>
           <FiLogOut style={{width:"1.3em", height:"1.3em"}} />
         </span>
-        <p className="sidebar">Keluar</p>
+        <p className="sidebar" style={{fontFamily:"Montserrat"}}>Keluar</p>
       </NavLink>
       <hr />
 

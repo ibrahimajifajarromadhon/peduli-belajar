@@ -21,8 +21,11 @@ const DetailCourse = () => {
   const { courseCode } = useParams();
   const [dataCourse, setDataCourse] = useState(null);
   const [watchedSubjects, setWatchedSubjects] = useState([]);
+  const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
   const [currentSubjectIndex, setCurrentSubjectIndex] = useState(0);
-  const [showPremiumModal, setShowPremiumModal] = useState(false);
+    const [showPremiumModal, setShowPremiumModal] = useState(false);
+
+  console.log(dataCourse)
 
   useEffect(() => {
     const detailApiUrl = `${import.meta.env.VITE_API}/api/course/${courseCode}`;
@@ -115,7 +118,7 @@ const DetailCourse = () => {
                 fontWeight: "800",
               }}
             >
-              {dataCourse.category.replace(/_/g, " ")}
+              {dataCourse.category.categoryName.replace(/_/g, " ")}
             </a>
             <div className="ms-auto" style={{ fontWeight: "700" }}>
               <FaStar style={{ color: "#F9CC00", marginBottom: "5px" }} /> 5.0
@@ -298,6 +301,7 @@ const DetailCourse = () => {
                 url={VIDEO_PATH}
                 className="player"
                 onEnded={handleVideoEnded}
+                controls
               />
               
             </div>
@@ -341,11 +345,11 @@ const DetailCourse = () => {
             className="col-md-5 order-md-2 p-4 materi"
             style={{
               height: "50%",
-              width: "auto",
+              width: "40%",
               backgroundColor: "white",
               borderRadius: "15px",
               marginTop: "-180px",
-              marginLeft: "50px",
+              marginLeft: "5px",
               boxShadow: "0 0 0 2px whitesmoke",
             }}
           >
@@ -402,7 +406,16 @@ const DetailCourse = () => {
                           }}
                         >
                           {subject.videoTitle}
-                          {subject.subjectType === "GRATIS" ? (
+                          {subject.videoLink === "" ? (
+                            <PiLockKeyFill
+                            style={{
+                              marginLeft: "15px",
+                              color: "#D9D9D9",
+                              width: "20px",
+                              height: "20px",
+                            }}
+                          />
+                          ) : (
                             <FaCirclePlay
                               style={{
                                 marginLeft: "15px",
@@ -411,15 +424,7 @@ const DetailCourse = () => {
                                 height: "20px",
                               }}
                             />
-                          ) : (
-                            <PiLockKeyFill
-                              style={{
-                                marginLeft: "15px",
-                                color: "#D9D9D9",
-                                width: "20px",
-                                height: "20px",
-                              }}
-                            />
+                            
                           )}
                         </li>
                         <hr />

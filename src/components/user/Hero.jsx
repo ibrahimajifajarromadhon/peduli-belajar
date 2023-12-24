@@ -25,7 +25,7 @@ function Hero() {
             width: "300px",
           }}
         >
-          <h1 style={{ fontSize: "30px", fontWeight: "600", color: "#FFFFFF" }}>
+          <h1 style={{ fontSize: "24px", fontWeight: "700", color: "#FFFFFF", fontFamily:"Montserrat" }}>
             Belajar<br /> dari Praktisi Terbaik!
           </h1>
           <Link to={`/login`} style={{textDecoration:"none", color:"#fff"}}>
@@ -37,6 +37,7 @@ function Hero() {
               backgroundColor: "white",
               fontWeight: "700",
               borderRadius: "15px",
+              fontFamily:"Montserrat"
             }}
             className="btn button"
           >

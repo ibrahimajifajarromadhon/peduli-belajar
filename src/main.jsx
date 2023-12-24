@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from 'react-hot-toast';
 import {
   Navigate,
   Route,
@@ -31,10 +31,11 @@ import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import Otp from "./pages/auth/Otp.jsx";
 import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
-import "react-toastify/dist/ReactToastify.css";
+import ForgotPassword from "./pages/auth/ForgotPassword.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import ListMyCourse from "./components/user/ListMyCourse.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +45,7 @@ const router = createBrowserRouter(
         <Route element={<Login />} path="/login"></Route>
         <Route element={<Register />} path="/register"></Route>
         <Route element={<RegisterAdmin />} path="/registerAdmin"></Route>
+        <Route element={<ForgotPassword />} path="/forgotPassword"></Route>
         <Route
           element={<ResetPassword />}
           path="/reset-password/:token"
@@ -83,6 +85,8 @@ const router = createBrowserRouter(
         </Route>
         <Route element={<Notification />} path="notification"></Route>
       </Route>
+
+      <Route element={<ListMyCourse/>} path="/kelasku"></Route>
     </>
   )
 );
@@ -90,6 +94,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    <ToastContainer theme="colored" />
+    <Toaster
+      position="top-right"
+      reverseOrder={false}
+    />
   </React.StrictMode>
 );

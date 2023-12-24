@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "../assets/bx_search-alt.svg";
+import searchAdmin from "../api/searchAdmin";
+
 
 function NavbarAdmin() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [searchFiture, setSearchFiture] = useState();
+
+  useEffect
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
@@ -24,6 +29,7 @@ function NavbarAdmin() {
           className="d-flex"
           role="search"
           style={{ position: "relative", minWidth: "200px" }}
+          method="get"
         >
           <input
             className={`form-control me-2 ${
@@ -37,6 +43,7 @@ function NavbarAdmin() {
               height: "3em",
               width: "100%",
             }}
+            name="q"
           />
           <img
             src={SearchIcon}

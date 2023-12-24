@@ -9,12 +9,8 @@ function AdminDashboard() {
     const fetchData = async () => {
       try {
         const response = await getStatusOrder();
-
-        if (Array.isArray(response.data)) {
           setStatusOrder(response.data);
-        } else {
-          console.log("data bukan array", response);
-        }
+       
       } catch (error) {
         console.log("error fetching course:", error.message);
       }
