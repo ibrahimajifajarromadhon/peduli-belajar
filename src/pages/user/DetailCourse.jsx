@@ -22,6 +22,7 @@ const DetailCourse = () => {
   const [dataCourse, setDataCourse] = useState(null);
   const [watchedSubjects, setWatchedSubjects] = useState([]);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
+  const [progressPercentage, setProgressPercentage] = useState(0);
   const [currentSubjectIndex, setCurrentSubjectIndex] = useState(0);
     const [showPremiumModal, setShowPremiumModal] = useState(false);
 
@@ -29,6 +30,8 @@ const DetailCourse = () => {
 
   useEffect(() => {
     const detailApiUrl = `${import.meta.env.VITE_API}/api/course/${courseCode}`;
+
+    const progressApiUrl = `${import.meta.env.VITE_API}/api/course/progress/${courseCode}`;
 
     const token = Cookies.get("token");
 
@@ -47,6 +50,17 @@ const DetailCourse = () => {
       })
       .catch((error) => {
         console.error("Error:", error);
+      });
+
+    axios
+      .get(progressApiUrl, config)
+      .then((progressResponse) => {
+        const progressPercentage = progressResponse.data.data;
+        setProgressPercentage(progressPercentage);
+        console.log(progressPercentage);
+      })
+      .catch((error) => {
+        console.error("Error getting progress:", error);
       });
   }, [courseCode]);
 
@@ -364,16 +378,12 @@ const DetailCourse = () => {
                   <div
                     className="progress mt-2"
                     role="progressbar"
-                    aria-label="Info example"
-                    aria-valuenow="50"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
                   >
                     <div
                       className="progress-bar bg-success text-white"
-                      style={{ width: "70%", fontWeight: "600" }}
+                      style={{ width: `${progressPercentage}%`, fontWeight: "600" }}
                     >
-                      70% complete
+                      {`${progressPercentage}% complete`}
                     </div>
                   </div>
                 </div>
