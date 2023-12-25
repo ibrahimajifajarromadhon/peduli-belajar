@@ -22,7 +22,7 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
     } else {
       fetchData();
     }
-  }, [progressButton, listMyCourse]);
+  }, [progressButton]);
 
 
   const filterCourses = () => {

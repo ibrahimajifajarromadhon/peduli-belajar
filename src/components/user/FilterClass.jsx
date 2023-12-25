@@ -41,10 +41,15 @@ function FilterClass({ onFilter }) {
   }, [selectedFilters]);
 
   const handleFilterChange = (filterType, value) => {
-    setSelectedFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterType]: value,
-    }));
+    setSelectedFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+      if (value.length > 0) {
+        updatedFilters[filterType] = [...new Set([...prevFilters[filterType], ...value])];
+      } else {
+        updatedFilters[filterType] = prevFilters[filterType].filter((item) => !value.includes(item));
+      }
+      return updatedFilters;
+    });
   };
 
   const clearFilters = () => {
