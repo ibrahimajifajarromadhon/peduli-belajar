@@ -3,9 +3,8 @@ import { FaStar } from "react-icons/fa";
 import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
-import getMyCourse from "../../api/getMyCourse";
 import { useLocation, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import getMyCourse from "../../api/getMyCourse";
 
 const ListMyCourse = ({ progressButton, listMyCourse }) => {
   const [progresCourse, setProgresCourse] = useState([]);
@@ -33,7 +32,7 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
     // ) {
     //   setProgresCourse(listMyCourse);
     // } else {
-    fetchData();
+      fetchData();
     // }
   }, []);
 
@@ -70,7 +69,6 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
   const handleClick = (course) => {
     console.log(course.courseCode);
     navigate(`/detailClass/${course.courseCode}`);
-    // navigate(`/detailClass/UIUX004`);
   };
 
   const filteredCourses = filterCourses();
@@ -96,7 +94,6 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
               style={{
                 borderRadius: "22px",
                 width: "100%",
-                // height: "260px",
                 height: "18rem",
                 cursor: "pointer",
                 overflow: "hidden",
