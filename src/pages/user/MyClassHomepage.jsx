@@ -1,43 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CiFilter } from "react-icons/ci";
 import FilterClass from "../../components/user/FilterClass";
 import ListMyCourse from "../../components/user/ListMyCourse";
-import { CiFilter } from "react-icons/ci";
 import SearchIcon from "../../assets/bx_search-alt.svg";
+import Cookies from "js-cookie";
 
 function MyClassHomepage() {
   const [progressButton, setProgressButton] = useState("all");
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
 
   const handleFilter = (data) => {
     setFilteredData(data);
   };
-  console.log(filteredData);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
+    const token = Cookies.get("token")
+
+    const header = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API}/api/course/filter?title=${searchQuery}`
+        `${import.meta.env.VITE_API}/api/course/my-course?title=${searchQuery}`,
+        {
+          method: "GET",
+          headers: header,
+        }
       );
+
       const data = await response.json();
+      console.log(data);
       setSearchResults(data);
       navigate(`/myClass?search=${searchQuery}`);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
+  useEffect(() => {
+    setSearchResults();
+  });
+
   return (
     <div style={{ backgroundColor: "#EBF3FC", marginTop: "4em" }}>
       <div className="container">
         <div className="topic d-flex justify-content-between">
-          <h4 className="mt-5" style={{ fontWeight: "700", fontFamily:"Montserrat" }}>
+          <h4
+            className="mt-5"
+            style={{ fontWeight: "700", fontFamily: "Montserrat" }}
+          >
             Kelas Berjalan{" "}
           </h4>
           <form
@@ -97,28 +115,30 @@ function MyClassHomepage() {
             style={{ marginBottom: "2em" }}
           >
             <div className="mt-4">
-              <FilterClass onFilter={handleFilter}/>
+              <FilterClass onFilter={handleFilter} />
             </div>
           </div>
           <div className="col-md-8">
             <div className="btn-menu d-flex mt-4">
-                <button
-                  className={`btn btn-light me-4 ${ progressButton === "all" ? "active" : ""}`}
-                  onClick={() => setProgressButton("all")}
-                  style={{
-                    width: "20%",
-                    padding: "10px",
-                    borderRadius: "15px",
-                    fontWeight: "600",
-                  }}
-                >
-                  All
-                </button>
               <button
-              className={`btn btn-light me-4 ${
-                progressButton === "in_progress" ? "active" : ""
-              }`}
-              onClick={() => setProgressButton("in_progress")}
+                className={`btn btn-light me-4 ${
+                  progressButton === "all" ? "active" : ""
+                }`}
+                onClick={() => setProgressButton("all")}
+                style={{
+                  width: "20%",
+                  padding: "10px",
+                  borderRadius: "15px",
+                  fontWeight: "600",
+                }}
+              >
+                All
+              </button>
+              <button
+                className={`btn btn-light me-4 ${
+                  progressButton === "in_progress" ? "active" : ""
+                }`}
+                onClick={() => setProgressButton("in_progress")}
                 style={{
                   width: "40%",
                   padding: "10px",
@@ -129,10 +149,10 @@ function MyClassHomepage() {
                 In Progress
               </button>
               <button
-              className={`btn btn-light me-4 ${
-                progressButton === "done" ? "active" : ""
-              }`}
-              onClick={() => setProgressButton("done")}
+                className={`btn btn-light me-4 ${
+                  progressButton === "done" ? "active" : ""
+                }`}
+                onClick={() => setProgressButton("done")}
                 style={{
                   width: "30%",
                   padding: "10px",
@@ -144,7 +164,10 @@ function MyClassHomepage() {
               </button>
             </div>
             <div className="mt-3">
-              <ListMyCourse progressButton={progressButton} listMyCourse={filteredData}/>
+              <ListMyCourse
+                progressButton={progressButton}
+                listMyCourse={filteredData}
+              />
             </div>
           </div>
         </div>
