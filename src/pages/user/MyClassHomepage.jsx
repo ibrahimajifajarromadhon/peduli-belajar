@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CiFilter } from "react-icons/ci";
-import FilterClass from "../../components/user/FilterClass";
+import FilterMyClass from "../../components/user/FilterMyClass";
 import ListMyCourse from "../../components/user/ListMyCourse";
 import SearchIcon from "../../assets/bx_search-alt.svg";
 import Cookies from "js-cookie";
@@ -115,7 +115,7 @@ function MyClassHomepage() {
             style={{ marginBottom: "2em" }}
           >
             <div className="mt-4">
-              <FilterClass onFilter={handleFilter} />
+              <FilterMyClass onFilter={handleFilter} />
             </div>
           </div>
           <div className="col-md-8">
