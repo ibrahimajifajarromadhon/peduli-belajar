@@ -78,17 +78,23 @@ const TableAdmin = ({ data, coloredColumn }) => {
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target={`#collapse-${index}`}
-                  aria-expanded={index === openAccordionIndex ? 'true' : 'false'}
+                  aria-expanded={
+                    index === openAccordionIndex ? "true" : "false"
+                  }
                   aria-controls={`collapse-${index}`}
                   data-bs-parent="#accordionExample"
                   onClick={() => handleAccordionToggle(index)}
                 >
-                  {`${index + 1}. ${columns[0].replace(/_/g, " ")} : ${aData[columns[0]]}`}
+                  {`${index + 1}. ${columns[0].replace(/_/g, " ")} : ${
+                    aData[columns[0]]
+                  }`}
                 </button>
               </h2>
               <div
                 id={`collapse-${index}`}
-                className={`accordion-collapse collapse ${index === openAccordionIndex ? 'show' : ''}`}
+                className={`accordion-collapse collapse ${
+                  index === openAccordionIndex ? "show" : ""
+                }`}
               >
                 <div className="accordion-body">
                   {columns.map((column, columnIndex) => (
@@ -97,7 +103,10 @@ const TableAdmin = ({ data, coloredColumn }) => {
                         <div style={{ width: "9em" }}>
                           <strong
                             className="d-flex align-items-center"
-                            style={{ width: "12em", fontSize: "14px" }}
+                            style={{
+                              width: "12em",
+                              fontSize: "14px",
+                            }}
                           >
                             {column.replace(/_/g, " ")}
                           </strong>
@@ -141,13 +150,19 @@ const TableAdmin = ({ data, coloredColumn }) => {
                   {isKelolaKelasRoute && selectedRowIndex !== index && (
                     <div className="action-buttons">
                       <div>
-                        <strong>Action:</strong>{" "}
+                        <strong>Action:</strong>
                       </div>
                       <button
                         onClick={() => handleGetDetailCourse(aData.Kode_Kelas)}
                         className="btn rounded-pill text-light"
+                        data-bs-toggle="modal"
+                        data-bs-target="#updateModal"
                       >
-                        <span style={{ color: `var(--primary-purple)` }}>
+                        <span
+                          style={{
+                            color: `var(--primary-purple)`,
+                          }}
+                        >
                           <MdEdit />
                         </span>
                       </button>
@@ -155,7 +170,11 @@ const TableAdmin = ({ data, coloredColumn }) => {
                         onClick={() => handleDelete(aData.Kode_Kelas)}
                         className="btn text-light rounded-pill"
                       >
-                        <span style={{ color: `var(--allert-red)` }}>
+                        <span
+                          style={{
+                            color: `var(--allert-red)`,
+                          }}
+                        >
                           <IoTrash />
                         </span>
                       </button>
@@ -191,6 +210,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
         
         .action-buttons {
           margin-top: 0.5rem;
+          height: 300px;
         }
         .accordion-button::after {
           background-color: var(--primary-light-grey);
@@ -209,25 +229,25 @@ const TableAdmin = ({ data, coloredColumn }) => {
           <div style={{ padding: "0em 2em" }} className="">
             <table className="table p-5">
               <thead>
-                <tr>
+                <tr >
                   {columns.map((column) => (
-                    <th
+                    <th className="justify-content-center align-items-center"
                       key={column}
                       scope="col"
                       style={{
                         backgroundColor: `var(--primary-young-blue)`,
                       }}
                     >
-                      {column.replace(/_/g," ")}
+                      {column.replace(/_/g, " ")}
                     </th>
                   ))}
                   {isKelolaKelasRoute && (
                     <th
-                      className="d-flex justify-content-center"
+                      className="d-flex justify-content-center align-items-center"
                       scope="col"
                       style={{
                         backgroundColor: `var(--primary-young-blue)`,
-                        // height:"4.3em"
+                        height:"4.35em"
                       }}
                     >
                       Action
@@ -237,7 +257,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
               </thead>
               <tbody>
                 {currentData.map((aData, index) => (
-                  <tr key={aData.Kode_Kelas}>
+                  <tr key={aData.Kode_Kelas} className="">
                     {columns.map((column, i) => (
                       <td
                         key={i}
@@ -265,8 +285,8 @@ const TableAdmin = ({ data, coloredColumn }) => {
                             column === "Metode_Pembayaran"
                               ? "600"
                               : "normal",
-                          
-                          fontSize: "0.9em"
+
+                          fontSize: "0.9em",
                         }}
                       >
                         {aData[column]}
@@ -286,7 +306,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                                 className="btn rounded-pill text-light"
                                 type="button"
                                 data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop"
+                                data-bs-target="#updateModal"
                                 onClick={() =>
                                   handleGetDetailCourse(aData.Kode_Kelas)
                                 }
@@ -327,7 +347,29 @@ const TableAdmin = ({ data, coloredColumn }) => {
       )}
       <div className="">
         {showModal && (
-          <UpdateCourse showModal={showModal} courseCode={passCode} />
+          <div
+            className="modal fade"
+            id="updateModal"
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <UpdateCourse courseCode={passCode} />
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>

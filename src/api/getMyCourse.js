@@ -9,7 +9,7 @@ const header = {
 
 const getMyCourse = async () => {
     try{
-        const response = await axios.get(`${import.meta.env.VITE_API}/api/course/my-course?page=1&size=20&completed=false&completed=true`, {
+        const response = await axios.get(`${import.meta.env.VITE_API}/api/course/my-course?size=20`, {
             headers: header
         })
         console.log(response.data.data.courses)

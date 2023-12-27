@@ -1,20 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function FilterClass({ onFilter }) {
-
+function FilterMyClass({ onFilter }) {
   const [selectedFilters, setSelectedFilters] = useState({
     category: [],
-    type: [],
-    level: [],
+    levels: [],
   });
-
-  console.log(selectedFilters)
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API}/api/course/filter`,
+        `${import.meta.env.VITE_API}/api/course/my-course`,
         {
           params: {
             page: 1,
@@ -22,11 +18,8 @@ function FilterClass({ onFilter }) {
             ...(selectedFilters.category.length > 0 && {
               category: selectedFilters.category.join(","),
             }),
-            ...(selectedFilters.type.length > 0 && {
-              type: selectedFilters.type.join(","),
-            }),
             ...(selectedFilters.level.length > 0 && {
-            level: selectedFilters.level.join(","),
+              levels: selectedFilters.level.join(","),
             }),
           },
         }
@@ -58,7 +51,6 @@ function FilterClass({ onFilter }) {
   const clearFilters = () => {
     setSelectedFilters({
       category: [],
-      type: [],
       level: [],
     });
 
@@ -619,4 +611,4 @@ function FilterClass({ onFilter }) {
   );
 }
 
-export default FilterClass;
+export default FilterMyClass;

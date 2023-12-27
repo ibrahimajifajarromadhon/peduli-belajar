@@ -99,26 +99,23 @@ const DetailCourse = () => {
     });
 
     const isPremiumCourse = dataCourse.type === "PREMIUM";
-  const isLastSubjectInChapter = currentSubjectIndex === currentChapter.subject.length - 1;
-  const areAllSubjectsWatched = watchedSubjects.every((watched) => watched);
+    const isLastSubjectInChapter =
+      currentSubjectIndex === currentChapter.subject.length - 1;
+    const areAllSubjectsWatched = watchedSubjects.every((watched) => watched);
 
-  if (isPremiumCourse && isLastSubjectInChapter && areAllSubjectsWatched) {
-    // Disable premium modal and move to the next chapter or reset to the first chapter
-    if (currentChapterIndex < dataCourse.chapter.length - 1) {
+    if (isPremiumCourse && isLastSubjectInChapter && areAllSubjectsWatched) {
+      if (currentChapterIndex < dataCourse.chapter.length - 1) {
+        setCurrentChapterIndex((prevIndex) => prevIndex + 1);
+        setCurrentSubjectIndex(0);
+      } else {
+        console.log("Course completed!");
+      }
+    } else if (currentSubjectIndex < currentChapter.subject.length - 1) {
+      setCurrentSubjectIndex((prevIndex) => prevIndex + 1);
+    } else if (currentChapterIndex < dataCourse.chapter.length - 1) {
       setCurrentChapterIndex((prevIndex) => prevIndex + 1);
       setCurrentSubjectIndex(0);
-    } else {
-      // Handle completion of the course (you can navigate or show a completion message)
-      console.log("Course completed!");
     }
-  } else if (currentSubjectIndex < currentChapter.subject.length - 1) {
-    // Move to the next subject in the current chapter
-    setCurrentSubjectIndex((prevIndex) => prevIndex + 1);
-  } else if (currentChapterIndex < dataCourse.chapter.length - 1) {
-    // Move to the next chapter and reset to the first subject
-    setCurrentChapterIndex((prevIndex) => prevIndex + 1);
-    setCurrentSubjectIndex(0);
-  }
 
     const postData = {
       courseCode,
@@ -331,58 +328,61 @@ const DetailCourse = () => {
                 >
                   <div style={{ margin: "15px" }}>
                     <ol style={{ marginLeft: "-15px", marginTop: "18px" }}>
-                    {dataCourse.chapter.map((chapter, chapterIndex) => (
-                  <React.Fragment key={chapterIndex}>
-                    <p style={{ marginTop: "25px", marginLeft: "-18px" }}>
-                      <a
-                        href="#"
-                        style={{
-                          margin: "0px",
-                          padding: "0px",
-                          textDecoration: "none",
-                          color: "#6148FF",
-                          fontSize: "15px",
-                          fontWeight: "700",
-                        }}
-                      >
-                        Chapter {chapter.chapterNo} - {chapter.chapterTitle}
-                      </a>
-                    </p>
-                    {chapter.subject.map((subject, subjectIndex) => (
-                      <React.Fragment key={subjectIndex}>
-                        <li
-                          style={{
-                            fontWeight: "400",
-                            fontSize: "15px",
-                            marginBottom: "20px",
-                          }}
-                        >
-                          {subject.videoTitle}
-                          {subject.videoLink === "" ? (
-                            <PiLockKeyFill
+                      {dataCourse.chapter.map((chapter, chapterIndex) => (
+                        <React.Fragment key={chapterIndex}>
+                          <p style={{ marginTop: "25px", marginLeft: "-18px" }}>
+                            <a
+                              href="#"
                               style={{
-                                marginLeft: "15px",
-                                color: "#D9D9D9",
-                                width: "20px",
-                                height: "20px",
+                                margin: "0px",
+                                padding: "0px",
+                                textDecoration: "none",
+                                color: "#6148FF",
+                                fontSize: "15px",
+                                fontWeight: "700",
                               }}
-                            />
-                          ) : (
-                            <FaCirclePlay
-                              style={{
-                                marginLeft: "15px",
-                                color: subject.done ? "#73CA5C" : "#6148FF",
-                                width: "20px",
-                                height: "20px",
-                              }}
-                            />
-                          )}
-                        </li>
-                        <hr />
-                      </React.Fragment>
-                    ))}
-                  </React.Fragment>
-                ))}
+                            >
+                              Chapter {chapter.chapterNo} -{" "}
+                              {chapter.chapterTitle}
+                            </a>
+                          </p>
+                          {chapter.subject.map((subject, subjectIndex) => (
+                            <React.Fragment key={subjectIndex}>
+                              <li
+                                style={{
+                                  fontWeight: "400",
+                                  fontSize: "15px",
+                                  marginBottom: "20px",
+                                }}
+                              >
+                                {subject.videoTitle}
+                                {subject.videoLink === "" ? (
+                                  <PiLockKeyFill
+                                    style={{
+                                      marginLeft: "15px",
+                                      color: "#D9D9D9",
+                                      width: "20px",
+                                      height: "20px",
+                                    }}
+                                  />
+                                ) : (
+                                  <FaCirclePlay
+                                    style={{
+                                      marginLeft: "15px",
+                                      color: subject.done
+                                        ? "#73CA5C"
+                                        : "#6148FF",
+                                      width: "20px",
+                                      height: "20px",
+                                    }}
+                                  />
+                                )}
+                              </li>
+                              <hr />
+                            </React.Fragment>
+                          ))}
+                        </React.Fragment>
+                      ))}
                     </ol>
                   </div>
                 </div>

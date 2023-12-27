@@ -32,10 +32,11 @@ import Otp from "./pages/auth/Otp.jsx";
 import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
 import ForgotPassword from "./pages/auth/ForgotPassword.jsx";
+import UpdateCourse from "./components/UpdateCourse.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import ListMyCourse from "./components/user/ListMyCourse.jsx";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -63,7 +64,7 @@ const router = createBrowserRouter(
       <Route element={<User />} path="/">
         <Route index element={<Navigate to="welcome" replace />} />
         <Route element={<App />} path="welcome"></Route>
-        <Route element={<MyClassHomepage />} path="myClass"></Route>
+        <Route element={<MyClassHomepage />} path="myClass"></Route>{" "}
         <Route
           element={<AllCourseHomepage />}
           path="allCourseClass"
@@ -85,8 +86,6 @@ const router = createBrowserRouter(
         </Route>
         <Route element={<Notification />} path="notification"></Route>
       </Route>
-
-      <Route element={<ListMyCourse/>} path="/kelasku"></Route>
     </>
   )
 );

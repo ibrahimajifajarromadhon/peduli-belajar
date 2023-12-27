@@ -41,7 +41,7 @@ const ListAllCourse = ({ filter, listCourses }) => {
   };
 
   useEffect(() => {
-    if (listCourses && Array.isArray(listCourses) && listCourses.length > 0) {
+    if (listCourses && Array.isArray(listCourses) && listCourses.length >= 0) {
       setListCourse(listCourses);
     } else {
       getCourse();

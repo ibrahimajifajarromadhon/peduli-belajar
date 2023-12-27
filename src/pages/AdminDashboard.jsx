@@ -12,13 +12,13 @@ function AdminDashboard() {
           setStatusOrder(response.data);
        
       } catch (error) {
-        console.log("error fetching course:", error.message);
+        console.error("error fetching course:", error.message);
       }
     };
     fetchData();
   }, []);
 
-  if (!statusOrder || statusOrder.length === 0) {
+  if (!statusOrder.length) {
     return (
       <p
         style={{ color: `var(--primary-purple)`, fontWeight: "700" }}
