@@ -39,6 +39,7 @@ function Login() {
       toast.success('Login Berhasil!')
 
       const roler = response.data.data.role;
+      console.log(roler)
       if (roler === "USER") {
         navigate("/allCourseClass");
       } else if (roler === "ADMIN") {

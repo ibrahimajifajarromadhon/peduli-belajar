@@ -89,7 +89,7 @@ const ListAllCourse = ({ filter, listCourses }) => {
       ) : (
         filteredCourses.map((course) => (
           <div className="col" key={course.courseCode}>
-            <div className="card" style={{ borderRadius: "22px" }}>
+            <div className="card card-course" style={{ borderRadius: "22px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
               <div
                 className="d-flex align-items-center justify-content-center"
                 style={{ borderRadius: "22px" }}
@@ -101,8 +101,8 @@ const ListAllCourse = ({ filter, listCourses }) => {
                   style={{
                     marginTop: "15px",
                     padding: "0px",
-                    width: "40%",
-                    height: "50%",
+                    width: "35%",
+                    height: "45%",
                   }}
                 />
               </div>
@@ -180,6 +180,14 @@ const ListAllCourse = ({ filter, listCourses }) => {
         ))
       )}
       <style>{`
+        .card-course {
+          transition: transform 0.3s; 
+        }
+
+        .card-course:hover {
+          transform: scale(1.02);
+        }
+
         .btn-kelas  {
           padding: 5px;
           background-color: #489CFF;

@@ -93,7 +93,9 @@ const BayarCourse = () => {
         headers: headers,
         body: JSON.stringify(paymentData),
       });
-
+      
+      const responseData = await response.json();
+      
       if (response.ok) {
         toast.success("Pembayaran berhasil!");
         navigate(`/successBayarCourse`, {

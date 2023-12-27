@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 
 function FilterClass({ onFilter }) {
   const [selectedFilters, setSelectedFilters] = useState({
-    categoryName: [],
+    category: [],
     type: [],
     level: [],
   });
+
+  console.log(selectedFilters)
 
   const fetchData = async () => {
     try {
@@ -16,8 +18,8 @@ function FilterClass({ onFilter }) {
           params: {
             page: 1,
             size: 20,
-            ...(selectedFilters.categoryName.length > 0 && {
-              categoryName: selectedFilters.categoryName.join(","),
+            ...(selectedFilters.category.length > 0 && {
+              category: selectedFilters.category.join(","),
             }),
             ...(selectedFilters.type.length > 0 && {
               type: selectedFilters.type.join(","),
@@ -49,7 +51,7 @@ function FilterClass({ onFilter }) {
 
   const clearFilters = () => {
     setSelectedFilters({
-      categoryName: [],
+      category: [],
       type: [],
       level: [],
     });
@@ -132,8 +134,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxUIDesignRs"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "UIUX_DESIGN",
                   ])
                 }
@@ -152,8 +154,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxWebDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "WEB_DEVELOPMENT",
                   ])
                 }
@@ -172,8 +174,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAndroidDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "ANDROID_DEVELOPMENT",
                   ])
                 }
@@ -192,8 +194,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxDataScienceRs"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "DATA_SCIENCE",
                   ])
                 }
@@ -212,8 +214,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxProductManagementRs"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "PRODUCT_MANAGEMENT",
                   ])
                 }
@@ -232,8 +234,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIosDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "IOS_DEVELOPMENT",
                   ])
                 }
@@ -388,8 +390,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxUIDesign"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "UIUX_DESIGN",
                   ])
                 }
@@ -408,8 +410,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxWebDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "WEB_DEVELOPMENT",
                   ])
                 }
@@ -428,8 +430,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAndroidDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "ANDROID_DEVELOPMENT",
                   ])
                 }
@@ -448,8 +450,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxDataScience"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "DATA_SCIENCE",
                   ])
                 }
@@ -468,8 +470,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxProductManagement"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "PRODUCT_MANAGEMENT",
                   ])
                 }
@@ -488,8 +490,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIosDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("categoryName", [
-                    ...selectedFilters.categoryName,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "IOS_DEVELOPMENT",
                   ])
                 }
