@@ -55,7 +55,7 @@ const DetailCourse = () => {
     axios
       .get(progressApiUrl, config)
       .then((progressResponse) => {
-        const progressPercentage = progressResponse.data.data;
+        const progressPercentage = progressResponse.data.data.percent;
         setProgressPercentage(progressPercentage);
         console.log(progressPercentage);
       })
