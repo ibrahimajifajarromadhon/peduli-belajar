@@ -207,15 +207,15 @@ function UpdateCourse({ courseCode }) {
     setDetail((prevDetail) => {
       const updatedChapters = [...prevDetail.data.chapter];
       if (chapterIndex >= 0 && chapterIndex < updatedChapters.length) {
-        // const maxSubjectNo = Math.max(
-        //   ...updatedChapters.flatMap((chapter) =>
-        //     chapter.subject.map((subject) => subject.subjectNo)
-        //   ),
-        //   0 
-        // );
+        const maxSubjectNo = Math.max(
+          ...updatedChapters.flatMap((chapter) =>
+            chapter.subject.map((subject) => subject.subjectNo)
+          ),
+          0 
+        );
         const newSubject = {
-          subjectNo: updatedChapters[chapterIndex].subject.length + 1,
-          // subjectNo: maxSubjectNo + 1,
+          // subjectNo: updatedChapters[chapterIndex].subject.length + 1,
+          subjectNo: maxSubjectNo + 1,
           videoTitle: "",
           videoLink: "",
           subjectType: "",
