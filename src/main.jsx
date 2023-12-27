@@ -32,9 +32,11 @@ import Otp from "./pages/auth/Otp.jsx";
 import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
 import ForgotPassword from "./pages/auth/ForgotPassword.jsx";
+import UpdateCourse from "./components/UpdateCourse.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(

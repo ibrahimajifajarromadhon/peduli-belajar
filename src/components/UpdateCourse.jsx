@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import getDetailCourse from "../api/getDetailsCourse";
 import updateCourse from "../api/updateCorse";
-import getDetailChapter from "../api/getDetailChapter";
 import { toast } from "react-hot-toast";
-import { responsivePropType } from "react-bootstrap/esm/createUtilityClasses";
-import { FaVihara } from "react-icons/fa";
 import { BsUpload } from "react-icons/bs";
 import updatedChapter from "../api/updatedChapter";
+import updatedSubject from "../api/updatedSubject";
+import addChapterUpdate from "../api/addChapterUpdate";
+import addSubjectUpdate from "../api/addSubjectUpdate";
+// import { responsivePropType } from "react-bootstrap/esm/createUtilityClasses";
+// import getDetailChapter from "../api/getDetailChapter";
+// import { FaVihara } from "react-icons/fa";
 
 function UpdateCourse({ courseCode }) {
-  const [getDetail, setGetDetail] = useState();
-  const [detailChapter, getDetailChapter] = useState();
+  const [detail, setDetail] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [isPriceDisabled, setIsPriceDisabled] = useState(false);
   const [showDetailSubject, setShowDetailSubject] = useState(false);
@@ -21,14 +23,12 @@ function UpdateCourse({ courseCode }) {
   // const [selectedSubjectIndex, setSelectedSubjectIndex] = useState(null);
   // const [isAddSubjectVisible, setIsAddSubjectVisible] = useState(false);
 
-
-
   //Logic untuk Update yang atas
   useEffect(() => {
     const fetchData = async (courseCode) => {
       try {
         const response = await getDetailCourse(courseCode);
-        setGetDetail(response);
+        setDetail(response);
       } catch (error) {
         console.log("error fetch data", error.message);
         throw error;
@@ -37,31 +37,80 @@ function UpdateCourse({ courseCode }) {
     fetchData(courseCode);
   }, [courseCode]);
 
-  const handleUpdate = async () => {
-    try {
-      const updatedClass = {
-        title: getDetail.data.title,
-        courseCode: getDetail.data.courseCode,
-        category: {
-          categoryName: getDetail.data.category,
-        },
-        type: getDetail.data.type,
-        level: getDetail.data.level,
-        price: getDetail.data.price,
-        description: getDetail.data.description,
-        telegramLink: getDetail.data.telegramLink,
-      };
+  const handleUpdate = () => {
+    const promises = [];
 
-      await updateCourse(courseCode, updatedClass);
-      toast.success("Berhasil Update Data ");
-    } catch (error) {
-      toast.error("Gagal Menambahkan Kelas");
-    }
+    const updatedClass = {
+      title: detail.data.title,
+      courseCode: detail.data.courseCode,
+      category: {
+        categoryName: detail.data.category,
+      },
+      type: detail.data.type,
+      level: detail.data.level,
+      price: detail.data.price,
+      description: detail.data.description,
+      telegramLink: detail.data.telegramLink,
+    };
+
+    promises.push(updateCourse(courseCode, updatedClass));
+
+    const updatedChapters = [...detail.data.chapter];
+
+    updatedChapters.forEach((chapter) => {
+      if (chapter.id) {
+        promises.push(
+          updatedChapter(chapter.id, {
+            chapterNo: chapter.chapterNo,
+            chapterTitle: chapter.chapterTitle,
+          })
+        );
+        if (chapter.subject.length !== 0) {
+          chapter.subject.forEach((subject) => {
+            if (subject.id) {
+              promises.push(
+                updatedSubject(subject.id, {
+                  subjectNo: subject.subjectNo,
+                  videoTitle: subject.videoTitle,
+                  videoLink: subject.videoLink,
+                  subjectType: subject.subjectType,
+                })
+              );
+            } else {
+              promises.push(
+                addSubjectUpdate(chapter.id, {
+                  subjectNo: subject.subjectNo,
+                  videoTitle: subject.videoTitle,
+                  videoLink: subject.videoLink,
+                  subjectType: subject.subjectType,
+                })
+              );
+            }
+          });
+        }
+      } else {
+        promises.push(
+          addChapterUpdate(detail.data.id, {
+            chapterNo: chapter.chapterNo,
+            chapterTitle: chapter.chapterTitle,
+            subject: chapter.subject,
+          })
+        );
+      }
+    });
+
+    Promise.all(promises)
+      .then(() => {
+        toast.success("Berhasil Update Data ");
+      })
+      .catch(() => {
+        toast.error("Gagal Menambahkan Kelas");
+      });
   };
 
   const handleInputChange = (field, value) => {
     if (isEditing) {
-      setGetDetail((prevDetail) => ({
+      setDetail((prevDetail) => ({
         ...prevDetail,
         data: {
           ...prevDetail.data,
@@ -90,12 +139,11 @@ function UpdateCourse({ courseCode }) {
 
   const handleUpdateChapter = (chapterId) => {
     const updatedChapterData = {
-      chapterNo: getDetail.data.chapter[chapterId].chapterNo,
-      chapterTitle: getDetail.data.chapter[chapterId].chapterTitle,
+      chapterNo: detail.data.chapter[chapterId].chapterNo,
+      chapterTitle: detail.data.chapter[chapterId].chapterTitle,
     };
     updateChapterData(chapterId, updatedChapterData);
   };
-  
 
   const updateChapterData = async (chapterId, updatedChapter) => {
     try {
@@ -106,10 +154,10 @@ function UpdateCourse({ courseCode }) {
       console.log("Gagal Update Chapter", error.message);
     }
   };
-  
+
   const addChapter = () => {
     if (isEditing) {
-      setGetDetail((prevDetail) => {
+      setDetail((prevDetail) => {
         return {
           ...prevDetail,
           data: {
@@ -145,22 +193,29 @@ function UpdateCourse({ courseCode }) {
   // }
   //logic untuk update chapter
 
-  const [classData, setClassData] = useState({
-    chapterNo:
-      (getDetail && getDetail.data && getDetail.data.chapter
-        ? Math.max(...getDetail.data.chapter.map((chap) => chap.chapterNo))
-        : 0) + 1,
+  // const [classData, setClassData] = useState({
+  //     chapterNo:
+  //         (detail && detail.data && detail.data.chapter
+  //             ? Math.max(...detail.data.chapter.map((chap) => chap.chapterNo))
+  //             : 0) + 1,
 
-    chapterTitle: "",
-    subject: [],
-  });
+  //     chapterTitle: "",
+  //     subject: [],
+  // });
 
   const addSubject = (chapterIndex) => {
-    setGetDetail((prevDetail) => {
+    setDetail((prevDetail) => {
       const updatedChapters = [...prevDetail.data.chapter];
       if (chapterIndex >= 0 && chapterIndex < updatedChapters.length) {
+        // const maxSubjectNo = Math.max(
+        //   ...updatedChapters.flatMap((chapter) =>
+        //     chapter.subject.map((subject) => subject.subjectNo)
+        //   ),
+        //   0 
+        // );
         const newSubject = {
           subjectNo: updatedChapters[chapterIndex].subject.length + 1,
+          // subjectNo: maxSubjectNo + 1,
           videoTitle: "",
           videoLink: "",
           subjectType: "",
@@ -184,8 +239,8 @@ function UpdateCourse({ courseCode }) {
     subjectIndex
   ) => {
     if (isEditing) {
-      setGetDetail((prevDetail) => {
-        console.log(prevDetail)
+      setDetail((prevDetail) => {
+        console.log(prevDetail);
         const updatedChapters = [...prevDetail.data.chapter];
         if (chapterIndex !== undefined && subjectIndex !== undefined) {
           updatedChapters[chapterIndex].subject[subjectIndex][field] = value;
@@ -212,7 +267,7 @@ function UpdateCourse({ courseCode }) {
     setIsEditing((prevIsEditing) => !prevIsEditing);
   };
 
-  if (!getDetail) {
+  if (!detail) {
     return <div>Loading...</div>;
   }
 
@@ -247,7 +302,7 @@ function UpdateCourse({ courseCode }) {
           <input
             className="form-control"
             type="text"
-            value={getDetail.data.title}
+            value={detail.data.title}
             onChange={(e) => handleInputChange("title", e.target.value)}
             readOnly={!isEditing}
           />
@@ -261,7 +316,7 @@ function UpdateCourse({ courseCode }) {
             id="category-name"
             type="text"
             className="form-select"
-            value={getDetail.data.category.categoryName}
+            value={detail.data.category.categoryName}
             onChange={(e) => handleInputChange("category", e.target.value)}
             readOnly={!isEditing}
           >
@@ -281,7 +336,7 @@ function UpdateCourse({ courseCode }) {
           <input
             className="form-control"
             type="text"
-            value={getDetail.data.courseCode}
+            value={detail.data.courseCode}
             onChange={(e) => handleInputChange("courseCode", e.target.value)}
             readOnly
           />
@@ -304,8 +359,8 @@ function UpdateCourse({ courseCode }) {
                 className="form-check-input"
                 type="radio"
                 id="gratisRadio"
-                value={getDetail.data.type}
-                checked={getDetail.data.type === "GRATIS"}
+                value={detail.data.type}
+                checked={detail.data.type === "GRATIS"}
                 onChange={() => {
                   handleInputChange("type", "GRATIS");
                   setIsPriceDisabled(true);
@@ -330,8 +385,8 @@ function UpdateCourse({ courseCode }) {
                 className="form-check-input"
                 type="radio"
                 id="premiumRadio"
-                value={getDetail.data.type}
-                checked={getDetail.data.type === "PREMIUM"}
+                value={detail.data.type}
+                checked={detail.data.type === "PREMIUM"}
                 onChange={() => {
                   handleInputChange("type", "PREMIUM");
                   setIsPriceDisabled(false);
@@ -354,7 +409,7 @@ function UpdateCourse({ courseCode }) {
           <input
             className="form-control"
             type="text"
-            value={getDetail.data.teacher}
+            value={detail.data.teacher}
             readOnly
           />
         </div>
@@ -365,7 +420,7 @@ function UpdateCourse({ courseCode }) {
           </label>
           <select
             className="form-select"
-            value={getDetail.data.level}
+            value={detail.data.level}
             onChange={(e) => handleInputChange("level", e.target.value)}
             readOnly={!isEditing}
           >
@@ -382,7 +437,7 @@ function UpdateCourse({ courseCode }) {
           <input
             className="form-control"
             type="number"
-            value={isPriceDisabled ? 0 : getDetail.data.price}
+            value={isPriceDisabled ? 0 : detail.data.price}
             onChange={(e) => handleInputChange("price", e.target.value)}
             disabled={isPriceDisabled}
             readOnly={!isEditing}
@@ -396,7 +451,7 @@ function UpdateCourse({ courseCode }) {
           <input
             type="text"
             className="form-control"
-            value={getDetail.data.telegramLink}
+            value={detail.data.telegramLink}
             onChange={(e) => handleInputChange("telegramLink", e.target.value)}
             readOnly={isEditing}
           />
@@ -408,15 +463,15 @@ function UpdateCourse({ courseCode }) {
           </label>
           <textarea
             className="form-control"
-            value={getDetail.data.description}
+            value={detail.data.description}
             onChange={(e) => handleInputChange("description", e.target.value)}
             readOnly={!isEditing}
           />
         </div>
 
-        <div>ini id course {getDetail.data.id}</div>
+        <div>ini id course {detail.data.id}</div>
 
-        {getDetail.data.chapter.map((chapter, chapterIndex) => (
+        {detail.data.chapter.map((chapter, chapterIndex) => (
           <div
             key={chapterIndex}
             className="p-3 rounded-3 my-3"
@@ -475,7 +530,11 @@ function UpdateCourse({ courseCode }) {
                   <div key={`subject-${chapterIndex}-${subjectIndex}`}>
                     <button className="btn">{subject.id} id subject</button>
                     <h4>Subjects {subject.subjectNo}</h4>
-                    <div style={{ marginLeft: "2em" }}>
+                    <div
+                      style={{
+                        marginLeft: "2em",
+                      }}
+                    >
                       <div className="mb-4">
                         <label htmlFor="" className="mb-2">
                           Subject Title
@@ -540,14 +599,14 @@ function UpdateCourse({ courseCode }) {
                                 isPriceDisabled ||
                                 subject.subjectType === "GRATIS"
                               }
-                              // onChange={(e) =>
-                              //   handleChapterInputChange(
-                              //     "subjectType",
-                              //     e.target.value,
-                              //     chapterIndex,
-                              //     subjectIndex
-                              //   )
-                              // }
+                              onChange={(e) =>
+                                handleChapterInputChange(
+                                  "subjectType",
+                                  e.target.value,
+                                  chapterIndex,
+                                  subjectIndex
+                                )
+                              }
                               disabled={isPriceDisabled}
                             />
                             <label
@@ -575,14 +634,14 @@ function UpdateCourse({ courseCode }) {
                                 !isPriceDisabled &&
                                 subject.subjectType === "PREMIUM"
                               }
-                              // onChange={(e) =>
-                              //   handleChapterInputChange(
-                              //     "subjectType",
-                              //     e.target.value,
-                              //     chapterIndex,
-                              //     subjectIndex
-                              //   )
-                              // }
+                              onChange={(e) =>
+                                handleChapterInputChange(
+                                  "subjectType",
+                                  e.target.value,
+                                  chapterIndex,
+                                  subjectIndex
+                                )
+                              }
                               disabled={isPriceDisabled}
                             />
                             <label

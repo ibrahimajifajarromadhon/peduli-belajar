@@ -7,20 +7,20 @@ const header = {
     "Content-Type": "application/json",
 };
 
-const updatedChapter = async (chapterId, chapterData) => {
+const updatedSubject = async (subjectId, subjectData) => {
     try {
         const response = await axios.put(
-            `${import.meta.env.VITE_API}/api/admin/chapter/${chapterId}`,
-            chapterData,
+            `${import.meta.env.VITE_API}/api/admin/subject/${subjectId}`,
+            subjectData,
             {
                 headers: header,
             }
         );
         return response.data;
     } catch (error) {
-        console.log("error update chapter", error.message);
+        console.log("error update subject", error.message);
         throw error;
     }
 };
 
-export default updatedChapter;
+export default updatedSubject;

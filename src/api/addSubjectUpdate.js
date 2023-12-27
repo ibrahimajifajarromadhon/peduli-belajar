@@ -7,18 +7,18 @@ const header = {
     "Content-Type": "application/json",
 };
 
-const addChapterUpdate = async (courseId, classData) => {
+const addSubjectUpdate = async (chapterId, subjectData) => {
     try {
         const response = await axios.post(
             `${
                 import.meta.env.VITE_API
-            }/api/admin/chapter?courseId=${courseId}`,
-            classData,
+            }/api/admin/subject?chapterId=${chapterId}`,
+            subjectData,
             {
                 headers: header,
             }
         );
-        console.log("sukses tambah cahpter", response.data);
+        console.log("sukses tambah subject", response.data);
         return response.data;
     } catch (error) {
         console.log("error : ", error.message);
@@ -26,4 +26,4 @@ const addChapterUpdate = async (courseId, classData) => {
     }
 };
 
-export default addChapterUpdate;
+export default addSubjectUpdate;
