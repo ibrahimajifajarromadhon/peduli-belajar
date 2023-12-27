@@ -2,15 +2,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const apiUrl = `${import.meta.env.VITE_API}/api/admin/manage-course`;
-const token = Cookies.get("token");
-const header = {
-  Authorization: `Bearer ${token}`,
-  "Content-Type": "application/json",
-};
 
 const getAllCourses = async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const query = urlParams.get("q");
+  const token = Cookies.get("token");
 
   try {
     const response = await axios.get(
@@ -18,7 +14,9 @@ const getAllCourses = async () => {
         ? apiUrl
         : `${import.meta.env.VITE_API}//api/course/filter?title=${query}`,
       {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
     return response.data;

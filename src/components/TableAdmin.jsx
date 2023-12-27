@@ -150,7 +150,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                   {isKelolaKelasRoute && selectedRowIndex !== index && (
                     <div className="action-buttons">
                       <div>
-                        <strong>Action:</strong>{" "}
+                        <strong>Action:</strong>
                       </div>
                       <button
                         onClick={() => handleGetDetailCourse(aData.Kode_Kelas)}
@@ -210,6 +210,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
         
         .action-buttons {
           margin-top: 0.5rem;
+          height: 300px;
         }
         .accordion-button::after {
           background-color: var(--primary-light-grey);
@@ -228,10 +229,9 @@ const TableAdmin = ({ data, coloredColumn }) => {
           <div style={{ padding: "0em 2em" }} className="">
             <table className="table p-5">
               <thead>
-                <tr>
+                <tr >
                   {columns.map((column) => (
-                    <th
-                    className=""
+                    <th className="justify-content-center align-items-center"
                       key={column}
                       scope="col"
                       style={{
