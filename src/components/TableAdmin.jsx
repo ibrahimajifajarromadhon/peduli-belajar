@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { IoTrash } from "react-icons/io5";
 import deleteCourse from "../api/deleteCourse";
@@ -20,7 +20,12 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, data.length);
   const currentData = data.slice(startIndex, endIndex);
+  const [openAccordionIndex, setOpenAccordionIndex] = useState(null);
+  const [shouldCloseModal, setShouldCloseModal] = useState(false);
 
+  const handleAccordionToggle = (index) => {
+    setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,7 +42,6 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const handleDelete = async (classCode) => {
     try {
       await deleteCourse(classCode);
-      console.log("data delete successfuly");
     } catch (error) {
       console.log("error delete data", error);
     }
@@ -46,7 +50,9 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const handleGetDetailCourse = async (uniqCode) => {
     try {
       setShowModal(true);
-      setPassCode(uniqCode)
+      setPassCode(uniqCode);
+      setShouldCloseModal(true);
+
     } catch (error) {
       console.log("gagal");
     }
@@ -56,44 +62,111 @@ const TableAdmin = ({ data, coloredColumn }) => {
     setCurrentPage(page);
   };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setShouldCloseModal(true);
+  };
+
   return (
-    <div className="table-responsive p-4">
+    <div
+      className="table-responsive p-1 mx-2 my-1"
+    >
       {isSmallScreen ? (
-        <div className="accordion" id="accordionExample">
+        <div className="accordion" id="accordionExample" style={{ marginTop: '10px' }}>
           {data.map((aData, index) => (
             <div className="accordion-item" key={index}>
               <h2 className="accordion-header">
                 <button
                   className={`accordion-button ${
-                    index === 0 ? "" : "collapsed"
+                    index === openAccordionIndex ? "" : "collapsed"
                   }`}
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target={`#collapse-${index}`}
-                  aria-expanded="false"
+                  aria-expanded={
+                    index === openAccordionIndex ? "true" : "false"
+                  }
                   aria-controls={`collapse-${index}`}
+                  data-bs-parent="#accordionExample"
+                  onClick={() => handleAccordionToggle(index)}
                 >
-                  {`${index + 1}. ${columns[0]} : ${aData[columns[0]]}`}
+                  {`${index + 1}. ${columns[0].replace(/_/g, " ")} : ${
+                    aData[columns[0]]
+                  }`}
                 </button>
               </h2>
               <div
                 id={`collapse-${index}`}
-                className="accordion-collapse collapse"
+                className={`accordion-collapse collapse ${
+                  index === openAccordionIndex ? "show" : ""
+                }`}
               >
                 <div className="accordion-body">
                   {columns.map((column, columnIndex) => (
-                    <div key={columnIndex}>
-                      <strong>{column}:</strong> {aData[column]}
+                    <div key={columnIndex} className="d-flex flex-row">
+                      <div>
+                        <div style={{ width: "9em" }}>
+                          <strong
+                            className="d-flex align-items-center"
+                            style={{
+                              width: "20em",
+                              fontSize: "14px",
+                            }}
+                          >
+                            {column.replace(/_/g, " ")}
+                          </strong>
+                        </div>
+                      </div>
+                      :
+                      <div
+                        className="d-flex align-items-center"
+                        style={{
+                          marginLeft: "0.5em",
+                          fontSize: "14px",
+                          color:
+                            column === coloredColumn.column.key &&
+                            aData[coloredColumn.column.key].toUpperCase() ===
+                              coloredColumn.column.value[0]
+                              ? `var(${coloredColumn.positive})`
+                              : column === coloredColumn.column.key &&
+                                aData[
+                                  coloredColumn.column.key
+                                ].toUpperCase() ===
+                                  coloredColumn.column.value[1]
+                              ? `var(${coloredColumn.negative})`
+                              : "#202244",
+
+                          fontWeight:
+                            column === "Tipe_Kelas" ||
+                            column === "Nama_Kelas" ||
+                            column === "Harga_Kelas" ||
+                            column === "Level" ||
+                            column === "Status" ||
+                            column === "Kelas_Premium" ||
+                            column === "Metode_Pembayaran"
+                              ? "700"
+                              : "700",
+                        }}
+                      >
+                        {column === "Harga_Kelas" ? `Rp ${aData[column]}` : aData[column]}                      </div>
                     </div>
                   ))}
                   {isKelolaKelasRoute && selectedRowIndex !== index && (
                     <div className="action-buttons">
-                      <strong>Action:</strong>{" "}
+                      <div>
+                        <strong>Aksi</strong>
+                      </div>
                       <button
                         onClick={() => handleGetDetailCourse(aData.Kode_Kelas)}
                         className="btn rounded-pill text-light"
+                        data-bs-toggle="modal"
+                        data-bs-target="#updateModal"
                       >
-                        <span style={{ color: `var(--primary-purple)` }}>
+                        <span
+                          style={{
+                            color: `var(--primary-purple)`,
+                          }}
+                        >
                           <MdEdit />
                         </span>
                       </button>
@@ -101,7 +174,11 @@ const TableAdmin = ({ data, coloredColumn }) => {
                         onClick={() => handleDelete(aData.Kode_Kelas)}
                         className="btn text-light rounded-pill"
                       >
-                        <span style={{ color: `var(--allert-red)` }}>
+                        <span
+                          style={{
+                            color: `var(--allert-red)`,
+                          }}
+                        >
                           <IoTrash />
                         </span>
                       </button>
@@ -137,6 +214,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
         
         .action-buttons {
           margin-top: 0.5rem;
+          height: 300px;
         }
         .accordion-button::after {
           background-color: var(--primary-light-grey);
@@ -152,36 +230,45 @@ const TableAdmin = ({ data, coloredColumn }) => {
         </div>
       ) : (
         <>
-          <div style={{ padding: "0em 2em" }} className="">
-            <table className="table p-5">
+          <div>
+            <table className="table">
               <thead>
                 <tr>
                   {columns.map((column) => (
-                    <th
+                    <th className="tabel-head"
                       key={column}
                       scope="col"
                       style={{
                         backgroundColor: `var(--primary-young-blue)`,
+                        textAlign: "left",
+                        height:"3em",
+                        verticalAlign: "middle", 
+                        borderBottom: "none",
                       }}
                     >
-                      {column}
+                      {column.replace(/_/g, " ")}
                     </th>
                   ))}
                   {isKelolaKelasRoute && (
                     <th
-                      className="d-flex justify-content-center"
+                      className="justify-content-center"
+                      scope="col"
                       style={{
                         backgroundColor: `var(--primary-young-blue)`,
+                        height:"3em",
+                        textAlign: "left",
+                        verticalAlign: "middle",
+                        borderBottom: "none", 
                       }}
                     >
-                      Action
+                      Aksi
                     </th>
                   )}
                 </tr>
               </thead>
               <tbody>
                 {currentData.map((aData, index) => (
-                  <tr key={aData.Kode_Kelas}>
+                  <tr key={aData.Kode_Kelas} className="">
                     {columns.map((column, i) => (
                       <td
                         key={i}
@@ -197,51 +284,60 @@ const TableAdmin = ({ data, coloredColumn }) => {
                                 ].toUpperCase() ===
                                   coloredColumn.column.value[1]
                               ? `var(${coloredColumn.negative})`
-                              : "black",
+                              : "#202244",
 
                           fontWeight:
-                            column === "Type_Kelas" ||
+                            column === "Tipe_Kelas" ||
                             column === "Nama_Kelas" ||
-                            column === "Harga" ||
+                            column === "Harga_Kelas" ||
                             column === "Level" ||
                             column === "Status" ||
                             column === "Kelas_Premium" ||
                             column === "Metode_Pembayaran"
-                              ? "600"
-                              : "normal",
+                              ? "700"
+                              : "700",
+
+                          fontSize: "12px",
+                          fontFamily: "Montserrat",
+                          textAlign: "left",
+                          width: "250px",
+                          borderBottom: "none",
                         }}
                       >
-                        {aData[column]}
+                        {column === "Harga_Kelas" ? `Rp ${aData[column]}` : aData[column].replace(/_/g, " ")}
                       </td>
                     ))}
                     {isKelolaKelasRoute && (
-                      <td className="d-flex justify-content-center">
+                      <td className="d-flex justify-content-center border-0">
                         {(selectedRowIndex === null ||
                           selectedRowIndex !== index) && (
                           <>
-                            <button
-                              style={{
-                                backgroundColor: `var(--primary-purple)`,
-                              }}
-                              className="btn rounded-pill text-light"
-                              type="button"
-                              data-bs-toggle="modal"
-                              data-bs-target="#staticBackdrop"
-                              onClick={() =>
-                                handleGetDetailCourse(aData.Kode_Kelas)
-                              }
-                            >
-                              Update
-                            </button>
-                            <button
-                              onClick={() => handleDelete(aData.Kode_Kelas)}
-                              style={{
-                                backgroundColor: `var(--allert-red)`,
-                              }}
-                              className="btn text-light rounded-pill mx-2"
-                            >
-                              Delete
-                            </button>
+                            <div className="d-flex flex-row justify-content-center align-items-center">
+                              <button
+                                style={{
+                                  backgroundColor: `var(--primary-purple)`,
+                                  marginBottom: "",
+                                }}
+                                className="btn rounded-pill text-light"
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#updateModal"
+                                onClick={() =>
+                                  handleGetDetailCourse(aData.Kode_Kelas)
+                                }
+                              >
+                                Ubah
+                              </button>
+                              <button
+                                onClick={() => handleDelete(aData.Kode_Kelas)}
+                                style={{
+                                  backgroundColor: `var(--allert-red)`,
+                                }}
+                                className="btn text-light rounded-pill mx-2"
+                              >
+                                Hapus
+                              </button>
+                            </div>
                           </>
                         )}
                       </td>
@@ -264,7 +360,45 @@ const TableAdmin = ({ data, coloredColumn }) => {
           </div>
         </>
       )}
-      <div className="">{showModal && <UpdateCourse showModal={showModal} courseCode={passCode} />}</div>
+      <div className="">
+        {showModal && (
+          <div
+            className="modal fade"
+            id="updateModal"
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            style={{ display: shouldCloseModal ? "none" : "block" }}
+          >
+            <div className="modal-dialog" style={{fontFamily:"Montserrat"}}>
+              <div className="modal-content px-2">
+              <div className="modal-header" style={{borderBottom:"none"}}>
+                <h1 className="modal-title py-2" style={{ color: "var(--primary-purple)", fontWeight:"700", fontSize:"25px" }} id="exampleModalLabel">
+                  Ubah Kelas
+                </h1>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+                <div className="modal-body" style={{marginTop:"-20px"}}>
+                  <UpdateCourse courseCode={passCode}
+                  handleCloseModal={handleCloseModal} />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <style>{`
+      .tabel-head {
+        font-family: Montserrat;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      `}</style>
     </div>
   );
 };

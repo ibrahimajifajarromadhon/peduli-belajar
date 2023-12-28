@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "../assets/bx_search-alt.svg";
 
 function NavbarAdmin() {
@@ -11,19 +11,20 @@ function NavbarAdmin() {
   return (
     <nav
       className="navbar w-100"
-      style={{ backgroundColor: `var(--primary-young-blue)`, height: "100px" }}
+      style={{ backgroundColor: `var(--primary-young-blue)`, height: "100px", fontFamily:"Montserrat" }}
     >
       <div className="container d-flex justify-content-between">
         <a
           className="navbar-brand text-center m-0 px-2"
-          style={{ fontSize: "1.7em", fontWeight: "bold" }}
+          style={{ fontSize: "24px", fontWeight: "700", color:"#6148FF" }}
         >
-          <span className="d-md-flex d-none">Hey, Admin</span>
+          <span className="d-md-flex d-none">Hello, Admin!</span>
         </a>
         <form
           className="d-flex"
           role="search"
           style={{ position: "relative", minWidth: "200px" }}
+          method="get"
         >
           <input
             className={`form-control me-2 ${
@@ -36,7 +37,11 @@ function NavbarAdmin() {
               paddingRight: "40px",
               height: "3em",
               width: "100%",
+              fontFamily:"Montserrat",
+              fontWeight:"400",
+              borderRadius:"15px"
             }}
+            name="q"
           />
           <img
             src={SearchIcon}

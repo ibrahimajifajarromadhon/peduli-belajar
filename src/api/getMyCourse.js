@@ -1,22 +1,21 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { LuHeartOff } from "react-icons/lu";
 
-const activeUser = async () => {
+const getMyCourse = async () => {
   const token = Cookies.get("token");
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_API}/api/admin/total-premium-course`,
+      `${import.meta.env.VITE_API}/api/course/my-course?size=20`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    return response.data;
+    return response.data.data.courses;
   } catch (error) {
-    console.log("gagal mengambil api", error.message);
+    console.log("gagal ambil api", error.message);
   }
 };
 
-export default activeUser;
+export default getMyCourse;

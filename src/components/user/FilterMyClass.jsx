@@ -1,32 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function FilterClass({ onFilter }) {
-
+function FilterMyClass({ onFilter }) {
   const [selectedFilters, setSelectedFilters] = useState({
-    categories: [],
-    types: [],
+    category: [],
     levels: [],
   });
-
-  console.log(selectedFilters)
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API}/api/course/filter`,
+        `${import.meta.env.VITE_API}/api/course/my-course`,
         {
           params: {
             page: 1,
             size: 20,
-            ...(selectedFilters.categories.length > 0 && {
-              categories: selectedFilters.categories.join(","),
+            ...(selectedFilters.category.length > 0 && {
+              category: selectedFilters.category.join(","),
             }),
-            ...(selectedFilters.types.length > 0 && {
-              types: selectedFilters.types.join(","),
-            }),
-            ...(selectedFilters.levels.length > 0 && {
-            levels: selectedFilters.levels.join(","),
+            ...(selectedFilters.level.length > 0 && {
+              levels: selectedFilters.level.join(","),
             }),
           },
         }
@@ -56,9 +49,8 @@ function FilterClass({ onFilter }) {
 
   const clearFilters = () => {
     setSelectedFilters({
-      categories: [],
-      types: [],
-      levels: [],
+      category: [],
+      level: [],
     });
 
     const checkboxes = document.querySelectorAll('.form-check-input');
@@ -97,19 +89,19 @@ function FilterClass({ onFilter }) {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxBaruRs"
-                // onChange={(e) =>
-                //   handleFilterChange("types", [
-                //     ...selectedFilters.types,
-                //     "PREMIUM",
-                //   ])
-                // }
+                onChange={(e) =>
+                  handleFilterChange("type", [
+                    ...selectedFilters.type,
+                    "PREMIUM",
+                  ])
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxBaruRs"
                 style={{ fontWeight: "500" }}
               >
-                Popular
+                Premium
               </label>
             </div>
             <div className="form-check">
@@ -117,19 +109,19 @@ function FilterClass({ onFilter }) {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxPopularRs"
-                // onChange={(e) =>
-                //   handleFilterChange("types", [
-                //     ...selectedFilters.types,
-                //     "GRATIS",
-                //   ])
-                // }
+                onChange={(e) =>
+                  handleFilterChange("type", [
+                    ...selectedFilters.type,
+                    "GRATIS",
+                  ])
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxPopularRs"
                 style={{ fontWeight: "500" }}
               >
-                Terbaru
+                Gratis
               </label>
             </div>
             <h6 className="card-title mt-4">Kategori</h6>
@@ -139,8 +131,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxUIDesignRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "UIUX_DESIGN",
                   ])
                 }
@@ -159,8 +151,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxWebDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "WEB_DEVELOPMENT",
                   ])
                 }
@@ -179,8 +171,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAndroidDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "ANDROID_DEVELOPMENT",
                   ])
                 }
@@ -199,8 +191,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxDataScienceRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "DATA_SCIENCE",
                   ])
                 }
@@ -219,8 +211,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxProductManagementRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "PRODUCT_MANAGEMENT",
                   ])
                 }
@@ -239,8 +231,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIosDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "IOS_DEVELOPMENT",
                   ])
                 }
@@ -260,8 +252,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxBeginnerLevelRs"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
                     "BEGINNER",
                   ])
                 }
@@ -280,8 +272,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIntermediateLevelRs"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
                     "INTERMEDIATE",
                   ])
                 }
@@ -300,8 +292,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAdvancedLevelRs"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
                     "ADVANCE",
                   ])
                 }
@@ -349,19 +341,19 @@ function FilterClass({ onFilter }) {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxBaru"
-                // onChange={(e) =>
-                //   handleFilterChange("types", [
-                //     ...selectedFilters.types,
-                //     "PREMIUM",
-                //   ])
-                // }
+                onChange={(e) =>
+                  handleFilterChange("type", [
+                    ...selectedFilters.type,
+                    "PREMIUM",
+                  ])
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxBaru"
                 style={{ fontWeight: "500" }}
               >
-                Popular
+                Premium
               </label>
             </div>
             <div className="form-check">
@@ -369,19 +361,19 @@ function FilterClass({ onFilter }) {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxPopular"
-                // onChange={(e) =>
-                //   handleFilterChange("types", [
-                //     ...selectedFilters.types,
-                //     "GRATIS",
-                //   ])
-                // }
+                onChange={(e) =>
+                  handleFilterChange("type", [
+                    ...selectedFilters.type,
+                    "GRATIS",
+                  ])
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxPopular"
                 style={{ fontWeight: "500" }}
               >
-                Terbaru
+                Gratis
               </label>
             </div>
           </div>
@@ -395,8 +387,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxUIDesign"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "UIUX_DESIGN",
                   ])
                 }
@@ -415,8 +407,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxWebDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "WEB_DEVELOPMENT",
                   ])
                 }
@@ -435,8 +427,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAndroidDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "ANDROID_DEVELOPMENT",
                   ])
                 }
@@ -455,8 +447,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxDataScience"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "DATA_SCIENCE",
                   ])
                 }
@@ -475,8 +467,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxProductManagement"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "PRODUCT_MANAGEMENT",
                   ])
                 }
@@ -495,8 +487,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIosDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("category", [
+                    ...selectedFilters.category,
                     "IOS_DEVELOPMENT",
                   ])
                 }
@@ -520,8 +512,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxBeginnerLevel"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
                     "BEGINNER",
                   ])
                 }
@@ -540,8 +532,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIntermediateLevel"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
                     "INTERMEDIATE",
                   ])
                 }
@@ -560,8 +552,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAdvancedLevel"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("level", [
+                    ...selectedFilters.level,
                     "ADVANCE",
                   ])
                 }
@@ -618,4 +610,4 @@ function FilterClass({ onFilter }) {
   );
 }
 
-export default FilterClass;
+export default FilterMyClass;

@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
-import Background from "../../assets/kategori.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Category() {
   const [courses, setCourses] = useState([]);
-  const [uniqueCategories, setUniqueCategories] = useState([]);
 
   useEffect(() => {
-    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter`;
+    const apiUrl = `${import.meta.env.VITE_API}/api/category`;
 
     axios
       .get(apiUrl)
       .then((response) => {
-        setCourses(response.data.data.courses);
-        const categories = response.data.data.courses.map(
-          (course) => course.category
-        );
-        setUniqueCategories(Array.from(new Set(categories)));
+        const uniqueCategories = Array.from(new Set(response.data.map((item) => item.categoryName)))
+          .slice(0, 6)
+          .map((categoryName) => response.data.find((item) => item.categoryName === categoryName));
+
+        setCourses(uniqueCategories);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -36,7 +34,7 @@ function Category() {
             paddingBottom: "20px",
           }}
         >
-          <h1 style={{ fontSize: "25px", fontWeight: "700" }}>
+          <h1 style={{ fontSize: "25px", fontWeight: "700", fontFamily:"Montserrat" }}>
             Kategori Belajar
           </h1>
           <p>
@@ -47,6 +45,7 @@ function Category() {
                 color: "#6148FF",
                 fontSize: "15px",
                 fontWeight: "800",
+                fontFamily:"Montserrat"
               }}
             >
               Lihat Semua{" "}
@@ -54,9 +53,9 @@ function Category() {
           </p>
         </div>
         <Row xs={2} md={6} className="g-4">
-          {uniqueCategories.map((category) => {
+          {courses.map((category) => {
             return (
-              <Col key={category}>
+              <Col key={category.id}>
                 <Link to={"/allCourseClass"} style={{ textDecoration: "none" }}>
                   <a
                     href="#"
@@ -79,9 +78,10 @@ function Category() {
                     <Card.Title
                       style={{
                         textAlign: "center",
-                        fontSize: "13px",
+                        fontSize: "12px",
                         fontWeight: "700",
                         paddingTop: "5px",
+                        fontFamily:"Montserrat"
                       }}
                     >
                       {category.categoryName.replace(/_/g, ' ')}

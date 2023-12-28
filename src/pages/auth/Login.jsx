@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 function Login() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ function Login() {
       const response = await axios.request(config);
       const { token } = response.data.data;
       Cookies.set("token", token);
-      toast.success("Login berhasil!");
+      toast.success("Login Berhasil!");
 
       const roler = response.data.data.role;
       if (roler === "USER") {
@@ -61,7 +61,10 @@ function Login() {
         >
           Masuk
         </h4>
-        <div className="mb-3 position-relative">
+        <div
+          className="mb-3 position-relative"
+          style={{ fontFamily: "Montserrat" }}
+        >
           <label htmlFor="formGroupExampleInput2" className="form-label">
             Email
           </label>
@@ -74,10 +77,28 @@ function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="mb-3 position-relative">
-          <label htmlFor="formGroupExampleInput4" className="form-label">
-            Password
-          </label>
+
+        <div
+          className="mb-3 position-relative"
+          style={{ fontFamily: "Montserrat" }}
+        >
+          <div className="d-flex justify-content-between">
+            <label htmlFor="formGroupExampleInput4" className="form-label">
+              Password
+            </label>
+            <Link
+              to={`/forgotPassword`}
+              style={{
+                textDecoration: "none",
+                color: `var(--primary-purple)`,
+                fontFamily: "Poppins",
+                fontSize: "12px",
+                fontWeight: "500",
+              }}
+            >
+              Lupa Kata Sandi?
+            </Link>
+          </div>
           <input
             type={showPassword ? "text" : "password"}
             className="form-control rounded-4"
@@ -109,16 +130,21 @@ function Login() {
             )}
           </span>
         </div>
+
         <div className="mb-3">
           <button
             className="btn rounded-4 text-light"
-            style={{ backgroundColor: `var(--primary-purple)`, width: "100%" }}
+            style={{
+              backgroundColor: `var(--primary-purple)`,
+              width: "100%",
+              fontFamily: "Montserrat",
+            }}
             type="submit"
           >
             Masuk
           </button>
         </div>
-        <div className="text-center">
+        <div className="mt-4 text-center">
           <p>
             Belum punya akun?{" "}
             <span>
@@ -136,7 +162,6 @@ function Login() {
           </p>
         </div>
       </form>
-
       <style>
         {`
           @media (max-width: 628px) {
@@ -149,6 +174,19 @@ function Login() {
 
           input {
             height: 48px;
+          }
+
+          p {
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+          }
+
+          .form-label {
+            font-family: Poppins;
+            font-size: 15px;
+            font-weight: 400;
+            text-align: left;
           }
 
           .button-danger {

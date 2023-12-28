@@ -1,34 +1,35 @@
 import React, { useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { createClass } from "../api/createClass";
+import { toast } from "react-hot-toast";
 
 function ModalAddClass() {
   const [isPriceDisabled, setIsPriceDisabled] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [classData, setClassData] = useState({
     title: "",
     courseCode: "",
-    category: {categoryName: ""},
+    category: { categoryName: "" },
     type: "",
     level: "",
     price: 0,
     description: "",
-    teacher: "",
+    telegramLink: "",
     chapter: [],
   });
 
   const handleInputChange = (field, value) => {
     setClassData((prevData) => {
-      console.log(prevData);
       return {
         ...prevData,
-        [field]: field === "category" ? {categoryName: value } : value,
+        [field]: field === "category" ? { categoryName: value } : value,
       };
     });
   };
 
   const addChapter = () => {
     setClassData((prevData) => {
-      console.log(prevData);
       return {
         ...prevData,
         chapter: [
@@ -47,11 +48,18 @@ function ModalAddClass() {
     setClassData((prevData) => {
       const updatedChapters = [...prevData.chapter];
       if (chapterIndex >= 0 && chapterIndex < updatedChapters.length) {
-        updatedChapters[chapterIndex].subject.push({
-          subjectNo: updatedChapters[chapterIndex].subject.length + 1,
-          videoTitle: "",
-          videoLink: "",
-          subjectType: "",
+        const totalSubjectsBeforeChapter = updatedChapters
+        .slice(0, chapterIndex)
+        .reduce((total, ch) => total + ch.subject.length, 0);
+
+      const currentChapter = updatedChapters[chapterIndex];
+      const totalSubjectsInChapter = currentChapter.subject.length;
+
+      updatedChapters[chapterIndex].subject.push({
+        subjectNo: totalSubjectsBeforeChapter + totalSubjectsInChapter + 1,
+        videoTitle: "",
+        videoLink: "",
+        subjectType: "",
         });
       }
       return {
@@ -68,7 +76,6 @@ function ModalAddClass() {
     subjectIndex
   ) => {
     setClassData((prevData) => {
-      console.log(prevData);
       const updatedChapters = [...prevData.chapter];
       if (chapterIndex !== undefined && subjectIndex !== undefined) {
         updatedChapters[chapterIndex].subject[subjectIndex][field] = value;
@@ -96,9 +103,11 @@ function ModalAddClass() {
   const handleSubmit = async () => {
     try {
       await createClass(classData);
-      console.log("berhasil menambahkan");
+      toast.success("Berhasil tambah data course");
+      setIsModalOpen(false);
+      window.location.reload();
     } catch (error) {
-      console.log("gagal menambahkan", error.message);
+      toast.error("Pastikan data yang diinputkan benar", error.message);
     }
   };
 
@@ -108,10 +117,11 @@ function ModalAddClass() {
         <button
           type="button"
           className="btn rounded-pill d-flex flex-row justify-content-between align-items-center text-light"
-          style={{ backgroundColor: `var(--primary-purple)` }}
+          style={{ backgroundColor: `var(--primary-purple)`, boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
           data-bs-whatever="@mdo"
+          onClick={() => setIsModalOpen(true)}
         >
           <span>
             <CiCirclePlus className="fs-4" style={{ marginRight: "0.5em" }} />
@@ -120,16 +130,16 @@ function ModalAddClass() {
         </button>
 
         <div
-          className="modal fade"
+          className={`modal fade ${isModalOpen ? "show" : ""}`}
           id="exampleModal"
           tabIndex="-1"
           aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
+          aria-hidden={!isModalOpen}
         >
-          <div className="modal-dialog">
-            <div className="modal-content px-5">
-              <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">
+          <div className="modal-dialog" style={{fontFamily:"Montserrat"}}>
+            <div className="modal-content px-2">
+              <div className="modal-header" style={{borderBottom:"none"}}>
+                <h1 className="modal-title py-2" style={{ color: "var(--primary-purple)", fontWeight:"700", fontSize:"25px" }} id="exampleModalLabel">
                   Tambah Kelas
                 </h1>
                 <button
@@ -139,35 +149,41 @@ function ModalAddClass() {
                   aria-label="Close"
                 ></button>
               </div>
-              <div className="modal-body">
+              <div className="modal-body" style={{marginTop:"-20px"}}>
                 <form>
                   <div className="mb-1">
-                    <label htmlFor="class-name" className="col-form-label">
+                    <label htmlFor="class-name" className="col-form-label" style={{fontSize:"16px", fontWeight:"600"}}>
                       Nama Kelas
                     </label>
                     <input
                       type="text"
                       className="form-control"
                       id="class-name"
+                      placeholder="Text"
                       value={classData.title}
+                      style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                       onChange={(e) =>
                         handleInputChange("title", e.target.value)
                       }
                     />
                   </div>
+
                   <div className="mb-1">
-                    <label htmlFor="category-name" className="col-form-label">
+                    <label htmlFor="category-name" className="col-form-label" style={{fontSize:"16px", fontWeight:"600"}}>
                       Kategori
                     </label>
                     <select
                       type="text"
                       className="form-select"
                       id="category-name"
+                      placeholder="Text"
                       value={classData.category.categoryName}
+                      style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                       onChange={(e) =>
                         handleInputChange("category", e.target.value)
                       }
                     >
+                      <option value="">Pilih Kategori</option>
                       <option value="UIUX_DESIGN">UIUX Design</option>
                       <option value="DATA_SCIENCE">Data Science</option>
                       <option value="WEB_DEVELOPMENT">Web Development</option>
@@ -182,14 +198,16 @@ function ModalAddClass() {
                   </div>
 
                   <div className="mb-1">
-                    <label htmlFor="class-code" className="col-form-label">
+                    <label htmlFor="class-code" className="col-form-label" style={{fontSize:"16px", fontWeight:"600"}}>
                       Kode Kelas
                     </label>
                     <input
                       type="text"
                       className="form-control"
                       id="class-code"
+                      placeholder="Text"
                       value={classData.courseCode}
+                      style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                       onChange={(e) =>
                         handleInputChange("courseCode", e.target.value)
                       }
@@ -197,13 +215,17 @@ function ModalAddClass() {
                   </div>
 
                   <div className="mb-1">
-                    <label htmlFor="class-type" className="col-form-label">
+                    <label htmlFor="class-type" className="col-form-label" style={{fontSize:"16px", fontWeight:"600"}}>
                       Tipe Kelas
                     </label>
                     <div className="d-flex">
                       <div
                         className="form-check form-check-inline rounded-2 py-1"
-                        style={{ backgroundColor: `var(--allert-green)`, paddingLeft: "2em", paddingRight:"1em" }}
+                        style={{
+                          backgroundColor: `var(--allert-green)`,
+                          paddingLeft: "2em",
+                          paddingRight: "1em",
+                        }}
                       >
                         <input
                           className="form-check-input"
@@ -218,13 +240,19 @@ function ModalAddClass() {
                         />
                         <label
                           className="form-check-label text-light"
-                          htmlFor="gratisRadio"
+                          htmlFor="gratisRadio" style={{fontSize:"16px", fontWeight:"600"}}
                         >
                           GRATIS
                         </label>
                       </div>
-                      <div className="form-check form-check-inline rounded-2 py-1"
-                      style={{backgroundColor:`var(--primary-purple)`, paddingLeft: "2em", paddingRight:"1em"}}>
+                      <div
+                        className="form-check form-check-inline rounded-2 py-1"
+                        style={{
+                          backgroundColor: `var(--primary-purple)`,
+                          paddingLeft: "2em",
+                          paddingRight: "1em",
+                        }}
+                      >
                         <input
                           className="form-check-input"
                           type="radio"
@@ -239,16 +267,16 @@ function ModalAddClass() {
                         <label
                           className="form-check-label text-light"
                           htmlFor="premiumRadio"
+                          style={{fontSize:"16px", fontWeight:"600"}}
                         >
                           PREMIUM
                         </label>
                       </div>
-                      
                     </div>
                   </div>
 
                   <div className="mb-1">
-                    <label htmlFor="level-type" className="col-form-label">
+                    <label htmlFor="level-type" className="col-form-label" style={{fontSize:"16px", fontWeight:"600"}}>
                       Level
                     </label>
                     <select
@@ -256,10 +284,12 @@ function ModalAddClass() {
                       className="form-select"
                       id="level-name"
                       value={classData.level}
+                      style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                       onChange={(e) =>
                         handleInputChange("level", e.target.value)
                       }
                     >
+                      <option value="">Pilih Level</option>
                       <option value="BEGINNER">Beginner</option>
                       <option value="INTERMEDIATE">Intermediate</option>
                       <option value="ADVANCE">Advance</option>
@@ -267,7 +297,7 @@ function ModalAddClass() {
                   </div>
 
                   <div className="mb-1">
-                    <label htmlFor="class-price" className="col-form-label">
+                    <label htmlFor="class-price" className="col-form-label"                       style={{fontSize:"16px", fontWeight:"600"}}>
                       Harga
                     </label>
                     <input
@@ -275,6 +305,7 @@ function ModalAddClass() {
                       className="form-control"
                       id="price-name"
                       value={classData.price}
+                      style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                       onChange={(e) =>
                         handleInputChange("price", e.target.value)
                       }
@@ -283,28 +314,32 @@ function ModalAddClass() {
                   </div>
 
                   <div className="mb-1">
-                    <label htmlFor="level-type" className="col-form-label">
-                      Teacher
+                    <label htmlFor="level-type" className="col-form-label" style={{fontSize:"16px", fontWeight:"600"}}>
+                      Link Telegram
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="author-name"
-                      value={classData.teacher}
+                      id="telegram-link"
+                      placeholder="Text"
+                      value={classData.telegramLink}
+                      style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                       onChange={(e) =>
-                        handleInputChange("teacher", e.target.value)
+                        handleInputChange("telegramLink", e.target.value)
                       }
                     />
                   </div>
 
                   <div className="mb-1">
-                    <label htmlFor="class-material" className="col-form-label">
+                    <label htmlFor="class-material" className="col-form-label"                       style={{fontSize:"16px", fontWeight:"600"}}>
                       Deskripsi
                     </label>
                     <textarea
                       className="form-control"
                       id="message-text"
                       value={classData.description}
+                      placeholder="Paragraph"
+                      style={{fontSize:"16px", fontWeight:"500", height:"120px", borderRadius:"13px"}}
                       onChange={(e) =>
                         handleInputChange("description", e.target.value)
                       }
@@ -314,21 +349,24 @@ function ModalAddClass() {
                   {classData.chapter.map((chapter, chapterIndex) => (
                     <div
                       key={chapterIndex}
-                      className="bg-success-subtle p-3 mb-3 rounded"
+                      className="bg-success-subtle p-3 mb-3 rounded mt-4"
                     >
-                      <h5>Chapter {chapter.chapterNo}</h5>
+                      <h5 style={{fontWeight:"700"}}>Chapter {chapter.chapterNo}</h5>
                       <div className="mb-3">
                         <label
                           htmlFor={`chapter-title-${chapterIndex}`}
-                          className="form-label"
+                          className="form-label" 
+                          style={{fontSize:"16px", fontWeight:"600"}}
                         >
-                          Chapter Title
+                          Judul Chapter
                         </label>
                         <input
                           type="text"
                           className="form-control"
                           id={`chapter-title-${chapterIndex}`}
+                          placeholder="Text"
                           value={chapter.chapterTitle}
+                          style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                           onChange={(e) =>
                             handleChapterInputChange(
                               "chapterTitle",
@@ -341,22 +379,25 @@ function ModalAddClass() {
 
                       {chapter.subject.map((subject, subjectIndex) => (
                         <div
-                          key={subjectIndex}
+                          key={`${chapterIndex}-${subjectIndex}`}
                           className="bg-light p-3 mb-3 rounded"
                         >
-                          <h6>Subject {subject.subjectNo}</h6>
+                          <h6 style={{fontWeight:"700"}}>Subject {subject.subjectNo}</h6>
                           <div className="mb-3">
                             <label
                               htmlFor={`video-title-${chapterIndex}-${subjectIndex}`}
                               className="form-label"
+                              style={{fontSize:"16px", fontWeight:"600"}}
                             >
-                              Video Title
+                              Judul Subject
                             </label>
                             <input
                               type="text"
                               className="form-control"
                               id={`video-title-${chapterIndex}-${subjectIndex}`}
                               value={subject.videoTitle}
+                              placeholder="Text"
+                              style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                               onChange={(e) =>
                                 handleChapterInputChange(
                                   "videoTitle",
@@ -371,14 +412,17 @@ function ModalAddClass() {
                             <label
                               htmlFor={`video-link-${chapterIndex}-${subjectIndex}`}
                               className="form-label"
+                              style={{fontSize:"16px", fontWeight:"600"}}
                             >
-                              Video Link
+                              Link Video Subject
                             </label>
                             <input
                               type="text"
                               className="form-control"
                               id={`video-link-${chapterIndex}-${subjectIndex}`}
                               value={subject.videoLink}
+                              placeholder="Text"
+                              style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                               onChange={(e) =>
                                 handleChapterInputChange(
                                   "videoLink",
@@ -393,13 +437,15 @@ function ModalAddClass() {
                             <label
                               htmlFor={`subject-type-${chapterIndex}-${subjectIndex}`}
                               className="form-label"
+                              style={{fontSize:"16px", fontWeight:"600"}}
                             >
-                              Subject Type
+                              Tipe Subject
                             </label>
                             <select
                               className="form-select"
                               id={`subject-type-${chapterIndex}-${subjectIndex}`}
                               value={subject.subjectType}
+                              style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
                               onChange={(e) =>
                                 handleChapterInputChange(
                                   "subjectType",
@@ -409,27 +455,30 @@ function ModalAddClass() {
                                 )
                               }
                             >
+                              <option value="">Pilih Tipe Subject</option>
                               <option value="GRATIS">Gratis</option>
                               <option value="PREMIUM">Premium</option>
                             </select>
                           </div>
                           <button
                             type="button"
-                            className="btn btn-danger"
+                            className="btn"
+                            style={{borderRadius:"25px", backgroundColor: `var(--allert-red`, color: "#fff", fontFamily:"Montserrat", fontWeight:"500"}}
                             onClick={() =>
                               removeSubject(chapterIndex, subjectIndex)
                             }
                           >
-                            Remove Subject
+                            Hapus Subject
                           </button>
                         </div>
                       ))}
                       <button
                         type="button"
-                        className="btn btn-success"
+                        className="btn"
+                        style={{borderRadius:"25px", backgroundColor: `var(--allert-green`, color: "#fff", fontFamily:"Montserrat", fontWeight:"500"}}
                         onClick={() => addSubject(chapterIndex)}
                       >
-                        Add Subject
+                        Tambah Subject
                       </button>
                     </div>
                   ))}
@@ -443,25 +492,17 @@ function ModalAddClass() {
                     Tambah Chapter
                   </button>
 
-                  <button
+                </form>
+              </div>
+              <div className="modal-footer" style={{borderTop:"none"}}>
+                <button
                     type="button"
-                    className="btn rounded-pill mx-4 text-light"
-                    style={{ backgroundColor: `var(--primary-purple)` }}
+                    className="btn rounded-pill text-light"
+                    style={{ backgroundColor: `var(--primary-purple)`, color: "#fff", fontFamily:"Montserrat", fontWeight:"700" }}
                     onClick={handleSubmit}
                   >
                     Simpan
                   </button>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn rounded-pill text-light"
-                  style={{ backgroundColor: `var(--neutral-grey)` }}
-                  data-bs-dismiss="modal"
-                >
-                  Cancel
-                </button>
               </div>
             </div>
           </div>
