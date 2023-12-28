@@ -92,7 +92,7 @@ function ForgotPassword() {
         <div className="kirim mb-3">
           <button
             className="btn rounded-4 text-light"
-            style={{ backgroundColor: `var(--primary-purple)`, width: "100%", marginTop: "1em",
+            style={{ backgroundColor: `var(--primary-purple)`, fontFamily:"Montserrat", width: "100%", marginTop: "1em",
           }}
             type="submit"
           >

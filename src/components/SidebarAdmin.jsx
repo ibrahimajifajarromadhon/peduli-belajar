@@ -6,6 +6,7 @@ import { AiOutlineProfile } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { toast } from 'react-hot-toast';
 
 function SidebarAdmin() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,24 +21,23 @@ function SidebarAdmin() {
   return (
     <>
       <div
-        className="d-lg-flex flex-column flex-shrink-0 p-3  p-4 vh-100 d-none"
+        className="d-lg-flex flex-column flex-shrink-0 p-3 p-4 vh-100 d-none"
         style={{ backgroundColor: `var(--primary-purple)`, width: "300px" }}
       >
         <NavLink
           to="dashboard"
-          className="d-flex align-items-center  text-white text-decoration-none"
+          className="d-flex align-items-center  text-white text-decoration-none sidebar"
         >
           <span className="fs-2 d-flex justify-content-start">
-            <SiStudyverse />
+            <SiStudyverse style={{width:"1.5em", height:"1.5em"}} />
           </span>
-          <span className="fs-4 mx-5">PeduliBelajar</span>
+          <span className="fs-4 mx-2 my-3">Peduli Belajar</span>
         </NavLink>
         <br />
-        <hr />
-        <ul className="nav nav-pills flex-column mb-auto">
-          <li className="nav-item">
+        <ul className="nav nav-pills flex-column mb-auto sidebar-item mt-1">
+          <li className="nav-item py-1">
             <NavLink
-              to="dashboard"
+              to={`/admin/dashboard`}
               className="nav-link text-light fs-5 d-flex align-items-center"
               activeclassname="active"
             >
@@ -45,18 +45,23 @@ function SidebarAdmin() {
               <span className="mx-3">Dashboard</span>
             </NavLink>
           </li>
-          <li className="nav-item">
+          <li className="nav-item py-1">
             <NavLink
               to="class"
-              className="nav-link text-light fs-5 d-flex align-items-center mb-5"
+              className="nav-link text-light fs-5 d-flex align-items-center"
               activeclassname="active"
             >
               <AiOutlineProfile />
               <span className="mx-3">Kelola Kelas</span>
             </NavLink>
           </li>
-          <li className="nav-item rounded">
-          <Link to={`/login`} style={{ color: `var(--primary-purple)`}} onClick={() => {Cookies.remove('token')}}>
+          <li className="nav-item rounded py-1">
+          <Link to={`/login`} style={{ color: `var(--primary-purple)`}}onClick={() => {
+                Cookies.remove('token');
+                setIsLoggedIn(false);
+                toast.success("Logout berhasil!");
+                return navigate("/");
+              }} >
             <p href="#" className="nav-link text-white fs-5">
               <FiLogOut />
               <span className="mx-3">Log Out</span>
@@ -66,7 +71,7 @@ function SidebarAdmin() {
         </ul>
       </div>
 
-      <div className="d-flex flex-row bg-transparant w-100  z-1  p-4 d-lg-none" style={{ top:"0px", left:"0px"}}>
+      <div className="d-flex flex-row bg-transparant w-100 z-1 p-4 d-lg-none" style={{ top:"0px", left:"0px"}}>
         <ul className="nav nav-pills mb-auto w-100">
           <li className="nav-item">
             <NavLink
@@ -104,6 +109,20 @@ function SidebarAdmin() {
           </li>
         </ul>
       </div>
+      <style>{`
+      .sidebar {
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .sidebar-item {
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: left;
+      }
+      `}</style>
     </>
   );
 }

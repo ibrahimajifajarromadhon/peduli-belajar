@@ -20,8 +20,8 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, data.length);
   const currentData = data.slice(startIndex, endIndex);
-
   const [openAccordionIndex, setOpenAccordionIndex] = useState(null);
+  const [shouldCloseModal, setShouldCloseModal] = useState(false);
 
   const handleAccordionToggle = (index) => {
     setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
@@ -42,7 +42,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const handleDelete = async (classCode) => {
     try {
       await deleteCourse(classCode);
-      console.log("data delete successfuly");
+      console.log("Data course berhasil dihapus");
     } catch (error) {
       console.log("error delete data", error);
     }
@@ -52,6 +52,8 @@ const TableAdmin = ({ data, coloredColumn }) => {
     try {
       setShowModal(true);
       setPassCode(uniqCode);
+      setShouldCloseModal(true);
+
     } catch (error) {
       console.log("gagal");
     }
@@ -61,13 +63,17 @@ const TableAdmin = ({ data, coloredColumn }) => {
     setCurrentPage(page);
   };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setShouldCloseModal(true);
+  };
+
   return (
     <div
-      className="table-responsive p-3 mx-3 my-2"
-      style={{ borderTop: `2px solid var(--primary-purple)` }}
+      className="table-responsive p-1 mx-2 my-1"
     >
       {isSmallScreen ? (
-        <div className="accordion my-3" id="accordionExample">
+        <div className="accordion" id="accordionExample" style={{ marginTop: '10px' }}>
           {data.map((aData, index) => (
             <div className="accordion-item" key={index}>
               <h2 className="accordion-header">
@@ -104,7 +110,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                           <strong
                             className="d-flex align-items-center"
                             style={{
-                              width: "12em",
+                              width: "20em",
                               fontSize: "14px",
                             }}
                           >
@@ -129,22 +135,21 @@ const TableAdmin = ({ data, coloredColumn }) => {
                                 ].toUpperCase() ===
                                   coloredColumn.column.value[1]
                               ? `var(${coloredColumn.negative})`
-                              : "black",
+                              : "#202244",
 
                           fontWeight:
-                            column === "Type_Kelas" ||
+                            column === "Tipe_Kelas" ||
                             column === "Nama_Kelas" ||
-                            column === "Harga" ||
+                            column === "Harga_Kelas" ||
                             column === "Level" ||
                             column === "Status" ||
                             column === "Kelas_Premium" ||
                             column === "Metode_Pembayaran"
-                              ? "600"
-                              : "normal",
+                              ? "700"
+                              : "700",
                         }}
                       >
-                        {aData[column]}
-                      </div>
+                        {column === "Harga_Kelas" ? `Rp ${aData[column]}` : aData[column]}                      </div>
                     </div>
                   ))}
                   {isKelolaKelasRoute && selectedRowIndex !== index && (
@@ -236,17 +241,20 @@ const TableAdmin = ({ data, coloredColumn }) => {
         </div>
       ) : (
         <>
-          <div style={{ padding: "0em 2em" }} className="">
-            <table className="table p-5">
+          <div>
+            <table className="table">
               <thead>
                 <tr>
                   {columns.map((column) => (
-                    <th
-                      className="justify-content-center align-items-center"
+                    <th className="tabel-head"
                       key={column}
                       scope="col"
                       style={{
                         backgroundColor: `var(--primary-young-blue)`,
+                        textAlign: "left",
+                        height:"3em",
+                        verticalAlign: "middle", 
+                        borderBottom: "none",
                       }}
                     >
                       {column.replace(/_/g, " ")}
@@ -254,14 +262,17 @@ const TableAdmin = ({ data, coloredColumn }) => {
                   ))}
                   {isKelolaKelasRoute && (
                     <th
-                      className="d-flex justify-content-center align-items-center"
+                      className="justify-content-center"
                       scope="col"
                       style={{
                         backgroundColor: `var(--primary-young-blue)`,
-                        height: "4.35em",
+                        height:"3em",
+                        textAlign: "left",
+                        verticalAlign: "middle",
+                        borderBottom: "none", 
                       }}
                     >
-                      Action
+                      Aksi
                     </th>
                   )}
                 </tr>
@@ -284,23 +295,27 @@ const TableAdmin = ({ data, coloredColumn }) => {
                                 ].toUpperCase() ===
                                   coloredColumn.column.value[1]
                               ? `var(${coloredColumn.negative})`
-                              : "black",
+                              : "#202244",
 
                           fontWeight:
-                            column === "Type_Kelas" ||
+                            column === "Tipe_Kelas" ||
                             column === "Nama_Kelas" ||
-                            column === "Harga" ||
+                            column === "Harga_Kelas" ||
                             column === "Level" ||
                             column === "Status" ||
                             column === "Kelas_Premium" ||
                             column === "Metode_Pembayaran"
-                              ? "600"
-                              : "normal",
+                              ? "700"
+                              : "700",
 
-                          fontSize: "0.9em",
+                          fontSize: "12px",
+                          fontFamily: "Montserrat",
+                          textAlign: "left",
+                          width: "250px",
+                          borderBottom: "none",
                         }}
                       >
-                        {aData[column]}
+                        {column === "Harga_Kelas" ? `Rp ${aData[column]}` : aData[column].replace(/_/g, " ")}
                       </td>
                     ))}
                     {isKelolaKelasRoute && (
@@ -321,7 +336,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                                   handleGetDetailCourse(aData.Kode_Kelas)
                                 }
                               >
-                                Update
+                                Ubah
                               </button>
                               <button
                                 onClick={() => handleDelete(aData.Kode_Kelas)}
@@ -330,7 +345,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                                 }}
                                 className="btn text-light rounded-pill mx-2"
                               >
-                                Delete
+                                Hapus
                               </button>
                             </div>
                           </>
@@ -363,27 +378,37 @@ const TableAdmin = ({ data, coloredColumn }) => {
             tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
+            style={{ display: shouldCloseModal ? "none" : "block" }}
           >
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                    onClick={() => setShowModal(false)}
-
-                  ></button>
-                </div>
-                <div className="modal-body">
-                  <UpdateCourse showModal={showModal} courseCode={passCode} />
+            <div className="modal-dialog" style={{fontFamily:"Montserrat"}}>
+              <div className="modal-content px-2">
+              <div className="modal-header" style={{borderBottom:"none"}}>
+                <h1 className="modal-title py-2" style={{ color: "var(--primary-purple)", fontWeight:"700", fontSize:"25px" }} id="exampleModalLabel">
+                  Ubah Kelas
+                </h1>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+                <div className="modal-body" style={{marginTop:"-20px"}}>
+                  <UpdateCourse courseCode={passCode}
+                  handleCloseModal={handleCloseModal} />
                 </div>
               </div>
             </div>
           </div>
         )}
       </div>
+      <style>{`
+      .tabel-head {
+        font-family: Montserrat;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      `}</style>
     </div>
   );
 };

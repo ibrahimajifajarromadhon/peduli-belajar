@@ -91,86 +91,84 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
           <div className="col" key={course.courseCode}>
             <div
               className="mycourse card"
-              style={{
-                borderRadius: "22px",
-                width: "100%",
-                height: "18rem",
-                cursor: "pointer",
-                overflow: "hidden",
-              }}
-              onClick={() => handleClick(course)}
+              style={{ borderRadius: "22px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}
             >
-              <div className="d-flex justify-content-center align-items-center m-3">
+              <div className="d-flex justify-content-center align-items-center" style={{ borderRadius: "22px" }}>
                 <img
                   src={course.category.categoryImage}
                   className="card-img-top"
                   style={{
-                    position: "center",
-                    width: "20%",
-                    height: "100%",
+                    marginTop: "15px",
+                    padding: "0px",
+                    width: "35%",
+                    height: "45%",
                   }}
                   alt="..."
                 />
               </div>
-              <div className="card-body" style={{ padding: "0em 1em" }}>
+              <div className="card-body">
                 <div className="d-flex">
-                  <div>
                     <h5
                       className="card-title"
-                      style={{ color: "#6148FF", fontSize: "1em" }}
+                      style={{fontFamily:"Montserrat", fontWeight:"700", color: "#6148FF" }}
                     >
                       {course.category.categoryName.replace(/_/g, " ")}
                     </h5>
-                    <h3 style={{ fontSize: "1em" }}>{course.title}</h3>
+                    <div className="ms-auto" style={{fontFamily:"Montserrat", fontWeight:"600"}}>
+                      <FaStar style={{ color: "#F9CC00" }} /> {course.rating}
+                    </div>
                   </div>
-                  <div className="ms-auto">
-                    <FaStar style={{ color: "#F9CC00" }} /> {course.rating}
-                  </div>
-                </div>
+                  <h6 style={{fontFamily:"Montserrat", fontWeight:"700"}}>{course.title}</h6>
                 <p
-                  className="card-text py-0 my-0"
-                  style={{ fontSize: "0.8em" }}
+                  className="card-text"
+                  style={{fontFamily:"Montserrat", fontWeight:"500", fontSize:"14px"}}
                 >
                   by {course.teacher}
                 </p>
-                <div className="d-flex my-1" style={{ height: "1.5em" }}>
+                <div className="d-flex mt-2" style={{fontFamily:"Montserrat"}}>
                   <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
                   <p
                     style={{
                       textDecoration: "none",
                       color: "#6148FF",
-                      fontSize: "10px",
+                      fontSize: "11px",
                       fontWeight: "600",
                     }}
                   >
                     {course.level} LEVEL
                   </p>
                   <RiBook3Line
-                    style={{ color: "#73CA5C", marginLeft: "30px" }}
+                    style={{ color: "#73CA5C", marginLeft: "15px" }}
                   />{" "}
                   <p
                     style={{
                       textDecoration: "none",
-                      fontSize: "10px",
+                      fontSize: "11px",
                       fontWeight: "600",
                     }}
                   >
                     {course.modul} Modul
                   </p>
                   <RiTimeFill
-                    style={{ color: "#73CA5C", marginLeft: "30px" }}
+                    style={{ color: "#73CA5C", marginLeft: "15px" }}
                   />{" "}
                   <p
                     style={{
                       textDecoration: "none",
-                      fontSize: "10px",
+                      fontSize: "11px",
                       fontWeight: "600",
                     }}
                   >
                     100 menit
                   </p>
                 </div>
-                <div className="" style={{ marginTop: "1em" }}>
+                <div className="d-flex justify-content-between align-items-center" style={{fontFamily: "Montserrat"}}>
+                  <button
+                      className="btn btn-kelas"
+                      onClick={() => handleClick(course)}
+                      >
+                      Lanjutkan
+                    </button>
                   <div
                     className="progress"
                     role="progressbar"
@@ -178,28 +176,53 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
                     aria-valuenow={course.percentProgress}
                     aria-valuemin="0"
                     aria-valuemax="100"
+                    style={{ borderRadius: "25px", height:"1.8em" }}
                   >
                     <div
                       className="progress-bar text-white px-1"
                       style={{
-                        backgroundColor: `var(--primary-purple)`,
                         width: `${course.percentProgress}%`,
                         fontWeight: "600",
+                        backgroundColor: "#6148FF",
+                        borderRadius: "25px",
                       }}
                     >
+                      <div style={{ padding: "0px 20px 0px 20px" }}>
                       {`${course.percentProgress}% complete `}
+                      </div>
                     </div>
-                  </div>
                 </div>
+                </div>
+                
               </div>
             </div>
             <style>{`
-            .mycourse:hover {
-              box-shadow: 4px 4px 8px rgba(var(--primary-purple-rgb), 0.5);
-              transform: scale(1.02); /* Efek membesar saat dihover */
-              transition: background-color 0.3s, transform 0.3s; /* Animasi perubahan warna dan transformasi */
+            .mycourse {
+              transition: transform 0.3s; 
             }
-           
+    
+            .mycourse:hover {
+              transform: scale(1.02);
+            }
+
+            .btn-kelas  {
+              padding: 5px;
+              background-color: #489CFF;
+              color: white;
+              border-radius: 25px;
+              width: 40%;
+              font-weight: 600;
+            }
+    
+            .btn-kelas:hover {
+              background-color: #6148FF;
+              color: white;
+            }
+
+            .card-img-top {
+              width: 100%;
+              height: 150px;
+            }
             `}</style>
           </div>
         ))
