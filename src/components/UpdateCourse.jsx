@@ -2,14 +2,10 @@ import { useEffect, useState } from "react";
 import getDetailCourse from "../api/getDetailsCourse";
 import updateCourse from "../api/updateCourse";
 import { toast } from "react-hot-toast";
-import { BsUpload } from "react-icons/bs";
 import updatedChapter from "../api/updatedChapter";
 import updatedSubject from "../api/updatedSubject";
 import addChapterUpdate from "../api/addChapterUpdate";
 import addSubjectUpdate from "../api/addSubjectUpdate";
-// import { responsivePropType } from "react-bootstrap/esm/createUtilityClasses";
-// import getDetailChapter from "../api/getDetailChapter";
-// import { FaVihara } from "react-icons/fa";
 
 function UpdateCourse({ courseCode, handleCloseModal }) {
   const [detail, setDetail] = useState();
@@ -17,13 +13,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
   const [isPriceDisabled, setIsPriceDisabled] = useState(false);
   const [showDetailSubject, setShowDetailSubject] = useState(false);
   const [selectedChapterIndex, setSelectedChapterIndex] = useState(null);
-  // const [detailChapter, setDetailChapter] = useState();
-  // const [chapterDetail, setChapterDetail] = useState();
-  // const [passCode, setPassCode] = useState();
-  // const [selectedSubjectIndex, setSelectedSubjectIndex] = useState(null);
-  // const [isAddSubjectVisible, setIsAddSubjectVisible] = useState(false);
 
-  //Logic untuk Update yang atas
   useEffect(() => {
     const fetchData = async (courseCode) => {
       try {
@@ -121,41 +111,6 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
       }));
     }
   };
-  //Logic untuk update yang atas
-
-  //logic untuk update chapter
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await getDetailChapter(chapterId);
-  //       console.log(response);
-  //       setDetailChapter(response);
-  //     } catch (error) {
-  //       console.log("error fetch data", error.message);
-  //       throw error;
-  //     }
-  //   };
-  //   fetchData();
-  // }, [chapterId]);
-
-  const handleUpdateChapter = (chapterId) => {
-    const updatedChapterData = {
-      chapterNo: detail.data.chapter[chapterId].chapterNo,
-      chapterTitle: detail.data.chapter[chapterId].chapterTitle,
-    };
-    updateChapterData(chapterId, updatedChapterData);
-  };
-
-  const updateChapterData = async (chapterId, updatedChapter) => {
-    try {
-      await updatedChapter(chapterId, updatedChapter);
-      toast.success("Berhasil ubah chapter");
-    } catch (error) {
-      toast.error("Gagal ubah chapter");
-      console.log("Gagal ubah chapter", error.message);
-    }
-  };
 
   const addChapter = () => {
     if (isEditing) {
@@ -180,30 +135,6 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
       });
     }
   };
-  // const handleUpdateChapter = async () => {
-  //   try {
-  //     const updateChapter = {
-  //       categoryNo: getDetail.data.category.categoryNo,
-  //       categoryName : getDetail.data.category.categoryName
-
-  //     }
-  //     await updateChapter(couresId, updateChapter)
-  //     toast.success("Berhasil Update Chapter")
-  //   }catch(error){
-  //     toast.error("Error")
-  //   }
-  // }
-  //logic untuk update chapter
-
-  // const [classData, setClassData] = useState({
-  //     chapterNo:
-  //         (detail && detail.data && detail.data.chapter
-  //             ? Math.max(...detail.data.chapter.map((chap) => chap.chapterNo))
-  //             : 0) + 1,
-
-  //     chapterTitle: "",
-  //     subject: [],
-  // });
 
   const addSubject = (chapterIndex) => {
     setDetail((prevDetail) => {
@@ -216,7 +147,6 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
           0
         );
         const newSubject = {
-          // subjectNo: updatedChapters[chapterIndex].subject.length + 1,
           subjectNo: maxSubjectNo + 1,
           videoTitle: "",
           videoLink: "",
@@ -242,7 +172,6 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
   ) => {
     if (isEditing) {
       setDetail((prevDetail) => {
-        console.log(prevDetail);
         const updatedChapters = [...prevDetail.data.chapter];
         if (chapterIndex !== undefined && subjectIndex !== undefined) {
           updatedChapters[chapterIndex].subject[subjectIndex][field] = value;
@@ -634,7 +563,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                               value="GRATIS"
                               // checked={subject.subjectType === "GRATIS"}
                               checked={
-                                isPriceDisabled ||
+                                // isPriceDisabled ||
                                 subject.subjectType === "GRATIS"
                               }
                               onChange={(e) =>
@@ -645,7 +574,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                                   subjectIndex
                                 )
                               }
-                              disabled={isPriceDisabled}
+                              // disabled={!isPriceDisabled}
                             />
                             <label
                               className="form-check-label text-light"
@@ -669,7 +598,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                               value="PREMIUM"
                               // checked={subject.subjectType === "PREMIUM"}
                               checked={
-                                !isPriceDisabled &&
+                                // isPriceDisabled &&
                                 subject.subjectType === "PREMIUM"
                               }
                               onChange={(e) =>
@@ -680,7 +609,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                                   subjectIndex
                                 )
                               }
-                              disabled={isPriceDisabled}
+                              // disabled={isPriceDisabled}
                             />
                             <label
                               className="form-check-label text-light"

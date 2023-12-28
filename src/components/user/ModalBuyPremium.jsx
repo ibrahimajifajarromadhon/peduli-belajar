@@ -12,7 +12,6 @@ const ModalBuyPremium = ({ courseCode, handleCloseModal }) => {
   const navigate = useNavigate();
 
   const [courseData, setCourseData] = useState(null);
-  console.log({ courseData });
 
   useEffect(() => {
     const detailCourse = `${import.meta.env.VITE_API}/api/course/${courseCode}`;

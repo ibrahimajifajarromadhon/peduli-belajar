@@ -17,7 +17,6 @@ import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import User from "./layout/User.jsx";
 import MyClassHomepage from "./pages/user/MyClassHomepage.jsx";
-import LoginAdmin from "./pages/auth/LoginAdmin.jsx";
 import DetailCourse from "./pages/user/DetailCourse.jsx";
 import AllCourseHomepage from "./pages/user/AllCourseHomepage.jsx";
 import BayarCourse from "./pages/user/BayarCourse.jsx";
@@ -29,11 +28,7 @@ import MyProfile from "./components/user/MyProfile.jsx";
 import Notification from "./pages/user/Notification.jsx";
 import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import Otp from "./pages/auth/Otp.jsx";
-import OtpAdmin from "./pages/auth/OtpAdmin.jsx";
-import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
 import ForgotPassword from "./pages/auth/ForgotPassword.jsx";
-import UpdateCourse from "./components/UpdateCourse.jsx";
-import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
@@ -42,17 +37,14 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<Authenticaton />}>
-        <Route element={<LoginAdmin />} path="/loginAdmin"></Route>
         <Route element={<Login />} path="/login"></Route>
         <Route element={<Register />} path="/register"></Route>
-        <Route element={<RegisterAdmin />} path="/registerAdmin"></Route>
         <Route element={<ForgotPassword />} path="/forgotPassword"></Route>
         <Route
           element={<ResetPassword />}
           path="/reset-password/:token"
         ></Route>
         <Route element={<Otp />} path="/otp/:email"></Route>
-        <Route element={<OtpAdmin />} path="/otpAdmin/:email"></Route>
       </Route>
 
       <Route element={<Admin />} path="/admin">

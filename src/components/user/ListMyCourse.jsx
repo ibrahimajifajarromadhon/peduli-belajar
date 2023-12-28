@@ -13,10 +13,6 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("search", searchQuery);
-  }, [searchQuery]);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getMyCourse();
@@ -25,15 +21,7 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
         console.log("gagal fetch api", error.message);
       }
     };
-    // if (
-    //   listMyCourse &&
-    //   Array.isArray(listMyCourse) &&
-    //   listMyCourse.length > 0
-    // ) {
-    //   setProgresCourse(listMyCourse);
-    // } else {
       fetchData();
-    // }
   }, []);
 
   const filterCourses = () => {
@@ -67,7 +55,6 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
   };
 
   const handleClick = (course) => {
-    console.log(course.courseCode);
     navigate(`/detailClass/${course.courseCode}`);
   };
 

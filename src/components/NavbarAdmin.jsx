@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SearchIcon from "../assets/bx_search-alt.svg";
-// import searchAdmin from "../api/searchAdmin";
 
 function NavbarAdmin() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [searchFiture, setSearchFiture] = useState();
-
-  useEffect
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);

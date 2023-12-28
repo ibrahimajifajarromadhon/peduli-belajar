@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 function Login() {
   const navigate = useNavigate();
@@ -36,10 +36,9 @@ function Login() {
       const response = await axios.request(config);
       const { token } = response.data.data;
       Cookies.set("token", token);
-      toast.success('Login Berhasil!')
+      toast.success("Login Berhasil!");
 
       const roler = response.data.data.role;
-      console.log(roler)
       if (roler === "USER") {
         navigate("/allCourseClass");
       } else if (roler === "ADMIN") {
@@ -62,7 +61,10 @@ function Login() {
         >
           Masuk
         </h4>
-        <div className="mb-3 position-relative" style={{fontFamily:"Montserrat"}}>
+        <div
+          className="mb-3 position-relative"
+          style={{ fontFamily: "Montserrat" }}
+        >
           <label htmlFor="formGroupExampleInput2" className="form-label">
             Email
           </label>
@@ -76,7 +78,10 @@ function Login() {
           />
         </div>
 
-        <div className="mb-3 position-relative" style={{fontFamily:"Montserrat"}}>
+        <div
+          className="mb-3 position-relative"
+          style={{ fontFamily: "Montserrat" }}
+        >
           <div className="d-flex justify-content-between">
             <label htmlFor="formGroupExampleInput4" className="form-label">
               Password
@@ -129,7 +134,11 @@ function Login() {
         <div className="mb-3">
           <button
             className="btn rounded-4 text-light"
-            style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontFamily:"Montserrat" }}
+            style={{
+              backgroundColor: `var(--primary-purple)`,
+              width: "100%",
+              fontFamily: "Montserrat",
+            }}
             type="submit"
           >
             Masuk

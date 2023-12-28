@@ -9,9 +9,7 @@ function AdminDashboard() {
     const fetchData = async () => {
       try {
         const response = await getStatusOrder();
-        console.log(response)
-          setStatusOrder(response);
-       
+        setStatusOrder(response);
       } catch (error) {
         console.error("error fetching course:", error.message);
       }
@@ -41,8 +39,25 @@ function AdminDashboard() {
 
   return (
     <>
-      <div className="col-8" style={{marginTop:"-50px", marginLeft:"10px", fontFamily:"Montserrat", fontSize:"20px", fontWeight:"700"}}>
-        <h4 style={{fontFamily:"Montserrat", fontSize:"20px", fontWeight:"700"}}>Status Pembayaran</h4>
+      <div
+        className="col-8"
+        style={{
+          marginTop: "-50px",
+          marginLeft: "10px",
+          fontFamily: "Montserrat",
+          fontSize: "20px",
+          fontWeight: "700",
+        }}
+      >
+        <h4
+          style={{
+            fontFamily: "Montserrat",
+            fontSize: "20px",
+            fontWeight: "700",
+          }}
+        >
+          Status Pembayaran
+        </h4>
       </div>
       <TableAdmin
         data={data}

@@ -15,7 +15,6 @@ const AllCourseHomepage = () => {
   const handleFilter = (data) => {
     setFilteredData(data);
   };
-  console.log(filteredData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +26,6 @@ const AllCourseHomepage = () => {
       const data = await response.json();
       setSearchResults(data);
       navigate(`/allCourseClass?search=${searchQuery}`);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -17,7 +17,9 @@ function ForgotPassword() {
 
       let config = {
         method: "post",
-        url: `${import.meta.env.VITE_API}/api/user/reset-password/request?email=${email}`,
+        url: `${
+          import.meta.env.VITE_API
+        }/api/user/reset-password/request?email=${email}`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -36,35 +38,37 @@ function ForgotPassword() {
   };
 
   return (
-    
-    <div className="register w-50 p-3 d-flex flex-column justify-content-center" style={{fontFamily:"Montserrat"}}>
-      <Link
-            to={`/login`}
-            style={{ textDecoration: "none", color: "#fff" }}
+    <div
+      className="register w-50 p-3 d-flex flex-column justify-content-center"
+      style={{ fontFamily: "Montserrat" }}
+    >
+      <Link to={`/login`} style={{ textDecoration: "none", color: "#fff" }}>
+        <a
+          className="d-flex"
+          href="#"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <FaArrowLeft
+            style={{
+              marginTop: "30px",
+              marginBottom: "10px",
+              color: `var(--primary-purple)`,
+            }}
+          />
+          <p
+            style={{
+              margin: "0px",
+              marginTop: "28px",
+              fontWeight: "700",
+              marginLeft: "15px",
+              marginBottom: "50px",
+              color: `var(--primary-purple)`,
+            }}
           >
-            <a
-              className="d-flex"
-              href="#"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <FaArrowLeft
-                style={{ marginTop: "30px", marginBottom: "10px", color: `var(--primary-purple)`,
-              }}
-              />
-              <p
-                style={{
-                  margin: "0px",
-                  marginTop: "28px",
-                  fontWeight: "700",
-                  marginLeft: "15px",
-                  marginBottom: "50px",
-                  color: `var(--primary-purple)`,
-                }}
-              >
-                Kembali ke Login
-              </p>
-            </a>
-          </Link>
+            Kembali ke Login
+          </p>
+        </a>
+      </Link>
       <form onSubmit={onSubmit}>
         <h4
           style={{
@@ -92,8 +96,12 @@ function ForgotPassword() {
         <div className="kirim mb-3">
           <button
             className="btn rounded-4 text-light"
-            style={{ backgroundColor: `var(--primary-purple)`, fontFamily:"Montserrat", width: "100%", marginTop: "1em",
-          }}
+            style={{
+              backgroundColor: `var(--primary-purple)`,
+              fontFamily: "Montserrat",
+              width: "100%",
+              marginTop: "1em",
+            }}
             type="submit"
           >
             Kirim

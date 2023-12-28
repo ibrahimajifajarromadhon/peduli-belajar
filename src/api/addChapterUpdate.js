@@ -18,7 +18,6 @@ const addChapterUpdate = async (courseId, classData) => {
                 headers: header,
             }
         );
-        console.log("sukses tambah cahpter", response.data);
         return response.data;
     } catch (error) {
         console.log("error : ", error.message);

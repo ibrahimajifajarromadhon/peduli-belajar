@@ -14,10 +14,6 @@ const ListAllCourse = ({ filter, listCourses }) => {
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
 
-  useEffect(() => {
-    console.log("Search Query:", searchQuery);
-  }, [searchQuery]);
-
   const getCourse = async () => {
     const token = Cookies.get("token");
     try {
@@ -67,7 +63,6 @@ const ListAllCourse = ({ filter, listCourses }) => {
   };
 
   const filteredCourses = filterCourses();
-  console.log(filteredCourses)
   
   const navigate = useNavigate();
 
