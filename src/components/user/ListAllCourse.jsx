@@ -112,7 +112,7 @@ const ListAllCourse = ({ filter, listCourses }) => {
                     {course.category.categoryName.replace(/_/g, " ")}
                   </h5>
                   <div className="ms-auto" style={{fontFamily:"Montserrat", fontWeight:"600"}}>
-                    <FaStar style={{ color: "yellow" }} /> {course.rating}
+                    <FaStar style={{ color: "#F9CC00" }} /> {course.rating}
                   </div>
                 </div>
                 <h6 className="card-title" style={{fontFamily:"Montserrat", fontWeight:"700"}}>{course.title}</h6>

@@ -39,7 +39,7 @@ function ButtonAddFilter() {
   }, []);
 
   return (
-    <div className={`d-flex flex-row gap-4 w-100 my-lg-4 px-5 justify-content-end`}>
+    <div className={`d-flex flex-row gap-4 w-100 my-lg-4 px-3 justify-content-end`} style={{marginBottom:"20px"}}>
       {isMyClassRoute && <ModalAddClass className="d-lg-flex" />}
       <div className="position-relative" ref={dropdownRef}>
         <button
@@ -47,6 +47,7 @@ function ButtonAddFilter() {
           style={{
             borderColor: `var(--primary-purple)`,
             color: `var(--primary-purple)`,
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)"
           }}
           onClick={() => setShowFilterDropdown(!showFilterDropdown)}
         >
@@ -55,7 +56,7 @@ function ButtonAddFilter() {
               style={{ marginRight: '0.5em', color: `var(--primary-purple)` }}
             />
           </span>
-          filter
+          Filter
         </button>
 
         {showFilterDropdown && (
@@ -72,6 +73,13 @@ function ButtonAddFilter() {
           </div>
         )}
       </div>
+      <style>{`
+        .rounded-pill{
+          font-family: Montserrat;
+          font-size: 16px;
+          font-weight: 700;
+        }
+      `}</style>
     </div>
   );
 }

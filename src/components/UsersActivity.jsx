@@ -33,12 +33,6 @@ const UsersActivity = () => {
     marginBottom: "1em",
   };
 
-  const textStyle = {
-    fontSize: "16px",
-    fontWeight: "bold",
-    color: "#fff",
-  };
-
   const iconStyle = {
     width: "50px",
     height: "50px",
@@ -46,7 +40,7 @@ const UsersActivity = () => {
 
   return (
     <div className="activity-container py-4">
-      <Card style={{ ...cardStyle, backgroundColor: "var(--primary-blue)" }}>
+      <Card style={{ ...cardStyle, backgroundColor: "var(--primary-blue)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
         <div className="d-flex flex-row">
           <div className="d-flex align-items-center">
             <Card.Img
@@ -57,14 +51,14 @@ const UsersActivity = () => {
           </div>
           <div className="">
             <Card.Body>
-              <Card.Title style={textStyle}>{userData ? userData : "Loading..."}</Card.Title>
-              <Card.Text style={textStyle}>Active Users</Card.Text>
+              <Card.Title className="title-aktif">{userData ? userData : "Loading..."}</Card.Title>
+              <Card.Text className="text-aktif">Active Users</Card.Text>
             </Card.Body>
           </div>
         </div>
       </Card>
 
-      <Card style={{ ...cardStyle, backgroundColor: "var(--allert-green)" }}>
+      <Card style={{ ...cardStyle, backgroundColor: "var(--allert-green)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
         <div className="d-flex flex-row">
           <div className="d-flex align-items-center">
             <Card.Img
@@ -75,32 +69,46 @@ const UsersActivity = () => {
           </div>
           <div className="">
             <Card.Body>
-              <Card.Title style={textStyle}>{totalData ? totalData : "..."}</Card.Title>
-              <Card.Text style={textStyle}>Active Class</Card.Text>
+              <Card.Title className="title-aktif">{totalData ? totalData : "..."}</Card.Title>
+              <Card.Text className="text-aktif">Active Class</Card.Text>
             </Card.Body>
           </div>
         </div>
       </Card>
 
-      <Card style={{ ...cardStyle, backgroundColor: "var(--primary-purple)" }}>
+      <Card style={{ ...cardStyle, backgroundColor: "var(--primary-purple)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
         <div className="d-flex flex-row">
-          <div className="col-md-4 d-flex align-items-center">
+          <div className="d-flex align-items-center">
             <Card.Img
               src={Icon}
               className="img-fluid rounded-start"
               style={iconStyle}
             />
           </div>
-          <div className="col-md-9">
+          <div className="">
             <Card.Body>
-              <Card.Title style={textStyle}>{premiumData ? premiumData : "..."}</Card.Title>
-              <Card.Text style={textStyle}>Premium Class</Card.Text>
+              <Card.Title className="title-aktif">{premiumData ? premiumData : "..."}</Card.Title>
+              <Card.Text className="text-aktif">Premium Class</Card.Text>
             </Card.Body>
           </div>
         </div>
       </Card>
 
       <style>{`
+        .title-aktif {
+          font-family: Montserrat;
+          font-size: 20px;
+          font-weight: 600;
+          color: #fff;
+        }
+
+        .text-aktif {
+          font-family: Montserrat;
+          font-size: 20px;
+          font-weight: 700;
+          color: #fff;
+        }
+
         .activity-container {
           display: flex;
           justify-content: space-between;

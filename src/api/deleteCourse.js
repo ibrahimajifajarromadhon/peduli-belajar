@@ -2,11 +2,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
 
-// const header = {
-  
-//   'Content-Type': 'application/json',
-// };
-
 const deleteCourse = async (courseCode) => {
   const token = Cookies.get("token");
   try {
@@ -15,8 +10,7 @@ const deleteCourse = async (courseCode) => {
         Authorization: `Bearer ${token}`,
       }
     });
-    toast.success(`Data Course  Berhasil Dihapus`);
-    // setRefresh(true);  ditambahkan besok
+    toast.success(`Data course berhasil dihapus`);
   } catch (error) {
     console.log("error deleting course", error.message);
     throw error;

@@ -61,21 +61,24 @@ function ManageClassAdmin() {
 
   const data = courses.map((course) => ({
     Kode_Kelas: course.courseCode,
-    Kategory: course.category.categoryName,
+    Kategori: course.category.categoryName,
     Nama_Kelas: course.title,
-    Type_Kelas: course.price === 0 ? "GRATIS" : "PREMIUM",
+    Tipe_Kelas: course.price === 0 ? "GRATIS" : "PREMIUM",
     Level: course.level,
-    Harga: course.price,
+    Harga_Kelas: course.price,
   }));
 
   return (
     <>
+      <div className="col-5" style={{marginTop:"-50px", marginLeft:"10px", fontFamily:"Montserrat", fontSize:"20px", fontWeight:"700"}}>
+        <h4 style={{fontFamily:"Montserrat", fontSize:"20px", fontWeight:"700"}}>Kelola Kelas</h4>
+      </div>
       <TableAdmin
         data={data}
         coloredColumn={{
           positive: "--allert-green",
           negative: "--primary-purple",
-          column: { key: "Type_Kelas", value: ["GRATIS", "PREMIUM"] },
+          column: { key: "Tipe_Kelas", value: ["GRATIS", "PREMIUM"] },
         }}
       />
     </>

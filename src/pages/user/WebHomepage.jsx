@@ -197,7 +197,7 @@ function WebHomepage() {
                         className="ms-auto"
                         style={{ fontFamily: "Montserrat", fontWeight: "600" }}
                       >
-                        <FaStar style={{ color: "yellow" }} /> 4.5
+                        <FaStar style={{ color: "#F9CC00" }} /> {course.rating}
                       </div>
                     </div>
                     <Card.Title
