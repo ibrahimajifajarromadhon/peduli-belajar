@@ -25,16 +25,17 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
         console.log("gagal fetch api", error.message);
       }
     };
-    // if (
-    //   listMyCourse &&
-    //   Array.isArray(listMyCourse) &&
-    //   listMyCourse.length > 0
-    // ) {
-    //   setProgresCourse(listMyCourse);
-    // } else {
+
+    if (
+      listMyCourse &&
+      Array.isArray(listMyCourse) &&
+      listMyCourse.length >= 0
+    ) {
+      setProgresCourse(listMyCourse);
+    } else {
       fetchData();
-    // }
-  }, []);
+    }
+  }, [progressButton, listMyCourse]);
 
   const filterCourses = () => {
     if (!searchQuery) {

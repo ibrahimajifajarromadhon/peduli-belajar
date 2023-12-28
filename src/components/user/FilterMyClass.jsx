@@ -1,25 +1,31 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 
 function FilterMyClass({ onFilter }) {
   const [selectedFilters, setSelectedFilters] = useState({
-    category: [],
+    categories: [],
     levels: [],
   });
 
   const fetchData = async () => {
+    const token = Cookies.get("token");
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_API}/api/course/my-course`,
         {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+
           params: {
             page: 1,
-            size: 20,
-            ...(selectedFilters.category.length > 0 && {
-              category: selectedFilters.category.join(","),
+            size: 50,
+            ...(selectedFilters.categories.length > 0 && {
+              categories: selectedFilters.categories.join(","),
             }),
-            ...(selectedFilters.level.length > 0 && {
-              levels: selectedFilters.level.join(","),
+            ...(selectedFilters.levels.length > 0 && {
+              levels: selectedFilters.levels.join(","),
             }),
           },
         }
@@ -50,8 +56,8 @@ function FilterMyClass({ onFilter }) {
 
   const clearFilters = () => {
     setSelectedFilters({
-      category: [],
-      level: [],
+      categories: [],
+      levels: [],
     });
 
     const checkboxes = document.querySelectorAll('.form-check-input');
@@ -132,8 +138,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxUIDesignRs"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "UIUX_DESIGN",
                   ])
                 }
@@ -152,8 +158,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxWebDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "WEB_DEVELOPMENT",
                   ])
                 }
@@ -172,8 +178,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAndroidDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "ANDROID_DEVELOPMENT",
                   ])
                 }
@@ -192,8 +198,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxDataScienceRs"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "DATA_SCIENCE",
                   ])
                 }
@@ -212,8 +218,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxProductManagementRs"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "PRODUCT_MANAGEMENT",
                   ])
                 }
@@ -232,8 +238,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIosDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "IOS_DEVELOPMENT",
                   ])
                 }
@@ -253,8 +259,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxBeginnerLevelRs"
                 onChange={(e) =>
-                  handleFilterChange("level", [
-                    ...selectedFilters.level,
+                  handleFilterChange("levels", [
+                    ...selectedFilters.levels,
                     "BEGINNER",
                   ])
                 }
@@ -273,8 +279,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIntermediateLevelRs"
                 onChange={(e) =>
-                  handleFilterChange("level", [
-                    ...selectedFilters.level,
+                  handleFilterChange("levels", [
+                    ...selectedFilters.levels,
                     "INTERMEDIATE",
                   ])
                 }
@@ -293,8 +299,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAdvancedLevelRs"
                 onChange={(e) =>
-                  handleFilterChange("level", [
-                    ...selectedFilters.level,
+                  handleFilterChange("levels", [
+                    ...selectedFilters.levels,
                     "ADVANCE",
                   ])
                 }
@@ -388,8 +394,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxUIDesign"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "UIUX_DESIGN",
                   ])
                 }
@@ -408,8 +414,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxWebDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "WEB_DEVELOPMENT",
                   ])
                 }
@@ -428,8 +434,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAndroidDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "ANDROID_DEVELOPMENT",
                   ])
                 }
@@ -448,8 +454,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxDataScience"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "DATA_SCIENCE",
                   ])
                 }
@@ -468,8 +474,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxProductManagement"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "PRODUCT_MANAGEMENT",
                   ])
                 }
@@ -488,8 +494,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIosDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("category", [
-                    ...selectedFilters.category,
+                  handleFilterChange("categories", [
+                    ...selectedFilters.categories,
                     "IOS_DEVELOPMENT",
                   ])
                 }
@@ -513,8 +519,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxBeginnerLevel"
                 onChange={(e) =>
-                  handleFilterChange("level", [
-                    ...selectedFilters.level,
+                  handleFilterChange("levels", [
+                    ...selectedFilters.levels,
                     "BEGINNER",
                   ])
                 }
@@ -533,8 +539,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIntermediateLevel"
                 onChange={(e) =>
-                  handleFilterChange("level", [
-                    ...selectedFilters.level,
+                  handleFilterChange("levels", [
+                    ...selectedFilters.levels,
                     "INTERMEDIATE",
                   ])
                 }
@@ -553,8 +559,8 @@ function FilterMyClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAdvancedLevel"
                 onChange={(e) =>
-                  handleFilterChange("level", [
-                    ...selectedFilters.level,
+                  handleFilterChange("levels", [
+                    ...selectedFilters.levels,
                     "ADVANCE",
                   ])
                 }

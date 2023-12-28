@@ -22,8 +22,7 @@ const ListAllCourse = ({ filter, listCourses }) => {
     const token = Cookies.get("token");
     try {
       const response = await axios.get(
-        `${
-          import.meta.env.VITE_API}/api/course/filter`,
+        `${import.meta.env.VITE_API}/api/course/filter`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -53,9 +52,9 @@ const ListAllCourse = ({ filter, listCourses }) => {
       if (filter === "all") {
         return listCourse;
       } else if (filter === "premium") {
-        return listCourse.filter((course) => course.price !== 0);
+        return listCourse.filter((course) => course.type === "PREMIUM");
       } else if (filter === "gratis") {
-        return listCourse.filter((course) => course.price === 0);
+        return listCourse.filter((course) => course.type === "GRATIS");
       } else {
         return [];
       }
@@ -155,7 +154,7 @@ const ListAllCourse = ({ filter, listCourses }) => {
                   </p>
                 </div>
                 <div style={{fontFamily:"Montserrat"}}>
-                  {course.price === 0 ? (
+                  {course.type === "GRATIS" ? (
                     <button
                       className="btn btn-kelas"
                       onClick={() => handleButtonClick(course)}

@@ -8,14 +8,15 @@ import Cookies from "js-cookie";
 
 function MyClassHomepage() {
   const [progressButton, setProgressButton] = useState("all");
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredMyCourse, setFilteredMyCourse] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
   const handleFilter = (data) => {
-    setFilteredData(data);
+    setFilteredMyCourse(data);
   };
+  console.log(filteredMyCourse);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -166,7 +167,7 @@ function MyClassHomepage() {
             <div className="mt-3">
               <ListMyCourse
                 progressButton={progressButton}
-                listMyCourse={filteredData}
+                listMyCourse={filteredMyCourse}
               />
             </div>
           </div>
