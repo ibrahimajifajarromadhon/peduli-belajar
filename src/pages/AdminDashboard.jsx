@@ -9,8 +9,7 @@ function AdminDashboard() {
     const fetchData = async () => {
       try {
         const response = await getStatusOrder();
-          setStatusOrder(response.data);
-       
+        setStatusOrder(response);
       } catch (error) {
         console.error("error fetching course:", error.message);
       }
@@ -18,7 +17,7 @@ function AdminDashboard() {
     fetchData();
   }, []);
 
-  if (!statusOrder.length) {
+  if (!statusOrder || statusOrder.length === 0) {
     return (
       <p
         style={{ color: `var(--primary-purple)`, fontWeight: "700" }}
@@ -28,6 +27,7 @@ function AdminDashboard() {
       </p>
     );
   }
+
   const data = statusOrder.map((order) => ({
     Username: order.username,
     Kategori: order.category,
