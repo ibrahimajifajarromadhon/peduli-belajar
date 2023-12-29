@@ -59,7 +59,7 @@ function MyClassHomepage() {
             Kelas Berjalan{" "}
           </h4>
           <form
-            className="search-course d-flex mt-5"
+            className="search-course d-flex mt-lg-5"
             role="search"
             style={{ position: "relative", minWidth: "200px" }}
           >
@@ -112,9 +112,9 @@ function MyClassHomepage() {
         <div className="row">
           <div
             className="col-md-4 filter-course"
-            style={{ marginBottom: "2em" }}
+            // style={{ marginBottom: "2em" }}
           >
-            <div className="mt-4">
+            <div className="mt-4 py-0">
               <FilterMyClass onFilter={handleFilter} />
             </div>
           </div>

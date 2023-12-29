@@ -142,6 +142,14 @@ const UsersActivity = () => {
           .img-fluid {
             display: none;
           }
+          .text-aktif {
+            font-size : 0.8rem !important;
+          }
+          .title-aktif {
+            display : flex;
+            justify-content : center;
+            font-size: 0.8rem;
+          }
         }
       `}</style>
     </div>

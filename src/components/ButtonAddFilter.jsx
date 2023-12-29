@@ -1,77 +1,102 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Modal } from 'bootstrap'; 
 import ModalAddClass from './ModalAddClass';
 import { CiFilter } from 'react-icons/ci';
+import { createPopper } from '@popperjs/core';
+
 
 function ButtonAddFilter() {
   const location = useLocation();
   const isMyClassRoute = location.pathname === '/admin/class';
+  const isDashboardRoute = location.pathname === '/admin/dashboard';
 
-  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('');
 
-  const filterOptions = [
-    { label: 'Sudah Bayar', value: 'sudah-bayar' },
-    { label: 'Belum Bayar', value: 'belum-bayar' },
-    { label: 'Kelas Premium', value: 'kelas-premium' },
-    { label: 'Kelas Gratis', value: 'kelas-gratis' },
-  ];
+  const filterOptions = isMyClassRoute
+    ? [
+        { label: 'Kelas Premium', value: 'kelas-premium' },
+        { label: 'Kelas Gratis', value: 'kelas-gratis' },
+      ]
+    : isDashboardRoute
+    ? [
+        { label: 'Sudah Bayar', value: 'sudah-bayar' },
+        { label: 'Belum Bayar', value: 'belum-bayar' },
+      ]
+    : [];
 
-  const dropdownRef = useRef(null);
+  const modalRef = useRef(null);
 
   const handleFilterChange = (value) => {
     setSelectedFilter(value);
-    setShowFilterDropdown(false);
     // Add your filter logic here
-  };
-
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setShowFilterDropdown(false);
-    }
+    // Close the modal when a filter is selected
+    const modal = new Modal(modalRef.current);
+    modal.hide();
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    // Initialize the modal
+    const modal = new Modal(modalRef.current);
+    modalRef.current.addEventListener('hidden.bs.modal', function () {
+      setSelectedFilter(''); // Clear the selected filter when the modal is closed
+    });
+
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowFilterDropdown(false);
+      }
+    };
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      // Dispose of the modal when the component is unmounted
+      modal.dispose();
     };
   }, []);
 
   return (
-    <div className={`d-flex flex-row gap-4 w-100 my-lg-4 px-3 justify-content-end`} style={{marginBottom:"20px"}}>
+    <div className={`d-flex flex-row gap-4 w-100 my-lg-4 px-3 justify-content-end`} style={{ marginBottom: '20px' }}>
       {isMyClassRoute && <ModalAddClass className="d-lg-flex" />}
-      <div className="position-relative" ref={dropdownRef}>
+      <div className="position-relative">
         <button
           className="btn rounded-pill"
           style={{
             borderColor: `var(--primary-purple)`,
             color: `var(--primary-purple)`,
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)"
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
           }}
-          onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+          onClick={() => {
+            const modal = new Modal(modalRef.current);
+            modal.show();
+          }}
         >
           <span>
-            <CiFilter
-              style={{ marginRight: '0.5em', color: `var(--primary-purple)` }}
-            />
+            <CiFilter style={{ marginRight: '0.5em', color: `var(--primary-purple)` }} />
           </span>
           Filter
         </button>
 
-        {showFilterDropdown && (
-          <div className="dropdown-menu" style={{ position: 'absolute', zIndex: 1 }}>
-            {filterOptions.map((option) => (
-              <button
-                key={option.value}
-                className="dropdown-item"
-                onClick={() => handleFilterChange(option.value)}
-              >
-                {option.label}
-              </button>
-            ))}
+        <div className="modal" ref={modalRef} tabIndex="-1">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Filter Options</h5>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                {filterOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    className={`btn btn-light w-100 my-2 ${selectedFilter === option.value ? 'active' : ''}`}
+                    onClick={() => handleFilterChange(option.value)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
-        )}
+        </div>
       </div>
       <style>{`
         .rounded-pill{
