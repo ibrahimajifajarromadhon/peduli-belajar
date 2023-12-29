@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Register() {
@@ -88,7 +88,10 @@ function Register() {
   };
 
   return (
-    <div className="register w-50 p-3 d-flex flex-column justify-content-center" style={{fontFamily:"Montserrat"}}>
+    <div
+      className="register w-50 p-3 d-flex flex-column justify-content-center"
+      style={{ fontFamily: "Montserrat" }}
+    >
       <form onSubmit={onSubmit}>
         <h4
           style={{
@@ -223,7 +226,11 @@ function Register() {
         <div className="mb-3">
           <button
             className="btn rounded-4 text-light"
-            style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontFamily:"Montserrat" }}
+            style={{
+              backgroundColor: `var(--primary-purple)`,
+              width: "100%",
+              fontFamily: "Montserrat",
+            }}
             type="submit"
           >
             Daftar

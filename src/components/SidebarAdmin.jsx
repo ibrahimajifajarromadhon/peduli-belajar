@@ -13,7 +13,6 @@ function SidebarAdmin() {
   const navigate = useNavigate()
 
   useEffect (() => {
-
     if (Cookies.get('token')) {
       setIsLoggedIn(true)
     }

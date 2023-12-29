@@ -21,7 +21,6 @@ function ModalAddClass() {
 
   const handleInputChange = (field, value) => {
     setClassData((prevData) => {
-      console.log(prevData);
       return {
         ...prevData,
         [field]: field === "category" ? { categoryName: value } : value,
@@ -31,7 +30,6 @@ function ModalAddClass() {
 
   const addChapter = () => {
     setClassData((prevData) => {
-      console.log(prevData);
       return {
         ...prevData,
         chapter: [
@@ -78,7 +76,6 @@ function ModalAddClass() {
     subjectIndex
   ) => {
     setClassData((prevData) => {
-      console.log(prevData);
       const updatedChapters = [...prevData.chapter];
       if (chapterIndex !== undefined && subjectIndex !== undefined) {
         updatedChapters[chapterIndex].subject[subjectIndex][field] = value;
@@ -498,14 +495,6 @@ function ModalAddClass() {
                 </form>
               </div>
               <div className="modal-footer" style={{borderTop:"none"}}>
-                <button
-                  type="button"
-                  className="btn rounded-pill text-light"
-                  style={{backgroundColor: `var(--allert-red`, color: "#fff", fontFamily:"Montserrat", fontWeight:"700"}} 
-                  data-bs-dismiss="modal"
-                >
-                  Batal
-                </button>
                 <button
                     type="button"
                     className="btn rounded-pill text-light"

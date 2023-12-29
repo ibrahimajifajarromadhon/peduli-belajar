@@ -17,7 +17,6 @@ const updateCourse = async (courseCode, updateData) => {
         headers: header,
       }
     );
-    console.log('success update data', response.data)
     return response.data
   } catch (error) {
     console.log("error update coursse", error.message);

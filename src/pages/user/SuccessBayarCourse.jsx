@@ -7,8 +7,8 @@ import { useLocation } from "react-router-dom";
 function SuccessBayarCourse() {
   const navigate = useNavigate();
   const location = useLocation();
-  const courseCode = location.state?.courseCode || ""; 
-  
+  const courseCode = location.state?.courseCode || "";
+
   const handleBack = () => {
     navigate(`/allCourseClass`);
   };

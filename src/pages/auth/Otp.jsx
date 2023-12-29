@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 const Otp = () => {
   const inputRefs = useRef([]);
@@ -83,7 +83,7 @@ const Otp = () => {
   };
 
   return (
-    <div className="" style={{ padding: "2em", fontFamily:"Montserrat" }}>
+    <div className="" style={{ padding: "2em", fontFamily: "Montserrat" }}>
       <Link to="/register">
         <FaArrowLeft style={{ color: "var(--neutral-black)" }} />
       </Link>

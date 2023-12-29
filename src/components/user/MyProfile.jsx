@@ -65,7 +65,6 @@ function MyProfile() {
       });
   
       const responseData = await response.json();
-      console.log(responseData);
       toast.success('Data profil berhasil disimpan!')
     } catch (error) {
       console.error('Terjadi kesalahan:', error);
