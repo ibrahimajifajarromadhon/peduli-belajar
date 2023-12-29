@@ -51,7 +51,7 @@ function Header() {
       style={{ backgroundColor: "#6148FF", color: "white", padding: "10px" }}
     >
       <div className="container">
-        <Link to={`/allCourseClass`} style={{ textDecoration: "none", color: "#fff" }}>
+        <Link to={`/welcome`} style={{ textDecoration: "none", color: "#fff" }}>
           <b
             className="navbar-brand"
             href="#"

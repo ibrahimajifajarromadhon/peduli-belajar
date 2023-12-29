@@ -10,6 +10,8 @@ function FilterClass({ onFilter }) {
     sortByPurchase: [],
   });
 
+  console.log(selectedFilters)
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -102,8 +104,8 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxBaruRs"
                 onChange={(e) =>
-                  handleFilterChange("sortByDate", [
-                    ...selectedFilters.sortByDate,
+                  handleFilterChange("sortByPurchase", [
+                    ...selectedFilters.sortByPurchase,
                     "true",
                   ])
                 }
@@ -113,27 +115,28 @@ function FilterClass({ onFilter }) {
                 htmlFor="checkboxBaruRs"
                 style={{ fontWeight: "500" }}
               >
-                Terbaru
+                Popular
               </label>
             </div>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="checkboxPopularRs"
+                id="checkboxPopularRs"                
                 onChange={(e) =>
-                  handleFilterChange("sortByPurchase", [
-                    ...selectedFilters.sortByPurchase,
+                  handleFilterChange("sortByDate", [
+                    ...selectedFilters.sortByDate,
                     "true",
                   ])
                 }
+                
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxPopularRs"
                 style={{ fontWeight: "500" }}
               >
-                Terpopuler
+                Terbaru
               </label>
             </div>
             <h6 className="card-title mt-4">Kategori</h6>
@@ -352,31 +355,30 @@ function FilterClass({ onFilter }) {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="checkboxBaru"                
+                id="checkboxBaru"                 
                 onChange={(e) =>
-                  handleFilterChange("sortByDate", [
-                    ...selectedFilters.sortByDate,
+                  handleFilterChange("sortByPurchase", [
+                    ...selectedFilters.sortByPurchase,
                     "true",
                   ])
-                }
-
+                }               
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxBaru"
                 style={{ fontWeight: "500" }}
               >
-                Terbaru
+                Popular
               </label>
             </div>
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="checkboxPopular"                
+                id="checkboxPopular"
                 onChange={(e) =>
-                  handleFilterChange("sortByPurchase", [
-                    ...selectedFilters.sortByPurchase,
+                  handleFilterChange("sortByDate", [
+                    ...selectedFilters.sortByDate,
                     "true",
                   ])
                 }
@@ -386,7 +388,7 @@ function FilterClass({ onFilter }) {
                 htmlFor="checkboxPopular"
                 style={{ fontWeight: "500" }}
               >
-                Terpopuler
+                Terbaru
               </label>
             </div>
           </div>

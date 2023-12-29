@@ -17,6 +17,8 @@ function WebHomepage() {
   const [category, setCategory] = useState([]);
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
+  const [selectedCategory, setSelectedCategory] = useState(null); 
+  const [searchEmpty, setSearchEmpty] = useState(false); 
 
   useEffect(() => {
     console.log("Search Query:", searchQuery);
@@ -44,17 +46,35 @@ function WebHomepage() {
   }, []);
 
   useEffect(() => {
-    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter`;
+    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter?page=1&size=20`;
 
     axios
       .get(apiUrl)
       .then((response) => {
         setCourses(response.data.data.courses);
+
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, []);
+
+  const handleCategoryClick = (clickedCategory) => {
+    setSelectedCategory(clickedCategory);
+  };
+
+  const visibleCourses = selectedCategory
+  ? courses.filter((course) => course.category.categoryName === selectedCategory.categoryName)
+  : courses.filter((course) =>
+        !searchQuery ||
+        course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        course.teacher.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .slice(0, 3);
+
+  useEffect(() => {
+    setSearchEmpty(visibleCourses.length === 0);
+  }, [visibleCourses]);
 
   return (
     <div style={{ marginTop: "3.7em", overflow: "hidden" }}>
@@ -95,52 +115,61 @@ function WebHomepage() {
         </div>
 
         <div className="mobile-scroll-container">
-          <Link to={"/allCourseClass"}>
             <div className="scrollable-buttons">
-              <button
-                className="btn button"
-                style={{
-                  fontFamily: "Montserrat",
-                  fontWeight: "700",
-                  fontSize: "12px",
-                }}
-              >
-                All
-              </button>
-              {category.map((category) => {
-                return (
-                  <button
-                    key={category}
-                    className="btn button"
-                    style={{
-                      fontFamily: "Montserrat",
-                      fontWeight: "700",
-                      fontSize: "12px",
-                    }}
-                  >
-                    {category.categoryName.replace(/_/g, " ")}
-                  </button>
-                );
-              })}
-            </div>
-          </Link>
+            <button
+              className={`btn button ${!selectedCategory ? "active" : ""}`}
+              style={{
+                fontFamily: "Montserrat",
+                fontWeight: "700",
+                fontSize: "12px",
+              }}
+              onClick={() => handleCategoryClick(null)} 
+            >
+              All
+            </button>
+            {category.map((categoryItem) => {
+              return (
+                <button
+                  key={categoryItem.categoryName}
+                  className={`btn button ${selectedCategory === categoryItem ? "active" : ""}`}
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: "700",
+                    fontSize: "12px",
+                  }}
+                  onClick={() => handleCategoryClick(categoryItem)}
+                >
+                  {categoryItem.categoryName.replace(/_/g, " ")}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
+        {searchEmpty && !selectedCategory ? (
+          <div className="col mt-5 mb-5">
+            <i>
+              <p style={{ fontFamily: "Montserrat", fontWeight: "600", textAlign: "center", fontSize: "18px", color: "#6148FF" }}>
+                No search results found.
+              </p>
+            </i>
+          </div>
+        ) : (
+
         <Row xs={1} md={3} className="g-4 mb-5">
-          {courses
+          {visibleCourses
             .filter(
               (course) =>
-                !searchQuery || 
-                course.title
-                  .toLowerCase()
-                  .includes(searchQuery.toLowerCase()) ||
-                course.teacher.toLowerCase().includes(searchQuery.toLowerCase())
+                (!searchQuery ||
+                  course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  course.teacher.toLowerCase().includes(searchQuery.toLowerCase())) &&
+                (!selectedCategory || course.category.categoryName === selectedCategory.categoryName)
             )
             .map((course) => (
               <Col key={course.courseCode}>
                 <Card
-                  className="d-flex align-items-center justify-content-center"
-                  style={{ borderRadius: "25px", marginTop: "20px" }}
+                  className="d-flex align-items-center justify-content-center card-course"
+                  style={{ borderRadius: "25px", marginTop: "20px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}
                 >
                   <Card.Img
                     variant="top"
@@ -148,8 +177,8 @@ function WebHomepage() {
                     style={{
                       marginTop: "15px",
                       padding: "0px",
-                      width: "40%",
-                      height: "50%",
+                      width: "35%",
+                      height: "45%",
                     }}
                   />
                   <Card.Body>
@@ -168,7 +197,7 @@ function WebHomepage() {
                         className="ms-auto"
                         style={{ fontFamily: "Montserrat", fontWeight: "600" }}
                       >
-                        <FaStar style={{ color: "yellow" }} /> 4.5
+                        <FaStar style={{ color: "#F9CC00" }} /> {course.rating}
                       </div>
                     </div>
                     <Card.Title
@@ -194,31 +223,31 @@ function WebHomepage() {
                         style={{
                           textDecoration: "none",
                           color: "#6148FF",
-                          fontSize: "12px",
+                          fontSize: "11px",
                           fontWeight: "600",
                         }}
                       >
                         {course.level} LEVEL
                       </p>
                       <RiBook3Line
-                        style={{ color: "#73CA5C", marginLeft: "30px" }}
+                        style={{ color: "#73CA5C", marginLeft: "20px" }}
                       />{" "}
                       <p
                         style={{
                           textDecoration: "none",
-                          fontSize: "12px",
+                          fontSize: "11px",
                           fontWeight: "600",
                         }}
                       >
                         {course.modul} Modul
                       </p>
                       <RiTimeFill
-                        style={{ color: "#73CA5C", marginLeft: "30px" }}
+                        style={{ color: "#73CA5C", marginLeft: "20px" }}
                       />{" "}
                       <p
                         style={{
                           textDecoration: "none",
-                          fontSize: "12px",
+                          fontSize: "11px",
                           fontWeight: "600",
                         }}
                       >
@@ -274,6 +303,7 @@ function WebHomepage() {
               </Col>
             ))}
         </Row>
+        )}
       </div>
       <Footer />
       <style>
@@ -300,9 +330,18 @@ function WebHomepage() {
           }
         }
 
+        .card-course {
+          transition: transform 0.3s; 
+        }
+
+        .card-course:hover {
+          transform: scale(1.02);
+        }
+
         .button {
-          border-radius: 25px;
           background-color: #E8F1FF;
+          border-radius: 25px;
+          border: 1px solid #fff;
           font-size: 15px;
           font-weight: 700;
           margin-right: 10px;

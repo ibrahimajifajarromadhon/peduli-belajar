@@ -79,7 +79,7 @@ function Category() {
                       style={{
                         textAlign: "center",
                         fontSize: "12px",
-                        fontWeight: "600",
+                        fontWeight: "700",
                         paddingTop: "5px",
                         fontFamily:"Montserrat"
                       }}

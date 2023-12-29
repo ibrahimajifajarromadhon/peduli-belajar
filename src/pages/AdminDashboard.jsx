@@ -9,6 +9,7 @@ function AdminDashboard() {
     const fetchData = async () => {
       try {
         const response = await getStatusOrder();
+        console.log(response)
           setStatusOrder(response);
        
       } catch (error) {
@@ -18,16 +19,17 @@ function AdminDashboard() {
     fetchData();
   }, []);
 
-  if (!statusOrder || statusOrder.length===0) {
+  if (!statusOrder || statusOrder.length === 0) {
     return (
       <p
-        style={{ color: `var(--primary-purple)`, fontWeight: "700" }}
+        style={{ color: "var(--primary-purple)", fontWeight: "700" }}
         className="text-center"
       >
         Loading...
       </p>
     );
   }
+
   const data = statusOrder.map((order) => ({
     Username: order.username,
     Kategori: order.category,
@@ -39,6 +41,9 @@ function AdminDashboard() {
 
   return (
     <>
+      <div className="col-8" style={{marginTop:"-50px", marginLeft:"10px", fontFamily:"Montserrat", fontSize:"20px", fontWeight:"700"}}>
+        <h4 style={{fontFamily:"Montserrat", fontSize:"20px", fontWeight:"700"}}>Status Pembayaran</h4>
+      </div>
       <TableAdmin
         data={data}
         coloredColumn={{
