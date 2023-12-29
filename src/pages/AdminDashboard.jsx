@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TableAdmin from "../components/TableAdmin";
 import getStatusOrder from "../api/getStatusOrder";
 
-function AdminDashboard() {
+function AdminDashboard({filter}) {
   const [statusOrder, setStatusOrder] = useState([]);
 
   useEffect(() => {
@@ -17,6 +17,18 @@ function AdminDashboard() {
     fetchData();
   }, []);
 
+  const filterCourses = () => {
+    if(filter === "sudah-bayar"){
+      return statusOrder.filter((course) => course.status === "SUDAH BAYAR")
+    }else if(filter === "belum-bayar"){
+      return statusOrder.filter((course) => course.status === "BELUM BAYAR")
+    }else{
+      return statusOrder;
+    }
+  };
+
+  const filteredCourses = filterCourses();
+
   if (!statusOrder || statusOrder.length === 0) {
     return (
       <p
@@ -28,7 +40,7 @@ function AdminDashboard() {
     );
   }
 
-  const data = statusOrder.map((order) => ({
+  const data = filteredCourses.map((order) => ({
     Username: order.username,
     Kategori: order.category,
     Kelas_Premium: order.title,

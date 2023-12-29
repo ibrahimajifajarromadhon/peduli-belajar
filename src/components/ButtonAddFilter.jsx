@@ -3,15 +3,16 @@ import { useLocation } from 'react-router-dom';
 import { Modal } from 'bootstrap'; 
 import ModalAddClass from './ModalAddClass';
 import { CiFilter } from 'react-icons/ci';
-import { createPopper } from '@popperjs/core';
-
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import AdminDashboard from '../pages/AdminDashboard';
 
 function ButtonAddFilter() {
   const location = useLocation();
   const isMyClassRoute = location.pathname === '/admin/class';
   const isDashboardRoute = location.pathname === '/admin/dashboard';
-
   const [selectedFilter, setSelectedFilter] = useState('');
+  const [filter, setFilter] = useState([]);
 
   const filterOptions = isMyClassRoute
     ? [
@@ -29,17 +30,15 @@ function ButtonAddFilter() {
 
   const handleFilterChange = (value) => {
     setSelectedFilter(value);
-    // Add your filter logic here
-    // Close the modal when a filter is selected
+    setFilter(value);
     const modal = new Modal(modalRef.current);
     modal.hide();
   };
 
   useEffect(() => {
-    // Initialize the modal
     const modal = new Modal(modalRef.current);
     modalRef.current.addEventListener('hidden.bs.modal', function () {
-      setSelectedFilter(''); // Clear the selected filter when the modal is closed
+      setSelectedFilter(''); 
     });
 
     const handleClickOutside = (event) => {
@@ -49,7 +48,6 @@ function ButtonAddFilter() {
     };
 
     return () => {
-      // Dispose of the modal when the component is unmounted
       modal.dispose();
     };
   }, []);
@@ -95,6 +93,9 @@ function ButtonAddFilter() {
                 ))}
               </div>
             </div>
+          </div>
+          <div>
+            <AdminDashboard filter={filter}/>
           </div>
         </div>
       </div>
