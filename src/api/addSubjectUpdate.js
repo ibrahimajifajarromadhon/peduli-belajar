@@ -18,7 +18,6 @@ const addSubjectUpdate = async (chapterId, subjectData) => {
                 headers: header,
             }
         );
-        console.log("sukses tambah subject", response.data);
         return response.data;
     } catch (error) {
         console.log("error : ", error.message);

@@ -18,8 +18,8 @@ function MyClassHomepage() {
   };
   console.log(filteredMyClass);
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
-    const token = Cookies.get("token")
+    e.preventDefault();
+    const token = Cookies.get("token");
 
     const header = {
       Authorization: `Bearer ${token}`,
@@ -36,7 +36,6 @@ function MyClassHomepage() {
       );
 
       const data = await response.json();
-      console.log(data);
       setSearchResults(data);
       navigate(`/myClass?search=${searchQuery}`);
     } catch (error) {

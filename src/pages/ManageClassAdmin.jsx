@@ -21,7 +21,7 @@ function ManageClassAdmin() {
 
     fetchData();
 
-    const intervalId = setInterval(fetchData, 1000);
+    const intervalId = setInterval(fetchData, 5000);
     return () => clearInterval(intervalId);
   }, []);
 

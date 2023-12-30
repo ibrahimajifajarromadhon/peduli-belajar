@@ -73,7 +73,6 @@ const BayarCourse = () => {
   const handleBack = () => {
     navigate(`/allCourseClass`);
   };
-  console.log({ paymentMethod });
 
   const handlePayment = async () => {
     try {

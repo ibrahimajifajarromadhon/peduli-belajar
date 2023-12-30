@@ -30,16 +30,12 @@ function Header() {
       const data = await response.json();
       setSearchResults(data);
       if (location.pathname === "/welcome") {
-        // Jika di halaman welcome, navigasi ke halaman welcome
         navigate(`/welcome?search=${searchQuery}`);
       } else if (location.pathname === "/allCourseClass") {
-        // Jika di halaman allCourseClass, navigasi ke halaman allCourseClass
         navigate(`/allCourseClass?search=${searchQuery}`);
       } else {
-        // Halaman lain, navigasi ke halaman default (misalnya, welcome)
         navigate(`/myClass?search=${searchQuery}`);
       }
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

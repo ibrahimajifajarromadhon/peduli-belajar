@@ -12,7 +12,6 @@ const createClass = async (classData) => {
 
   try {
     const response = await axios.post(apiUrl, classData, { headers });
-    console.log('Success:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error:', error.message);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function ResetPassword() {
@@ -63,7 +63,10 @@ function ResetPassword() {
   };
 
   return (
-    <div className="register w-50 p-3 d-flex flex-column justify-content-center" style={{fontFamily:"Montserrat"}}>
+    <div
+      className="register w-50 p-3 d-flex flex-column justify-content-center"
+      style={{ fontFamily: "Montserrat" }}
+    >
       <h4
         style={{
           color: `var(--primary-purple)`,
