@@ -10,7 +10,11 @@ const deleteCourse = async (courseCode) => {
         Authorization: `Bearer ${token}`,
       }
     });
-    toast.success(`Data course berhasil dihapus`);
+    toast.success(`Data course berhasil dihapus!`, {
+      style: {
+        fontFamily: 'Montserrat'
+      },
+    });
   } catch (error) {
     console.log("error deleting course", error.message);
     throw error;

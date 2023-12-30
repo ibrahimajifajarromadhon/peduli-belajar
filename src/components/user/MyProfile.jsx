@@ -11,6 +11,7 @@ function MyProfile() {
   const [country, setCountry] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [email, setEmail] = useState("");
+  const [newProfilePicture, setNewProfilePicture] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,13 +48,8 @@ function MyProfile() {
       formData.append('noTelp', noTelp);
       formData.append('city', city);
       formData.append('country', country);
-      if (profilePicture instanceof File) {
-        formData.append('profilePicture', profilePicture);
-      } else if (typeof profilePicture === 'string') {
-        const response = await fetch(profilePicture);
-        const blob = await response.blob();
-        const file = new File([blob], 'profile_picture.jpg', { type: 'image/jpeg' });
-        formData.append('profilePicture', file);
+      if (newProfilePicture) {
+        formData.append('profilePicture', newProfilePicture);
       }
 
       const response = await fetch(`${import.meta.env.VITE_API}/api/user/edit-profile`, {
@@ -65,20 +61,32 @@ function MyProfile() {
       });
   
       const responseData = await response.json();
-      toast.success('Data profil berhasil disimpan!')
+      toast.success('Data profil berhasil disimpan!', {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     } catch (error) {
-      console.error('Terjadi kesalahan:', error);
-      toast.error('Data profil gagal disimpan!')
+      toast.error('Data profil gagal disimpan!', {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });    
     } finally {
       setIsLoading(false);
+      setNewProfilePicture(null);
     }
   };
+
   const onProfilePictureChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setProfilePicture(URL.createObjectURL(file));
+      setNewProfilePicture(file);
     }
   };
+  
+  
   return (
     <form onSubmit={onSubmit} className="register w-50 p-3 d-flex flex-column justify-content-center w-100">
       <div className="d-flex align-items-center justify-content-center mb-3">
@@ -94,7 +102,7 @@ function MyProfile() {
             <img
               src={foto}
               alt="Upload"
-              style={{ width: '2.2em', height: '2.2em' }}
+              style={{ width: '2.2em', height: '2.2em', border: '3px solid var(--primary-purple)', borderRadius: '50%', }}
             />
           </label>
           {profilePicture && (

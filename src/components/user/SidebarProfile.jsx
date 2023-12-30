@@ -18,7 +18,11 @@ function SidebarProfile() {
   
   const handleLogout = () => {
     Cookies.remove('token')
-    toast.success("Logout berhasil!");
+    toast.success("Logout Berhasil!", {
+      style: {
+        fontFamily: 'Montserrat'
+      },
+    });
     navigate('/login'); 
   };
 

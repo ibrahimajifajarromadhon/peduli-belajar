@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { toast } from "react-hot-toast";
 
 const token = Cookies.get("token");
 const header = {

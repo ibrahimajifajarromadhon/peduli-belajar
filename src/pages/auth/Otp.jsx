@@ -35,10 +35,18 @@ const Otp = () => {
       };
 
       await axios.request(config);
-      toast.success("Registrasi berhasil!");
+      toast.success("Registrasi berhasil!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
       navigate("/login");
     } catch (error) {
-      toast.error("Kode OTP salah!");
+      toast.error("Kode OTP salah!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 
@@ -56,13 +64,25 @@ const Otp = () => {
       );
 
       if (response.ok) {
-        toast.success("Kode OTP berhasil dikirim!");
+        toast.success("Kode OTP berhasil dikirim!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
         setCounter(60);
       } else {
-        toast.error("Kode OTP gagal dikirim! Silakan coba lagi.");
+        toast.error("Kode OTP gagal dikirim. Silakan coba lagi!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
       }
     } catch (error) {
-      toast.error("Kode OTP gagal dikirim! Silakan coba lagi.");
+      toast.error("Kode OTP gagal dikirim. Silakan coba lagi!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 

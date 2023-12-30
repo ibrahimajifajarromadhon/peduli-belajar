@@ -60,7 +60,11 @@ const BayarCourse = () => {
 
           setOrderDetails(updatedOrderDetails);
         } else {
-          toast.error("Gagal fetching order course!");
+          toast.error("Gagal fetching order course!", {
+            style: {
+              fontFamily: 'Montserrat'
+            },
+          });
         }
       } catch (error) {
         console.error("An error occurred while fetching order details:", error);
@@ -96,15 +100,27 @@ const BayarCourse = () => {
       const responseData = await response.json();
       
       if (response.ok) {
-        toast.success("Pembayaran berhasil!");
+        toast.success("Pembayaran berhasil!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
         navigate(`/successBayarCourse`, {
           state: { courseCode: courseData?.courseCode },
         });
       } else {
-        toast.error("Gagal melakukan pembayaran!");
+        toast.error("Gagal melakukan pembayaran!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
       }
     } catch (error) {
-      toast.error("Gagal melakukan pembayaran!");
+      toast.error("Gagal melakukan pembayaran!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 

@@ -43,12 +43,24 @@ function ChangePassword() {
         body: JSON.stringify(dataUpdate)
       });
       if (response.ok) {
-        toast.success("Password berhasil diupdate!");
+        toast.success("Password berhasil diubah!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
       } else {
-        toast.error("Password gagal diupdate!");
+        toast.error("Password gagal diubah!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
       }
     } catch (error) {
-      toast.error("An error occurred. Please try again later.");
+      toast.error("Error, Coba lagi nanti!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 

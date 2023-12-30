@@ -45,11 +45,19 @@ function Register() {
       const { token } = response.data;
 
       Cookies.set("token", token);
-      toast.success("Kode OTP berhasil dikirim!");
+      toast.success("Kode OTP berhasil dikirim!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
 
       navigate(`/otp/${email}`);
     } catch (error) {
-      toast.error("Registrasi gagal, silahkan coba lagi!");
+      toast.error("Registrasi gagal. Silahkan coba lagi!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 

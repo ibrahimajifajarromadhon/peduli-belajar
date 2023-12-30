@@ -58,7 +58,11 @@ function SidebarAdmin() {
           <Link to={`/login`} style={{ color: `var(--primary-purple)`}}onClick={() => {
                 Cookies.remove('token');
                 setIsLoggedIn(false);
-                toast.success("Logout berhasil!");
+                toast.success("Logout berhasil!", {
+                  style: {
+                    fontFamily: 'Montserrat'
+                  },
+                });
                 return navigate("/");
               }} >
             <p href="#" className="nav-link text-white fs-5">
@@ -99,7 +103,11 @@ function SidebarAdmin() {
               onClick={() => {
                 Cookies.remove('token');
                 setIsLoggedIn(false);
-                toast.success("Logout berhasil!");
+                toast.success("Logout berhasil!", {
+                  style: {
+                    fontFamily: 'Montserrat'
+                  },
+                });
                 return navigate("/");
               }} 
             >

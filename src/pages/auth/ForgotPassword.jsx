@@ -28,12 +28,24 @@ function ForgotPassword() {
 
       const response = await axios.request(config);
       if (response.status == 200) {
-        toast.success("Tautan reset password terkirim!");
+        toast.success("Tautan reset password terkirim!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
       } else {
-        toast.error("Email tidak terdaftar. Silakan coba dengan email lain.");
+        toast.error("Email tidak terdaftar!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
       }
     } catch (error) {
-      toast.error("Email tidak terdaftar. Silakan coba dengan email lain.");
+      toast.error("Email tidak terdaftar!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });    
     }
   };
 

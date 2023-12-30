@@ -91,12 +91,20 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
 
     Promise.all(promises)
       .then(() => {
-        toast.success("Berhasil ubah data course");
+        toast.success("Berhasil ubah data course!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
         handleCloseModal();
         window.location.reload();
       })
       .catch(() => {
-        toast.error("Gagal ubah data course");
+        toast.error("Gagal ubah data course!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
       });
   };
 

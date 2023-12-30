@@ -103,11 +103,19 @@ function ModalAddClass() {
   const handleSubmit = async () => {
     try {
       await createClass(classData);
-      toast.success("Berhasil tambah data course");
+      toast.success("Berhasil tambah data course!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
       setIsModalOpen(false);
       window.location.reload();
     } catch (error) {
-      toast.error("Pastikan data yang diinputkan benar", error.message);
+      toast.error("Pastikan data yang diinputkan benar!", error.message, {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 

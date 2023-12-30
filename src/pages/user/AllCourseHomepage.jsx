@@ -33,14 +33,14 @@ const AllCourseHomepage = () => {
   
   return (
     <>
-      <div style={{ backgroundColor: "#EBF3FC", marginTop: "4em" }}>
+      <div style={{ backgroundColor: "#EBF3FC", marginTop: "3em" }}>
         <div className="container">
-          <div className="topic d-flex justify-content-between">
+          <div className="topic">
             <h4 className="mt-5" style={{ fontWeight: "700", fontFamily:"Montserrat" }}>
-              Topik Kelas{" "}
+              Topik Kelas
             </h4>
             <form
-              className="search-course d-flex mt-5"
+              className="search-course d-flex"
               role="search"
               style={{ position: "relative", minWidth: "200px" }}
             >
@@ -80,31 +80,31 @@ const AllCourseHomepage = () => {
               />
             </form>
             <button
-              className="btn btn-primary ms-auto mt-5"
+              className="btn ms-auto"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasBottom"
               aria-controls="offcanvasBottom"
+              style={{backgroundColor:"#6148FF", color:"#fff"}}
             >
-              <CiFilter />
+              <CiFilter style={{width:"1.7em", height:"1.7em"}}/>
             </button>
           </div>
           <div className="row">
-            <div className="col-md-4" style={{ marginBottom: "2em" }}>
-              <div className="mt-4">
+            <div className="col-md-4" style={{ marginBottom: "1em" }}>
+              <div className="">
                 <FilterClass onFilter={handleFilter}/>
               </div>
             </div>
             <div className="col-md-8" style={{ marginBottom: "2em" }}>
-              <div className="btn-menu d-flex mt-4">
+              <div className="btn-menu d-flex">
                 <button
-                  className={`btn btn-light me-4 ${
-                    filter === "all" ? "active" : ""
+                  className={`btn me-4 ${
+                    filter === "all" ? "active" : "nonaktive"
                   }`}
                   onClick={() => setFilter("all")}
                   style={{
                     width: "20%",
-                    padding: "10px",
                     borderRadius: "15px",
                     fontWeight: "600",
                   }}
@@ -112,13 +112,12 @@ const AllCourseHomepage = () => {
                   All
                 </button>
                 <button
-                  className={`btn btn-light me-4 ${
-                    filter === "premium" ? "active" : ""
+                  className={`btn me-4 ${
+                    filter === "premium" ? "active" : "nonaktive"
                   }`}
                   onClick={() => setFilter("premium")}
                   style={{
-                    width: "40%",
-                    padding: "10px",
+                    width: "45%",
                     borderRadius: "15px",
                     fontWeight: "600",
                   }}
@@ -126,13 +125,12 @@ const AllCourseHomepage = () => {
                   Kelas Premium
                 </button>
                 <button
-                  className={`btn btn-light me-4 ${
-                    filter === "gratis" ? "active" : ""
+                  className={`btn ${
+                    filter === "gratis" ? "active" : "nonaktive"
                   }`}
                   onClick={() => setFilter("gratis")}
                   style={{
-                    width: "30%",
-                    padding: "10px",
+                    width: "35%",
                     borderRadius: "15px",
                     fontWeight: "600",
                   }}
@@ -158,7 +156,34 @@ const AllCourseHomepage = () => {
             color: white;
           }
 
+          .btn-menu .btn.nonaktive {
+            background-color: #FFFFFF;
+            color: #8A8A8A;
+          }
+
+          .topic .search-course {
+            margin-top: 3em;
+          }
+
+          .btn-menu {
+            margin-top: 2em;
+          }
+
+          .btn-menu .btn {
+            padding: 10px;
+          }
+
+          .topic {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
           @media (max-width: 768px) {
+            .btn-menu .btn {
+              padding: 7px;
+            }
+            
             .topic .form-control {
               display: none;
             }
@@ -166,11 +191,21 @@ const AllCourseHomepage = () => {
             .topic .btn {
               display: block;
               height: 10%;
-              }
-
+              margin-top: 30px;
+            }
+            
+            .topic .search-course {
+              margin-top: 0px;
+            }
+            
             .search-course .search-icon {
               display: none;
             }
+
+            .btn-menu {
+              margin-top: 0px;
+            }
+
           }
         `}
         </style>

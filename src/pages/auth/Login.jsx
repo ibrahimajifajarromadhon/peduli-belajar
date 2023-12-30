@@ -36,7 +36,11 @@ function Login() {
       const response = await axios.request(config);
       const { token } = response.data.data;
       Cookies.set("token", token);
-      toast.success("Login Berhasil!");
+      toast.success("Login Berhasil!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
 
       const roler = response.data.data.role;
       if (roler === "USER") {
@@ -45,7 +49,11 @@ function Login() {
         navigate("/admin");
       }
     } catch (error) {
-      toast.error("User tidak ditemukan!");
+      toast.error("User tidak ditemukan!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 
