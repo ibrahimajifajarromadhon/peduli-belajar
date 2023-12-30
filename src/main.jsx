@@ -49,8 +49,8 @@ const router = createBrowserRouter(
 
       <Route element={<Admin />} path="/admin">
         <Route index element={<Navigate to="dashboard" replace />} />
-        <Route element={<AdminDashboard />} path="dashboard"></Route>
-        <Route element={<ManageClassAdmin />} path="class"></Route>
+        <Route element={<AdminDashboard />} path="dashboard"></Route>{" "}
+        <Route element={<ManageClassAdmin />} path="class"></Route>{" "}
       </Route>
 
       <Route element={<User />} path="/">

@@ -25,8 +25,10 @@ function Admin() {
       <NavbarAdmin />
       <SidebarAdmin />
       <UsersActivity />
-      <ButtonAddFilter />
-      <Outlet />
+      <div className="d-flex felx-column">
+        <ButtonAddFilter />
+        {/* <Outlet /> */}
+      </div>
     </div>
   );
 
@@ -37,7 +39,7 @@ function Admin() {
         <NavbarAdmin />
         <UsersActivity />
         <ButtonAddFilter />
-        <Outlet />
+        {/* <Outlet /> */}
       </div>
     </div>
   );

@@ -1,109 +1,81 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Modal } from 'bootstrap'; 
-import ModalAddClass from './ModalAddClass';
-import { CiFilter } from 'react-icons/ci';
-import Cookies from 'js-cookie';
-import axios from 'axios';
-import AdminDashboard from '../pages/AdminDashboard';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { CiFilter } from "react-icons/ci";
+import AdminDashboard from "../pages/AdminDashboard";
+import ManageClassAdmin from "../pages/ManageClassAdmin";
+import ModalAddClass from "./ModalAddClass";
 
 function ButtonAddFilter() {
   const location = useLocation();
-  const isMyClassRoute = location.pathname === '/admin/class';
-  const isDashboardRoute = location.pathname === '/admin/dashboard';
-  const [selectedFilter, setSelectedFilter] = useState('');
-  const [filter, setFilter] = useState([]);
+  const isMyClassRoute = location.pathname === "/admin/class";
+  const isDashboardRoute = location.pathname === "/admin/dashboard";
+  const [selectedOption, setSelectedOption] = useState("");
 
   const filterOptions = isMyClassRoute
     ? [
-        { label: 'Kelas Premium', value: 'kelas-premium' },
-        { label: 'Kelas Gratis', value: 'kelas-gratis' },
+        { label: "Kelas Premium", value: "kelas-premium" },
+        { label: "Kelas Gratis", value: "kelas-gratis" },
       ]
     : isDashboardRoute
     ? [
-        { label: 'Sudah Bayar', value: 'sudah-bayar' },
-        { label: 'Belum Bayar', value: 'belum-bayar' },
+        { label: "Sudah Bayar", value: "sudah-bayar" },
+        { label: "Belum Bayar", value: "belum-bayar" },
       ]
     : [];
 
-  const modalRef = useRef(null);
-
   const handleFilterChange = (value) => {
-    setSelectedFilter(value);
-    setFilter(value);
-    const modal = new Modal(modalRef.current);
-    modal.hide();
+    setSelectedOption(value);
   };
 
-  useEffect(() => {
-    const modal = new Modal(modalRef.current);
-    modalRef.current.addEventListener('hidden.bs.modal', function () {
-      setSelectedFilter(''); 
-    });
-
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowFilterDropdown(false);
-      }
-    };
-
-    return () => {
-      modal.dispose();
-    };
-  }, []);
-
   return (
-    <div className={`d-flex flex-row gap-4 w-100 my-lg-4 px-3 justify-content-end`} style={{ marginBottom: '20px' }}>
-      {isMyClassRoute && <ModalAddClass className="d-lg-flex" />}
-      <div className="position-relative">
-        <button
-          className="btn rounded-pill"
-          style={{
-            borderColor: `var(--primary-purple)`,
-            color: `var(--primary-purple)`,
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-          }}
-          onClick={() => {
-            const modal = new Modal(modalRef.current);
-            modal.show();
-          }}
-        >
-          <span>
-            <CiFilter style={{ marginRight: '0.5em', color: `var(--primary-purple)` }} />
-          </span>
-          Filter
-        </button>
-
-        <div className="modal" ref={modalRef} tabIndex="-1">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Filter Options</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div className="modal-body">
-                {filterOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    className={`btn btn-light w-100 my-2 ${selectedFilter === option.value ? 'active' : ''}`}
-                    onClick={() => handleFilterChange(option.value)}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div>
-            <AdminDashboard filter={filter}/>
-          </div>
+    <div
+      className={`d-flex flex-column gap-4 w-100 my-lg-4 px-3`}
+      style={{ marginBottom: "20px" }}
+    >
+      <div className="d-flex flex-row justify-content-end gap-3 mx-3">
+        <div className="position-relative">
+          {isMyClassRoute && <ModalAddClass className="d-lg-flex" />}
+        </div>
+        <div className="position-relative">
+          <select
+            className="form-select rounded-pill"
+            style={{
+              borderColor: `var(--primary-purple)`,
+              color: `var(--primary-purple)`,
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            }}
+            value={selectedOption}
+            onChange={(e) => handleFilterChange(e.target.value)}
+          >
+            <option value="">All</option>
+            {filterOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
+      <div>
+        {isDashboardRoute && <AdminDashboard filter={selectedOption} />}
+        {isMyClassRoute && <ManageClassAdmin filter={selectedOption} />}
+      </div>
       <style>{`
-        .rounded-pill{
+        .rounded-pill {
           font-family: Montserrat;
           font-size: 16px;
           font-weight: 700;
+        }
+        .position-relative {
+          position: relative;
+        }
+        @media (max-width: 767px) {
+          .d-lg-flex {
+            display: block !important;
+          }
+          .form-select {
+            width: 100%;
+          }
         }
       `}</style>
     </div>

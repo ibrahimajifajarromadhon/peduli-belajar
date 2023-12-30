@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TableAdmin from "../components/TableAdmin";
 import getAllCourses from "../api/getAllCourse";
 
-function ManageClassAdmin() {
+function ManageClassAdmin({ filter }) {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,6 +25,15 @@ function ManageClassAdmin() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const filterCourses = () => {
+    if(filter === "kelas-premium"){
+      return courses.filter((course) => course.type === "PREMIUM")
+    }else if(filter === "kelas-gratis"){
+      return courses.filter((course) => course.type === "GRATIS")
+    }else{
+      return courses;
+    }
+  };
 
   if (loading) {
     return (
@@ -36,6 +45,7 @@ function ManageClassAdmin() {
       </p>
     );
   }
+  const filteredCourses = filterCourses();
 
   if (error) {
     return (
@@ -48,7 +58,7 @@ function ManageClassAdmin() {
     );
   }
 
-  if (!courses || courses.length === 0) {
+  if (!filteredCourses || filteredCourses.length === 0) {
     return (
       <p
         style={{ color: `var(--primary-purple)`, fontWeight: "700" }}
@@ -59,7 +69,8 @@ function ManageClassAdmin() {
     );
   }
 
-  const data = courses.map((course) => ({
+
+  const data = filteredCourses.map((course) => ({
     Kode_Kelas: course.courseCode,
     Kategori: course.category.categoryName,
     Nama_Kelas: course.title,
@@ -70,9 +81,26 @@ function ManageClassAdmin() {
 
   return (
     <>
-      <div className="col-5" style={{marginTop:"-50px", marginLeft:"10px", fontFamily:"Montserrat", fontSize:"20px", fontWeight:"700"}}>
-        <h4 style={{fontFamily:"Montserrat", fontSize:"20px", fontWeight:"700"}}>Kelola Kelas</h4>
-      </div>
+      {/* <div
+        className="col-5"
+        style={{
+          marginTop: "-50px",
+          marginLeft: "10px",
+          fontFamily: "Montserrat",
+          fontSize: "20px",
+          fontWeight: "700",
+        }}
+      >
+        <h4
+          style={{
+            fontFamily: "Montserrat",
+            fontSize: "20px",
+            fontWeight: "700",
+          }}
+        >
+          Kelola Kelas
+        </h4>
+      </div> */}
       <TableAdmin
         data={data}
         coloredColumn={{

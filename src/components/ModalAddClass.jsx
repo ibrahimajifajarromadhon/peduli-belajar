@@ -21,6 +21,7 @@ function ModalAddClass() {
 
   const handleInputChange = (field, value) => {
     setClassData((prevData) => {
+      console.log(prevData)
       return {
         ...prevData,
         [field]: field === "category" ? { categoryName: value } : value,
