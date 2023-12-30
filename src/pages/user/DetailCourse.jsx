@@ -27,8 +27,6 @@ const DetailCourse = () => {
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  console.log(progress);
-
   useEffect(() => {
     const detailApiUrl = `${import.meta.env.VITE_API}/api/course/${courseCode}`;
 
@@ -49,7 +47,6 @@ const DetailCourse = () => {
             response.data.data.chapter[currentChapterIndex].subject.length
           ).fill(false)
         );
-        console.log({ response: response.data });
       })
       .catch((error) => {
         console.error("Error:", error);

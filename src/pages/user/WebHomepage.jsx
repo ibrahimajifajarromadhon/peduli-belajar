@@ -17,12 +17,8 @@ function WebHomepage() {
   const [category, setCategory] = useState([]);
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
-  const [selectedCategory, setSelectedCategory] = useState(null); 
-  const [searchEmpty, setSearchEmpty] = useState(false); 
-
-  useEffect(() => {
-    console.log("Search Query:", searchQuery);
-  }, [searchQuery]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [searchEmpty, setSearchEmpty] = useState(false);
 
   useEffect(() => {
     const apiUrl = `${import.meta.env.VITE_API}/api/category`;
@@ -46,13 +42,14 @@ function WebHomepage() {
   }, []);
 
   useEffect(() => {
-    const apiUrl = `${import.meta.env.VITE_API}/api/course/filter?page=1&size=20`;
+    const apiUrl = `${
+      import.meta.env.VITE_API
+    }/api/course/filter?page=1&size=20`;
 
     axios
       .get(apiUrl)
       .then((response) => {
         setCourses(response.data.data.courses);
-
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -64,13 +61,18 @@ function WebHomepage() {
   };
 
   const visibleCourses = selectedCategory
-  ? courses.filter((course) => course.category.categoryName === selectedCategory.categoryName)
-  : courses.filter((course) =>
-        !searchQuery ||
-        course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.teacher.toLowerCase().includes(searchQuery.toLowerCase())
+    ? courses.filter(
+        (course) =>
+          course.category.categoryName === selectedCategory.categoryName
       )
-      .slice(0, 3);
+    : courses
+        .filter(
+          (course) =>
+            !searchQuery ||
+            course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            course.teacher.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        .slice(0, 3);
 
   useEffect(() => {
     setSearchEmpty(visibleCourses.length === 0);
@@ -115,7 +117,7 @@ function WebHomepage() {
         </div>
 
         <div className="mobile-scroll-container">
-            <div className="scrollable-buttons">
+          <div className="scrollable-buttons">
             <button
               className={`btn button ${!selectedCategory ? "active" : ""}`}
               style={{
@@ -123,7 +125,7 @@ function WebHomepage() {
                 fontWeight: "700",
                 fontSize: "12px",
               }}
-              onClick={() => handleCategoryClick(null)} 
+              onClick={() => handleCategoryClick(null)}
             >
               All
             </button>
@@ -131,7 +133,9 @@ function WebHomepage() {
               return (
                 <button
                   key={categoryItem.categoryName}
-                  className={`btn button ${selectedCategory === categoryItem ? "active" : ""}`}
+                  className={`btn button ${
+                    selectedCategory === categoryItem ? "active" : ""
+                  }`}
                   style={{
                     fontFamily: "Montserrat",
                     fontWeight: "700",
@@ -149,160 +153,181 @@ function WebHomepage() {
         {searchEmpty && !selectedCategory ? (
           <div className="col mt-5 mb-5">
             <i>
-              <p style={{ fontFamily: "Montserrat", fontWeight: "600", textAlign: "center", fontSize: "18px", color: "#6148FF" }}>
+              <p
+                style={{
+                  fontFamily: "Montserrat",
+                  fontWeight: "600",
+                  textAlign: "center",
+                  fontSize: "18px",
+                  color: "#6148FF",
+                }}
+              >
                 No search results found.
               </p>
             </i>
           </div>
         ) : (
-
-        <Row xs={1} md={3} className="g-4 mb-5">
-          {visibleCourses
-            .filter(
-              (course) =>
-                (!searchQuery ||
-                  course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                  course.teacher.toLowerCase().includes(searchQuery.toLowerCase())) &&
-                (!selectedCategory || course.category.categoryName === selectedCategory.categoryName)
-            )
-            .map((course) => (
-              <Col key={course.courseCode}>
-                <Card
-                  className="d-flex align-items-center justify-content-center card-course"
-                  style={{ borderRadius: "25px", marginTop: "20px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}
-                >
-                  <Card.Img
-                    variant="top"
-                    src={course.category.categoryImage}
+          <Row xs={1} md={3} className="g-4 mb-5">
+            {visibleCourses
+              .filter(
+                (course) =>
+                  (!searchQuery ||
+                    course.title
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ||
+                    course.teacher
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())) &&
+                  (!selectedCategory ||
+                    course.category.categoryName ===
+                      selectedCategory.categoryName)
+              )
+              .map((course) => (
+                <Col key={course.courseCode}>
+                  <Card
+                    className="d-flex align-items-center justify-content-center card-course"
                     style={{
-                      marginTop: "15px",
-                      padding: "0px",
-                      width: "35%",
-                      height: "45%",
+                      borderRadius: "25px",
+                      marginTop: "20px",
+                      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
                     }}
-                  />
-                  <Card.Body>
-                    <div className="d-flex">
-                      <h5
-                        className="card-title"
+                  >
+                    <Card.Img
+                      variant="top"
+                      src={course.category.categoryImage}
+                      style={{
+                        marginTop: "15px",
+                        padding: "0px",
+                        width: "35%",
+                        height: "45%",
+                      }}
+                    />
+                    <Card.Body>
+                      <div className="d-flex">
+                        <h5
+                          className="card-title"
+                          style={{
+                            fontFamily: "Montserrat",
+                            fontWeight: "700",
+                            color: "#6148FF",
+                          }}
+                        >
+                          {course.category.categoryName.replace(/_/g, " ")}
+                        </h5>
+                        <div
+                          className="ms-auto"
+                          style={{
+                            fontFamily: "Montserrat",
+                            fontWeight: "600",
+                          }}
+                        >
+                          <FaStar style={{ color: "#F9CC00" }} />{" "}
+                          {course.rating}
+                        </div>
+                      </div>
+                      <Card.Title
+                        style={{ fontFamily: "Montserrat", fontWeight: "700" }}
+                      >
+                        {course.title}
+                      </Card.Title>
+                      <Card.Text
                         style={{
                           fontFamily: "Montserrat",
-                          fontWeight: "700",
-                          color: "#6148FF",
+                          fontWeight: "500",
+                          fontSize: "14px",
                         }}
                       >
-                        {course.category.categoryName.replace(/_/g, " ")}
-                      </h5>
+                        by {course.teacher}
+                      </Card.Text>
                       <div
-                        className="ms-auto"
-                        style={{ fontFamily: "Montserrat", fontWeight: "600" }}
+                        className="d-flex"
+                        style={{ fontFamily: "Montserrat" }}
                       >
-                        <FaStar style={{ color: "#F9CC00" }} /> {course.rating}
+                        <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
+                        <p
+                          style={{
+                            textDecoration: "none",
+                            color: "#6148FF",
+                            fontSize: "11px",
+                            fontWeight: "600",
+                          }}
+                        >
+                          {course.level} LEVEL
+                        </p>
+                        <RiBook3Line
+                          style={{ color: "#73CA5C", marginLeft: "20px" }}
+                        />{" "}
+                        <p
+                          style={{
+                            textDecoration: "none",
+                            fontSize: "11px",
+                            fontWeight: "600",
+                          }}
+                        >
+                          {course.modul} Modul
+                        </p>
+                        <RiTimeFill
+                          style={{ color: "#73CA5C", marginLeft: "20px" }}
+                        />{" "}
+                        <p
+                          style={{
+                            textDecoration: "none",
+                            fontSize: "11px",
+                            fontWeight: "600",
+                          }}
+                        >
+                          50 Menit
+                        </p>
                       </div>
-                    </div>
-                    <Card.Title
-                      style={{ fontFamily: "Montserrat", fontWeight: "700" }}
-                    >
-                      {course.title}
-                    </Card.Title>
-                    <Card.Text
-                      style={{
-                        fontFamily: "Montserrat",
-                        fontWeight: "500",
-                        fontSize: "14px",
-                      }}
-                    >
-                      by {course.teacher}
-                    </Card.Text>
-                    <div
-                      className="d-flex"
-                      style={{ fontFamily: "Montserrat" }}
-                    >
-                      <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
-                      <p
-                        style={{
-                          textDecoration: "none",
-                          color: "#6148FF",
-                          fontSize: "11px",
-                          fontWeight: "600",
-                        }}
+                      <Link
+                        to={`/login`}
+                        style={{ textDecoration: "none", color: "#fff" }}
                       >
-                        {course.level} LEVEL
-                      </p>
-                      <RiBook3Line
-                        style={{ color: "#73CA5C", marginLeft: "20px" }}
-                      />{" "}
-                      <p
-                        style={{
-                          textDecoration: "none",
-                          fontSize: "11px",
-                          fontWeight: "600",
-                        }}
-                      >
-                        {course.modul} Modul
-                      </p>
-                      <RiTimeFill
-                        style={{ color: "#73CA5C", marginLeft: "20px" }}
-                      />{" "}
-                      <p
-                        style={{
-                          textDecoration: "none",
-                          fontSize: "11px",
-                          fontWeight: "600",
-                        }}
-                      >
-                        50 Menit
-                      </p>
-                    </div>
-                    <Link
-                      to={`/login`}
-                      style={{ textDecoration: "none", color: "#fff" }}
-                    >
-                      {course.price === 0 ? (
-                        <button
-                          className="btn btn-free"
-                          style={{ margin: "0px", borderRadius: "35px" }}
-                        >
-                          <h6
-                            style={{
-                              marginTop: "5px",
-                              fontFamily: "Montserrat",
-                            }}
+                        {course.price === 0 ? (
+                          <button
+                            className="btn btn-free"
+                            style={{ margin: "0px", borderRadius: "35px" }}
                           >
-                            Gratis
-                          </h6>
-                        </button>
-                      ) : (
-                        <button
-                          className="btn btn-premium"
-                          style={{ margin: "0px", borderRadius: "35px" }}
-                        >
-                          <div
-                            className="d-flex"
-                            style={{ fontFamily: "Montserrat" }}
-                          >
-                            <IoDiamond className="icon-premium" />
                             <h6
                               style={{
-                                marginRight: "10px",
-                                marginLeft: "10px",
                                 marginTop: "5px",
+                                fontFamily: "Montserrat",
                               }}
                             >
-                              Beli
+                              Gratis
                             </h6>
-                            <h6 style={{ marginTop: "5px" }}>
-                              Rp {course.price.toLocaleString()}
-                            </h6>
-                          </div>
-                        </button>
-                      )}
-                    </Link>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-        </Row>
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-premium"
+                            style={{ margin: "0px", borderRadius: "35px" }}
+                          >
+                            <div
+                              className="d-flex"
+                              style={{ fontFamily: "Montserrat" }}
+                            >
+                              <IoDiamond className="icon-premium" />
+                              <h6
+                                style={{
+                                  marginRight: "10px",
+                                  marginLeft: "10px",
+                                  marginTop: "5px",
+                                }}
+                              >
+                                Beli
+                              </h6>
+                              <h6 style={{ marginTop: "5px" }}>
+                                Rp {course.price.toLocaleString()}
+                              </h6>
+                            </div>
+                          </button>
+                        )}
+                      </Link>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+          </Row>
         )}
       </div>
       <Footer />

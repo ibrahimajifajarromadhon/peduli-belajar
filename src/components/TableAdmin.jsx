@@ -42,7 +42,6 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const handleDelete = async (classCode) => {
     try {
       await deleteCourse(classCode);
-      console.log("Data course berhasil dihapus");
     } catch (error) {
       console.log("error delete data", error);
     }

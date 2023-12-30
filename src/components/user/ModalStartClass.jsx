@@ -43,32 +43,14 @@ const ModalStartClass = ({ courseCode }) => {
 
             </div>
           </div>
-          {/* <Link to={`/detailClass/:id`} style={{textDecoration:"none", color:"#fff"}}> */}
           <div className="text-center">
             <button onClick={handleStartClass} type="button" className="btn btn-primary text-center" style={{width:'50%', marginBottom:'20px', borderRadius:'20px', backgroundColor: "#6148FF"}} data-bs-dismiss="modal">
               Ikuti Kelas
             </button>
             </div>
-            {/* </Link> */}
         </div>
       </div>
 
-      {/* <style>
-          {`
-        .modal-bottom {
-          display: none;
-        }
-
-        @media (max-width: 576px) {
-          .modal {
-            display: none;
-          }
-
-          .modal-bottom {
-            display: block;
-          }
-        }`}
-        </style> */}
     </div>
     </>
   )

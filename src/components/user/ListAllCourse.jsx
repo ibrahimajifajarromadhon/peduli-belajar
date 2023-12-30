@@ -14,10 +14,6 @@ const ListAllCourse = ({ filter, listCourses }) => {
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
 
-  useEffect(() => {
-    console.log("Search Query:", searchQuery);
-  }, [searchQuery]);
-
   const getCourse = async () => {
     const token = Cookies.get("token");
     try {
@@ -52,9 +48,9 @@ const ListAllCourse = ({ filter, listCourses }) => {
       if (filter === "all") {
         return listCourse;
       } else if (filter === "premium") {
-        return listCourse.filter((course) => course.type === "PREMIUM");
+        return listCourse.filter((course) => course.price !== 0 );
       } else if (filter === "gratis") {
-        return listCourse.filter((course) => course.type === "GRATIS");
+        return listCourse.filter((course) => course.price === 0);
       } else {
         return [];
       }
@@ -66,7 +62,6 @@ const ListAllCourse = ({ filter, listCourses }) => {
   };
 
   const filteredCourses = filterCourses();
-  console.log(filteredCourses)
   
   const navigate = useNavigate();
 

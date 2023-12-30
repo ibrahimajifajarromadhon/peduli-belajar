@@ -11,7 +11,6 @@ const historyPayment = async () => {
         const response = await axios.get(`${import.meta.env}/api/order/payment-history/`, {
             headers: header
         });
-        console.log("get payment history success");
         return response.data;
     }catch(error){
         console.log("error get payment history")

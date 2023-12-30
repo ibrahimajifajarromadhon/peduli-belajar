@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const PaymentHistory = ({ filter }) => { 
   const [listPaymentHistory, setListPaymentHistory] = useState([]);
-  console.log (listPaymentHistory)
+
   useEffect(() => {
     const getPaymentHistory = async () => {
       const token = Cookies.get('token');

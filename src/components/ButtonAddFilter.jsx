@@ -22,7 +22,6 @@ function ButtonAddFilter() {
   const handleFilterChange = (value) => {
     setSelectedFilter(value);
     setShowFilterDropdown(false);
-    // Add your filter logic here
   };
 
   const handleClickOutside = (event) => {
