@@ -5,8 +5,9 @@ function FilterClass({ onFilter }) {
 
   const [selectedFilters, setSelectedFilters] = useState({
     categories: [],
-    types: [],
     levels: [],
+    sortByDate: [],
+    sortByPurchase: [],
   });
 
   console.log(selectedFilters)
@@ -22,11 +23,14 @@ function FilterClass({ onFilter }) {
             ...(selectedFilters.categories.length > 0 && {
               categories: selectedFilters.categories.join(","),
             }),
-            ...(selectedFilters.types.length > 0 && {
-              types: selectedFilters.types.join(","),
-            }),
             ...(selectedFilters.levels.length > 0 && {
             levels: selectedFilters.levels.join(","),
+            }),
+            ...(selectedFilters.sortByDate.length > 0 && {
+            sortByDate: selectedFilters.sortByDate.join(","),
+            }),
+            ...(selectedFilters.sortByPurchase.length > 0 && {
+            sortByPurchase: selectedFilters.sortByPurchase.join(","),
             }),
           },
         }
@@ -42,14 +46,17 @@ function FilterClass({ onFilter }) {
     fetchData();
   }, [selectedFilters]);
 
-  const handleFilterChange = (filterType, value) => {
+  const handleFilterChange = (filterType, value, checked) => {
     setSelectedFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
-      if (value.length > 0) {
-        updatedFilters[filterType] = [...new Set([...prevFilters[filterType], ...value])];
-      } else {
-        updatedFilters[filterType] = prevFilters[filterType].filter((item) => !value.includes(item));
-      }
+      if (checked) {
+        // updatedFilters[filterType] = [...new Set([...prevFilters[filterType], ...value])];
+        updatedFilters[filterType] = [...prevFilters[filterType], value];
+      } 
+      else {
+        // updatedFilters[filterType] = prevFilters[filterType].filter((item) => !value.includes(item));
+        updatedFilters[filterType] = prevFilters[filterType].filter((item) => value !== item);
+     }
       return updatedFilters;
     });
   };
@@ -57,8 +64,9 @@ function FilterClass({ onFilter }) {
   const clearFilters = () => {
     setSelectedFilters({
       categories: [],
-      types: [],
       levels: [],
+      sortByDate: [],
+      sortByPurchase: [],
     });
 
     const checkboxes = document.querySelectorAll('.form-check-input');
@@ -97,19 +105,20 @@ function FilterClass({ onFilter }) {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxBaruRs"
-                // onChange={(e) =>
-                //   handleFilterChange("types", [
-                //     ...selectedFilters.types,
-                //     "PREMIUM",
-                //   ])
-                // }
+                onChange={(e) =>
+                  handleFilterChange(
+                    "sortByDate", 
+                    "true", 
+                    e.target.checked
+                  )
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxBaruRs"
                 style={{ fontWeight: "500" }}
               >
-                Popular
+                Terbaru
               </label>
             </div>
             <div className="form-check">
@@ -117,20 +126,20 @@ function FilterClass({ onFilter }) {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxPopularRs"
-                // onChange={(e) =>
-                //   handleFilterChange("types", [
-                //     ...selectedFilters.types,
-                //     "GRATIS",
-                //   ])
-                // }
+                onChange={(e) =>
+                  handleFilterChange("sortByPurchase", 
+                    "true", 
+                    e.target.checked)
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxPopularRs"
                 style={{ fontWeight: "500" }}
               >
-                Terbaru
+                Populer
               </label>
+
             </div>
             <h6 className="card-title mt-4">Kategori</h6>
             <div className="form-check">
@@ -139,10 +148,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxUIDesignRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "UIUX_DESIGN",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -159,10 +167,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxWebDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "WEB_DEVELOPMENT",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -179,10 +186,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAndroidDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "ANDROID_DEVELOPMENT",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -199,10 +205,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxDataScienceRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "DATA_SCIENCE",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -219,10 +224,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxProductManagementRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "PRODUCT_MANAGEMENT",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -239,10 +243,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIosDevelopmentRs"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "IOS_DEVELOPMENT",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -260,10 +263,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxBeginnerLevelRs"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("levels", 
                     "BEGINNER",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -280,10 +282,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIntermediateLevelRs"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("levels", 
                     "INTERMEDIATE",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -300,10 +301,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAdvancedLevelRs"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("levels", 
                     "ADVANCE",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -349,19 +349,18 @@ function FilterClass({ onFilter }) {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxBaru"
-                // onChange={(e) =>
-                //   handleFilterChange("types", [
-                //     ...selectedFilters.types,
-                //     "PREMIUM",
-                //   ])
-                // }
+                onChange={(e) =>
+                  handleFilterChange("sortByDate", 
+                    "true",
+                    e.target.checked)
+              }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxBaru"
                 style={{ fontWeight: "500" }}
               >
-                Popular
+                Terbaru
               </label>
             </div>
             <div className="form-check">
@@ -369,19 +368,18 @@ function FilterClass({ onFilter }) {
                 className="form-check-input"
                 type="checkbox"
                 id="checkboxPopular"
-                // onChange={(e) =>
-                //   handleFilterChange("types", [
-                //     ...selectedFilters.types,
-                //     "GRATIS",
-                //   ])
-                // }
+                onChange={(e) =>
+                  handleFilterChange("sortByPurchase", 
+                    "true",
+                    e.target.checked)
+                }
               />
               <label
                 className="label-filter"
                 htmlFor="checkboxPopular"
                 style={{ fontWeight: "500" }}
               >
-                Terbaru
+                Populer
               </label>
             </div>
           </div>
@@ -395,10 +393,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxUIDesign"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "UIUX_DESIGN",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -415,10 +412,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxWebDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "WEB_DEVELOPMENT",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -435,10 +431,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAndroidDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "ANDROID_DEVELOPMENT",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -455,10 +450,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxDataScience"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
-                    "DATA_SCIENCE",
-                  ])
+                  handleFilterChange("categories", 
+                    "DATA_SCIENCE",  
+                    e.target.checked)
                 }
               />
               <label
@@ -475,10 +469,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxProductManagement"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "PRODUCT_MANAGEMENT",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -495,10 +488,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIosDevelopment"
                 onChange={(e) =>
-                  handleFilterChange("categories", [
-                    ...selectedFilters.categories,
+                  handleFilterChange("categories", 
                     "IOS_DEVELOPMENT",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -520,10 +512,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxBeginnerLevel"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("levels",
                     "BEGINNER",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -540,10 +531,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxIntermediateLevel"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("levels", 
                     "INTERMEDIATE",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
@@ -560,10 +550,9 @@ function FilterClass({ onFilter }) {
                 type="checkbox"
                 id="checkboxAdvancedLevel"
                 onChange={(e) =>
-                  handleFilterChange("levels", [
-                    ...selectedFilters.levels,
+                  handleFilterChange("levels", 
                     "ADVANCE",
-                  ])
+                    e.target.checked)
                 }
               />
               <label
