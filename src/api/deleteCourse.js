@@ -12,7 +12,6 @@ const deleteCourse = async (courseCode) => {
     });
     toast.success(`Data course berhasil dihapus`);
   } catch (error) {
-    console.log("error deleting course", error.message);
     throw error;
   }
 };

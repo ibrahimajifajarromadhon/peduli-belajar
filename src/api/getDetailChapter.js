@@ -16,7 +16,6 @@ const getDetailChapter = async (chapterId) => {
         console.log(response.data)
         return response.data
     }catch(error){
-        console.log("gagal", error.message)
         throw error;
     }
 }

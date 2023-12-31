@@ -14,7 +14,6 @@ const createClass = async (classData) => {
     const response = await axios.post(apiUrl, classData, { headers });
     return response.data;
   } catch (error) {
-    console.error('Error:', error.message);
     throw error; 
   }
 };

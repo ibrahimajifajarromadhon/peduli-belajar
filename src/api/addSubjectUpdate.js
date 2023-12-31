@@ -20,7 +20,6 @@ const addSubjectUpdate = async (chapterId, subjectData) => {
         );
         return response.data;
     } catch (error) {
-        console.log("error : ", error.message);
         throw error;
     }
 };

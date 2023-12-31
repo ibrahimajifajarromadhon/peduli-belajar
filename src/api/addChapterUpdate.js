@@ -20,7 +20,6 @@ const addChapterUpdate = async (courseId, classData) => {
         );
         return response.data;
     } catch (error) {
-        console.log("error : ", error.message);
         throw error;
     }
 };

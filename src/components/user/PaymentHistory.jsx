@@ -23,7 +23,7 @@ const PaymentHistory = ({ filter }) => {
         );
         setListPaymentHistory(response.data.data);
       } catch (error) {
-        console.error("terjadi kesalahan", error); 
+        throw error;
       }
     };
     getPaymentHistory();

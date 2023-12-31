@@ -32,7 +32,7 @@ const ListAllCourse = ({ filter, listCourses }) => {
       );
       setListCourse(response.data.data.courses);
     } catch (error) {
-      console.log("terjadi kesalahan");
+      throw error;
     }
   };
 

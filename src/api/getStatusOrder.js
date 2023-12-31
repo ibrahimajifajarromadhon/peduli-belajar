@@ -19,7 +19,7 @@ const getStatusOrder = async () => {
     console.log(response.data)
     return response.data;
   } catch (error) {
-    console.log("gagal mengambil api", error.message);
+    throw error;
   }
 };
 

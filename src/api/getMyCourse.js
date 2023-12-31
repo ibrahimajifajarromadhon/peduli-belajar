@@ -14,7 +14,7 @@ const getMyCourse = async () => {
     );
     return response.data.data.courses;
   } catch (error) {
-    console.log("gagal ambil api", error.message);
+    throw error;
   }
 };
 

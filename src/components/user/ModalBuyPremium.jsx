@@ -30,7 +30,7 @@ const ModalBuyPremium = ({ courseCode, handleCloseModal }) => {
         setCourseData(response.data.data);
       })
       .catch((error) => {
-        console.error("Error fetching course data", error);
+        throw error;
       });
   }, [courseCode]);
 

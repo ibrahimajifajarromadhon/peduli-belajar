@@ -63,7 +63,7 @@ const BayarCourse = () => {
           toast.error("Gagal fetching order course!");
         }
       } catch (error) {
-        console.error("An error occurred while fetching order details:", error);
+        throw error;
       }
     };
 

@@ -10,7 +10,6 @@ function FilterClass({ onFilter }) {
     sortByPurchase: [],
   });
 
-  console.log(selectedFilters)
 
   const fetchData = async () => {
     try {
@@ -38,7 +37,7 @@ function FilterClass({ onFilter }) {
 
       onFilter(response.data.data.courses);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      throw error;
     }
   };
 

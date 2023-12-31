@@ -15,7 +15,7 @@ const searchAdmin = async (titleCourse ) => {
         })
         return response.data
     }catch(error){
-        console.log("error ambil ap")
+        throw error;
     }
 }
 

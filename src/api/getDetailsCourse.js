@@ -13,7 +13,6 @@ const getDetailCourse = async (courseCode) => {
         });
         return response.data
     }catch(error){
-        console.log("gagal", error.message)
         throw error;
     }
 }

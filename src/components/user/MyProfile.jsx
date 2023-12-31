@@ -30,7 +30,7 @@ function MyProfile() {
       setEmail(response.data.data.email);
     })
     .catch((error) => {
-      console.error('Terjadi kesalahan:', error);
+      throw error;
     })
     .finally(() => {
       setIsLoading(false);
@@ -67,7 +67,6 @@ function MyProfile() {
       const responseData = await response.json();
       toast.success('Data profil berhasil disimpan!')
     } catch (error) {
-      console.error('Terjadi kesalahan:', error);
       toast.error('Data profil gagal disimpan!')
     } finally {
       setIsLoading(false);

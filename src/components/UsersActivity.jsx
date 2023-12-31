@@ -22,7 +22,7 @@ const UsersActivity = () => {
         const totalResponse = await totalClass();
         setTotalData(totalResponse.data)
       }catch (error) {
-        console.log("error fetching data", error.message)
+        throw error;
       }
     };
     fetchData();
@@ -51,7 +51,7 @@ const UsersActivity = () => {
           </div>
           <div className="">
             <Card.Body>
-              <Card.Title className="title-aktif">{userData ? userData : "Loading..."}</Card.Title>
+              <Card.Title className="title-aktif">{userData ? userData : "..."}</Card.Title>
               <Card.Text className="text-aktif">Active Users</Card.Text>
             </Card.Body>
           </div>

@@ -13,7 +13,7 @@ function AdminDashboard({ filter }) {
         const response = await getStatusOrder();
         setStatusOrder(response);
       } catch (error) {
-        console.error("error fetching course:", error.message);
+        throw error;
       }
     };
     fetchData();
@@ -52,27 +52,6 @@ function AdminDashboard({ filter }) {
     Tanggal_Bayar: order.paymentDate,
   }));
 
-  // if (navigation.state === "loading") {
-  //   return (
-  //     <p
-  //       style={{ color: "var(--primary-purple)", fontWeight: "700" }}
-  //       className="text-center"
-  //     >
-  //       Loading...
-  //     </p>
-  //   );
-  // } else {
-    
-  //   if (!statusOrder || statusOrder.length === 0) {
-  //     return (
-  //       <p
-  //         style={{ color: "var(--primary-purple)", fontWeight: "700" }}
-  //         className="text-center"
-  //       >
-  //         Tidak ditemukan
-  //       </p>
-  //     );
-  //   } else {
       return (
         <>
           <div

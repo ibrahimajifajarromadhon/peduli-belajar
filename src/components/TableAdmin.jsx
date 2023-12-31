@@ -6,6 +6,7 @@ import deleteCourse from "../api/deleteCourse";
 import UpdateCourse from "./UpdateCourse";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaArrowLeft } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 const TableAdmin = ({ data, coloredColumn }) => {
   const location = useLocation();
@@ -42,8 +43,10 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const handleDelete = async (classCode) => {
     try {
       await deleteCourse(classCode);
+      toast.success("Berhasil Menghapus Kelas")
     } catch (error) {
-      console.log("error delete data", error);
+      toast.error("Gagal Menghapus Kelas")
+      throw error;
     }
   };
 
@@ -52,7 +55,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
       setShowModal(true);
       setPassCode(uniqCode);
     } catch (error) {
-      console.log("gagal");
+      toast.error("Gagal Mendapatkan Data")
     }
   };
 

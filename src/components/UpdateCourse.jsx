@@ -21,7 +21,6 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
         const response = await getDetailCourse(courseCode);
         setDetail(response);
       } catch (error) {
-        console.log("error fetch data", error.message);
         throw error;
       }
     };

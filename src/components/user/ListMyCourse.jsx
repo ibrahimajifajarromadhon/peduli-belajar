@@ -20,7 +20,7 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
         const response = await getMyCourse();
         setProgresCourse(response);
       } catch (error) {
-        console.log("gagal fetch api", error.message);
+        throw error;
       }
     };
     if (

@@ -49,7 +49,7 @@ const DetailCourse = () => {
         );
       })
       .catch((error) => {
-        console.error("Error:", error);
+        throw error;
       });
   }, [courseCode, currentChapterIndex]);
 
@@ -71,7 +71,7 @@ const DetailCourse = () => {
         setProgress(response.data.data.percent);
       })
       .catch((error) => {
-        console.error("Error fetching progress:", error);
+        throw error;
       });
   }, [courseCode, currentChapterIndex]);
 

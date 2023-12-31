@@ -19,7 +19,6 @@ const updateCourse = async (courseCode, updateData) => {
     );
     return response.data
   } catch (error) {
-    console.log("error update coursse", error.message);
     throw error;
   }
 };
