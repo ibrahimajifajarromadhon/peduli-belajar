@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 const token = Cookies.get("token");
 const header = {
     Authorization: `Bearer ${token}`,
-  'Content-Type': 'application/json',
 } 
 
 const getDetailCourse = async (courseCode) => {

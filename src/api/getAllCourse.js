@@ -12,7 +12,7 @@ const getAllCourses = async () => {
     const response = await axios.get(
       query === "" || query === null
         ? apiUrl
-        : `${import.meta.env.VITE_API}//api/course/filter?title=${query}`,
+        : `${apiUrl}?title=${query}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

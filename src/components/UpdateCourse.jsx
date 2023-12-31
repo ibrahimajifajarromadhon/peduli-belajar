@@ -6,6 +6,7 @@ import updatedChapter from "../api/updatedChapter";
 import updatedSubject from "../api/updatedSubject";
 import addChapterUpdate from "../api/addChapterUpdate";
 import addSubjectUpdate from "../api/addSubjectUpdate";
+import { CiCirclePlus } from "react-icons/ci";
 
 function UpdateCourse({ courseCode, handleCloseModal }) {
   const [detail, setDetail] = useState();
@@ -34,7 +35,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
       title: detail.data.title,
       courseCode: detail.data.courseCode,
       category: {
-        categoryName: detail.data.category,
+        categoryName: detail.data.category.categoryName,
       },
       type: detail.data.type,
       level: detail.data.level,
@@ -88,16 +89,6 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
         );
       }
     });
-
-    Promise.all(promises)
-      .then(() => {
-        toast.success("Berhasil ubah data course");
-        handleCloseModal();
-        window.location.reload();
-      })
-      .catch(() => {
-        toast.error("Gagal ubah data course");
-      });
   };
 
   const handleInputChange = (field, value) => {
@@ -361,8 +352,8 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                 height: "48px",
                 borderRadius: "13px",
               }}
-              readOnly          
-              />
+              readOnly
+            />
           </div>
 
           <div className="d-flex flex-column mb-3">
@@ -436,8 +427,8 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
               onChange={(e) =>
                 handleInputChange("telegramLink", e.target.value)
               }
-              readOnly={!isEditing}            
-              />
+              readOnly={!isEditing}
+            />
           </div>
 
           <div className="d-flex flex-column mb-3">
@@ -482,7 +473,12 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                   type="text"
                   value={chapter.chapterTitle}
                   placeholder="Text"
-                  style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: "500",
+                    height: "48px",
+                    borderRadius: "13px",
+                  }}
                   onChange={(e) =>
                     handleChapterInputChange(
                       "chapterTitle",
@@ -496,55 +492,82 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
               {showDetailSubject && selectedChapterIndex === chapterIndex && (
                 <div>
                   {chapter.subject.map((subject, subjectIndex) => (
-                    <div key={`subject-${chapterIndex}-${subjectIndex}`} className="bg-light p-3 mb-3 rounded mt-2">
-                      <h6 style={{fontWeight:"700"}}>Subject {subject.subjectNo}</h6>
-                        <div className="mb-3">
-                          <label htmlFor="" className="mb-2" style={{fontSize:"16px", fontWeight:"600"}}>
-                            Judul Subject
-                          </label>
-                          <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Text"
-                            value={subject.videoTitle}
-                            style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
-                            onChange={(e) =>
-                              handleChapterInputChange(
-                                "videoTitle",
-                                e.target.value,
-                                chapterIndex,
-                                subjectIndex
-                              )
-                            }
-                            readOnly={!isEditing}
-                          />
-                        </div>
+                    <div
+                      key={`subject-${chapterIndex}-${subjectIndex}`}
+                      className="bg-light p-3 mb-3 rounded mt-2"
+                    >
+                      <h6 style={{ fontWeight: "700" }}>
+                        Subject {subject.subjectNo}
+                      </h6>
+                      <div className="mb-3">
+                        <label
+                          htmlFor=""
+                          className="mb-2"
+                          style={{ fontSize: "16px", fontWeight: "600" }}
+                        >
+                          Judul Subject
+                        </label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="Text"
+                          value={subject.videoTitle}
+                          style={{
+                            fontSize: "16px",
+                            fontWeight: "500",
+                            height: "48px",
+                            borderRadius: "13px",
+                          }}
+                          onChange={(e) =>
+                            handleChapterInputChange(
+                              "videoTitle",
+                              e.target.value,
+                              chapterIndex,
+                              subjectIndex
+                            )
+                          }
+                          readOnly={!isEditing}
+                        />
+                      </div>
 
-                        <div className="d-flex flex-column mb-3">
-                          <label htmlFor="" className="mb-2" style={{fontSize:"16px", fontWeight:"600"}}>
-                            Link Video Subject
-                          </label>
+                      <div className="d-flex flex-column mb-3">
+                        <label
+                          htmlFor=""
+                          className="mb-2"
+                          style={{ fontSize: "16px", fontWeight: "600" }}
+                        >
+                          Link Video Subject
+                        </label>
 
-                          <input
-                            className="form-control"
-                            type="text"
-                            value={subject.videoLink}
-                            placeholder="Text"
-                            style={{fontSize:"16px", fontWeight:"500", height:"48px", borderRadius:"13px"}}
-                            onChange={(e) =>
-                              handleChapterInputChange(
-                                "videoLink",
-                                e.target.value,
-                                chapterIndex,
-                                subjectIndex
-                              )
-                            }
-                            readOnly={!isEditing}
-                          />
-                        </div>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={subject.videoLink}
+                          placeholder="Text"
+                          style={{
+                            fontSize: "16px",
+                            fontWeight: "500",
+                            height: "48px",
+                            borderRadius: "13px",
+                          }}
+                          onChange={(e) =>
+                            handleChapterInputChange(
+                              "videoLink",
+                              e.target.value,
+                              chapterIndex,
+                              subjectIndex
+                            )
+                          }
+                          readOnly={!isEditing}
+                        />
+                      </div>
 
-                        <div>
-                        <label htmlFor="" className="mb-2" style={{fontSize:"16px", fontWeight:"600"}}>
+                      <div>
+                        <label
+                          htmlFor=""
+                          className="mb-2"
+                          style={{ fontSize: "16px", fontWeight: "600" }}
+                        >
                           Tipe Subject
                         </label>
                         <div className="d-flex">
@@ -625,7 +648,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                 </div>
               )}
               <hr style={{ marginTop: "2em" }} />
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between gap-4">
                 <button
                   onClick={() => showSubjectDetail(chapterIndex)}
                   className="btn my-1"
@@ -640,7 +663,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                   Detail Subject
                 </button>
                 <button
-                  className="btn my-1"
+                  className="btn my-1 d-flex align-items-center"
                   style={{
                     borderRadius: "25px",
                     backgroundColor: "#73CA5C",
@@ -650,7 +673,10 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                   }}
                   onClick={() => addSubject(chapterIndex)}
                 >
-                  Tambah Subject
+                  <span className="mx-2 p-0">
+                    <CiCirclePlus />
+                  </span>
+                  <p className="p-0 mb-0 mt-1">Subject</p>
                 </button>
               </div>
             </div>
@@ -671,10 +697,14 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
         Tambah Chapter
       </button>
       <div className="d-flex justify-content-end">
-      <button
+        <button
           onClick={toggleEdit}
           className="btn my-4 fw-bold text-light"
-          style={{ borderRadius:"25px", marginRight: "1em", backgroundColor: `var(--allert-red)` }}
+          style={{
+            borderRadius: "25px",
+            marginRight: "1em",
+            backgroundColor: `var(--allert-red)`,
+          }}
         >
           {isEditing ? "Batal Ubah" : "Ubah"}
         </button>
@@ -682,7 +712,10 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
           <button
             onClick={handleUpdate}
             className="btn text-light my-4 fw-bold"
-            style={{ borderRadius:"25px", backgroundColor: `var(--primary-purple)` }}
+            style={{
+              borderRadius: "25px",
+              backgroundColor: `var(--primary-purple)`,
+            }}
           >
             Simpan
           </button>

@@ -26,11 +26,11 @@ function ManageClassAdmin({ filter }) {
   }, []);
 
   const filterCourses = () => {
-    if(filter === "kelas-premium"){
-      return courses.filter((course) => course.type === "PREMIUM")
-    }else if(filter === "kelas-gratis"){
-      return courses.filter((course) => course.type === "GRATIS")
-    }else{
+    if (filter === "kelas-premium") {
+      return courses.filter((course) => course.type === "PREMIUM");
+    } else if (filter === "kelas-gratis") {
+      return courses.filter((course) => course.type === "GRATIS");
+    } else {
       return courses;
     }
   };
@@ -47,17 +47,6 @@ function ManageClassAdmin({ filter }) {
   }
   const filteredCourses = filterCourses();
 
-  if (error) {
-    return (
-      <p
-        style={{ color: `var(--primary-purple)`, fontWeight: "700" }}
-        className="text-center"
-      >
-        {error}
-      </p>
-    );
-  }
-
   if (!filteredCourses || filteredCourses.length === 0) {
     return (
       <p
@@ -68,7 +57,6 @@ function ManageClassAdmin({ filter }) {
       </p>
     );
   }
-
 
   const data = filteredCourses.map((course) => ({
     Kode_Kelas: course.courseCode,
@@ -81,7 +69,7 @@ function ManageClassAdmin({ filter }) {
 
   return (
     <>
-      {/* <div
+      <div
         className="col-5"
         style={{
           marginTop: "-50px",
@@ -100,7 +88,16 @@ function ManageClassAdmin({ filter }) {
         >
           Kelola Kelas
         </h4>
-      </div> */}
+      </div>
+      <style>{`
+      @media (max-width: 920px) {
+        h4{
+          display: none;
+        }
+        .col-5{
+        }
+      }
+      `}</style>
       <TableAdmin
         data={data}
         coloredColumn={{

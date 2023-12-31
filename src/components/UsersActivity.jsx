@@ -147,7 +147,7 @@ const UsersActivity = () => {
           }
           .title-aktif {
             display : flex;
-            justify-content : center;
+            // justify-content : center;
             font-size: 0.8rem;
           }
         }

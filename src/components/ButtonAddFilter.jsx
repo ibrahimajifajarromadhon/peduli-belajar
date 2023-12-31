@@ -70,9 +70,6 @@ function ButtonAddFilter() {
           position: relative;
         }
         @media (max-width: 767px) {
-          .d-lg-flex {
-            display: block !important;
-          }
           .form-select {
             width: 100%;
           }

@@ -55,7 +55,6 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
         const progressMatch =
           progressButton === "all" ||
           (progressButton === "in_progress" &&
-            course.percentProgress > 0 &&
             course.percentProgress < 100) ||
           (progressButton === "done" && course.percentProgress === 100);
 
