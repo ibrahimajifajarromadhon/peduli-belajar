@@ -64,7 +64,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
   };
 
   return (
-    <div className="table-responsive px-1 mx-2 my-1" style={{paddingTop:"2em"}}>
+    <div className="table-responsive px-1 py-2 mx-2 my-1" style={{paddingTop:"2em"}}>
       {isSmallScreen ? (
         <div
           className="accordion"

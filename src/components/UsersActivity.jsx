@@ -39,7 +39,7 @@ const UsersActivity = () => {
   };
 
   return (
-    <div className="activity-container py-4">
+    <div className="activity-container">
       <Card style={{ ...cardStyle, backgroundColor: "var(--primary-blue)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
         <div className="d-flex flex-row">
           <div className="d-flex align-items-center">
@@ -112,7 +112,7 @@ const UsersActivity = () => {
         .activity-container {
           display: flex;
           justify-content: space-between;
-          padding: 24px;
+          padding:  20px 24px 0px  24px;
           gap: 1em;
         }
 
@@ -147,10 +147,9 @@ const UsersActivity = () => {
           }
           .title-aktif {
             display : flex;
-            // justify-content : center;
             font-size: 0.8rem;
           }
-        }
+        }        
       `}</style>
     </div>
   );
