@@ -102,6 +102,37 @@ function ModalAddClass() {
 
   const handleSubmit = async () => {
     try {
+      if (!classData.title || !classData.category.categoryName || !classData.courseCode || !classData.type || !classData.level || !classData.telegramLink || !classData.description) {
+        toast.error("Pastikan semua data terisi dengan benar!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
+        return;
+      }
+  
+      for (const chapter of classData.chapter) {
+        if (!chapter.chapterTitle || chapter.subject.length === 0) {
+          toast.error("Pastikan semua chapter dan subject terisi dengan benar!", {
+            style: {
+              fontFamily: 'Montserrat'
+            },
+          });
+          return;
+        }
+        
+        for (const subject of chapter.subject) {
+          if (!subject.videoTitle || !subject.videoLink || !subject.subjectType) {
+            toast.error("Pastikan semua data subject terisi dengan benar!", {
+              style: {
+                fontFamily: 'Montserrat'
+              },
+            });
+            return;
+          }
+        }
+      }
+      
       await createClass(classData);
       toast.success("Berhasil tambah data course!", {
         style: {
@@ -109,7 +140,6 @@ function ModalAddClass() {
         },
       });
       setIsModalOpen(false);
-      window.location.reload();
     } catch (error) {
       toast.error("Pastikan data yang diinputkan benar!", error.message, {
         style: {
@@ -508,6 +538,7 @@ function ModalAddClass() {
                     className="btn rounded-pill text-light"
                     style={{ backgroundColor: `var(--primary-purple)`, color: "#fff", fontFamily:"Montserrat", fontWeight:"700" }}
                     onClick={handleSubmit}
+                    data-bs-dismiss="modal"
                   >
                     Simpan
                   </button>

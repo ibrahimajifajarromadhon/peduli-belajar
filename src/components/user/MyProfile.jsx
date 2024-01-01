@@ -88,7 +88,7 @@ function MyProfile() {
   
   
   return (
-    <form onSubmit={onSubmit} className="register w-50 p-3 d-flex flex-column justify-content-center w-100">
+    <form onSubmit={onSubmit} className="register w-50 d-flex flex-column justify-content-center w-100" style={{padding:"0px 25px 0px 25px"}}>
       <div className="d-flex align-items-center justify-content-center mb-3">
         <div style={{ position: 'relative' }}>
           <input
@@ -132,7 +132,7 @@ function MyProfile() {
         <input 
           disabled={!isLoading.toString()}
           type="text"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="name"
           placeholder="Masukan Nama"
           value={fullName}           
@@ -147,7 +147,7 @@ function MyProfile() {
         <input
           disabled={isLoading.toString()}  
           type="email"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="email"
           placeholder="Masukan Email"
           value={email}
@@ -160,7 +160,7 @@ function MyProfile() {
         <input
           disabled={!isLoading.toString()}
           type="number"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="phone"
           placeholder="Masukkan Nomor Telepon"
           value={noTelp}
@@ -177,7 +177,7 @@ function MyProfile() {
         <input
           disabled={!isLoading.toString()}
           type="text"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="country"
           placeholder="Masukkan Negara"
           value={country}
@@ -185,14 +185,14 @@ function MyProfile() {
 
         />
       </div>
-      <div className="mb-3">
+      <div className="mb-2">
         <label htmlFor="formGroupExampleInput4" className="form-label">
           Kota
         </label>
         <input
           disabled={!isLoading.toString()}
           type="text"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="city"
           placeholder="Masukkan Kota "
           value={city}
@@ -205,16 +205,17 @@ function MyProfile() {
         <button
           disabled={!isLoading.toString()}
           type="submit" 
-          className="btn rounded-4 text-light"
-          style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontWeight:"700" }}
+          className="btn rounded-5 text-light"
+          style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontWeight:"700", height:"48px" }}
         >
           Simpan Profil Saya
         </button>
       </div>
       <style>{`
         input {
-          height: 48px
+          height: 48px;
         }
+
         label {
           font-weight: 600
         }

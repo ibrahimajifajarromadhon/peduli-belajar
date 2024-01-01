@@ -38,7 +38,7 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
         return progresCourse;
       } else if (progressButton === "in_progress") {
         return progresCourse.filter(
-          (course) => course.percentProgress > 0 && course.percentProgress < 100
+          (course) => course.percentProgress < 100
         );
       } else if (progressButton === "done") {
         return progresCourse.filter((course) => course.percentProgress === 100);

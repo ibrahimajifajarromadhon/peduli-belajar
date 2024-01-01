@@ -20,7 +20,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
         const response = await getDetailCourse(courseCode);
         setDetail(response);
       } catch (error) {
-        console.log("error fetch data", error.message);
+        console.log("Error fetch data", error.message);
         throw error;
       }
     };
@@ -42,6 +42,8 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
       description: detail.data.description,
       telegramLink: detail.data.telegramLink,
     };
+
+    console.log(updatedClass)
 
     promises.push(updateCourse(courseCode, updatedClass));
 
@@ -106,6 +108,8 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
           },
         });
       });
+      console.log(updatedChapters)
+
   };
 
   const handleInputChange = (field, value) => {

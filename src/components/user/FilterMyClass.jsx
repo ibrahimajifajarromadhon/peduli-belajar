@@ -53,11 +53,9 @@ function FilterMyClass({ onFilter }) {
     setSelectedFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
       if (checked) {
-        // updatedFilters[filterType] = [...new Set([...prevFilters[filterType], ...value])];
         updatedFilters[filterType] = [...prevFilters[filterType], value];
       } 
       else {
-        // updatedFilters[filterType] = prevFilters[filterType].filter((item) => !value.includes(item));
         updatedFilters[filterType] = prevFilters[filterType].filter((item) => value !== item);
      }
       return updatedFilters;

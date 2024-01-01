@@ -142,7 +142,7 @@ function Header() {
                     aria-expanded="false"
                     style={{ color: "white" }}
                   >
-                    <FaChalkboardTeacher className="icon" />
+                    <FaChalkboardTeacher className="icon" style={{width:"20px", height:"20px"}} />
                   </Link>
                   <ul
                     className="dropdown-menu"
@@ -152,7 +152,7 @@ function Header() {
                       <Link
                         to={`/myClass`}
                         className="dropdown-item"
-                        style={{ color: "white" }}
+                        style={{ color: "white", fontWeight:"600" }}
                       >
                         My Class
                       </Link>
@@ -161,7 +161,7 @@ function Header() {
                       <Link
                         to={`/allCourseClass`}
                         className="dropdown-item"
-                        style={{ color: "white" }}
+                        style={{ color: "white", fontWeight:"600" }}
                       >
                         All Course Class
                       </Link>
@@ -170,7 +170,7 @@ function Header() {
                 </div>
 
                 <Link to={`/notification`} style={{ color: "white" }}>
-                  <FaBell className="icon me-4" />
+                  <FaBell className="icon me-4" style={{width:"20px", height:"20px"}} />
                 </Link>
                 <Link to={`/userProfile`} style={{ color: "white" }}>
                   {profilePicture && (
@@ -180,7 +180,6 @@ function Header() {
                         height: "3em",
                         borderRadius: "50%",
                         overflow: "hidden",
-                        border: "2px solid #fff",
                         backgroundColor: "#fff",
                       }}
                     >

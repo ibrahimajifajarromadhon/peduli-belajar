@@ -18,7 +18,7 @@ const updateCourse = async (courseCode, updateData) => {
     );
     return response.data
   } catch (error) {
-    console.log("error update coursse", error.message);
+    console.log("Error update course", error.message);
     throw error;
   }
 };

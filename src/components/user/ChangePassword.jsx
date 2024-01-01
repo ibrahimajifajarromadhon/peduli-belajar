@@ -66,12 +66,13 @@ function ChangePassword() {
 
   return (
     <div
-      className="register w-50 p-3 d-flex flex-column justify-content-center w-100"
+      className="register w-50 d-flex flex-column justify-content-center w-100"
       style={{
         fontFamily: "Poppins",
         fontSize: "14px",
         fontWeight: "600",
         textAlign: "left",
+        padding:"0px 25px 0px 25px",
       }}
     >
       <h3
@@ -93,7 +94,7 @@ function ChangePassword() {
         </label>
         <input
             type={oldPassword ? "text" : "password"}
-            className="form-control rounded-3"
+            className="form-control rounded-4"
             id="formGroupExampleInput1"
             placeholder="**********"
             value={passwordOld}
@@ -120,7 +121,7 @@ function ChangePassword() {
         </label>
         <input
             type={newPassword ? "text" : "password"}
-            className="form-control rounded-3"
+            className="form-control rounded-4"
             id="formGroupExampleInput2"
             placeholder="**********"
             value={passwordNew}
@@ -147,7 +148,7 @@ function ChangePassword() {
         </label>
         <input
             type={confirmPassword ? "text" : "password"}
-            className="form-control rounded-3"
+            className="form-control rounded-4"
             id="formGroupExampleInput3"
             placeholder="**********"
             value={passwordConfirm}
@@ -170,12 +171,8 @@ function ChangePassword() {
       </div>
       <br />
       <button
-        className="btn rounded-4 text-light"
-        style={{
-          backgroundColor: `var(--primary-purple)`,
-          width: "100%",
-          fontWeight: "700",
-        }}
+        className="btn rounded-5 text-light"
+        style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontWeight:"700", height:"48px" }}
         onClick={handleUpdatePassword}
       >
         Ubah Password

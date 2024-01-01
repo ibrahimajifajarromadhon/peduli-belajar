@@ -316,7 +316,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                               <button
                                 style={{
                                   backgroundColor: `var(--primary-purple)`,
-                                  marginBottom: "",
+                                  padding:"8px 20px 8px 20px"
                                 }}
                                 className="btn rounded-pill text-light"
                                 type="button"
@@ -332,6 +332,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                                 onClick={() => handleDelete(aData.Kode_Kelas)}
                                 style={{
                                   backgroundColor: `var(--allert-red)`,
+                                  padding:"8px 18px 8px 18px"
                                 }}
                                 className="btn text-light rounded-pill mx-2"
                               >
