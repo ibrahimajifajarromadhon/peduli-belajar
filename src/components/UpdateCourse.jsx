@@ -99,7 +99,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
         ...prevDetail,
         data: {
           ...prevDetail.data,
-          [field]: value,
+          [field]: field === "category" ? { categoryName: value } : value,
         },
       }));
     }
