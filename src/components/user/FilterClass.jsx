@@ -80,13 +80,13 @@ function FilterClass({ onFilter }) {
 
   return (
     <>
-      <div className="filter-bottom" >
+      <div className="filter-bottom">
         <div
           className="offcanvas offcanvas-bottom"
           tabIndex="-1"
           id="offcanvasBottom"
           aria-labelledby="offcanvasBottomLabel"
-          style={{ height: "550px", borderRadius: "25px 25px 0px 0px" }}
+          style={{ height: "550px", borderRadius: "25px 25px 0px 0px", fontFamily:"Montserrat" }}
         >
           <div className="offcanvas-header">
             <h5 className="offcanvas-title" id="offcanvasBottomLabel"></h5>
@@ -318,9 +318,11 @@ function FilterClass({ onFilter }) {
                 className="btn btn-light"
                 style={{
                   backgroundColor: "#6148FF",
-                  color: "white",
-                  borderRadius: "20px",
-                  width: "50%",
+                  color: "#fff",
+                  borderRadius: "25px",
+                  width: "275px",
+                  height: "48px",
+                  fontWeight: "600",
                 }}
                 onClick={applyFilter}
               >
@@ -328,11 +330,12 @@ function FilterClass({ onFilter }) {
               </button>
             </div>
             <p
-              className="p text-center text-danger mt-3"
-              onClick={clearFilters}
-            >
-              Hapus Filter
-            </p>
+                className="text-center mt-3"
+                style={{ color: "#FF0000", fontWeight: "600", cursor: "pointer" }}
+                onClick={clearFilters}
+              >
+                Hapus Filter
+              </p>
           </div>
         </div>
       </div>
@@ -574,32 +577,38 @@ function FilterClass({ onFilter }) {
 
         <style>
           {`
-        .filter-bottom {
-          display: none;
-        }
-
-        .form-check-input {
-          height: 25px;
-          width: 25px;
-        }
-
-        .form-check {
-          margin-top: 10px;
-        }
-
-        .label-filter {
-          margin-left: 10px;
-        }
-
-        @media (max-width: 576px) {
-          .filter {
-            display: none;
+          .card-title {
+            font-weight: 700;
           }
 
           .filter-bottom {
-            display: block;
+            display: none;
           }
-        }`}
+
+          .form-check-input {
+            height: 25px;
+            width: 25px;
+          }
+
+          .form-check {
+            margin-top: 10px;
+          }
+
+          .label-filter {
+            margin-left: 10px;
+            font-weight: 500;
+          }
+
+          @media (max-width: 576px) {
+            .filter {
+              display: none;
+            }
+
+            .filter-bottom {
+              display: block;
+            }
+          }`
+        }
         </style>
       </div>
     </>

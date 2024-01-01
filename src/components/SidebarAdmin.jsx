@@ -17,7 +17,8 @@ function SidebarAdmin() {
     if (Cookies.get("token")) {
       setIsLoggedIn(true);
     }
-  });
+  },[]);
+  
   return (
     <>
       <div
@@ -26,7 +27,7 @@ function SidebarAdmin() {
       >
         <NavLink
           to="dashboard"
-          className="d-flex align-items-center  text-white text-decoration-none sidebar"
+          className="d-flex align-items-center text-white text-decoration-none sidebar"
         >
           <span className="image fs-2 d-flex justify-content-start">
             <img src={LogoImage} style={{width:"3.5rem"}} />
@@ -34,7 +35,7 @@ function SidebarAdmin() {
           <span className="logo mx-2 my-3">Peduli Belajar</span>
         </NavLink>
         <br />
-        <ul className="nav nav-pills flex-column mb-auto sidebar-item mt-1">
+        <ul className="nav nav-pills flex-column sidebar-item mt-1">
           <li className="nav-item py-1">
             <NavLink
               to={`/admin/dashboard`}
@@ -62,7 +63,11 @@ function SidebarAdmin() {
               onClick={() => {
                 Cookies.remove("token");
                 setIsLoggedIn(false);
-                toast.success("Logout berhasil!");
+                toast.success("Logout berhasil!", {
+                  style: {
+                    fontFamily: 'Montserrat'
+                  },
+                });
                 return navigate("/");
               }}
             >
@@ -138,7 +143,11 @@ function SidebarAdmin() {
                   onClick={() => {
                     Cookies.remove("token");
                     setIsLoggedIn(false);
-                    toast.success("Logout berhasil!");
+                    toast.success("Logout berhasil!", {
+                      style: {
+                        fontFamily: 'Montserrat'
+                      },
+                    });
                     return navigate("/");
                   }}
                 >

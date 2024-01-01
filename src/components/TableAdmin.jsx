@@ -43,9 +43,8 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const handleDelete = async (classCode) => {
     try {
       await deleteCourse(classCode);
-      toast.success("Berhasil Menghapus Kelas")
     } catch (error) {
-      toast.error("Gagal Menghapus Kelas")
+      console.log(error);
       throw error;
     }
   };
@@ -55,7 +54,11 @@ const TableAdmin = ({ data, coloredColumn }) => {
       setShowModal(true);
       setPassCode(uniqCode);
     } catch (error) {
-      toast.error("Gagal Mendapatkan Data")
+      toast.error("Gagal Mendapatkan Data Course!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 
@@ -69,7 +72,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
         <div
           className="accordion"
           id="accordionExample"
-          style={{ marginTop: "10px" }}
+          style={{ marginTop: "20px" }}
         >
           {data.map((aData, index) => (
             <div className="accordion-item" key={index}>
@@ -336,6 +339,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                               <button
                                 style={{
                                   backgroundColor: `var(--primary-purple)`,
+                                  padding:"8px 20px 8px 20px"
                                 }}
                                 className="btn rounded-pill text-light"
                                 type="button"
@@ -351,6 +355,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                                 onClick={() => handleDelete(aData.Kode_Kelas)}
                                 style={{
                                   backgroundColor: `var(--allert-red)`,
+                                  padding:"8px 18px 8px 18px"
                                 }}
                                 className="btn text-light rounded-pill mx-2"
                               >
@@ -365,7 +370,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                 ))}
               </tbody>
             </table>
-            <div className="pagination-buttons justify-content-center text-light">
+            <div className="d-flex pagination-buttons justify-content-center align-content-center text-light">
               <button
                 className="btn mx-1 rounded-pill"
                 style={{backgroundColor:`var(--primary-purple)`}}

@@ -60,9 +60,14 @@ const BayarCourse = () => {
 
           setOrderDetails(updatedOrderDetails);
         } else {
-          toast.error("Gagal fetching order course!");
+          toast.error("Gagal fetching order course!", {
+            style: {
+              fontFamily: 'Montserrat'
+            },
+          });
         }
       } catch (error) {
+        console.log(error);
         throw error;
       }
     };
@@ -96,15 +101,27 @@ const BayarCourse = () => {
       const responseData = await response.json();
       
       if (response.ok) {
-        toast.success("Pembayaran berhasil!");
+        toast.success("Pembayaran berhasil!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
         navigate(`/successBayarCourse`, {
           state: { courseCode: courseData?.courseCode },
         });
       } else {
-        toast.error("Gagal melakukan pembayaran!");
+        toast.error("Gagal melakukan pembayaran!", {
+          style: {
+            fontFamily: 'Montserrat'
+          },
+        });
       }
     } catch (error) {
-      toast.error("Gagal melakukan pembayaran!");
+      toast.error("Gagal melakukan pembayaran!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 
@@ -132,7 +149,7 @@ const BayarCourse = () => {
         </div>
         <div className="d-flex justify-content-center batas">
           <button className="button">
-            Selesaikan Pembayaran sampai 31 Desember 2023 12:00
+            Selesaikan Pembayaran sampai 5 Januari 2024 12:00
           </button>
         </div>
       </div>
@@ -207,22 +224,6 @@ const BayarCourse = () => {
                           readOnly
                         />
                       </div>
-                      {/* <div className="text-end">
-                        <button
-                          type="button"
-                          className="btn btn-pay"
-                          style={{
-                            textDecoration: "none",
-                            fontFamily: "Poppins",
-                            fontSize: "18px",
-                            padding: "10px",
-                            fontWeight: "500",
-                          }}
-                        >
-                          <BiSolidDollarCircle style={{ marginRight: "5px" }} />
-                          Bayar
-                        </button>
-                      </div> */}
                     </form>
                   </div>
                 </div>
@@ -306,22 +307,6 @@ const BayarCourse = () => {
                           />
                         </div>
                       </div>
-                      {/* <div className="text-end">
-                        <button
-                          type="button"
-                          className="btn btn-pay"
-                          style={{
-                            textDecoration: "none",
-                            fontFamily: "Poppins",
-                            fontSize: "18px",
-                            padding: "10px",
-                            fontWeight: "500",
-                          }}
-                        >
-                          <BiSolidDollarCircle style={{ marginRight: "5px" }} />
-                          Bayar
-                        </button>
-                      </div> */}
                     </form>
                   </div>
                 </div>
@@ -342,19 +327,20 @@ const BayarCourse = () => {
               {orderDetails && orderDetails.category && (
                 <Col>
                   <Card
-                    className="d-flex align-items-center justify-content-center"
                     style={{ borderRadius: "25px", marginTop: "15px" }}
                   >
-                    <Card.Img
-                      variant="top"
-                      src={orderDetails.category?.categoryImage || ""}
-                      style={{
-                        marginTop: "15px",
-                        padding: "0px",
-                        width: "35%",
-                        height: "45%",
-                      }}
-                    />
+                    <div className="d-flex align-items-center justify-content-center">
+                      <Card.Img
+                        variant="top"
+                        src={orderDetails.category?.categoryImage || ""}
+                        style={{
+                          marginTop: "15px",
+                          padding: "0px",
+                          width: "35%",
+                          height: "45%",
+                        }}
+                      />
+                    </div>
                     <Card.Body>
                       <div className="d-flex">
                         <a
@@ -490,7 +476,7 @@ const BayarCourse = () => {
                 font-weight: 600;
                 margin-top: 20px;
                 margin-bottom: 20px;
-                width: 85%;
+                width: 30em;
             }
 
             .accordion-item {
@@ -536,13 +522,9 @@ const BayarCourse = () => {
               font-weight: 600;
               padding: 0px;
               margin: 0px;
-font-family: Poppins;
-font-size: 14px;
-font-weight: 500;
-line-height: 20px;
-letter-spacing: 0em;
-text-align: left;
-
+              font-family: Poppins;
+              font-size: 14px;
+              text-align: left;
             }
     
             .form-group1 input[type="text"], .form-group input[type="text"] {

@@ -4,8 +4,6 @@ import { RiShieldStarLine } from "react-icons/ri";
 import { RiBook3Line } from "react-icons/ri";
 import { RiTimeFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
-import Image from  "../../assets/meme.webp"
-import Gambar from "../../assets/empty.png"
 import getMyCourse from "../../api/getMyCourse";
 
 const ListMyCourse = ({ progressButton, listMyCourse }) => {
@@ -20,6 +18,7 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
         const response = await getMyCourse();
         setProgresCourse(response);
       } catch (error) {
+        console.log("Error", error.message);
         throw error;
       }
     };
@@ -40,7 +39,7 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
         return progresCourse;
       } else if (progressButton === "in_progress") {
         return progresCourse.filter(
-          (course) =>  course.percentProgress < 100
+          (course) => course.percentProgress < 100
         );
       } else if (progressButton === "done") {
         return progresCourse.filter((course) => course.percentProgress === 100);
@@ -77,8 +76,6 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
       {filteredCourses.length === 0 ? (
         <div className="d-flex flex-column justify-content-center w-100 h-100">
           <i>
-            <img src={Image} alt="" className="fluid-image w-100 opacity-50 rounded-5"/>
-            {/* <img src={Gambar} alt="" className="fluid-image w-50 rounded-5" style={{opacity:"0.2"}}/> */}
             <p style={{ fontFamily: "Montserrat", fontWeight: "600" }}>
               No search results found.
             </p>

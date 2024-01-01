@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaBell, FaChalkboardTeacher, FaUser } from "react-icons/fa";
+import { FaBell, FaChalkboardTeacher } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
 import Cookies from "js-cookie";
-import { toast } from "react-hot-toast";
 import SearchIcon from "../../assets/bx_search-alt.svg";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,12 +13,30 @@ function Header() {
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
   const location = useLocation();
+  const [profilePicture, setProfilePicture] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     if (Cookies.get("token")) {
       setIsLoggedIn(true);
     }
+    axios
+      .get(`${import.meta.env.VITE_API}/api/user`, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      })
+      .then((response) => {
+        setProfilePicture(response.data.data.profilePictureUrl);
+      })
+      .catch((error) => {
+        console.error("Terjadi kesalahan:", error);
+      });
   }, []);
+
+  useEffect(() => {
+    setShowMenu(false);
+  }, [location.pathname]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,10 +86,11 @@ function Header() {
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          onClick={() => setShowMenu(!showMenu)}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className={`collapse navbar-collapse ${showMenu ? 'show' : ''}`} id="navbarSupportedContent">
           <form
             className="search-class d-flex"
             role="search"
@@ -123,7 +142,7 @@ function Header() {
                     aria-expanded="false"
                     style={{ color: "white" }}
                   >
-                    <FaChalkboardTeacher className="icon" />
+                    <FaChalkboardTeacher className="icon" style={{width:"20px", height:"20px"}} />
                   </Link>
                   <ul
                     className="dropdown-menu"
@@ -133,7 +152,7 @@ function Header() {
                       <Link
                         to={`/myClass`}
                         className="dropdown-item"
-                        style={{ color: "white" }}
+                        style={{ color: "white", fontWeight:"600" }}
                       >
                         My Class
                       </Link>
@@ -142,7 +161,7 @@ function Header() {
                       <Link
                         to={`/allCourseClass`}
                         className="dropdown-item"
-                        style={{ color: "white" }}
+                        style={{ color: "white", fontWeight:"600" }}
                       >
                         All Course Class
                       </Link>
@@ -151,28 +170,27 @@ function Header() {
                 </div>
 
                 <Link to={`/notification`} style={{ color: "white" }}>
-                  <FaBell className="icon me-4" />
+                  <FaBell className="icon me-4" style={{width:"20px", height:"20px"}} />
                 </Link>
                 <Link to={`/userProfile`} style={{ color: "white" }}>
-                  <FaUser className="icon ms-2" />
+                  {profilePicture && (
+                    <div
+                      style={{
+                        width: "3em",
+                        height: "3em",
+                        borderRadius: "50%",
+                        overflow: "hidden",
+                        backgroundColor: "#fff",
+                      }}
+                    >
+                      <img
+                        src={profilePicture}
+                        alt="Profile"
+                        style={{ width: "100%", height: "100%" }}
+                      />
+                    </div>
+                  )}
                 </Link>
-                {/* <button
-                  className="btn btn-transparant me-3"
-                  style={{
-                    color: "white",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                    marginTop: "5px",
-                  }}
-                  onClick={() => {
-                    Cookies.remove("token");
-                    setIsLoggedIn(false);
-                    toast.success("Logout berhasil!");
-                    return navigate("/");
-                  }}
-                >
-                  <MdOutlineLogin style={{ marginRight: "1px" }} /> Keluar{" "}
-                </button> */}
               </div>
             ) : (
               <Link to={`/login`}>
@@ -202,6 +220,11 @@ function Header() {
 
         .search-class .form-control {
           width: auto;
+        }
+
+        .search-class {
+          margin-top: 10px;
+          margin-bottom: 10px;
         }
 
         .search-icon {

@@ -11,6 +11,7 @@ function MyProfile() {
   const [country, setCountry] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [email, setEmail] = useState("");
+  const [newProfilePicture, setNewProfilePicture] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,13 +48,8 @@ function MyProfile() {
       formData.append('noTelp', noTelp);
       formData.append('city', city);
       formData.append('country', country);
-      if (profilePicture instanceof File) {
-        formData.append('profilePicture', profilePicture);
-      } else if (typeof profilePicture === 'string') {
-        const response = await fetch(profilePicture);
-        const blob = await response.blob();
-        const file = new File([blob], 'profile_picture.jpg', { type: 'image/jpeg' });
-        formData.append('profilePicture', file);
+      if (newProfilePicture) {
+        formData.append('profilePicture', newProfilePicture);
       }
 
       const response = await fetch(`${import.meta.env.VITE_API}/api/user/edit-profile`, {
@@ -65,21 +61,34 @@ function MyProfile() {
       });
   
       const responseData = await response.json();
-      toast.success('Data profil berhasil disimpan!')
+      toast.success('Data profil berhasil disimpan!', {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     } catch (error) {
-      toast.error('Data profil gagal disimpan!')
+      toast.error('Data profil gagal disimpan!', {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });    
     } finally {
       setIsLoading(false);
+      setNewProfilePicture(null);
     }
   };
+
   const onProfilePictureChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setProfilePicture(URL.createObjectURL(file));
+      setNewProfilePicture(file);
     }
   };
+  
+  
   return (
-    <form onSubmit={onSubmit} className="register w-50 p-3 d-flex flex-column justify-content-center w-100">
+    <form onSubmit={onSubmit} className="register w-50 d-flex flex-column justify-content-center w-100" style={{padding:"0px 25px 0px 25px"}}>
       <div className="d-flex align-items-center justify-content-center mb-3">
         <div style={{ position: 'relative' }}>
           <input
@@ -93,7 +102,7 @@ function MyProfile() {
             <img
               src={foto}
               alt="Upload"
-              style={{ width: '2.2em', height: '2.2em' }}
+              style={{ width: '2.2em', height: '2.2em', border: '3px solid var(--primary-purple)', borderRadius: '50%', }}
             />
           </label>
           {profilePicture && (
@@ -123,7 +132,7 @@ function MyProfile() {
         <input 
           disabled={!isLoading.toString()}
           type="text"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="name"
           placeholder="Masukan Nama"
           value={fullName}           
@@ -138,7 +147,7 @@ function MyProfile() {
         <input
           disabled={isLoading.toString()}  
           type="email"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="email"
           placeholder="Masukan Email"
           value={email}
@@ -151,7 +160,7 @@ function MyProfile() {
         <input
           disabled={!isLoading.toString()}
           type="number"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="phone"
           placeholder="Masukkan Nomor Telepon"
           value={noTelp}
@@ -168,7 +177,7 @@ function MyProfile() {
         <input
           disabled={!isLoading.toString()}
           type="text"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="country"
           placeholder="Masukkan Negara"
           value={country}
@@ -176,14 +185,14 @@ function MyProfile() {
 
         />
       </div>
-      <div className="mb-3">
+      <div className="mb-2">
         <label htmlFor="formGroupExampleInput4" className="form-label">
           Kota
         </label>
         <input
           disabled={!isLoading.toString()}
           type="text"
-          className="form-control rounded-3"
+          className="form-control rounded-4"
           id="city"
           placeholder="Masukkan Kota "
           value={city}
@@ -196,16 +205,17 @@ function MyProfile() {
         <button
           disabled={!isLoading.toString()}
           type="submit" 
-          className="btn rounded-4 text-light"
-          style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontWeight:"700" }}
+          className="btn rounded-5 text-light"
+          style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontWeight:"700", height:"48px" }}
         >
           Simpan Profil Saya
         </button>
       </div>
       <style>{`
         input {
-          height: 48px
+          height: 48px;
         }
+
         label {
           font-weight: 600
         }

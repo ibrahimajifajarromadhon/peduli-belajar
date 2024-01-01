@@ -13,6 +13,10 @@ function MyClassHomepage() {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setSearchResults();
+  },[]);
+
   const handleFilter = (data) => {
     setFilteredMyClass(data);
   };
@@ -38,23 +42,20 @@ function MyClassHomepage() {
       setSearchResults(data);
       navigate(`/myClass?search=${searchQuery}`);
     } catch (error) {
+      console.log("Error", error.message);
       throw error;
     }
   };
 
-  useEffect(() => {
-    setSearchResults();
-  });
-
   return (
-    <div style={{ backgroundColor: "#EBF3FC", marginTop: "4em" }}>
+    <div style={{ backgroundColor: "#EBF3FC", marginTop: "3em" }}>
       <div className="container">
-        <div className="topic d-flex justify-content-between">
+        <div className="topic">
           <h4
             className="mt-5"
             style={{ fontWeight: "700", fontFamily: "Montserrat" }}
           >
-            Kelas Berjalan{" "}
+            Kelas Berjalan
           </h4>
           <form
             className="search-course d-flex mt-lg-5"
@@ -95,37 +96,37 @@ function MyClassHomepage() {
                 cursor: "pointer",
               }}
             />
-          </form>{" "}
+          </form>
           <button
-            className="btn btn-primary ms-auto mt-5"
+            className="btn btn-primary ms-auto"
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasBottom"
             aria-controls="offcanvasBottom"
+            style={{backgroundColor:"#6148FF", color:"#fff"}}
           >
             {/* <CiFilter setProgressButton={setProgressButton}/> */}
-            <CiFilter />
+            <CiFilter style={{width:"1.7em", height:"1.7em"}}/>
           </button>
         </div>
         <div className="row">
           <div
             className="col-md-4 filter-course"
-            // style={{ marginBottom: "2em" }}
+            style={{ marginBottom: "1em" }}
           >
-            <div className="mt-4 py-0">
+            <div className="">
               <FilterMyClass onFilter={handleFilter} />
             </div>
           </div>
           <div className="col-md-8">
-            <div className="btn-menu d-flex mt-4">
+            <div className="btn-menu d-flex">
               <button
-                className={`btn btn-light me-4 ${
-                  progressButton === "all" ? "active" : ""
+                className={`btn me-4 ${
+                  progressButton === "all" ? "active" : "nonaktive"
                 }`}
                 onClick={() => setProgressButton("all")}
                 style={{
                   width: "20%",
-                  padding: "10px",
                   borderRadius: "15px",
                   fontWeight: "600",
                 }}
@@ -133,13 +134,12 @@ function MyClassHomepage() {
                 All
               </button>
               <button
-                className={`btn btn-light me-4 ${
-                  progressButton === "in_progress" ? "active" : ""
+                className={`btn me-4 ${
+                  progressButton === "in_progress" ? "active" : "nonaktive"
                 }`}
                 onClick={() => setProgressButton("in_progress")}
                 style={{
-                  width: "40%",
-                  padding: "10px",
+                  width: "45%",
                   borderRadius: "15px",
                   fontWeight: "600",
                 }}
@@ -147,13 +147,12 @@ function MyClassHomepage() {
                 In Progress
               </button>
               <button
-                className={`btn btn-light me-4 ${
-                  progressButton === "done" ? "active" : ""
+                className={`btn ${
+                  progressButton === "done" ? "active" : "nonaktive"
                 }`}
                 onClick={() => setProgressButton("done")}
                 style={{
-                  width: "30%",
-                  padding: "10px",
+                  width: "35%",
                   borderRadius: "15px",
                   fontWeight: "600",
                 }}
@@ -173,29 +172,65 @@ function MyClassHomepage() {
 
       <style>
         {`
-      .topic .btn {
-        display: none;
-      }
-
-      .btn-menu .btn.active {
-        background-color: #6148ff;
-        color: white;
-      }
-
-      @media (max-width: 576px) {
-        .topic .form-control {
+        .topic .btn {
           display: none;
         }
 
-        .topic .btn {
-          display: block;
-          height: 10%;
+        .btn-menu .btn.active {
+          background-color: #6148ff;
+          color: white;
+        }
+
+        .btn-menu .btn.nonaktive {
+          background-color: #FFFFFF;
+          color: #8A8A8A;
+        }
+
+        .topic .search-course {
+          margin-top: 3em;
+        }
+
+        .btn-menu {
+          margin-top: 2em;
+        }
+
+        .btn-menu .btn {
+          padding: 10px;
+        }
+
+        .topic {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        @media (max-width: 576px) {
+          .btn-menu .btn {
+            padding: 7px;
+          }
+          
+          .topic .form-control {
+            display: none;
           }
 
-        .search-course .search-icon {
-          display: none;
+          .topic .btn {
+            display: block;
+            height: 10%;
+            margin-top: 30px;
+          }
+          
+          .topic .search-course {
+            margin-top: 0px;
+          }
+          
+          .search-course .search-icon {
+            display: none;
+          }
+
+          .btn-menu {
+            margin-top: 0px;
+          }
         }
-      }
       
       `}
       </style>

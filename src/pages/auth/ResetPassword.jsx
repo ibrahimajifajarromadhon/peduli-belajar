@@ -30,12 +30,20 @@ function ResetPassword() {
 
   const handleResetPassword = async () => {
     if (newPassword.length < 8) {
-      toast.error("Password harus terdiri dari minimal 8 karakter!");
+      toast.error("Password harus terdiri dari minimal 8 karakter!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      toast.error("Password tidak cocok!");
+      toast.error("Password tidak cocok!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
       return;
     }
 
@@ -55,10 +63,18 @@ function ResetPassword() {
       };
 
       await axios.request(config);
-      toast.success("Reset password berhasil!");
+      toast.success("Reset password berhasil!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
       navigate("/login");
     } catch (error) {
-      toast.error("Gagal mereset password. Silakan coba lagi!");
+      toast.error("Gagal reset password. Silakan coba lagi!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 
