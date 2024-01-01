@@ -42,7 +42,7 @@ function MyClassHomepage() {
       setSearchResults(data);
       navigate(`/myClass?search=${searchQuery}`);
     } catch (error) {
-      console.log("Error update course", error.message);
+      console.log("Error", error.message);
       throw error;
     }
   };

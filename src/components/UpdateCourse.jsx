@@ -586,9 +586,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                               type="radio"
                               id="gratisRadio"
                               value="GRATIS"
-                              // checked={subject.subjectType === "GRATIS"}
                               checked={
-                                // isPriceDisabled ||
                                 subject.subjectType === "GRATIS"
                               }
                               onChange={(e) =>
@@ -599,7 +597,6 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                                   subjectIndex
                                 )
                               }
-                              // disabled={!isPriceDisabled}
                             />
                             <label
                               className="form-check-label text-light"
@@ -621,9 +618,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                               type="radio"
                               id="premiumRadio"
                               value="PREMIUM"
-                              // checked={subject.subjectType === "PREMIUM"}
                               checked={
-                                // isPriceDisabled &&
                                 subject.subjectType === "PREMIUM"
                               }
                               onChange={(e) =>
@@ -634,7 +629,6 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
                                   subjectIndex
                                 )
                               }
-                              // disabled={isPriceDisabled}
                             />
                             <label
                               className="form-check-label text-light"
@@ -718,6 +712,7 @@ function UpdateCourse({ courseCode, handleCloseModal }) {
               borderRadius: "25px",
               backgroundColor: `var(--primary-purple)`,
             }}
+            data-bs-dismiss="modal"
           >
             Simpan
           </button>

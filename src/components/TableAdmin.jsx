@@ -43,9 +43,8 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const handleDelete = async (classCode) => {
     try {
       await deleteCourse(classCode);
-      toast.success("Berhasil Menghapus Kelas")
     } catch (error) {
-      toast.error("Gagal Menghapus Kelas")
+      console.log(error);
       throw error;
     }
   };
@@ -55,7 +54,11 @@ const TableAdmin = ({ data, coloredColumn }) => {
       setShowModal(true);
       setPassCode(uniqCode);
     } catch (error) {
-      toast.error("Gagal Mendapatkan Data")
+      toast.error("Gagal Mendapatkan Data Course!", {
+        style: {
+          fontFamily: 'Montserrat'
+        },
+      });
     }
   };
 

@@ -20,7 +20,7 @@ const ListMyCourse = ({ progressButton, listMyCourse }) => {
         const response = await getMyCourse();
         setProgresCourse(response);
       } catch (error) {
-        console.log("Error update course", error.message);
+        console.log("Error", error.message);
         throw error;
       }
     };
