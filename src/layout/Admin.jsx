@@ -21,12 +21,12 @@ function Admin() {
   }, []);
 
   const renderSmallScreen = () => (
-    <div className="d-flex flex-column vw-100 vh-100">
+    <div className="d-flex flex-column vw-100 vh-100 overflow-auto">
       <NavbarAdmin />
       <SidebarAdmin />
       <UsersActivity />
       <ButtonAddFilter />
-      <Outlet />
+      {/* <Outlet /> */}
     </div>
   );
 
@@ -37,7 +37,7 @@ function Admin() {
         <NavbarAdmin />
         <UsersActivity />
         <ButtonAddFilter />
-        <Outlet />
+        {/* <Outlet /> */}
       </div>
     </div>
   );

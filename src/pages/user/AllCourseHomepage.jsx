@@ -27,7 +27,7 @@ const AllCourseHomepage = () => {
       setSearchResults(data);
       navigate(`/allCourseClass?search=${searchQuery}`);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      throw error;
     }
   };
   

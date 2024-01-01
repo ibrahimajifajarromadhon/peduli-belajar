@@ -14,7 +14,7 @@ const totalClass = async () => {
     );
     return response.data;
   } catch (error) {
-    console.log("gagal mengambil api", error.message);
+    throw error;
   }
 };
 

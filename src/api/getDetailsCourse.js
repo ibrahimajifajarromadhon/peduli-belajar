@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 const token = Cookies.get("token");
 const header = {
     Authorization: `Bearer ${token}`,
-  'Content-Type': 'application/json',
 } 
 
 const getDetailCourse = async (courseCode) => {
@@ -14,7 +13,6 @@ const getDetailCourse = async (courseCode) => {
         });
         return response.data
     }catch(error){
-        console.log("gagal", error.message)
         throw error;
     }
 }

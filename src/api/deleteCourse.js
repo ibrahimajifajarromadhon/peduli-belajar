@@ -16,7 +16,6 @@ const deleteCourse = async (courseCode) => {
       },
     });
   } catch (error) {
-    console.log("error deleting course", error.message);
     throw error;
   }
 };

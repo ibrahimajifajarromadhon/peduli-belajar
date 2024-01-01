@@ -49,7 +49,7 @@ const DetailCourse = () => {
         );
       })
       .catch((error) => {
-        console.error("Error:", error);
+        throw error;
       });
   }, [courseCode, currentChapterIndex]);
 
@@ -71,7 +71,7 @@ const DetailCourse = () => {
         setProgress(response.data.data.percent);
       })
       .catch((error) => {
-        console.error("Error fetching progress:", error);
+        throw error;
       });
   }, [courseCode, currentChapterIndex]);
 
@@ -184,7 +184,7 @@ const DetailCourse = () => {
               </p>
             </a>
           </Link>
-          <div className="col-7 d-flex" style={{ margin: "0px" }}>
+          <div className="col-lg-7 col-md-7 col-sm-12 col-12 d-flex" style={{ margin: "0px" }}>
             <a
               href="#"
               style={{
@@ -305,7 +305,39 @@ const DetailCourse = () => {
             </button>
             <div className="offcanvas offcanvas-end" id="demo">
               <div className="offcanvas-header">
-                <h1 className="offcanvas-title">Materi Belajar</h1>
+                <h4 className="offcanvas-title">Materi Belajar</h4>                
+                <div className="col-6 d-flex justify-content-center">
+                  <div>
+                    <img
+                      src={Centang}
+                      alt=""
+                      style={{ width: "1.3em", height: "1.2em" }}
+                    />
+                  </div>
+                  <div
+                    className="progress h-75"
+                    role="progressbar"
+                    aria-label="Info example"
+                    aria-valuenow={progress}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    style={{ borderRadius: "25px", marginLeft: "5px" }}
+                  >
+                    <div
+                      className="progress-bar text-white"
+                      style={{
+                        width: progressBarWidth,
+                        fontWeight: "600",
+                        backgroundColor: "#6148FF",
+                        borderRadius: "25px",
+                      }}
+                    >
+                      <div style={{ padding: "0px 20px 0px 20px" }}>
+                        {progress}% complete
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <button
                   type="button"
                   className="btn-close"
@@ -323,11 +355,11 @@ const DetailCourse = () => {
                     boxShadow: "0 0 0 2px whitesmoke",
                   }}
                 >
-                  <div style={{ margin: "15px" }}>
+                  <div style={{ margin: "15px", position: 'relative' }}>
                     <ol style={{ marginLeft: "-15px", marginTop: "18px" }}>
                       {dataCourse.chapter.map((chapter, chapterIndex) => (
                         <React.Fragment key={chapterIndex}>
-                          <p style={{ marginTop: "25px", marginLeft: "-18px" }}>
+                          <p style={{ marginTop: "15px", marginLeft: "-18px" }}>
                             <a
                               href="#"
                               style={{
@@ -349,7 +381,10 @@ const DetailCourse = () => {
                                 style={{
                                   fontWeight: "400",
                                   fontSize: "15px",
-                                  marginBottom: "20px",
+                                  marginBottom: "10px",
+                                  position: "relative",
+                                  maxWidth: "calc(100% - 20px)",
+                                  
                                 }}
                               >
                                 {subject.videoTitle}
@@ -360,6 +395,9 @@ const DetailCourse = () => {
                                       color: "#D9D9D9",
                                       width: "20px",
                                       height: "20px",
+                                      position: "absolute",
+                                      top: 0,
+                                      right: 0,
                                     }}
                                   />
                                 ) : (
@@ -371,6 +409,9 @@ const DetailCourse = () => {
                                         : "#6148FF",
                                       width: "20px",
                                       height: "20px",
+                                      position: "absolute",
+                                      top: 0,
+                                      right: 0,
                                     }}
                                   />
                                 )}
@@ -387,8 +428,19 @@ const DetailCourse = () => {
             </div>
 
             <button
-              className="btn button-materi"
+              className="btn-1"
               type="button"
+              style={{
+                backgroundColor: "#6148FF",
+                borderRadius: "25px",
+                height: "40px",
+                padding: "5px",
+                fontWeight: "700",
+                color: "#fff",
+                width: "100%",
+                marginBottom: "5px",
+                border: 'none'
+              }}
               data-bs-toggle="offcanvas"
               data-bs-target="#demo"
             >
@@ -400,13 +452,14 @@ const DetailCourse = () => {
       <div className="container" style={{ fontFamily: "Montserrat" }}>
         <div className="row">
           <div className="col-md-7 order-md-1">
-            <div className="player-wrapper">
+            <div className="player-wrapper" style={{ position: "relative" }}>
               <ReactPlayer
                 url={VIDEO_PATH}
                 className="player"
                 onEnded={handleVideoEnded}
                 controls
-                style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}
+                width="100%"
+                style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)", top: 0, left: 0 }}
               />
             </div>
             <div style={{ marginTop: "30px", marginBottom: "50px" }}>
@@ -522,6 +575,7 @@ const DetailCourse = () => {
                             fontWeight: "400",
                             fontSize: "15px",
                             marginBottom: "20px",
+                            position: 'relative',
                           }}
                         >
                           {subject.videoTitle}
@@ -532,6 +586,9 @@ const DetailCourse = () => {
                                 color: "#D9D9D9",
                                 width: "20px",
                                 height: "20px",
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
                               }}
                             />
                           ) : (
@@ -541,6 +598,9 @@ const DetailCourse = () => {
                                 color: subject.done ? "#73CA5C" : "#6148FF",
                                 width: "20px",
                                 height: "20px",
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
                               }}
                             />
                           )}
@@ -566,7 +626,7 @@ const DetailCourse = () => {
           {`
             @media (max-width: 768px) {
               .wrapper {
-                height: 500px;
+                height: auto;
               }
 
               .materi {
@@ -581,13 +641,6 @@ const DetailCourse = () => {
                 font-weight: 700;
               }
               
-              .button-materi  {
-                background-color: #6148FF;
-                color: #fff;
-                font-weight: 700;
-                border-radius: 25px;
-              }
-              
               .column-header {
                 width: auto;
               }
@@ -598,7 +651,7 @@ const DetailCourse = () => {
             }
 
             @media (min-width: 769px) {
-              .button-materi {
+              .btn-1 {
                 display: none;
               }
 

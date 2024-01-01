@@ -41,7 +41,7 @@ function FilterMyClass({ onFilter }) {
 
       onFilter(response.data.data.courses);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      throw error;
     }
   };
 

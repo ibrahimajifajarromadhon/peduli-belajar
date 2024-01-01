@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { SiStudyverse } from "react-icons/si";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { AiOutlineProfile } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { BsList } from "react-icons/bs";
 import Cookies from "js-cookie";
-import { toast } from 'react-hot-toast';
+import LogoImage from "../assets/logo.png";
 
 function SidebarAdmin() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect (() => {
-    if (Cookies.get('token')) {
-      setIsLoggedIn(true)
+  useEffect(() => {
+    if (Cookies.get("token")) {
+      setIsLoggedIn(true);
     }
-  })
+  },[]);
+  
   return (
     <>
       <div
-        className="d-lg-flex flex-column flex-shrink-0 p-3 p-4 vh-100 d-none"
+        className="looked d-lg-flex flex-column flex-shrink-0 p-3 p-4 vh-100 "
         style={{ backgroundColor: `var(--primary-purple)`, width: "300px" }}
       >
         <NavLink
@@ -28,7 +30,7 @@ function SidebarAdmin() {
           className="d-flex align-items-center  text-white text-decoration-none sidebar"
         >
           <span className="fs-2 d-flex justify-content-start">
-            <SiStudyverse style={{width:"1.5em", height:"1.5em"}} />
+            <img src={LogoImage} style={{width:"3.5rem"}} />
           </span>
           <span className="fs-4 mx-2 my-3">Peduli Belajar</span>
         </NavLink>
@@ -55,8 +57,11 @@ function SidebarAdmin() {
             </NavLink>
           </li>
           <li className="nav-item rounded py-1">
-          <Link to={`/login`} style={{ color: `var(--primary-purple)`}}onClick={() => {
-                Cookies.remove('token');
+            <Link
+              to={`/login`}
+              style={{ color: `var(--primary-purple)` }}
+              onClick={() => {
+                Cookies.remove("token");
                 setIsLoggedIn(false);
                 toast.success("Logout berhasil!", {
                   style: {
@@ -64,57 +69,97 @@ function SidebarAdmin() {
                   },
                 });
                 return navigate("/");
-              }} >
-            <p href="#" className="nav-link text-white fs-5">
-              <FiLogOut />
-              <span className="mx-3">Log Out</span>
-            </p>
-          </Link>
+              }}
+            >
+              <p href="#" className="nav-link text-white fs-5">
+                <FiLogOut />
+                <span className="mx-3">Log Out</span>
+              </p>
+            </Link>
           </li>
         </ul>
       </div>
 
-      <div className="d-flex flex-row bg-transparant w-100 z-1 p-4 d-lg-none" style={{ top:"0px", left:"0px"}}>
-        <ul className="nav nav-pills mb-auto w-100">
-          <li className="nav-item">
+      <div className="leftBarAdmin">
+        <a
+          className="btn btn-primary my-3 rounded-5"
+          style={{ width: "10%", marginLeft: "-1rem" }}
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#sidebar"
+          aria-controls="sidebar"
+        >
+          <BsList className="text-light" />
+        </a>
+
+        <div
+          className="offcanvas offcanvas-start"
+          tabIndex="-1"
+          id="sidebar"
+          aria-labelledby="sidebarLabel"
+          style={{ backgroundColor: `var(--primary-purple)`, width: "70%" }}
+        >
+          <div className="offcanvas-header">
             <NavLink
               to="dashboard"
-              className="nav-link fs-5 d-flex align-items-center"
-              activeclassname="active"
+              className="d-flex align-items-center text-white text-decoration-none sidebar"
             >
-              <LuLayoutDashboard className="text-dark" />
+              <span className="d-flex justify-content-start"><img src={LogoImage} style={{width:"2.5rem"}} /></span>
+              <span className="mx-2 my-2">Peduli Belajar</span>
             </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink
-              to="class"
-              className="nav-link text-light fs-5 d-flex align-items-center "
-              activeclassname="active"
-            >
-              <AiOutlineProfile className="text-dark" />
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink
-            style={{}}
-              to={`/login`}
-              className="nav-link text-light fs-5 d-flex align-items-center "
-              activeclassname="active"
-              onClick={() => {
-                Cookies.remove('token');
-                setIsLoggedIn(false);
-                toast.success("Logout berhasil!", {
-                  style: {
-                    fontFamily: 'Montserrat'
-                  },
-                });
-                return navigate("/");
-              }} 
-            >
-              <FiLogOut className="text-danger" />
-            </NavLink>
-          </li>
-        </ul>
+            <button
+              type="button"
+              className="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div className="offcanvas-body">
+            <ul className="nav nav-pills flex-column mb-auto sidebar-item mt-1">
+              <li className="nav-item py-1">
+                <NavLink
+                  to={`/admin/dashboard`}
+                  className="nav-link text-light  d-flex align-items-center"
+                  activeClassName="active"
+                >
+                  <LuLayoutDashboard />
+                  <span className="mx-3">Dashboard</span>
+                </NavLink>
+              </li>
+              <li className="nav-item py-1">
+                <NavLink
+                  to="class"
+                  className="nav-link text-light  d-flex align-items-center"
+                  activeClassName="active"
+                >
+                  <AiOutlineProfile />
+                  <span className="mx-3">Kelola Kelas</span>
+                </NavLink>
+              </li>
+              <li className="nav-item rounded py-1">
+                <Link
+                  to={`/login`}
+                  style={{ color: `var(--primary-purple)` }}
+                  onClick={() => {
+                    Cookies.remove("token");
+                    setIsLoggedIn(false);
+                    toast.success("Logout berhasil!", {
+                      style: {
+                        fontFamily: 'Montserrat'
+                      },
+                    });
+                    return navigate("/");
+                  }}
+                >
+                  <p href="#" className="nav-link text-white">
+                    <FiLogOut />
+                    <span className="mx-3">Log Out</span>
+                  </p>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
       <style>{`
       .sidebar {
@@ -128,6 +173,23 @@ function SidebarAdmin() {
         font-size: 16px;
         font-weight: 600;
         text-align: left;
+      }
+
+      #sidebar{
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      @media (max-width: 990px) {
+        .looked{
+          display: none !important;
+        }
+      }
+
+      @media (min-width: 991px) {
+        .leftBarAdmin{
+          display: none !important;
+        }
       }
       `}</style>
     </>

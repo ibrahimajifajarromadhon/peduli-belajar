@@ -18,7 +18,6 @@ const updatedSubject = async (subjectId, subjectData) => {
         );
         return response.data;
     } catch (error) {
-        console.log("error update subject", error.message);
         throw error;
     }
 };

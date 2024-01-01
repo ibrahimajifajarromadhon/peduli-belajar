@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { IoTrash } from "react-icons/io5";
 import deleteCourse from "../api/deleteCourse";
-import Pagination from "react-bootstrap/Pagination";
 import UpdateCourse from "./UpdateCourse";
+import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowLeft } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 const TableAdmin = ({ data, coloredColumn }) => {
   const location = useLocation();
   const isKelolaKelasRoute = location.pathname === "/admin/class";
-  const columns = Object.keys(data[0]);
+  const columns = data && data.length > 0 ? Object.keys(data[0]) : [];
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 992);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +23,6 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, data.length);
   const currentData = data.slice(startIndex, endIndex);
   const [openAccordionIndex, setOpenAccordionIndex] = useState(null);
-  const [shouldCloseModal, setShouldCloseModal] = useState(false);
 
   const handleAccordionToggle = (index) => {
     setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
@@ -42,8 +43,10 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const handleDelete = async (classCode) => {
     try {
       await deleteCourse(classCode);
+      toast.success("Berhasil Menghapus Kelas")
     } catch (error) {
-      console.log("error delete data", error);
+      toast.error("Gagal Menghapus Kelas")
+      throw error;
     }
   };
 
@@ -51,10 +54,8 @@ const TableAdmin = ({ data, coloredColumn }) => {
     try {
       setShowModal(true);
       setPassCode(uniqCode);
-      setShouldCloseModal(true);
-
     } catch (error) {
-      console.log("gagal");
+      toast.error("Gagal Mendapatkan Data")
     }
   };
 
@@ -62,20 +63,17 @@ const TableAdmin = ({ data, coloredColumn }) => {
     setCurrentPage(page);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setShouldCloseModal(true);
-  };
-
   return (
-    <div
-      className="table-responsive p-1 mx-2 my-1"
-    >
+    <div className="table-responsive px-1 mx-2 my-1" style={{paddingTop:"2em"}}>
       {isSmallScreen ? (
-        <div className="accordion" id="accordionExample" style={{ marginTop: '10px' }}>
+        <div
+          className="accordion"
+          id="accordionExample"
+          style={{ marginTop: "10px" }}
+        >
           {data.map((aData, index) => (
             <div className="accordion-item" key={index}>
-              <h2 className="accordion-header">
+              <h2 className="accordion-header" style={{}}>
                 <button
                   className={`accordion-button ${
                     index === openAccordionIndex ? "" : "collapsed"
@@ -148,40 +146,53 @@ const TableAdmin = ({ data, coloredColumn }) => {
                               : "700",
                         }}
                       >
-                        {column === "Harga_Kelas" ? `Rp ${aData[column]}` : aData[column]}                      </div>
+                        {column === "Harga_Kelas"
+                          ? `Rp ${aData[column]}`
+                          : aData[column]}{" "}
+                      </div>
                     </div>
                   ))}
                   {isKelolaKelasRoute && selectedRowIndex !== index && (
-                    <div className="action-buttons">
-                      <div>
-                        <strong>Aksi</strong>
+                    <div className="action-buttons" style={{ height: "50px" }}>
+                      <div
+                        className="d-flex flex-row justify-content-start align-items-center"
+                        style={{ gap: "5.9em" }}
+                      >
+                        <div>
+                          <strong>Action</strong>
+                        </div>
+                        <div>
+                          :
+                          <button
+                            onClick={() =>
+                              handleGetDetailCourse(aData.Kode_Kelas)
+                            }
+                            className="btn rounded-pill text-light"
+                            data-bs-toggle="modal"
+                            data-bs-target="#updateModal"
+                          >
+                            <span
+                              style={{
+                                color: `var(--primary-purple)`,
+                              }}
+                            >
+                              <MdEdit />
+                            </span>
+                          </button>
+                          <button
+                            onClick={() => handleDelete(aData.Kode_Kelas)}
+                            className="btn text-light rounded-pill"
+                          >
+                            <span
+                              style={{
+                                color: `var(--allert-red)`,
+                              }}
+                            >
+                              <IoTrash />
+                            </span>
+                          </button>
+                        </div>
                       </div>
-                      <button
-                        onClick={() => handleGetDetailCourse(aData.Kode_Kelas)}
-                        className="btn rounded-pill text-light"
-                        data-bs-toggle="modal"
-                        data-bs-target="#updateModal"
-                      >
-                        <span
-                          style={{
-                            color: `var(--primary-purple)`,
-                          }}
-                        >
-                          <MdEdit />
-                        </span>
-                      </button>
-                      <button
-                        onClick={() => handleDelete(aData.Kode_Kelas)}
-                        className="btn text-light rounded-pill"
-                      >
-                        <span
-                          style={{
-                            color: `var(--allert-red)`,
-                          }}
-                        >
-                          <IoTrash />
-                        </span>
-                      </button>
                     </div>
                   )}
                 </div>
@@ -189,12 +200,19 @@ const TableAdmin = ({ data, coloredColumn }) => {
             </div>
           ))}
           <style>{`
+
+        div {
+        }
         .accordion-item {
           margin-bottom: 1rem;
+          border-bottom: 1px solid var(--primary-purple);
+          border-left: none;
+          border-right: none;
+          border-top: none;
         }
         
         .accordion-header {
-          background-color: var(--primary-purple); 
+          border: 1px solid #ffffff;
         }
         
         .accordion-button {
@@ -224,7 +242,6 @@ const TableAdmin = ({ data, coloredColumn }) => {
           justify-content: center; 
           align-items: center; 
           background-position: center;
-
       } 
         `}</style>
         </div>
@@ -235,14 +252,15 @@ const TableAdmin = ({ data, coloredColumn }) => {
               <thead>
                 <tr>
                   {columns.map((column) => (
-                    <th className="tabel-head"
+                    <th
+                      className="tabel-head"
                       key={column}
                       scope="col"
                       style={{
                         backgroundColor: `var(--primary-young-blue)`,
                         textAlign: "left",
-                        height:"3em",
-                        verticalAlign: "middle", 
+                        height: "3em",
+                        verticalAlign: "middle",
                         borderBottom: "none",
                       }}
                     >
@@ -255,10 +273,10 @@ const TableAdmin = ({ data, coloredColumn }) => {
                       scope="col"
                       style={{
                         backgroundColor: `var(--primary-young-blue)`,
-                        height:"3em",
+                        height: "3em",
                         textAlign: "left",
                         verticalAlign: "middle",
-                        borderBottom: "none", 
+                        borderBottom: "none",
                       }}
                     >
                       Aksi
@@ -304,7 +322,9 @@ const TableAdmin = ({ data, coloredColumn }) => {
                           borderBottom: "none",
                         }}
                       >
-                        {column === "Harga_Kelas" ? `Rp ${aData[column]}` : aData[column].replace(/_/g, " ")}
+                        {column === "Harga_Kelas"
+                          ? `Rp ${aData[column]}`
+                          : aData[column].replace(/_/g, " ")}
                       </td>
                     ))}
                     {isKelolaKelasRoute && (
@@ -347,34 +367,54 @@ const TableAdmin = ({ data, coloredColumn }) => {
                 ))}
               </tbody>
             </table>
-            <Pagination className="justify-content-center">
-              {Array.from({ length: totalPages }).map((_, index) => (
-                <Pagination.Item
-                  key={index + 1}
-                  active={index + 1 === currentPage}
-                  onClick={() => handlePageChange(index + 1)}
-                >
-                  {index + 1}
-                </Pagination.Item>
-              ))}
-            </Pagination>
+            <div className="pagination-buttons justify-content-center text-light">
+              <button
+                className="btn mx-1 rounded-pill"
+                style={{backgroundColor:`var(--primary-purple)`}}
+                onClick={() =>
+                  handlePageChange(currentPage - 1 > 0 ? currentPage - 1 : 1)
+                }
+                disabled={currentPage === 1}
+              >
+                <FaArrowLeft />
+              </button>
+              <button
+                className="btn mx-1 rounded-pill text-light"
+                style={{backgroundColor:`var(--primary-purple)`}}
+                onClick={() =>
+                  handlePageChange(
+                    currentPage + 1 <= totalPages ? currentPage + 1 : totalPages
+                  )
+                }
+                disabled={currentPage === totalPages}
+              >
+                <FaArrowRight />
+              </button>
+            </div>
           </div>
         </>
       )}
       <div className="">
-        {showModal && (
-          <div
-            className="modal fade"
-            id="updateModal"
-            tabIndex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-            style={{ display: shouldCloseModal ? "none" : "block" }}
-          >
-            <div className="modal-dialog" style={{fontFamily:"Montserrat"}}>
-              <div className="modal-content px-2">
-              <div className="modal-header" style={{borderBottom:"none"}}>
-                <h1 className="modal-title py-2" style={{ color: "var(--primary-purple)", fontWeight:"700", fontSize:"25px" }} id="exampleModalLabel">
+        <div
+          className="modal fade"
+          role="dialog"
+          id="updateModal"
+          tabIndex="-1"
+          aria-labelledby="updateModalLabeled"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog" style={{ fontFamily: "Montserrat" }}>
+            <div className="modal-content px-2">
+              <div className="modal-header" style={{ borderBottom: "none" }}>
+                <h1
+                  className="modal-title py-2"
+                  style={{
+                    color: "var(--primary-purple)",
+                    fontWeight: "700",
+                    fontSize: "25px",
+                  }}
+                  id="updateModalLabeled"
+                >
                   Ubah Kelas
                 </h1>
                 <button
@@ -384,14 +424,12 @@ const TableAdmin = ({ data, coloredColumn }) => {
                   aria-label="Close"
                 ></button>
               </div>
-                <div className="modal-body" style={{marginTop:"-20px"}}>
-                  <UpdateCourse courseCode={passCode}
-                  handleCloseModal={handleCloseModal} />
-                </div>
+              <div className="modal-body" style={{ marginTop: "-20px" }}>
+                {showModal && <UpdateCourse courseCode={passCode} />}
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
       <style>{`
       .tabel-head {

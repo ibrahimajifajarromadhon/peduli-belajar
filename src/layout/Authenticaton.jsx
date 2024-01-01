@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthImage from "../components/AuthImage";
 import { Outlet } from "react-router-dom";
 
+
 function Authenticaton() {
+
   return (
     <div className="d-flex vh-100">
       <div

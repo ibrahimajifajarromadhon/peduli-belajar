@@ -13,7 +13,6 @@ const historyPayment = async () => {
         });
         return response.data;
     }catch(error){
-        console.log("error get payment history")
         throw error;
     }
 };

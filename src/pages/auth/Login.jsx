@@ -46,7 +46,7 @@ function Login() {
       if (roler === "USER") {
         navigate("/allCourseClass");
       } else if (roler === "ADMIN") {
-        navigate("/admin");
+        navigate("/admin/dashboard");
       }
     } catch (error) {
       toast.error("User tidak ditemukan!", {

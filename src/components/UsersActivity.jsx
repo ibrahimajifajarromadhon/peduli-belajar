@@ -22,7 +22,7 @@ const UsersActivity = () => {
         const totalResponse = await totalClass();
         setTotalData(totalResponse.data)
       }catch (error) {
-        console.log("error fetching data", error.message)
+        throw error;
       }
     };
     fetchData();
@@ -51,7 +51,7 @@ const UsersActivity = () => {
           </div>
           <div className="">
             <Card.Body>
-              <Card.Title className="title-aktif">{userData ? userData : "Loading..."}</Card.Title>
+              <Card.Title className="title-aktif">{userData ? userData : "..."}</Card.Title>
               <Card.Text className="text-aktif">Active Users</Card.Text>
             </Card.Body>
           </div>
@@ -141,6 +141,14 @@ const UsersActivity = () => {
           }
           .img-fluid {
             display: none;
+          }
+          .text-aktif {
+            font-size : 0.8rem !important;
+          }
+          .title-aktif {
+            display : flex;
+            // justify-content : center;
+            font-size: 0.8rem;
           }
         }
       `}</style>

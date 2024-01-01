@@ -37,7 +37,7 @@ function WebHomepage() {
         setCategory(uniqueCategories);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        throw error;
       });
   }, []);
 
@@ -52,7 +52,7 @@ function WebHomepage() {
         setCourses(response.data.data.courses);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        throw error;
       });
   }, []);
 

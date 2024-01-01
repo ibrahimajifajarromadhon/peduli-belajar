@@ -19,7 +19,7 @@ function Category() {
         setCourses(uniqueCategories);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        throw error;
       });
   }, []);
 

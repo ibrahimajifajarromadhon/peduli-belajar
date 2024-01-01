@@ -164,7 +164,7 @@ function ModalAddClass() {
           <span>
             <CiCirclePlus className="fs-4" style={{ marginRight: "0.5em" }} />
           </span>
-          Tambah
+           Tambah
         </button>
 
         <div
@@ -549,6 +549,12 @@ function ModalAddClass() {
           label{
             font-weight: 500
           }
+          @media only screen and (max-width: 600px) {
+            .no-text .text {
+              font-size: 0;
+            }
+          }
+          
           `}</style>
         </div>
       </div>

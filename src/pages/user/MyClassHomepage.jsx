@@ -20,7 +20,6 @@ function MyClassHomepage() {
   const handleFilter = (data) => {
     setFilteredMyClass(data);
   };
-  console.log(filteredMyClass);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = Cookies.get("token");
@@ -43,7 +42,8 @@ function MyClassHomepage() {
       setSearchResults(data);
       navigate(`/myClass?search=${searchQuery}`);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.log("Error update course", error.message);
+      throw error;
     }
   };
 
@@ -58,7 +58,7 @@ function MyClassHomepage() {
             Kelas Berjalan
           </h4>
           <form
-            className="search-course d-flex mt-5"
+            className="search-course d-flex mt-lg-5"
             role="search"
             style={{ position: "relative", minWidth: "200px" }}
           >

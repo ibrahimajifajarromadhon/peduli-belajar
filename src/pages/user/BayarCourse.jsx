@@ -67,7 +67,7 @@ const BayarCourse = () => {
           });
         }
       } catch (error) {
-        console.error("An error occurred while fetching order details:", error);
+        throw error;
       }
     };
 

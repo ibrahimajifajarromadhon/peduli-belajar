@@ -31,7 +31,7 @@ function MyProfile() {
       setEmail(response.data.data.email);
     })
     .catch((error) => {
-      console.error('Terjadi kesalahan:', error);
+      throw error;
     })
     .finally(() => {
       setIsLoading(false);

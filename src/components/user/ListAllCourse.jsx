@@ -13,6 +13,7 @@ const ListAllCourse = ({ filter, listCourses }) => {
   const [listCourse, setListCourse] = useState([]);
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
+  const navigate = useNavigate();
 
   const getCourse = async () => {
     const token = Cookies.get("token");
@@ -23,15 +24,15 @@ const ListAllCourse = ({ filter, listCourses }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          
+
           params: {
             size: 20,
-          }
+          },
         }
       );
       setListCourse(response.data.data.courses);
     } catch (error) {
-      console.log("terjadi kesalahan");
+      throw error;
     }
   };
 
@@ -48,22 +49,28 @@ const ListAllCourse = ({ filter, listCourses }) => {
       if (filter === "all") {
         return listCourse;
       } else if (filter === "premium") {
-        return listCourse.filter((course) => course.price !== 0 );
+        return listCourse.filter((course) => course.price !== 0);
       } else if (filter === "gratis") {
         return listCourse.filter((course) => course.price === 0);
       } else {
         return [];
       }
     } else {
-      return listCourse.filter((course) =>
-        course.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      return listCourse.filter((course) => {
+        const titleMatch = course.title
+          .toLowerCase()
+          .includes(searchQuery.toLocaleLowerCase());
+        const typeMatch =
+          filter === "all" ||
+          (filter === "premium" && course.price !== 0) ||
+          (filter === "gratis" && course.price === 0);
+
+        return titleMatch && typeMatch;
+      });
     }
   };
 
   const filteredCourses = filterCourses();
-  
-  const navigate = useNavigate();
 
   const handleButtonClick = (course) => {
     const token = Cookies.get("token");
@@ -78,12 +85,22 @@ const ListAllCourse = ({ filter, listCourses }) => {
     <div className="row row-cols-1 row-cols-md-2 g-4">
       {filteredCourses.length === 0 ? (
         <div className="col">
-          <i><p style={{fontFamily:"Montserrat", fontWeight:"600"}}>No search results found.</p></i>
+          <i>
+            <p style={{ fontFamily: "Montserrat", fontWeight: "600" }}>
+              No search results found.
+            </p>
+          </i>
         </div>
       ) : (
         filteredCourses.map((course) => (
           <div className="col" key={course.courseCode}>
-            <div className="card card-course" style={{ borderRadius: "22px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
+            <div
+              className="card card-course"
+              style={{
+                borderRadius: "22px",
+                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+              }}
+            >
               <div
                 className="d-flex align-items-center justify-content-center"
                 style={{ borderRadius: "22px" }}
@@ -102,16 +119,40 @@ const ListAllCourse = ({ filter, listCourses }) => {
               </div>
               <div className="card-body">
                 <div className="d-flex">
-                  <h5 className="card-title" style={{fontFamily:"Montserrat", fontWeight:"700", color: "#6148FF" }}>
+                  <h5
+                    className="card-title"
+                    style={{
+                      fontFamily: "Montserrat",
+                      fontWeight: "700",
+                      color: "#6148FF",
+                    }}
+                  >
                     {course.category.categoryName.replace(/_/g, " ")}
                   </h5>
-                  <div className="ms-auto" style={{fontFamily:"Montserrat", fontWeight:"600"}}>
+                  <div
+                    className="ms-auto"
+                    style={{ fontFamily: "Montserrat", fontWeight: "600" }}
+                  >
                     <FaStar style={{ color: "#F9CC00" }} /> {course.rating}
                   </div>
                 </div>
-                <h6 className="card-title" style={{fontFamily:"Montserrat", fontWeight:"700"}}>{course.title}</h6>
-                <p className="card-text" style={{fontFamily:"Montserrat", fontWeight:"500", fontSize:"14px"}}>by {course.teacher}</p>
-                <div className="d-flex" style={{fontFamily:"Montserrat"}}>
+                <h6
+                  className="card-title"
+                  style={{ fontFamily: "Montserrat", fontWeight: "700" }}
+                >
+                  {course.title}
+                </h6>
+                <p
+                  className="card-text"
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                    fontSize: "14px",
+                  }}
+                >
+                  by {course.teacher}
+                </p>
+                <div className="d-flex" style={{ fontFamily: "Montserrat" }}>
                   <RiShieldStarLine style={{ color: "#73CA5C" }} />{" "}
                   <p
                     style={{
@@ -148,7 +189,7 @@ const ListAllCourse = ({ filter, listCourses }) => {
                     100 Menit
                   </p>
                 </div>
-                <div style={{fontFamily:"Montserrat"}}>
+                <div style={{ fontFamily: "Montserrat" }}>
                   {course.type === "GRATIS" ? (
                     <button
                       className="btn btn-kelas"

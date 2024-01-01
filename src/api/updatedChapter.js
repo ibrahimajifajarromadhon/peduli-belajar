@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 const token = Cookies.get("token");
 const header = {
@@ -18,7 +19,6 @@ const updatedChapter = async (chapterId, chapterData) => {
         );
         return response.data;
     } catch (error) {
-        console.log("error update chapter", error.message);
         throw error;
     }
 };
