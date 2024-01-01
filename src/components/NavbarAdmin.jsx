@@ -10,17 +10,20 @@ function NavbarAdmin() {
         fontFamily: "Montserrat",
       }}
     >
-      <div className="container d-flex justify-content-between">
+      <div className="container d-flex justify-content-between align-items-center">
+        <div>
+          <h4 className="admin d-lg-flex fw-bold" style={{color:`var(--primary-purple)`}}>Hallo Admin</h4>
+        </div>
         <form
           className="d-flex"
           role="search"
-          style={{ position: "relative", width: "100%" }}
+          style={{ position: "relative" }}
           method="get"
         >
           <input
             id="pencarian"
             type="search"
-            className="form-control me-2 "
+            className="cari form-control me-2 "
             placeholder="Cari"
             aria-label="Search"
             style={{
@@ -42,7 +45,14 @@ function NavbarAdmin() {
         </form>
       </div>
       <style>{`
-      @media only screen and (max-width: 800px) {
+      @media only screen and (max-width: 682px) {
+        .admin {
+          display: none;
+        }
+        form{
+          width: 100%;
+        }
+
       }
       `}</style>
     </nav>
