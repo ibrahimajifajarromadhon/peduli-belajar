@@ -22,12 +22,12 @@ function SidebarAdmin() {
   return (
     <>
       <div
-        className="looked d-lg-flex flex-column flex-shrink-0 p-3 p-4 vh-100 "
-        style={{ backgroundColor: `var(--primary-purple)`, width: "300px" }}
+        className="looked d-lg-flex flex-column flex-shrink-0 p-3 p-4"
+        style={{ backgroundColor: `var(--primary-purple)`, width: "300px", height:"120vh" }}
       >
         <NavLink
           to="dashboard"
-          className="d-flex align-items-center  text-white text-decoration-none sidebar"
+          className="d-flex align-items-center text-white text-decoration-none sidebar"
         >
           <span className="fs-2 d-flex justify-content-start">
             <img src={LogoImage} style={{width:"3.5rem"}} />
@@ -35,7 +35,7 @@ function SidebarAdmin() {
           <span className="fs-4 mx-2 my-3">Peduli Belajar</span>
         </NavLink>
         <br />
-        <ul className="nav nav-pills flex-column mb-auto sidebar-item mt-1">
+        <ul className="nav nav-pills flex-column sidebar-item mt-1">
           <li className="nav-item py-1">
             <NavLink
               to={`/admin/dashboard`}

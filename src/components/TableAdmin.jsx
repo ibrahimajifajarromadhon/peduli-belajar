@@ -72,7 +72,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
         <div
           className="accordion"
           id="accordionExample"
-          style={{ marginTop: "10px" }}
+          style={{ marginTop: "20px" }}
         >
           {data.map((aData, index) => (
             <div className="accordion-item" key={index}>
@@ -370,7 +370,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                 ))}
               </tbody>
             </table>
-            <div className="pagination-buttons justify-content-center text-light">
+            <div className="d-flex pagination-buttons justify-content-center align-content-center text-light">
               <button
                 className="btn mx-1 rounded-pill"
                 style={{backgroundColor:`var(--primary-purple)`}}
