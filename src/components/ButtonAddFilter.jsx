@@ -73,6 +73,10 @@ function ButtonAddFilter() {
           .form-select {
             width: 100%;
           }
+          .position-relative {
+            margin-top: 1em;
+            margin-bottom: 1em;
+          }
         }
       `}</style>
     </div>

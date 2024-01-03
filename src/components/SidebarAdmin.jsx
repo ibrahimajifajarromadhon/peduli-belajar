@@ -22,24 +22,24 @@ function SidebarAdmin() {
   return (
     <>
       <div
-        className="looked d-lg-flex flex-column flex-shrink-0 p-3 p-4"
-        style={{ backgroundColor: `var(--primary-purple)`, width: "300px", height:"120vh" }}
+        className="looked d-lg-flex flex-column flex-shrink-0 p-4"
+        style={{ backgroundColor: `var(--primary-purple)`, width: "20%" }}
       >
         <NavLink
           to="dashboard"
           className="d-flex align-items-center text-white text-decoration-none sidebar"
         >
-          <span className="fs-2 d-flex justify-content-start">
+          <span className="image fs-2 d-flex justify-content-start">
             <img src={LogoImage} style={{width:"3.5rem"}} />
           </span>
-          <span className="fs-4 mx-2 my-3">Peduli Belajar</span>
+          <span className="logo mx-2 my-3">Peduli Belajar</span>
         </NavLink>
         <br />
         <ul className="nav nav-pills flex-column sidebar-item mt-1">
           <li className="nav-item py-1">
             <NavLink
               to={`/admin/dashboard`}
-              className="nav-link text-light fs-5 d-flex align-items-center"
+              className="nav-link text-light d-flex align-items-center"
               activeclassname="active"
             >
               <LuLayoutDashboard />
@@ -49,7 +49,7 @@ function SidebarAdmin() {
           <li className="nav-item py-1">
             <NavLink
               to="class"
-              className="nav-link text-light fs-5 d-flex align-items-center"
+              className="nav-link text-light d-flex align-items-center"
               activeclassname="active"
             >
               <AiOutlineProfile />
@@ -71,7 +71,7 @@ function SidebarAdmin() {
                 return navigate("/");
               }}
             >
-              <p href="#" className="nav-link text-white fs-5">
+              <p href="#" className="nav-link text-white">
                 <FiLogOut />
                 <span className="mx-3">Log Out</span>
               </p>
@@ -104,7 +104,7 @@ function SidebarAdmin() {
               to="dashboard"
               className="d-flex align-items-center text-white text-decoration-none sidebar"
             >
-              <span className="d-flex justify-content-start"><img src={LogoImage} style={{width:"2.5rem"}} /></span>
+              <span className=" d-flex justify-content-start"><img src={LogoImage} style={{width:"2.5rem"}} /></span>
               <span className="mx-2 my-2">Peduli Belajar</span>
             </NavLink>
             <button
@@ -173,6 +173,9 @@ function SidebarAdmin() {
         font-size: 16px;
         font-weight: 600;
         text-align: left;
+      }
+      .logo{
+        font-size: 1.5em;
       }
 
       #sidebar{

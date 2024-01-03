@@ -28,25 +28,14 @@ const UsersActivity = () => {
     fetchData();
   },[]);
 
-  const cardStyle = {
-    maxWidth: "100%",
-    marginBottom: "1em",
-  };
-
-  const iconStyle = {
-    width: "50px",
-    height: "50px",
-  };
-
   return (
     <div className="activity-container">
-      <Card style={{ ...cardStyle, backgroundColor: "var(--primary-blue)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
+      <Card style={{ backgroundColor: "var(--primary-blue)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
         <div className="d-flex flex-row">
           <div className="d-flex align-items-center">
             <Card.Img
               src={Icon}
               className="img-fluid rounded-start"
-              style={iconStyle}
             />
           </div>
           <div className="">
@@ -58,13 +47,12 @@ const UsersActivity = () => {
         </div>
       </Card>
 
-      <Card style={{ ...cardStyle, backgroundColor: "var(--allert-green)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
+      <Card style={{  backgroundColor: "var(--allert-green)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
         <div className="d-flex flex-row">
           <div className="d-flex align-items-center">
             <Card.Img
               src={Icon}
               className="img-fluid rounded-start"
-              style={iconStyle}
             />
           </div>
           <div className="">
@@ -76,13 +64,12 @@ const UsersActivity = () => {
         </div>
       </Card>
 
-      <Card style={{ ...cardStyle, backgroundColor: "var(--primary-purple)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
+      <Card style={{  backgroundColor: "var(--primary-purple)", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)" }}>
         <div className="d-flex flex-row">
           <div className="d-flex align-items-center">
             <Card.Img
               src={Icon}
               className="img-fluid rounded-start"
-              style={iconStyle}
             />
           </div>
           <div className="">
