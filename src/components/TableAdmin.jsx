@@ -23,6 +23,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
   const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, data.length);
   const currentData = data.slice(startIndex, endIndex);
   const [openAccordionIndex, setOpenAccordionIndex] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleAccordionToggle = (index) => {
     setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
@@ -40,12 +41,23 @@ const TableAdmin = ({ data, coloredColumn }) => {
     };
   }, []);
 
-  const handleDelete = async (classCode) => {
+  const showDeleteConfirmationModal = (classCode) => {
+    setPassCode(classCode);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteConfirmationModal = () => {
+    setShowDeleteModal(false);
+    setPassCode(null);
+  };
+
+  const handleDelete = async () => {
     try {
-      await deleteCourse(classCode);
+      await deleteCourse(passCode);
     } catch (error) {
-      console.log(error);
-      throw error;
+      console.error(error);
+    } finally {
+      closeDeleteConfirmationModal();
     }
   };
 
@@ -56,7 +68,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
     } catch (error) {
       toast.error("Gagal Mendapatkan Data Course!", {
         style: {
-          fontFamily: 'Montserrat'
+          fontFamily: "Montserrat",
         },
       });
     }
@@ -67,7 +79,10 @@ const TableAdmin = ({ data, coloredColumn }) => {
   };
 
   return (
-    <div className="table-responsive px-1 py-2 mx-2 my-1" style={{paddingTop:"2em"}}>
+    <div
+      className="table-responsive px-1 py-2 mx-2 my-1"
+      style={{ paddingTop: "2em" }}
+    >
       {isSmallScreen ? (
         <div
           className="accordion"
@@ -183,8 +198,12 @@ const TableAdmin = ({ data, coloredColumn }) => {
                             </span>
                           </button>
                           <button
-                            onClick={() => handleDelete(aData.Kode_Kelas)}
+                            onClick={() =>
+                              showDeleteConfirmationModal(aData.Kode_Kelas)
+                            }
                             className="btn text-light rounded-pill"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteConfirmationModal"
                           >
                             <span
                               style={{
@@ -339,7 +358,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
                               <button
                                 style={{
                                   backgroundColor: `var(--primary-purple)`,
-                                  padding:"8px 20px 8px 20px"
+                                  padding: "8px 20px 8px 20px",
                                 }}
                                 className="btn rounded-pill text-light"
                                 type="button"
@@ -352,12 +371,16 @@ const TableAdmin = ({ data, coloredColumn }) => {
                                 Ubah
                               </button>
                               <button
-                                onClick={() => handleDelete(aData.Kode_Kelas)}
+                                onClick={() =>
+                                  showDeleteConfirmationModal(aData.Kode_Kelas)
+                                }
                                 style={{
                                   backgroundColor: `var(--allert-red)`,
-                                  padding:"8px 18px 8px 18px"
+                                  padding: "8px 18px 8px 18px",
                                 }}
                                 className="btn text-light rounded-pill mx-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteConfirmationModal"
                               >
                                 Hapus
                               </button>
@@ -373,7 +396,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
             <div className="d-flex pagination-buttons justify-content-center align-content-center text-light">
               <button
                 className="btn mx-1 rounded-pill"
-                style={{backgroundColor:`var(--primary-purple)`}}
+                style={{ backgroundColor: `var(--primary-purple)` }}
                 onClick={() =>
                   handlePageChange(currentPage - 1 > 0 ? currentPage - 1 : 1)
                 }
@@ -383,7 +406,7 @@ const TableAdmin = ({ data, coloredColumn }) => {
               </button>
               <button
                 className="btn mx-1 rounded-pill text-light"
-                style={{backgroundColor:`var(--primary-purple)`}}
+                style={{ backgroundColor: `var(--primary-purple)` }}
                 onClick={() =>
                   handlePageChange(
                     currentPage + 1 <= totalPages ? currentPage + 1 : totalPages
@@ -430,6 +453,74 @@ const TableAdmin = ({ data, coloredColumn }) => {
               <div className="modal-body" style={{ marginTop: "-20px" }}>
                 {showModal && <UpdateCourse courseCode={passCode} />}
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        role="dialog"
+        id="deleteConfirmationModal"
+        tabIndex="-1"
+        aria-labelledby="deleteConfirmationModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog" style={{ fontFamily: "Montserrat" }}>
+          <div className="modal-content px-2">
+            <div className="modal-header" style={{ borderBottom: "none" }}>
+              <h1
+                className="modal-title py-2"
+                style={{
+                  color: "var(--primary-purple)",
+                  fontWeight: "700",
+                  fontSize: "25px",
+                }}
+                id="deleteConfirmationModalLabel"
+              >
+                Konfirmasi Hapus
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div
+              className="modal-body"
+              style={{
+                marginTop: "-20px",
+                fontSize: "16px",
+                fontWeight: "600",
+              }}
+            >
+              Apakah Anda yakin ingin menghapus data kelas ini?
+            </div>
+            <div className="modal-footer" style={{ borderTop: "none" }}>
+              <button
+                type="button"
+                className="btn text-light rounded-pill"
+                data-bs-dismiss="modal"
+                onClick={closeDeleteConfirmationModal}
+                style={{
+                  backgroundColor: `var(--allert-grey`,
+                  padding: "8px 18px 8px 18px",
+                }}
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                className="btn text-light rounded-pill mx-2"
+                onClick={handleDelete}
+                style={{
+                  backgroundColor: `var(--allert-red)`,
+                  padding: "8px 18px 8px 18px",
+                }}
+                data-bs-dismiss="modal"
+              >
+                Hapus
+              </button>
             </div>
           </div>
         </div>
