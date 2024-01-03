@@ -21,18 +21,18 @@ function SidebarAdmin() {
   
   return (
     <>
-      <div
-        className="looked d-lg-flex flex-column flex-shrink-0 p-4"
-        style={{ backgroundColor: `var(--primary-purple)`, width: "20%" }}
+       <div
+        className="looked d-lg-flex flex-column flex-shrink-0 p-3 p-4"
+        style={{ backgroundColor: `var(--primary-purple)`, width: "300px", height:"120vh" }}
       >
         <NavLink
           to="dashboard"
           className="d-flex align-items-center text-white text-decoration-none sidebar"
         >
-          <span className="image fs-2 d-flex justify-content-start">
+          <span className="fs-2 d-flex justify-content-start">
             <img src={LogoImage} style={{width:"3.5rem"}} />
           </span>
-          <span className="logo mx-2 my-3">Peduli Belajar</span>
+          <span className="fs-4 mx-2 my-3">Peduli Belajar</span>
         </NavLink>
         <br />
         <ul className="nav nav-pills flex-column sidebar-item mt-1">
