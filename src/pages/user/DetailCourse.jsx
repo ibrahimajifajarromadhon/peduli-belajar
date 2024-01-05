@@ -163,9 +163,8 @@ const DetailCourse = () => {
             to={`/allCourseClass`}
             style={{ textDecoration: "none", color: "#fff" }}
           >
-            <a
+            <div
               className="d-flex"
-              href="#"
               style={{ textDecoration: "none", color: "black" }}
             >
               <FaArrowLeft
@@ -182,7 +181,7 @@ const DetailCourse = () => {
               >
                 Kelas Lainnya
               </p>
-            </a>
+            </div>
           </Link>
           <div className="col-lg-7 col-md-7 col-sm-12 col-12 d-flex" style={{ margin: "0px" }}>
             <a

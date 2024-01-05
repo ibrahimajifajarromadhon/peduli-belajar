@@ -55,7 +55,7 @@ function ForgotPassword() {
       style={{ fontFamily: "Montserrat" }}
     >
       <Link to={`/login`} style={{ textDecoration: "none", color: "#fff" }}>
-        <a
+        <div
           className="d-flex"
           href="#"
           style={{ textDecoration: "none", color: "black" }}
@@ -79,7 +79,7 @@ function ForgotPassword() {
           >
             Kembali ke Login
           </p>
-        </a>
+        </div>
       </Link>
       <form onSubmit={onSubmit}>
         <h4

@@ -56,11 +56,7 @@ function Category() {
           {courses.map((category) => {
             return (
               <Col key={category.id}>
-                <Link to={"/allCourseClass"} style={{ textDecoration: "none" }}>
-                  <a
-                    href="#"
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
+                <Link to={"/allCourseClass"} style={{ textDecoration: "none", color: "black" }}>
                     <Card.Img
                       variant="top"
                       src={category.categoryImage}
@@ -86,7 +82,6 @@ function Category() {
                     >
                       {category.categoryName.replace(/_/g, ' ')}
                     </Card.Title>
-                  </a>
                 </Link>
               </Col>
             );

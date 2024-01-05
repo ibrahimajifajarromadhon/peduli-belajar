@@ -30,6 +30,7 @@ function SidebarProfile() {
     <div className="d-flex flex-column w-100 p-4 gap-2">
       <NavLink
         to="myProfile"
+        exact="true"
         className={`d-flex gap-3 sidebar-link ${
           activeLink === "/myProfile" ? "active-link" : ""
         }`}
@@ -42,6 +43,7 @@ function SidebarProfile() {
       <hr />
       <NavLink
         to="changePassword"
+        exact="true"
         className={`d-flex gap-3 sidebar-link ${
           activeLink === "/changePassword" ? "active-link" : ""
         }`}
@@ -54,6 +56,7 @@ function SidebarProfile() {
       <hr />
       <NavLink
         to="paymentHistory"
+        exact="true"
         className={`d-flex gap-3 sidebar-link ${
           activeLink === "/paymentHistory" ? "active-link" : ""
         }`}
@@ -65,7 +68,7 @@ function SidebarProfile() {
       </NavLink>
       <hr />
       <NavLink
-        exact
+        exact="true"
         className={`d-flex gap-3 sidebar-link ${
           activeLink === "/login" ? "active-link" : ""
         }`}

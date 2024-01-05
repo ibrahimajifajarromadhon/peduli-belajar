@@ -89,7 +89,7 @@ function ChangePassword() {
       </h3>
       <br />
       <div className="mb-3 position-relative">
-        <label htmlFor="formGroupExampleInput4" className="form-label">
+        <label id="formGroupExampleInput4" className="form-label">
           Masukkan Password Lama
         </label>
         <input
@@ -116,7 +116,7 @@ function ChangePassword() {
         </span>
       </div>
       <div className="mb-3 position-relative">
-        <label htmlFor="formGroupExampleInput4" className="form-label">
+        <label id="formGroupExampleInput4" className="form-label">
           Masukkan Password Baru
         </label>
         <input
@@ -143,7 +143,7 @@ function ChangePassword() {
         </span>
       </div>
       <div className="mb-3 position-relative">
-        <label htmlFor="formGroupExampleInput4" className="form-label">
+        <label id="formGroupExampleInput4" className="form-label">
           Ulangi Password Baru
         </label>
         <input

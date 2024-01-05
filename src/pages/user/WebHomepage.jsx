@@ -111,7 +111,7 @@ function WebHomepage() {
                 fontFamily: "Montserrat",
               }}
             >
-              Lihat Semua{" "}
+              Lihat Semua
             </Link>
           </p>
         </div>

@@ -18,20 +18,21 @@ function Header() {
 
   useEffect(() => {
     if (Cookies.get("token")) {
+      axios
+        .get(`${import.meta.env.VITE_API}/api/user`, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`,
+          },
+        })
+        .then((response) => {
+          setProfilePicture(response.data.data.profilePictureUrl);
+        })
+        .catch((error) => {
+          console.error("Terjadi kesalahan:", error);
+        });
+
       setIsLoggedIn(true);
     }
-    axios
-      .get(`${import.meta.env.VITE_API}/api/user`, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-      })
-      .then((response) => {
-        setProfilePicture(response.data.data.profilePictureUrl);
-      })
-      .catch((error) => {
-        console.error("Terjadi kesalahan:", error);
-      });
   }, []);
 
   useEffect(() => {
@@ -55,6 +56,7 @@ function Header() {
         navigate(`/myClass?search=${searchQuery}`);
       }
     } catch (error) {
+      console.log(error)
       throw error;
     }
   };

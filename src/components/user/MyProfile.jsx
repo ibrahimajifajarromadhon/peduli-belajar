@@ -86,7 +86,6 @@ function MyProfile() {
     }
   };
   
-  
   return (
     <form onSubmit={onSubmit} className="register w-50 d-flex flex-column justify-content-center w-100" style={{padding:"0px 25px 0px 25px"}}>
       <div className="d-flex align-items-center justify-content-center mb-3">
@@ -126,11 +125,10 @@ function MyProfile() {
       </div>
 
       <div className="mb-3">
-        <label htmlFor="formGroupExampleInput2" className="form-label">
+        <label id="formGroupExampleInput2" className="form-label">
           Nama
         </label>
         <input 
-          disabled={!isLoading.toString()}
           type="text"
           className="form-control rounded-4"
           id="name"
@@ -141,11 +139,11 @@ function MyProfile() {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="formGroupExampleInput4" className="form-label">
+        <label id="formGroupExampleInput4" className="form-label">
           Email
         </label>
         <input
-          disabled={isLoading.toString()}  
+          disabled
           type="email"
           className="form-control rounded-4"
           id="email"
@@ -154,11 +152,10 @@ function MyProfile() {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="formGroupExampleInput4" className="form-label">
+        <label id="formGroupExampleInput4" className="form-label">
           Nomor Telepon
         </label>
         <input
-          disabled={!isLoading.toString()}
           type="number"
           className="form-control rounded-4"
           id="phone"
@@ -171,11 +168,10 @@ function MyProfile() {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="formGroupExampleInput4" className="form-label">
+        <label id="formGroupExampleInput4" className="form-label">
           Negara
         </label>
         <input
-          disabled={!isLoading.toString()}
           type="text"
           className="form-control rounded-4"
           id="country"
@@ -186,11 +182,10 @@ function MyProfile() {
         />
       </div>
       <div className="mb-2">
-        <label htmlFor="formGroupExampleInput4" className="form-label">
+        <label id="formGroupExampleInput4" className="form-label">
           Kota
         </label>
         <input
-          disabled={!isLoading.toString()}
           type="text"
           className="form-control rounded-4"
           id="city"
@@ -203,7 +198,6 @@ function MyProfile() {
       <div className="mb-3">
         <br />
         <button
-          disabled={!isLoading.toString()}
           type="submit" 
           className="btn rounded-5 text-light"
           style={{ backgroundColor: `var(--primary-purple)`, width: "100%", fontWeight:"700", height:"48px" }}

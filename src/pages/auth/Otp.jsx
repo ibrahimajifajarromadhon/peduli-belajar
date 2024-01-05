@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,19 +8,32 @@ import { toast } from "react-hot-toast";
 const Otp = () => {
   const inputRefs = useRef([]);
   const { email } = useParams();
-  const [counter, setCounter] = useState(60);
+  const [counter, setCounter] = useState(2);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [otpExpired, setOtpExpired] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (counter > 0) {
-      const timer = setTimeout(() => setCounter(counter - 1), 600);
+      const timer = setTimeout(() => setCounter(counter - 1), 1000);
       return () => clearTimeout(timer);
+    } else {
+      setOtpExpired(true);
     }
   }, [counter]);
 
   const handleVerification = async (e) => {
     e.preventDefault();
+
+    if (otpExpired == true) {
+      toast.error("Kode OTP telah kadaluarsa. Silahkan kirim ulang!", {
+        style: {
+          fontFamily: 'Montserrat',
+        },
+      });
+      setOtpExpired(false);
+      return;
+    }
 
     try {
       const otpValue = otp.join("");
@@ -69,16 +82,16 @@ const Otp = () => {
             fontFamily: 'Montserrat'
           },
         });
-        setCounter(60);
+        setCounter(5);
       } else {
-        toast.error("Kode OTP gagal dikirim. Silakan coba lagi!", {
+        toast.error("Kode OTP gagal dikirim. Silahkan coba lagi!", {
           style: {
             fontFamily: 'Montserrat'
           },
         });
       }
     } catch (error) {
-      toast.error("Kode OTP gagal dikirim. Silakan coba lagi!", {
+      toast.error("Kode OTP gagal dikirim. Silahkan coba lagi!", {
         style: {
           fontFamily: 'Montserrat'
         },
